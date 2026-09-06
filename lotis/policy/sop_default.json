@@ -1,0 +1,18 @@
+{
+  "version": "2026.03",
+  "_note": "Luka 6 tablicy: 'oszczednosc wobec opcji domyslnej' nie miala definicji. Liczymy obie -- wobec nicnierobienia i wobec tego, co zrobilby dyzurny wg SOP. Wskaznikiem wiodacym jest ta druga; pierwsza zawyza wartosc projektu.",
+
+  "headline_metric": "savings_vs_sop",
+
+  "by_disruption_type": {
+    "TECHNICAL": "controlled_delay_60",
+    "CREW": "controlled_delay_60",
+    "WEATHER": "controlled_delay_120",
+    "ATC_SLOT": "controlled_delay_30",
+    "AIRPORT": "controlled_delay_60",
+    "PAX": "controlled_delay_15",
+    "SECURITY": "controlled_delay_60"
+  },
+
+  "fallback": "opcja_zero"
+}

@@ -1,0 +1,14 @@
+{
+  "_opis": "Swiadome odstepstwa operatora od bazy parametrycznej z loops.jsx.",
+  "_zasada": "Pusty plik znaczy: liczymy dokladnie tym, co jest w bazie. Kazdy wpis tutaj jest raportowany przez node jako odstepstwo, zeby nie dalo sie po cichu podmienic kwoty i o tym zapomniec.",
+  "_sciezka": "Klucz to sciezka kropkowa w sekcji K bazy, np. 'care.hotel_night_eur.WAW' albo 'fx.EUR_PLN'.",
+  "_przyklad": {
+    "fx.EUR_PLN": 4.3,
+    "offload.expected_volunteer_rate": 0.55
+  },
+  "_czego_nie_wolno_nadpisac": [
+    "kwot odszkodowania z Art. 7 EU261 w dol -- UOKiK wydal decyzje zobowiazujaca wobec Enter Air m.in. za zanizanie odszkodowan (RBG-1/2026)",
+    "progow opieki z Art. 9",
+    "limitow FDP i wypoczynku EASA"
+  ]
+}

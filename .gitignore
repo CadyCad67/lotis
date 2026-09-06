@@ -1,0 +1,26 @@
+# sekrety
+.env
+
+# srodowisko
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# artefakty runow -- odtwarzalne, wiec nie wersjonujemy
+reports/
+out/
+data/cache/
+
+# kalibracja: obserwacje sa lokalne, ale wynikowe nadpisania juz nie
+calibration/*.jsonl
+
+# IDE
+.vscode/
+.idea/
+
+# narzedzia
+.ruff_cache/

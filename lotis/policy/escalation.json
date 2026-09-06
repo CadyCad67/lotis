@@ -1,0 +1,22 @@
+{
+  "version": "2026.07",
+  "_note": "Luka 5 tablicy: galaz BRAK DOPUSZCZALNEJ OPCJI nie miala adresata, terminu ani tresci. Wszystkie trzy sa tutaj.",
+
+  "addressee": {
+    "role": "Duty Manager OCC",
+    "channel": "telefon + e-mail",
+    "fallback_role": "Head of OCC",
+    "fallback_after_minutes": 10
+  },
+
+  "sla_minutes": 15,
+
+  "packet_fields": [
+    "disruption",
+    "rejected_options",
+    "rule_that_killed_each",
+    "least_bad_option",
+    "decision_deadline",
+    "snapshot_digest"
+  ]
+}

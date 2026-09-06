@@ -1,0 +1,19 @@
+{
+  "version": "2026.07",
+  "_note": "Luka 4 tablicy: decyzja za 20 tys. i za 300 tys. nie moze przechodzic identycznie.",
+  "currency": "PLN",
+  "bands": [
+    { "max_value": 50000.0, "role": "Dyzurny OCC", "second_signature": false },
+    { "max_value": 150000.0, "role": "Supervisor OCC", "second_signature": false },
+    { "max_value": 400000.0, "role": "Duty Manager OCC", "second_signature": true },
+    { "max_value": null, "role": "Director Network Operations", "second_signature": true }
+  ],
+  "reject_requires_reason_code": true,
+  "reason_codes": [
+    "DANE_NIEAKTUALNE",
+    "CZYNNIK_NIEUJETY_W_MODELU",
+    "DECYZJA_HANDLOWA",
+    "RYZYKO_REPUTACYJNE",
+    "NIEWYKONALNE_OPERACYJNIE"
+  ]
+}

@@ -1,0 +1,570 @@
+================================================================================
+LOTIS V1 — LOT INTELLIGENCE SYSTEM V1
+PELNY EKSPORT TABLICY MIRO
+================================================================================
+
+CO TO JEST:
+System wspomagania decyzji dla IROPS (nieregularnosci operacyjnych) w linii
+lotniczej. Gdy pojawia sie zaklocenie (opoznienie, awaria, brak zalogi),
+system generuje mozliwe rozwiazania, wycenia kazde finansowo, odrzuca te
+niezgodne z prawem i przedstawia dyzurnemu ranking wraz z gotowa instrukcja
+wykonania.
+
+ZASADA NADRZEDNA:
+silnik liczy -> prawo blokuje -> AI wyjasnia -> czlowiek decyduje -> log pamieta
+
+STRUKTURA TABLICY: 5 blokow
+  BLOK 1  CO BUDUJEMY        trzy kolumny: CEL / DZIALANIE / REZULTAT
+  BLOK 2  ARCHITEKTURA       pion 17 boxow + 7 boxow pobocznych
+  BLOK 3  REVENUE ENGINE     zblizenie na jeden box z Architektury
+  BLOK 4  OPTIMIZATION       zblizenie na srodek przeplywu
+  BLOK 5  SWAP I OFFLOAD     zblizenie na mechanike podmiany samolotu
+
+ZASADA UKLADU:
+  PION = etapy sekwencyjne. Kazda nazwa z kolumny DZIALANIE ma swoj box
+         w ARCHITEKTURZE, w tej samej kolejnosci.
+  BOK  = to, co nie jest etapem. Zrodla danych i wyzwalacze.
+         Bez pozycji w kolumnie DZIALANIE.
+
+
+================================================================================
+BLOK 1 — CO BUDUJEMY
+================================================================================
+
+KOLUMNA 1: CEL
+--------------
+  Minimalizacja kosztow IROPS
+  Ochrona PAX
+  Ochrona networku
+  Wsparcie pracownikow
+  Optymalizacja procesu decyzji IROPS
+  Maksymalizacja zachowanego revenue
+
+KOLUMNA 2: DZIALANIE (15 pozycji, kolejnosc od gory)
+----------------------------------------------------
+  01  Dane
+  02  Data Engine
+  03  Baseline Revenue
+  04  Zaklocenie
+  05  Feasibility
+  06  Scenario Engine
+  07  Revenue Engine
+  08  Cost Engine
+  09  Network Impact
+  10  Optimization Engine
+  11  Filtr prawny
+  12  AI Reasoning
+  13  Pracownik
+  14  Log
+  15  Wynik rzeczywisty
+
+KOLUMNA 3: REZULTAT
+-------------------
+  Karta wykonania
+  Oszczednosc wobec opcji domyslnej
+  Czas do decyzji
+  Raport finansowy
+  Raport operacyjny
+  Raport prawny
+
+
+================================================================================
+BLOK 2 — ARCHITEKTURA SYSTEMU (pion, 17 boxow)
+================================================================================
+
+--- 01 ------------------------------------------------------------------------
+DANE
+  -Flight Data
+  -Passenger Data
+  -Booking / Fare Data
+  -Revenue Data
+  -Aircraft Data
+  -Crew Data
+  -Network Data
+  -Airport Data
+  -Weather / NOTAM
+  -Regulatory Data
+  -Cost Data
+
+  POBOCZNE ROZWINIECIA (5 boxow obok, bez pozycji w pionie):
+
+    CREW DATA
+      -FDP / limity czasu pracy
+      -kwalifikacja na typ
+      -baza
+      -odpoczynek
+
+    COST DATA
+      -hotel
+      -catering
+      -transport
+      -koszt minuty opoznienia
+      -koszt zalogi
+      -koszt rebookingu
+      -handling
+
+    POLICY DATA
+      -preferowani partnerzy + waga
+      -limity kwotowe na decyzje
+      -standard hotelu
+      -progi autoryzacji
+      -kto zatwierdza zmiane wagi
+      -data ostatniej zmiany
+
+    INTERLINE DATA
+      -z kim mamy umowe
+      -jakie taryfy da sie przepisac
+      -koszt rozliczenia per przewoznik
+      -czas potwierdzenia
+
+    PAX SPECIAL
+      -obnizona mobilnosc
+      -maloletni bez opieki
+      -grupy podrozujace razem
+      -zwierze w luku
+      -asysta medyczna / tlen
+
+--- 02 ------------------------------------------------------------------------
+DATA ENGINE
+  -pobiera dane
+  -normalizuje
+  -waliduje
+  -segreguje
+  -zapisuje snapshot stanu i godziny
+
+--- 03 ------------------------------------------------------------------------
+BASELINE REVENUE
+  -wartosc pasazerow wg koszykow
+  -ancillary
+  -liczone przed zakloceniem
+
+  POBOCZNE (box obok):
+    przy kilku zakloceniach baseline liczony zawsze od stanu
+    sprzed PIERWSZEGO zaklocenia w tej rotacji
+
+--- 04 ------------------------------------------------------------------------
+ZAKLOCENIE
+  -co sie stalo
+  -kiedy
+  -czego dotyczy
+  -do kiedy trzeba zdecydowac
+
+--- 05 ------------------------------------------------------------------------
+FEASIBILITY
+  -samolot: gdzie stoi, MEL, ETOPS
+  -zaloga: limity, kwalifikacja, baza
+  -port: slot, curfew, godziny otwarcia
+  -miejsca: wlasne i partnerskie
+
+  POBOCZNE (box obok, ze strzalka zwrotna do ZAKLOCENIE):
+
+    PRZELICZENIE
+      -zmiana ETA
+      -wygasniecie opcji
+      -nowe zaklocenie w tej samej rotacji
+      -nieudane wykonanie
+      = ponowne uruchomienie od ZAKLOCENIE
+
+--- 06 ------------------------------------------------------------------------
+REZERWACJA ZASOBU
+  -zapasowy samolot
+  -zaloga rezerwowa
+  -miejsca u partnera
+  -slot
+
+--- 07 ------------------------------------------------------------------------
+SCENARIO ENGINE
+  -opcja zero
+  -opoznienie kontrolowane
+  -SWAP na inny typ (up / downgauge)
+  -kasacja
+  -rebooking na wlasny rejs
+  -rebooking na OAL
+  -laczenie rejsow
+  -dodatkowy rejs
+  -wet-lease
+  -diversion / powrot na stanowisko
+  -przyjecie pasazera spoznionego od partnera
+  -przesuniecie rejsu na inny dzien
+
+--- 08 ------------------------------------------------------------------------
+REVENUE ENGINE
+  -revenue opcji
+  -wartosc pasazerow
+  -ancillary
+  -roznica wobec baseline
+  -cargo
+  -paliwo
+
+--- 09 ------------------------------------------------------------------------
+COST ENGINE
+  -offload i odszkodowania
+  -opieka: hotel, catering, transport
+  -rebooking na OAL
+  -zaloga: nadgodziny, hotel, deadhead
+  -koszt opoznienia w siatce
+  -roznica paliwa przy zmianie typu
+
+  POBOCZNE (box obok):
+    DWA RODZAJE OPCJI, DWA SPOSOBY LICZENIA
+      - MODYFIKUJACE (opoznienie, kasacja)
+          koszt = roznica wobec sytuacji bez zaklocenia
+      - RESTRUKTURYZUJACE (SWAP, laczenie, dodatkowy rejs)
+          koszt = pelny nowy zestaw kosztow minus stary
+
+--- 10 ------------------------------------------------------------------------
+NETWORK IMPACT
+  -kolejne odcinki tego samolotu
+  -przesiadki
+  -kolejne odcinki zalogi
+  -liczymy do konca doby operacyjnej albo do powrotu samolotu do bazy
+
+--- 11 ------------------------------------------------------------------------
+OPTIMIZATION ENGINE
+  -liczy strate kazdej opcji
+  -porownuje do baseline
+  -widelki: min / oczekiwane / max
+  -ranking wstepny
+
+--- 12 ------------------------------------------------------------------------
+FILTR PRAWNY
+  -przewoz przy najblizszej okazji
+  -obowiazek opieki
+  -kolejnosc przy odmowie przyjecia
+
+  GALAZ BOCZNA:
+    BRAK DOPUSZCZALNEJ OPCJI
+      -gdy wszystkie opcje odpadna na filtrze
+      -eskalacja do czlowieka
+
+--- 13 ------------------------------------------------------------------------
+WRAZLIWOSC
+  -test wrazliwosci: +30 / +60 / +120 min
+  -prog oplacalnosci
+  -polityka firmy jako waga
+  -porownanie czolowki
+  -ranking koncowy
+
+--- 14 ------------------------------------------------------------------------
+AI REASONING
+  -sprawdza spojnosc wyniku
+  -wykrywa anomalie
+  -wyjasnia dlaczego ta opcja
+  -ostrzega gdy opcje 1 i 2 sa blisko
+  -komentuje karte wykonania obok, nie w srodku
+
+--- 15 ------------------------------------------------------------------------
+PRACOWNIK
+  -Accept / Modify / Reject
+
+--- 16 ------------------------------------------------------------------------
+LOG
+  -co system policzyl
+  -ktora opcje wybral
+  -dlaczego odrzucil pozostale
+  -co wybral pracownik i o ktorej
+  -wersja silnika
+  -wersja modelu kosztowego
+  -wersja polityki firmy
+
+--- 17 ------------------------------------------------------------------------
+WYNIK RZECZYWISTY
+  -co sie faktycznie stalo
+  -porownanie z prognoza
+  -blad modelu
+
+  STRZALKA ZWROTNA: wraca do 01 DANE
+
+
+================================================================================
+BLOK 3 — REVENUE ENGINE (zblizenie)
+================================================================================
+
+FLIGHT REVENUE
+  -Ticket revenue
+  -Fare
+  -Booking class
+  -Yield
+  -Cabin
+
+PASSENGER VALUE
+  wartosc liczona z 16 koszykow:
+    klasa:   biznes / ekonomiczna
+    typ:     bezposredni / przesiadkowy
+    zakup:   wczesnie / pozno
+    status:  klasa rezerwacyjna / program lojalnosciowy
+
+  pasazer przesiadkowy wart wiecej niz bezposredni,
+  bo traci dwa odcinki
+
+  + ancillary jako osobna pozycja
+
+REVENUE AT RISK
+  = BASELINE - revenue opcji
+  wynik odejmowania, nie osobna liczba do policzenia
+
+WYNIK
+  -strata opcji wobec baseline
+  -oszczednosc wobec opcji domyslnej
+  -wartosc przypisana do O&D, nie do odcinka
+     rejs konsumuje ulamek wartosci O&D
+
+
+================================================================================
+BLOK 3B — LOGIKA (wzory)
+================================================================================
+
+WARTOSC PASAZERA
+------------------
+  wartosc biletu
+  +
+  ancillary
+  =
+  wartosc pasazera
+
+  pasazer przesiadkowy: wartosc obu odcinkow
+
+
+STRATA OPCJI
+------------------
+  BASELINE
+  =
+  revenue rejsu bez zaklocenia
+
+  dla kazdej opcji:
+    (BASELINE - revenue opcji)
+    +
+    koszty dodatkowe
+    =
+    STRATA
+
+  koszty dodatkowe
+  =
+  roznica wobec sytuacji bez zaklocenia, nie cale koszty rejsu
+
+  gdy opcja dotyka kilku rejsow:
+    STRATA = suma strat wszystkich rejsow, ktorych dotyka
+
+  NAJLEPSZA
+  =
+  najmniejsza strata
+
+  OSZCZEDNOSC
+  = strata opcji domyslnej
+  - strata opcji wybranej
+
+
+================================================================================
+BLOK 4 — OPTIMIZATION ENGINE (zblizenie na przeplyw)
+================================================================================
+
+PRZEPLYW KROK PO KROKU:
+  1.  WYKRYCIE ZDARZENIA
+  2.  DISRUPTION
+  3.  FEASIBILITY
+  4.  GENERATE OPTIONS
+  5.  CALCULATE EACH
+  6.  COST | REVENUE | PAX
+  7.  NETWORK IMPACT
+  8.  FILTR PRAWNY
+  9.  RANK OPTIONS
+
+GENERATE OPTIONS
+  -nic nie robie
+  -opoznienie kontrolowane
+  -SWAP na inny typ
+  -rebook wlasnym lotem
+  -rebook other airline
+  -rebook tomorrow
+  -combine flights
+  -other recovery
+
+RANK OPTIONS
+  -ranking wg straty
+  -widelki
+  -prog oplacalnosci
+  -polityka firmy jako waga
+
+KARTA WYKONANIA  (produkt koncowy systemu)
+  -co zmienic: samolot, godzina, trasa
+  -ilu pasazerow schodzi
+  -ktorych i w jakiej kolejnosci
+  -na co przesadzeni i o ktorej
+  -co robi zaloga
+  -do ktorej godziny decyzja jest wazna
+  -koszt: min / oczekiwany / max
+  -prog: opcja najlepsza do X minut opoznienia
+
+
+================================================================================
+BLOK 5 — SWAP I OFFLOAD (zblizenie)
+================================================================================
+
+Podpis bloku: rozwiniecie pol REVENUE ENGINE, COST ENGINE i FILTR PRAWNY
+              z Architektury systemu
+
+DLACZEGO PARA REJSOW
+---------------------
+  SWAP zawsze dotyka dwoch rejsow:
+    rejs A oddaje samolot
+    rejs B go dostaje
+
+  Liczac sam rejs A, downgauge zawsze wychodzi na minus -
+  tracisz miejsca i nic nie zyskujesz.
+  Silnik nigdy tego nie wybierze.
+
+  STRATA SWAP = strata A + strata B
+
+  Rejs B nie zarabia, on unika straty:
+  bez SWAPu by nie polecial.
+
+MODUL OFFLOAD
+---------------------
+  Dwie sciezki kosztowe:
+
+  1. OCHOTNICY
+     wezwanie obowiazkowe, zawsze najpierw
+     koszt: wynegocjowana rekompensata
+     tanio
+
+  2. WBREW WOLI
+     pelne odszkodowanie na osobe + opieka + przewoz
+     kilkukrotnie drozej
+
+  Silnik liczy obie sciezki osobno.
+  Parametr PoC: oczekiwany odsetek ochotnikow.
+
+REBOOKING NA PARTNERA
+---------------------
+  Przerzucenie na inna linie ma cene: rozliczenie miedzylinijkowe.
+
+  Bez tej pozycji rebooking na OAL zawsze wyjdzie tanszy niz jest
+  naprawde i silnik bedzie go wybieral za czesto.
+
+DLACZEGO PRAWO JEST FILTREM, A NIE KOSZTEM
+---------------------
+  Gdyby odszkodowanie bylo zwykla pozycja kosztowa obok hotelu,
+  najtansza opcja byloby zdjac pasazerow wbrew woli i wpisac
+  odszkodowanie w koszty.
+
+  Silnik by to wybral, bo tak kaze arytmetyka.
+
+  Dlatego prawo odrzuca opcje, a nie dopisuje im ceny.
+
+
+================================================================================
+PRZEPLYW CALEGO SYSTEMU (schemat tekstowy)
+================================================================================
+
+  CREW DATA ----+
+  COST DATA ----+
+  POLICY DATA --+---> [01] DANE
+  INTERLINE ----+          |
+  PAX SPECIAL --+          v
+                     [02] DATA ENGINE
+                           |
+                           v
+                     [03] BASELINE REVENUE <--- (baseline od pierwszego
+                           |                      zaklocenia w rotacji)
+                           v
+                     [04] ZAKLOCENIE <---------+
+                           |                   |
+                           v                   |
+                     [05] FEASIBILITY          |
+                           |              PRZELICZENIE
+                           v              (zmiana ETA, wygasla opcja,
+                     [06] REZERWACJA ZASOBU     nowe zaklocenie,
+                           |                    nieudane wykonanie)
+                           v                   |
+                     [07] SCENARIO ENGINE      |
+                           |                   |
+                           v                   |
+                     [08] REVENUE ENGINE       |
+                           |                   |
+                           v                   |
+                     [09] COST ENGINE <--- (modyfikujace vs
+                           |                restrukturyzujace)
+                           v                   |
+                     [10] NETWORK IMPACT       |
+                           |                   |
+                           v                   |
+                     [11] OPTIMIZATION ENGINE  |
+                           |                   |
+                           v                   |
+                     [12] FILTR PRAWNY ---> BRAK DOPUSZCZALNEJ OPCJI
+                           |                  (eskalacja do czlowieka)
+                           v                   |
+                     [13] WRAZLIWOSC           |
+                           |                   |
+                           v                   |
+                     [14] AI REASONING         |
+                           |                   |
+                           v                   |
+                     [15] PRACOWNIK            |
+                           |                   |
+                           v                   |
+                     [16] LOG                  |
+                           |                   |
+                           v                   |
+                     [17] WYNIK RZECZYWISTY    |
+                           |                   |
+                           +--> wraca do [01] DANE
+
+
+================================================================================
+ZNANE LUKI — CZEGO NA TABLICY JESZCZE NIE MA
+================================================================================
+
+1.  BRAK BOXA "WYKONANIE" miedzy PRACOWNIK a LOG.
+    Nie ma opisu kto realizuje decyzje (system rezerwacyjny, handling,
+    zaloga, potwierdzenie u partnera) ani co sie dzieje, gdy wykonanie
+    sie nie powiedzie (miejsca zniknely, partner odmowil, slot przepadl).
+    Skutek: WYNIK RZECZYWISTY nie odroznia bledu modelu od nieudanego
+    wykonania.
+
+2.  KOLUMNA DZIALANIE MA 15 POZYCJI, PION ARCHITEKTURY MA 17.
+    W DZIALANIE brakuje: Rezerwacja zasobu, Wrazliwosc.
+    Po dodaniu boxa Wykonanie roznica bedzie wynosic 3.
+
+3.  WYNIK RZECZYWISTY ma jedna pozycje "blad modelu".
+    Powinny byc dwie osobne: blad modelu (zle policzyl) i blad wykonania
+    (nie dalo sie zrobic), plus mechanizm kalibracji parametrow.
+    Bez kalibracji petla zwrotna jest dekoracyjna.
+
+4.  PRACOWNIK nie ma progow autoryzacji.
+    Decyzja za 20 tys. i za 300 tys. przechodzi identycznie.
+
+5.  BRAK DOPUSZCZALNEJ OPCJI nie ma adresata.
+    Nie okreslono do kogo idzie eskalacja, w jakim czasie i co ta osoba
+    dostaje na wejsciu.
+
+6.  "OSZCZEDNOSC WOBEC OPCJI DOMYSLNEJ" nie ma definicji.
+    Nie okreslono czy opcja domyslna to nicnierobienie, czy to,
+    co dzis zrobilby dyzurny wedlug SOP. To dwie rozne liczby,
+    a ta liczba jest glownym wskaznikiem wartosci projektu.
+
+7.  AI REASONING: nie zapisano wprost, ze karta wykonania musi byc
+    generowana deterministycznie z wyniku silnika, a AI moze tylko
+    dopisac komentarz obok.
+
+8.  PASSENGER VALUE i WARTOSC PASAZERA sa sprzeczne.
+    Box WYNIK mowi "wartosc przypisana do O&D, nie do odcinka".
+    Box WARTOSC PASAZERA nadal mowi "pasazer przesiadkowy: wartosc
+    obu odcinkow". Przy sumowaniu po calej siatce bilet policzy sie
+    dwa razy.
+
+9.  OPTIMIZATION ENGINE ma zdublowana linijke:
+    "-ranking" oraz "--ranking wstepny".
+
+10. Brak SLA czasu obliczen. REZULTAT obiecuje "czas do decyzji",
+    ale nie okreslono, ile system ma liczyc.
+
+11. Brak obslugi braku danych. Nie okreslono, co robi system,
+    gdy nie zna obłozenia rejsu: zgaduje, odmawia, czy podaje
+    szersze widelki.
+
+
+================================================================================
+KONIEC EKSPORTU
+zrodlo: tablica Miro "LOTIS V1", 78 elementow
+================================================================================

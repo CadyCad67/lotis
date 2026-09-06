@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lotis"
+version = "1.0.0"
+description = "LOTIS V1 - system wspomagania decyzji IROPS dla PLL LOT"
+requires-python = ">=3.11"
+readme = "README.md"
+
+# Silnik jest napisany wylacznie na bibliotece standardowej. Jedyna zaleznosc
+# to baza stref czasowych: Windows nie ma systemowej bazy IANA, wiec `zoneinfo`
+# bez pakietu `tzdata` rzuca ZoneInfoNotFoundError przy pierwszym porcie.
+# Na Linuksie i macOS baza jest w systemie, dlatego marker platformy.
+dependencies = [
+    "tzdata>=2024.1; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+# Nic z tego nie jest potrzebne do dzialania silnika ani testow --
+# testy stoja na `unittest` ze stdlib.
+dev = [
+    "ruff>=0.6",
+]
+
+[project.scripts]
+lotis = "lotis.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["lotis*"]
+
+# Widok dashboardu i pliki polityki nie sa modulami, wiec bez tego nie
+# trafilyby do instalacji nieedytowalnej.
+[tool.setuptools.package-data]
+"lotis.dashboard" = ["*.html"]
+"lotis.policy" = ["*.json"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# Domyslny zestaw plus reguly, ktore lapia realne bledy w tym projekcie:
+# `B` (pulapki), `ISC` (sklejone napisy w krotkach -- w kodzie pelnym cytatow
+# prawnych zgubiony przecinek wyglada jak zawiniety wiersz), `RUF` (roznosci).
+select = ["E", "F", "W", "B", "ISC", "RUF", "SIM", "PIE", "UP"]
+ignore = [
+    # Projekt trzyma importy w zwartym stylu `(A, B, C)` zamiast jeden na linie.
+    # Kolejnosc jest utrzymana recznie i spojna w calym drzewie.
+    "I001",
+    # `X | None` w cudzyslowach jest miejscami potrzebne mimo `from __future__`.
+    "UP037",
+    # Zagniezdzone `with` w testach czytaja sie lepiej niz jeden dlugi wiersz.
+    "SIM117",
+    # `dict(...)` zamiast literalu jest tu celowe: pozwala na `.update(kw)`.
+    "C408",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Testy celowo tworza czasy bez strefy, zeby sprawdzic, czy kontrakt je odrzuca,
+# i celowo pisza gole porownania wewnatrz `assertRaises`.
+"tests/*" = ["DTZ001", "B015", "RUF012", "RUF001"]
+# Straznik liczb MUSI zawierac znaki nierozdzielajace w wzorcach: modele
+# formatuja separatory tysiecy i sygnatury spraw wlasnie nimi, a wzorzec
+# znajacy tylko ASCII przepuszczalby `32 911` jako liczbe nieznana.
+"lotis/ai_layer/guard.py" = ["RUF001"]
