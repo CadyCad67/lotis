@@ -1,0 +1,149 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T173531",
+  "node": {
+    "id": "05",
+    "name": "feasibility",
+    "title": "FEASIBILITY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Cztery bramki na rejsie LO3996 przy opoznieniu 180 min. Odpadly: samolot, zaloga.",
+  "numbers": {
+    "bramka_samolot": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_zaloga": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_port": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_miejsca": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "dopuszczonych_rodzajow": {
+      "value": 6,
+      "unit": "szt"
+    },
+    "nowy_std": {
+      "value": "2026-08-21T08:35:00+00:00",
+      "unit": ""
+    },
+    "nowy_sta": {
+      "value": "2026-08-21T09:25:00+00:00",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "bramki": [
+      {
+        "id": "samolot",
+        "przeszla": false,
+        "powod": "port BZG nie jest baza SWAP (baza dopuszcza WAW)",
+        "kandydaci": 0,
+        "bazy_swap": [
+          "WAW"
+        ]
+      },
+      {
+        "id": "zaloga",
+        "przeszla": false,
+        "powod": "4 osob przekracza FDP przy opoznieniu 180 min (najgorszy zapas -790 min)",
+        "przekroczen": 4,
+        "lista": [
+          {
+            "id": "SP-LDI-CAP0",
+            "rola": "CAPTAIN",
+            "potrzeba_min": 1330,
+            "limit_min": 540,
+            "zapas_min": -790
+          },
+          {
+            "id": "SP-LDI-FIR1",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1330,
+            "limit_min": 540,
+            "zapas_min": -790
+          },
+          {
+            "id": "SP-LDI-CAB2",
+            "rola": "CABIN",
+            "potrzeba_min": 1330,
+            "limit_min": 600,
+            "zapas_min": -730
+          },
+          {
+            "id": "SP-LDI-CAB3",
+            "rola": "CABIN",
+            "potrzeba_min": 1330,
+            "limit_min": 600,
+            "zapas_min": -730
+          }
+        ]
+      },
+      {
+        "id": "port",
+        "przeszla": true,
+        "powod": "nowe godziny poza oknem zakazu planowania",
+        "poziom_slotow_wylotu": 0,
+        "port_koordynowany": false
+      },
+      {
+        "id": "miejsca",
+        "przeszla": true,
+        "powod": "32 wolnych miejsc na 1 wlasnych rejsach",
+        "wolnych_miejsc": 32,
+        "rejsow": 1,
+        "lista": [
+          {
+            "id": "LO3994-2026-08-21",
+            "numer": "LO3994",
+            "std": "2026-08-21T14:55:00+00:00",
+            "wolnych": 32
+          }
+        ]
+      }
+    ],
+    "dopuszczone_rodzaje_opcji": {
+      "HOLD": false,
+      "DEPART": true,
+      "SWAP": false,
+      "REBOOK-OWN": true,
+      "REBOOK-OAL": true,
+      "OVERNIGHT": true,
+      "SPLIT": true,
+      "CANCEL": true
+    }
+  },
+  "decisions": [
+    "bramka samolot: port BZG nie jest baza SWAP (baza dopuszcza WAW) -- opcje od niej zalezne odpadaja",
+    "bramka zaloga: 4 osob przekracza FDP przy opoznieniu 180 min (najgorszy zapas -790 min) -- opcje od niej zalezne odpadaja",
+    "dyskrecja dowodcy (+2 h wg ORO.FTL.205 lit. f) NIE jest wliczana w wykonalnosc -- to decyzja dowodcy, nie planisty"
+  ],
+  "assumptions": [
+    {
+      "field": "MEL i ETOPS",
+      "source": "policy",
+      "confidence": 0.4,
+      "note": "brak biezacego statusu technicznego floty w zrodlach"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 11.3
+}

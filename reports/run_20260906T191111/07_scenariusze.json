@@ -1,0 +1,144 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T191111",
+  "node": {
+    "id": "07",
+    "name": "scenariusze",
+    "title": "SCENARIO ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Wygenerowano 4 opcji dla rejsu LO2098 (258 pasazerow, opoznienie 180 min). Odrzucono 3 rodzajow przed wycena.",
+  "numbers": {
+    "opcji": {
+      "value": 4,
+      "unit": "szt"
+    },
+    "rodzajow_odrzuconych": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "pasazerow_dotknietych": {
+      "value": 258,
+      "unit": "osob"
+    },
+    "modyfikujacych": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "restrukturyzujacych": {
+      "value": 2,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "opcje": [
+      {
+        "id": "HOLD",
+        "label": "Wstrzymaj odlot o 180 min",
+        "tryb": "MODIFYING",
+        "generator": "SZ.HOLD",
+        "rejsy": [
+          "LO2098-2026-08-21"
+        ],
+        "opoznienia": {
+          "LO2098-2026-08-21": 180
+        },
+        "kasowane": [],
+        "uwagi": [
+          "koszt = minuty x stawka krancowa typu + propagacja",
+          "ekspozycja EU261 rosnie po przekroczeniu 3 h na przylocie"
+        ]
+      },
+      {
+        "id": "REBOOK-OAL",
+        "label": "Przenies na przewoznika obcego do KRK",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.REBOOK-OAL",
+        "rejsy": [
+          "LO2098-2026-08-21"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO2098-2026-08-21"
+        ],
+        "uwagi": [
+          "doplata wg poziomu partnera i dystansu -- bez niej OAL wychodzi za tanio",
+          "mozliwa redukcja odszkodowania o 50% (Art. 7 ust. 2)",
+          "oczekiwanie 925 min z CF.onward.next_bank_min (1 rejsow dziennie na tej relacji) + MCT partnera",
+          "partnerzy w porcie docelowym: LO"
+        ]
+      },
+      {
+        "id": "OVERNIGHT",
+        "label": "Nocleg i rejs nastepnego dnia",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.OVERNIGHT",
+        "rejsy": [
+          "LO2098-2026-08-21"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO2098-2026-08-21"
+        ],
+        "uwagi": [
+          "pelna opieka: hotel, posilki, transport",
+          "pelna ekspozycja EU261 przy klasie kodu przewoznika",
+          "nocleg zalogi dochodzi osobno"
+        ]
+      },
+      {
+        "id": "CANCEL",
+        "label": "Odwolaj rejs",
+        "tryb": "MODIFYING",
+        "generator": "SZ.CANCEL",
+        "rejsy": [
+          "LO2098-2026-08-21"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO2098-2026-08-21"
+        ],
+        "uwagi": [
+          "Art. 5: prawo wyboru zwrotu albo zmiany planu",
+          "Art. 5 ust. 1 lit. c: odszkodowanie nalezy sie za SAM fakt odwolania, bez progu opoznienia",
+          "pelna opieka przez czas oczekiwania (Art. 9)",
+          "pelna utrata przychodu z pasazerow nieprzebukowanych",
+          "przestawienie rotacji na kolejne odcinki"
+        ]
+      }
+    ],
+    "odrzucone_rodzaje": [
+      {
+        "id": "SWAP",
+        "powod": "port ORD nie jest baza SWAP (baza dopuszcza WAW)"
+      },
+      {
+        "id": "REBOOK-OWN",
+        "powod": "brak pozniejszego wlasnego rejsu ORD-KRK z wolnymi miejscami"
+      },
+      {
+        "id": "SPLIT",
+        "powod": "wylaczone przelacznikiem albo brak miejsc"
+      }
+    ]
+  },
+  "decisions": [
+    "SWAP wchodzi zawsze jako para rejsow -- rejs oddajacy i rejs otrzymujacy maszyne liczy sie razem",
+    "opcje modyfikujace wycenia sie jako roznice wobec sytuacji bez zaklocenia, restrukturyzujace jako pelny nowy zestaw minus stary"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 16.98
+}

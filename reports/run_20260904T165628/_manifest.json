@@ -1,0 +1,59 @@
+{
+  "schema": "lotis.manifest/v1",
+  "run_id": "20260904T165628",
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "nodes": [
+    {
+      "node_id": "01",
+      "node_name": "snapshot",
+      "title": "SNAPSHOT",
+      "status": "degraded",
+      "json": "01_snapshot.json",
+      "md": "01_snapshot.md",
+      "duration_ms": 1664.7,
+      "digest": "70e8d8f121a0991a",
+      "warnings": 1,
+      "data_gaps": 1
+    },
+    {
+      "node_id": "02",
+      "node_name": "walidacja",
+      "title": "WALIDACJA DANYCH",
+      "status": "ok",
+      "json": "02_walidacja.json",
+      "md": "02_walidacja.md",
+      "duration_ms": 10.57,
+      "digest": "d3de68ea8d95ce51",
+      "warnings": 0,
+      "data_gaps": 0
+    }
+  ],
+  "halted": false,
+  "halt_reason": "",
+  "escalation": null,
+  "recalc_trigger": null,
+  "snapshot": "sha256:3b1d18402faf79f0e77fd3d167817e01",
+  "budget": {
+    "total_ms": 20000.0,
+    "elapsed_ms": 1681.6,
+    "remaining_ms": 18318.4,
+    "level": "FULL",
+    "level_label": "pelny",
+    "per_node_ms": {
+      "01": 1664.7,
+      "02": 10.6
+    }
+  },
+  "statuses": {
+    "01": "degraded",
+    "02": "ok"
+  }
+}

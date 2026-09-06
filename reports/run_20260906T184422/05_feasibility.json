@@ -1,0 +1,179 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T184422",
+  "node": {
+    "id": "05",
+    "name": "feasibility",
+    "title": "FEASIBILITY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:d7806668b46167a39f400ef7880d14c4",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Cztery bramki na rejsie LO35 przy opoznieniu 0 min. Odpadly: zaloga, miejsca.",
+  "numbers": {
+    "bramka_samolot": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_zaloga": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_port": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_miejsca": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "dopuszczonych_rodzajow": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "nowy_std": {
+      "value": "2026-08-23T11:00:00+00:00",
+      "unit": ""
+    },
+    "nowy_sta": {
+      "value": "2026-08-23T23:00:00+00:00",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "bramki": [
+      {
+        "id": "samolot",
+        "przeszla": true,
+        "powod": "7 maszyn do podmiany w WAW",
+        "kandydaci": 7,
+        "lista": [
+          {
+            "reg": "SP-LRB",
+            "typ": "B788"
+          },
+          {
+            "reg": "SP-LRC",
+            "typ": "B788"
+          },
+          {
+            "reg": "SP-LRD",
+            "typ": "B788"
+          },
+          {
+            "reg": "SP-LRE",
+            "typ": "B788"
+          },
+          {
+            "reg": "SP-LRG",
+            "typ": "B788"
+          },
+          {
+            "reg": "SP-LRH",
+            "typ": "B788"
+          }
+        ],
+        "minimalny_postoj_min": 139
+      },
+      {
+        "id": "zaloga",
+        "przeszla": false,
+        "powod": "11 osob przekracza FDP przy opoznieniu 0 min (najgorszy zapas -710 min)",
+        "przekroczen": 11,
+        "lista": [
+          {
+            "id": "SP-LSE-CAP0",
+            "rola": "CAPTAIN",
+            "potrzeba_min": 1385,
+            "limit_min": 675,
+            "zapas_min": -710
+          },
+          {
+            "id": "SP-LSE-FIR1",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1385,
+            "limit_min": 675,
+            "zapas_min": -710
+          },
+          {
+            "id": "SP-LSE-FIR2",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1385,
+            "limit_min": 675,
+            "zapas_min": -710
+          },
+          {
+            "id": "SP-LSE-CAB3",
+            "rola": "CABIN",
+            "potrzeba_min": 1370,
+            "limit_min": 690,
+            "zapas_min": -680
+          },
+          {
+            "id": "SP-LSE-CAB4",
+            "rola": "CABIN",
+            "potrzeba_min": 1370,
+            "limit_min": 690,
+            "zapas_min": -680
+          },
+          {
+            "id": "SP-LSE-CAB5",
+            "rola": "CABIN",
+            "potrzeba_min": 1370,
+            "limit_min": 690,
+            "zapas_min": -680
+          }
+        ]
+      },
+      {
+        "id": "port",
+        "przeszla": true,
+        "powod": "nowe godziny poza oknem zakazu planowania",
+        "poziom_slotow_wylotu": 3,
+        "port_koordynowany": true
+      },
+      {
+        "id": "miejsca",
+        "przeszla": false,
+        "powod": "brak pozniejszego wlasnego rejsu WAW-SFO z wolnymi miejscami",
+        "wolnych_miejsc": 0,
+        "rejsow": 0
+      }
+    ],
+    "dopuszczone_rodzaje_opcji": {
+      "HOLD": false,
+      "DEPART": true,
+      "SWAP": true,
+      "REBOOK-OWN": false,
+      "REBOOK-OAL": true,
+      "OVERNIGHT": true,
+      "SPLIT": false,
+      "CANCEL": true
+    }
+  },
+  "decisions": [
+    "bramka zaloga: 11 osob przekracza FDP przy opoznieniu 0 min (najgorszy zapas -710 min) -- opcje od niej zalezne odpadaja",
+    "bramka miejsca: brak pozniejszego wlasnego rejsu WAW-SFO z wolnymi miejscami -- opcje od niej zalezne odpadaja",
+    "dyskrecja dowodcy (+2 h wg ORO.FTL.205 lit. f) NIE jest wliczana w wykonalnosc -- to decyzja dowodcy, nie planisty"
+  ],
+  "assumptions": [
+    {
+      "field": "MEL i ETOPS",
+      "source": "policy",
+      "confidence": 0.4,
+      "note": "brak biezacego statusu technicznego floty w zrodlach"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 9.75
+}

@@ -1,0 +1,169 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T190133",
+  "node": {
+    "id": "04",
+    "name": "zaklocenie",
+    "title": "ZAKLOCENIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Usterka techniczna na rejsie LO3996 BZG-WAW, szacowane opoznienie 180 min. Decyzja do 05:35 UTC (45 min).",
+  "numbers": {
+    "rejs": {
+      "value": "LO3996",
+      "unit": ""
+    },
+    "relacja": {
+      "value": "BZG-WAW",
+      "unit": ""
+    },
+    "typ_zaklocenia": {
+      "value": "TECHNICAL",
+      "unit": ""
+    },
+    "opoznienie_szacowane": {
+      "value": 180,
+      "unit": "min"
+    },
+    "nadsprzedaz": {
+      "value": 0,
+      "unit": "rezerwacji"
+    },
+    "ponad_pojemnosc": {
+      "value": 0,
+      "unit": "osob"
+    },
+    "kod_opoznienia": {
+      "value": "41",
+      "unit": ""
+    },
+    "klasa_kodu": {
+      "value": "c",
+      "unit": ""
+    },
+    "p_odszkodowania": {
+      "value": 1.0,
+      "unit": ""
+    },
+    "okno_decyzji": {
+      "value": 45,
+      "unit": "min"
+    },
+    "iteracja": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "powod_wejscia": {
+      "value": "INITIAL",
+      "unit": ""
+    },
+    "odcinkow_ponizej": {
+      "value": 9,
+      "unit": "szt"
+    },
+    "pasazerow_na_rejsie": {
+      "value": 61,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "rejs": {
+      "id": "LO3996-2026-08-21",
+      "numer": "LO3996",
+      "z": "BZG",
+      "do": "WAW",
+      "std": "2026-08-21T05:35:00+00:00",
+      "sta": "2026-08-21T06:25:00+00:00",
+      "typ": "E170",
+      "maszyna": "SP-LDI",
+      "rotacja": "ROT-SP-LDI-2026-08-21"
+    },
+    "kod_opoznienia": {
+      "kod": "41",
+      "opis": "Usterka techniczna samolotu",
+      "grupa": "Techniczne",
+      "orzecznictwo_tsue": true
+    },
+    "odcinki_ponizej": [
+      {
+        "id": "LO3805-2026-08-21",
+        "numer": "LO3805",
+        "z": "WAW",
+        "do": "RZE"
+      },
+      {
+        "id": "LO3806-2026-08-21",
+        "numer": "LO3806",
+        "z": "RZE",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3881-2026-08-21",
+        "numer": "LO3881",
+        "z": "WAW",
+        "do": "KTW"
+      },
+      {
+        "id": "LO3882-2026-08-21",
+        "numer": "LO3882",
+        "z": "KTW",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3993-2026-08-21",
+        "numer": "LO3993",
+        "z": "WAW",
+        "do": "BZG"
+      },
+      {
+        "id": "LO3994-2026-08-21",
+        "numer": "LO3994",
+        "z": "BZG",
+        "do": "WAW"
+      },
+      {
+        "id": "LO525-2026-08-21",
+        "numer": "LO525",
+        "z": "WAW",
+        "do": "PRG"
+      },
+      {
+        "id": "LO526-2026-08-21",
+        "numer": "LO526",
+        "z": "PRG",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3995-2026-08-21",
+        "numer": "LO3995",
+        "z": "WAW",
+        "do": "BZG"
+      }
+    ]
+  },
+  "decisions": [
+    "klasa kodu `c` daje prawdopodobienstwo odszkodowania 1.0 -- node 09 mnozy przez nie kwote z Art. 7"
+  ],
+  "assumptions": [
+    {
+      "field": "opoznienie szacowane",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "wartosc podana przy zgloszeniu, nie zmierzona"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 20.7
+}

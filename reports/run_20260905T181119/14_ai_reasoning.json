@@ -1,0 +1,150 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181119",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 3 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 544890,
+        "currency": "PLN",
+        "major": "5448.90"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "REBOOK-OWN",
+        "powod": "zakladane oczekiwanie [190] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      },
+      {
+        "id": "CANCEL",
+        "powod": "zakladane oczekiwanie [190] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      },
+      {
+        "id": "SPLIT",
+        "powod": "zakladane oczekiwanie [190] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "REBOOK-OWN",
+      "label": "Przenies na wlasny rejs LO3852 (+190 min)",
+      "strata": {
+        "minor": 8810399,
+        "currency": "PLN",
+        "major": "88103.99"
+      },
+      "widelki": {
+        "min": {
+          "minor": 8259749,
+          "currency": "PLN",
+          "major": "82597.49"
+        },
+        "max": {
+          "minor": 11380099,
+          "currency": "PLN",
+          "major": "113800.99"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "odszkodowanie_art7: 59125.00 PLN",
+        "rebooking_wlasny_spill: 7449.75 PLN",
+        "opieka_art9: 3311.00 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 8349849,
+        "currency": "PLN",
+        "major": "83498.49"
+      },
+      "alternatywa": {
+        "id": "CANCEL",
+        "strata": {
+          "minor": 9355289,
+          "currency": "PLN",
+          "major": "93552.89"
+        },
+        "roznica": {
+          "minor": 544890,
+          "currency": "PLN",
+          "major": "5448.90"
+        }
+      },
+      "czolowka_blisko": true,
+      "uwaga_polityki": "22 utraconych przesiadek; szerokie widelki"
+    }
+  },
+  "decisions": [
+    "opcje `REBOOK-OWN` i `CANCEL` sa blisko -- rekomendacja nie jest jednoznaczna i czlowiek powinien to zobaczyc",
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `REBOOK-OWN`: zakladane oczekiwanie [190] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie.",
+    "anomalia w `CANCEL`: zakladane oczekiwanie [190] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie.",
+    "anomalia w `SPLIT`: zakladane oczekiwanie [190] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+  ],
+  "duration_ms": 28.22
+}

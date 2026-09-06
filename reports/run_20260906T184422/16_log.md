@@ -1,0 +1,289 @@
+# [16] LOG
+
+**Status:** ok · **run:** `20260906T184422` · **snapshot:** `sha256:d7806668b46167a3` · **4.02 ms**
+
+Zapisano 7 rozwazonych opcji, w tym 4 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `opcji_w_logu` | 7 | szt |
+| `opcji_odrzuconych` | 4 | szt |
+| `odcisk_wpisu` | sha256:08d2a86970e5cc39f568bf9f | - |
+| `wersja_silnika` | 1.0.0 | - |
+| `wersja_bazy` | 5.0 | - |
+| `nadpisania` | brak | - |
+| `decyzja` | ACCEPT | - |
+| `wybrana_opcja` | HOLD | - |
+
+## Co ten node ustalil
+
+- log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego
+- wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku
+
+## Szczegoly
+
+- **wpis**
+  - **schema:** lotis.audit/v1
+  - **run_id:** 20260906T184422
+  - **snapshot:** sha256:d7806668b46167a39f400ef7880d14c4
+  - **czas_runu:** 2026-09-06T18:44:22.682221+00:00
+  - **zaklocenie**
+    - **id:** DSR-LO35-2026-08-23-0
+    - **rejs:** LO35-2026-08-23
+    - **typ:** TECHNICAL
+    - **opoznienie_min:** 0
+    - **termin_decyzji:** 2026-08-23T11:00:00+00:00
+    - **iteracja:** 0
+    - **wyzwalacz:** INITIAL
+  - **opcje_rozwazone**
+    - **HOLD**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.HOLD
+      - **strata**
+        - **minor:** 0
+        - **currency:** PLN
+        - **major:** 0.00
+      - **widelki**
+        - **min**
+          - **minor:** 0
+          - **currency:** PLN
+          - **major:** 0.00
+        - **max**
+          - **minor:** 0
+          - **currency:** PLN
+          - **major:** 0.00
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 1
+    - **SWAP-SP-LRC**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 9 559 950
+        - **currency:** PLN
+        - **major:** 95599.50
+      - **widelki**
+        - **min**
+          - **minor:** 9 109 009
+          - **currency:** PLN
+          - **major:** 91090.09
+        - **max**
+          - **minor:** 14 850 991
+          - **currency:** PLN
+          - **major:** 148509.91
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 4 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 4 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LRD**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 12 551 695
+        - **currency:** PLN
+        - **major:** 125516.95
+      - **widelki**
+        - **min**
+          - **minor:** 11 959 634
+          - **currency:** PLN
+          - **major:** 119596.34
+        - **max**
+          - **minor:** 19 498 545
+          - **currency:** PLN
+          - **major:** 194985.45
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 4 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 4 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LRH**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 10 737 030
+        - **currency:** PLN
+        - **major:** 107370.30
+      - **widelki**
+        - **min**
+          - **minor:** 10 230 567
+          - **currency:** PLN
+          - **major:** 102305.67
+        - **max**
+          - **minor:** 16 679 537
+          - **currency:** PLN
+          - **major:** 166795.37
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 4 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 4 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **REBOOK-OAL**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.REBOOK-OAL
+      - **strata**
+        - **minor:** 202 698 560
+        - **currency:** PLN
+        - **major:** 2026985.60
+      - **widelki**
+        - **min**
+          - **minor:** 193 137 308
+          - **currency:** PLN
+          - **major:** 1931373.08
+        - **max**
+          - **minor:** 314 883 926
+          - **currency:** PLN
+          - **major:** 3148839.26
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 9 EU261
+        - **powod:** oczekiwanie 925 min bez zapewnionego noclegu (prog opieki 240 min)
+      - **pozycja_koncowa:** None
+    - **OVERNIGHT**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.OVERNIGHT
+      - **strata**
+        - **minor:** 137 306 246
+        - **currency:** PLN
+        - **major:** 1373062.46
+      - **widelki**
+        - **min**
+          - **minor:** 130 829 537
+          - **currency:** PLN
+          - **major:** 1308295.37
+        - **max**
+          - **minor:** 213 299 640
+          - **currency:** PLN
+          - **major:** 2132996.40
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 2
+    - **CANCEL**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.CANCEL
+      - **strata**
+        - **minor:** 178 468 071
+        - **currency:** PLN
+        - **major:** 1784680.71
+      - **widelki**
+        - **min**
+          - **minor:** 170 049 766
+          - **currency:** PLN
+          - **major:** 1700497.66
+        - **max**
+          - **minor:** 277 242 852
+          - **currency:** PLN
+          - **major:** 2772428.52
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 3
+  - **rekomendacja**
+    - **id:** HOLD
+    - **strata**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **oszczednosc**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+  - **decyzja_czlowieka**
+    - **rodzaj:** ACCEPT
+    - **opcja:** HOLD
+    - **operator:** OCC-DUTY
+    - **kod_przyczyny:** 
+    - **rola:** Dyzurny OCC
+    - **drugi_podpis:** 0
+    - **odstepstwo:** 0
+  - **wykonanie**
+    - **opcja:** HOLD
+    - **kroki**
+      - **nowy_slot**
+        - **wykonawca:** Slot Coordination / EUROCONTROL
+        - **opis:** wystapienie o nowe okno startowe
+        - **odwracalny:** 0
+        - **krytyczny:** 1
+        - **status:** wykonany
+      - **powiadomienie_pax**
+        - **wykonawca:** Komunikacja
+        - **opis:** wyslanie SMS i e-mail do pasazerow
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **brief_zalogi**
+        - **wykonawca:** Crew Control
+        - **opis:** poinformowanie zalogi o zmianie
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+    - **udane:** 1
+  - **karta_wykonania**
+    - **option_id:** HOLD
+    - **label:** Wstrzymaj odlot o 0 min
+    - **what_changes**
+      - bez zmian operacyjnych
+    - **pax_offloaded:** 0
+    - **pax_order:** -
+    - **rebooked_to:** {}
+    - **crew_actions**
+      - bez zmian dla zalogi
+    - **valid_until:** 2026-08-23T11:00:00+00:00
+    - **cost_low**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **cost_expected**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **cost_high**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **threshold_note:** `HOLD` pozostaje najlepsza w calym badanym zakresie do +120 min
+    - **authorization_role:** Dyzurny OCC
+    - **second_signature:** 0
+  - **wersje**
+    - **engine:** 1.0.0
+    - **data:** 5.0
+    - **data_generated:** 2026-08-28
+    - **authorization:** 2026.07
+    - **escalation:** 2026.07
+    - **sop:** 2026.03
+    - **overrides:** brak
+  - **nadpisania_uzyte:** {}
+  - **budzet**
+    - **total_ms:** 20 000.00
+    - **elapsed_ms:** 2 424.10
+    - **remaining_ms:** 17 575.90
+    - **level:** FULL
+    - **level_label:** pelny
+    - **per_node_ms**
+      - **01:** 1 638.70
+      - **02:** 11.90
+      - **03:** 621.30
+      - **04:** 6.30
+      - **05:** 9.70
+      - **06:** 0.10
+      - **07:** 16.80
+      - **08:** 3.80
+      - **09:** 18.20
+      - **10:** 11.50
+      - **11:** 3.60
+      - **12:** 1.40
+      - **13:** 0.40
+      - **14:** 36.40
+      - **15:** 0.10
+      - **15b:** 0.10
+  - **degradacja:** FULL
+  - **odcisk:** sha256:08d2a86970e5cc39f568bf9f
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

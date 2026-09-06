@@ -1,0 +1,185 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T194612",
+  "node": {
+    "id": "05",
+    "name": "feasibility",
+    "title": "FEASIBILITY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Cztery bramki na rejsie LO395 przy opoznieniu 60 min. Odpadly: zaloga.",
+  "numbers": {
+    "bramka_samolot": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_zaloga": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_port": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_miejsca": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "dopuszczonych_rodzajow": {
+      "value": 7,
+      "unit": "szt"
+    },
+    "nowy_std": {
+      "value": "2026-08-24T10:05:00+00:00",
+      "unit": ""
+    },
+    "nowy_sta": {
+      "value": "2026-08-24T11:40:00+00:00",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "bramki": [
+      {
+        "id": "samolot",
+        "przeszla": true,
+        "powod": "15 maszyn do podmiany w WAW",
+        "kandydaci": 15,
+        "lista": [
+          {
+            "reg": "SP-LDF",
+            "typ": "E170"
+          },
+          {
+            "reg": "SP-LIC",
+            "typ": "E75S"
+          },
+          {
+            "reg": "SP-LID",
+            "typ": "E75S"
+          },
+          {
+            "reg": "SP-LII",
+            "typ": "E75S"
+          },
+          {
+            "reg": "SP-LIM",
+            "typ": "E75S"
+          },
+          {
+            "reg": "SP-LMC",
+            "typ": "E190"
+          }
+        ],
+        "minimalny_postoj_min": 41
+      },
+      {
+        "id": "zaloga",
+        "przeszla": false,
+        "powod": "5 osob przekracza FDP przy opoznieniu 60 min (najgorszy zapas -400 min)",
+        "przekroczen": 5,
+        "lista": [
+          {
+            "id": "SP-LMA-CAP0",
+            "rola": "CAPTAIN",
+            "potrzeba_min": 1030,
+            "limit_min": 630,
+            "zapas_min": -400
+          },
+          {
+            "id": "SP-LMA-FIR1",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1030,
+            "limit_min": 630,
+            "zapas_min": -400
+          },
+          {
+            "id": "SP-LMA-CAB2",
+            "rola": "CABIN",
+            "potrzeba_min": 1015,
+            "limit_min": 645,
+            "zapas_min": -370
+          },
+          {
+            "id": "SP-LMA-CAB3",
+            "rola": "CABIN",
+            "potrzeba_min": 1015,
+            "limit_min": 645,
+            "zapas_min": -370
+          },
+          {
+            "id": "SP-LMA-CAB4",
+            "rola": "CABIN",
+            "potrzeba_min": 1015,
+            "limit_min": 645,
+            "zapas_min": -370
+          }
+        ]
+      },
+      {
+        "id": "port",
+        "przeszla": true,
+        "powod": "nowe godziny poza oknem zakazu planowania",
+        "poziom_slotow_wylotu": 3,
+        "port_koordynowany": true
+      },
+      {
+        "id": "miejsca",
+        "przeszla": true,
+        "powod": "39 wolnych miejsc na 2 wlasnych rejsach",
+        "wolnych_miejsc": 39,
+        "rejsow": 2,
+        "lista": [
+          {
+            "id": "LO393-2026-08-24",
+            "numer": "LO393",
+            "std": "2026-08-24T17:05:00+00:00",
+            "wolnych": 11
+          },
+          {
+            "id": "LO397-2026-08-24",
+            "numer": "LO397",
+            "std": "2026-08-24T20:35:00+00:00",
+            "wolnych": 28
+          }
+        ]
+      }
+    ],
+    "dopuszczone_rodzaje_opcji": {
+      "HOLD": false,
+      "DEPART": true,
+      "SWAP": true,
+      "REBOOK-OWN": true,
+      "REBOOK-OAL": true,
+      "OVERNIGHT": true,
+      "SPLIT": true,
+      "CANCEL": true
+    }
+  },
+  "decisions": [
+    "bramka zaloga: 5 osob przekracza FDP przy opoznieniu 60 min (najgorszy zapas -400 min) -- opcje od niej zalezne odpadaja",
+    "dyskrecja dowodcy (+2 h wg ORO.FTL.205 lit. f) NIE jest wliczana w wykonalnosc -- to decyzja dowodcy, nie planisty"
+  ],
+  "assumptions": [
+    {
+      "field": "MEL i ETOPS",
+      "source": "policy",
+      "confidence": 0.4,
+      "note": "brak biezacego statusu technicznego floty w zrodlach"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 10.88
+}

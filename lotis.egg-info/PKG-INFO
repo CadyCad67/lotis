@@ -1,0 +1,176 @@
+Metadata-Version: 2.4
+Name: lotis
+Version: 1.0.0
+Summary: LOTIS V1 - system wspomagania decyzji IROPS dla PLL LOT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: tzdata>=2024.1; sys_platform == "win32"
+Provides-Extra: dev
+Requires-Dist: ruff>=0.6; extra == "dev"
+
+# LOTIS V1 — Lot Intelligence System
+
+System wspomagania decyzji przy nieregularnościach operacyjnych (IROPS) dla PLL LOT.
+
+Zasada nadrzędna: **silnik liczy → prawo blokuje → AI wyjaśnia → człowiek decyduje → log pamięta.**
+
+## Instalacja
+
+```powershell
+.\setup.ps1
+```
+
+Skrypt jest idempotentny — można go puścić ponownie na istniejącym środowisku.
+Kończy się kontrolą `lotis doctor`, która sprawdza wszystko po kolei: interpreter,
+strefy czasowe, konfigurację, oba źródła danych, import każdego modułu, pełny
+przebieg osiemnastu etapów i złożenie promptu dla czterech person. Jeśli coś nie
+działa, mówi wprost co i jak naprawić.
+
+Ręcznie:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -e .
+copy .env.example .env
+lotis doctor
+```
+
+## Zależności
+
+Silnik jest napisany wyłącznie na bibliotece standardowej. Jedyna zależność to
+`tzdata` — Windows nie ma systemowej bazy stref IANA, więc bez niej `zoneinfo`
+rzuca wyjątkiem przy pierwszym porcie. Na Linuksie i macOS baza jest w systemie,
+dlatego marker platformy w `pyproject.toml`.
+
+Testy stoją na `unittest`, dashboard na `http.server`, klient OpenRouter na
+`urllib`. Nic z tego nie wymaga instalacji.
+
+## Dane
+
+Dwa źródła, rozdzielone rolami:
+
+| Plik | Co zawiera | Rola |
+|---|---|---|
+| `data/loops.jsx` | 148 portów, 310 tras, 716 rejsów, 94 maszyny, EU261 z orzecznictwem TSUE, tabele FDP EASA, 76 kodów opóźnień AHM 730, 8 opcji decyzyjnych, stawki kosztowe | prawda o **regułach i parametrach** |
+| `data/lot-siatka.json` | 7 rzeczywistych dób (2602 rejsy), statystyka 6374 wykonanych operacji | prawda o **tym, co się dzieje** |
+
+Nic nie jest generowane poza tożsamością pojedynczego pasażera — a jej rozkłady
+i tak pochodzą z bazy (`CF.pax`, `KL`, `ST`, `SS`, `K.reb`). Dwa własne założenia
+są zadeklarowane w raporcie node 01: udział klas rezerwacyjnych w obrębie kabiny
+i wysokość ancillary.
+
+## Użycie
+
+```powershell
+lotis doctor                 # kontrola środowiska od zera do promptu
+lotis dashboard              # panel w przeglądarce (127.0.0.1:8765)
+lotis run --day 4 --delay 180   # pełny przepływ 18 etapów
+lotis ai --dry-run           # warstwa AI na raportach ostatniego runu
+lotis snapshot --day 4       # sam snapshot doby
+lotis analiza                # weryfikacja dekodu bazy i jakości danych
+lotis models --free          # żywa lista modeli OpenRouter
+lotis test                   # 791 testów
+```
+
+`lotis run` przyjmuje też `--flight`, `--code`, `--decision`, `--option`,
+`--reason`, `--fail-step` i `--actual` — czyli wszystkie cztery miejsca, w których
+do systemu wchodzi coś z zewnątrz: zakłócenie, decyzja człowieka, przebieg
+wykonania i rzeczywisty wynik.
+
+## Architektura
+
+```
+lotis/kernel/     rdzeń: kontrakty, pieniądze, wycena, raporty, budżet czasu
+lotis/adapters/   jedyne miejsce, które zna źródła danych
+lotis/nodes/      18 plików, jeden na box tablicy
+lotis/ai_layer/   OUTPUT 2 — czyta raporty, nic nie zwraca do silnika
+lotis/dashboard/  panel na http.server, bez zależności
+lotis/policy/     tylko to, czego baza nie pokrywa
+```
+
+### Osiemnaście etapów
+
+| | | |
+|---|---|---|
+| 01 | DANE | zamraża stan świata, liczy jego odcisk |
+| 02 | DATA ENGINE | mówi, którym polom wolno ufać |
+| 03 | BASELINE REVENUE | punkt odniesienia, prorata O&D po dystansie |
+| 04 | ZAKŁÓCENIE | co, kiedy, czego dotyczy, do kiedy decyzja |
+| 05 | FEASIBILITY | cztery bramki: samolot, załoga, port, miejsca |
+| 06 | REZERWACJA ZASOBU | co jest do wzięcia i co jest sporne |
+| 07 | SCENARIO ENGINE | generuje opcje z katalogu `SZ` bazy |
+| 08 | REVENUE ENGINE | ile z baseline'u przetrwało |
+| 09 | COST ENGINE | składniki kosztu, dwa tryby liczenia |
+| 10 | NETWORK IMPACT | propagacja do końca doby albo do bazy |
+| 11 | OPTIMIZATION ENGINE | strata, widełki, ranking wstępny |
+| 12 | FILTR PRAWNY | **usuwa** opcje, nigdy ich nie przecenia |
+| 13 | WRAŻLIWOŚĆ | +30/+60/+120, próg, ranking końcowy, karta |
+| 14 | AI REASONING | deterministyczna kontrola spójności wyniku |
+| 15 | PRACOWNIK | Accept / Modify / Reject + progi autoryzacji |
+| 15b | WYKONANIE | kto realizuje i co, gdy się nie uda |
+| 16 | LOG | co policzono, co odrzucono i dlaczego |
+| 17 | WYNIK RZECZYWISTY | błąd modelu / wykonania / odstępstwo + kalibracja |
+
+Każdy etap deklaruje w `consumes`, czego potrzebuje. Etap bez wejścia blokuje się
+z jawnym komunikatem zamiast liczyć na pustych danych.
+
+### Raporty
+
+Każdy etap zapisuje parę plików: `.json` jest kanoniczny i z niego cytuje się
+liczby, `.md` jest narracją dla modelu. Oba renderuje ten sam obiekt, więc nie
+mogą się rozjechać. Manifest runu spina całość i niesie wersje silnika, bazy
+i pliku nadpisań.
+
+### OUTPUT 2 — warstwa AI
+
+Przepływ jest jednokierunkowy:
+
+```
+reports/run_<id>/*.json → prompt → model → strażnik → out/run_<id>/*.md
+```
+
+Nic z prawej strony nie wraca na lewą. Model nie zapisuje do stanu silnika, nie
+zmienia rankingu i nie ma dostępu do snapshotu. **Całą warstwę można usunąć
+i silnik dalej działa** — sprawdza to test.
+
+Cztery persony czytają te same raporty i piszą różne rzeczy. Persona deklaruje,
+które etapy w ogóle widzi — to nie jest optymalizacja kontekstu, tylko granica
+uprawnień: redaktor komunikatów nie dostaje raportu z silnika kosztowego, więc
+fizycznie nie ma z czego wypisać pasażerowi kosztu wewnętrznego.
+
+**Strażnik liczb** wyciąga z odpowiedzi modelu wszystkie liczby i sprawdza, czy
+każda występuje w raportach tego runu. Pula dozwolonych wartości pochodzi
+z kanonicznych plików `.json`, nie z tekstu promptu — inaczej sprawdzałaby model
+względem tego, co model sam widział.
+
+Tryb `--dry-run` składa kompletny prompt i nie dzwoni nigdzie. Działa bez klucza
+API i jest właściwym sposobem sprawdzenia, co model w ogóle dostanie do ręki.
+
+## Jedenaście luk tablicy
+
+Tablica Miro miała jedenaście wypisanych luk. Wszystkie są zamknięte w kodzie:
+
+| | Luka | Rozstrzygnięcie |
+|---|---|---|
+| 1 | brak boksu WYKONANIE | `n15b_wykonanie.py` — kroki, wykonawcy, ścieżka porażki |
+| 2 | 15 pozycji DZIAŁANIE vs 17 boksów | pion ma 18 plików, kolumna jest podzbiorem |
+| 3 | jedna pozycja „błąd modelu" | trzy rozłączne rodzaje + kalibracja z tłumieniem 20% |
+| 4 | brak progów autoryzacji | `policy/authorization.json`, cztery pasma kwotowe |
+| 5 | eskalacja bez adresata | `policy/escalation.json` — adresat, SLA, zastępca, treść |
+| 6 | brak definicji opcji domyślnej | `HOLD`, zapisane w `policy/sop_default.json` |
+| 7 | karta wykonania a AI | karta powstaje w node 13, model pisze obok |
+| 8 | podwójne liczenie wartości O&D | prorata po dystansie, domyka się co do grosza |
+| 9 | zdublowany ranking | ranking wstępny (11) i końcowy (13) to dwa różne kroki |
+| 10 | brak SLA obliczeń | `RunBudget` z drabiną degradacji zamiast twardego timeoutu |
+| 11 | brak obsługi braku danych | `Confidence` KNOWN / ESTIMATED / UNKNOWN |
+
+## Czego system nie robi
+
+Nie zna rzeczywistych kosztów operacji — porównanie prognozy z rzeczywistością
+opiera się na opóźnieniu ze statystyki, nie na fakturach. Nie zna grafiku standby
+załogi ani potwierdzonej dostępności miejsc u partnerów; jedno i drugie jest
+oznaczone jako założenie. Kurs EUR/PLN jest w bazie oznaczony jako placeholder
+i każdy raport z kwotą to powtarza.
+
+Pełny opis: [LOTIS V1 Blueprint](https://claude.ai/code/artifact/9b96dc02-3642-4a77-b8d2-f9d7a56a12ae)

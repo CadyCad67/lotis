@@ -1,0 +1,273 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181301",
+  "node": {
+    "id": "02",
+    "name": "walidacja",
+    "title": "DATA ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 6 rodzin niezmiennikow na 350 rejsach. Zadne pole nie schodzi do UNKNOWN. Osobno: 39 operacji w oknie ciszy nocnej typu 1 -- to rozklad, nie blad danych.",
+  "numbers": {
+    "porty_rejsow_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "typy_statkow_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "ciaglosc_rotacji_bledow": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "zapas_fdp_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "obsadzenie_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "kwalifikacje_zalogi_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "operacje_w_ciszy_nocnej": {
+      "value": 39,
+      "unit": "szt"
+    },
+    "rejsy_bez_numeru_handlowego": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "pol_znanych": {
+      "value": 9,
+      "unit": "szt"
+    },
+    "pol_szacowanych": {
+      "value": 4,
+      "unit": "szt"
+    },
+    "pol_nieznanych": {
+      "value": 0,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ciaglosc_rotacji": [
+      {
+        "id": "ROT-SP-LRG-2026-08-25",
+        "z": "LO24-2026-08-25",
+        "do": "LO23-2026-08-25",
+        "problem": "odlot przed przylotem poprzedniego odcinka"
+      },
+      {
+        "id": "ROT-SP-LSB-2026-08-25",
+        "z": "LO2098-2026-08-25",
+        "do": "LO1-2026-08-25",
+        "konczy_w": "KRK",
+        "zaczyna_w": "WAW"
+      },
+      {
+        "id": "ROT-SP-LSD-2026-08-25",
+        "z": "LO42-2026-08-25",
+        "do": "LO72-2026-08-25",
+        "konczy_w": "WAW",
+        "zaczyna_w": "DEL"
+      }
+    ],
+    "operacje_w_ciszy_nocnej": [
+      {
+        "id": "LO149-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:05"
+      },
+      {
+        "id": "LO151-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:00"
+      },
+      {
+        "id": "LO195-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:00"
+      },
+      {
+        "id": "LO197-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:40"
+      },
+      {
+        "id": "LO234-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:35"
+      },
+      {
+        "id": "LO268-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:45"
+      },
+      {
+        "id": "LO280-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:45"
+      },
+      {
+        "id": "LO320-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:50"
+      },
+      {
+        "id": "LO336-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:00"
+      },
+      {
+        "id": "LO355-2026-08-25",
+        "pole": "przylot",
+        "port": "MUC",
+        "lokalnie": "00:20"
+      },
+      {
+        "id": "LO380-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:45"
+      },
+      {
+        "id": "LO3803-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:10"
+      },
+      {
+        "id": "LO3827-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:55"
+      },
+      {
+        "id": "LO3849-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:45"
+      },
+      {
+        "id": "LO3860-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:25"
+      },
+      {
+        "id": "LO3879-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:45"
+      },
+      {
+        "id": "LO3911-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:55"
+      },
+      {
+        "id": "LO3941-2026-08-25",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:40"
+      },
+      {
+        "id": "LO397-2026-08-25",
+        "pole": "przylot",
+        "port": "HAM",
+        "lokalnie": "00:15"
+      },
+      {
+        "id": "LO3986-2026-08-25",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:30"
+      }
+    ],
+    "operacje_w_ciszy_nocnej_pominietych": 19,
+    "rejsy_bez_numeru_handlowego": [
+      {
+        "id": "znak:LOT1HF-2026-08-25",
+        "znak": "znak:LOT1HF",
+        "z": "KGS",
+        "do": "WAW",
+        "maszyna": "SP-LYJ"
+      },
+      {
+        "id": "znak:LOT6KM-2026-08-25",
+        "znak": "znak:LOT6KM",
+        "z": "WAW",
+        "do": "KGS",
+        "maszyna": "SP-LYJ"
+      }
+    ],
+    "poziomy_pewnosci": {
+      "aircraft_types": "KNOWN",
+      "airports": "KNOWN",
+      "ciaglosc_rotacji": "ESTIMATED",
+      "crew": "ESTIMATED",
+      "fares": "ESTIMATED",
+      "flights": "KNOWN",
+      "kwalifikacje_zalogi": "KNOWN",
+      "obsadzenie": "KNOWN",
+      "passengers": "ESTIMATED",
+      "porty_rejsow": "KNOWN",
+      "rotations": "KNOWN",
+      "typy_statkow": "KNOWN",
+      "zapas_fdp": "KNOWN"
+    }
+  },
+  "decisions": [
+    "39 operacji lezy w oknie zakazu planowania -- node 05 traktuje je jako istniejace, ale nie wolno na nich planowac nowych",
+    "manifest pasazerski dla tych rejsow jest niepewny: lot techniczny nie ma pasazerow, a wiec nie ma tez ekspozycji z Art. 7 EU261",
+    "pole `ciaglosc_rotacji` liczone jako ESTIMATED -- node 11 rozszerza widelki",
+    "pole `crew` liczone jako ESTIMATED -- node 11 rozszerza widelki",
+    "pole `fares` liczone jako ESTIMATED -- node 11 rozszerza widelki",
+    "pole `passengers` liczone jako ESTIMATED -- node 11 rozszerza widelki"
+  ],
+  "assumptions": [
+    {
+      "field": "zaloga",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "sklad i limity FDP wyliczone z tabel EASA, nie z grafiku operatora"
+    },
+    {
+      "field": "obsadzenie",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "manifest z rozkladow bazy, tozsamosci pasazerow modelowane"
+    }
+  ],
+  "data_gaps": [
+    "2 rejsow ma tylko znak wywolawczy, bez numeru handlowego -- zrodlo nie rozstrzyga, czy to loty techniczne (dolot, przebazowanie), czy rejsy handlowe, ktorym eksport zgubil numer"
+  ],
+  "warnings": [],
+  "duration_ms": 10.22
+}

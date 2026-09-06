@@ -1,0 +1,376 @@
+# [13] WRAZLIWOSC
+
+**Status:** ok · **run:** `20260906T192747` · **snapshot:** `sha256:f3c290f4e6930407` · **0.38 ms**
+
+Ranking koncowy 8 dopuszczalnych opcji. Rekomendacja: `SWAP-SP-LIO` (14158.46 PLN), oszczednosc wobec opcji domyslnej `REBOOK-SPILL`: 3530.69 PLN.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `rekomendacja` | SWAP-SP-LIO | - |
+| `strata_rekomendacji` | 14158.46 PLN | PLN |
+| `widelki_min` | 12284.55 PLN | PLN |
+| `widelki_max` | 15824.16 PLN | PLN |
+| `opcja_domyslna` | REBOOK-SPILL | - |
+| `strata_opcji_domyslnej` | 17689.15 PLN | PLN |
+| `oszczednosc` | 3530.69 PLN | PLN |
+| `prog_oplacalnosci` | 120 | min |
+| `opcji_w_rankingu` | 8 | szt |
+
+## Co ten node ustalil
+
+- opcja domyslna to `REBOOK-SPILL` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia
+- `SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min
+- waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie
+
+## Szczegoly
+
+- **ranking_koncowy**
+  - **SWAP-SP-LIO**
+    - **pozycja:** 1
+    - **strata**
+      - **minor:** 1 415 846
+      - **currency:** PLN
+      - **major:** 14158.46
+    - **min**
+      - **minor:** 1 228 455
+      - **currency:** PLN
+      - **major:** 12284.55
+    - **max**
+      - **minor:** 1 582 416
+      - **currency:** PLN
+      - **major:** 15824.16
+    - **oszczednosc**
+      - **minor:** 353 069
+      - **currency:** PLN
+      - **major:** 3530.69
+    - **wskaznik:** 1 457 312.58
+    - **uwaga_polityki:** propagacja 29 min (waga rotacji 1.0); szerokie widelki
+  - **SWAP-SP-LIC**
+    - **pozycja:** 2
+    - **strata**
+      - **minor:** 1 590 914
+      - **currency:** PLN
+      - **major:** 15909.14
+    - **min**
+      - **minor:** 1 380 352
+      - **currency:** PLN
+      - **major:** 13803.52
+    - **max**
+      - **minor:** 1 778 080
+      - **currency:** PLN
+      - **major:** 17780.80
+    - **oszczednosc**
+      - **minor:** 178 001
+      - **currency:** PLN
+      - **major:** 1780.01
+    - **wskaznik:** 1 661 490.91
+    - **uwaga_polityki:** propagacja 47 min (waga rotacji 1.0); szerokie widelki
+  - **REBOOK-SPILL**
+    - **pozycja:** 3
+    - **strata**
+      - **minor:** 1 768 915
+      - **currency:** PLN
+      - **major:** 17689.15
+    - **min**
+      - **minor:** 1 534 794
+      - **currency:** PLN
+      - **major:** 15347.94
+    - **max**
+      - **minor:** 1 977 022
+      - **currency:** PLN
+      - **major:** 19770.22
+    - **oszczednosc**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **wskaznik:** 1 797 018.62
+    - **uwaga_polityki:** propagacja 13 min (waga rotacji 1.0); szerokie widelki
+  - **REBOOK-OWN**
+    - **pozycja:** 4
+    - **strata**
+      - **minor:** 12 774 354
+      - **currency:** PLN
+      - **major:** 127743.54
+    - **min**
+      - **minor:** 11 083 631
+      - **currency:** PLN
+      - **major:** 110836.31
+    - **max**
+      - **minor:** 14 277 219
+      - **currency:** PLN
+      - **major:** 142772.19
+    - **oszczednosc**
+      - **minor:** -11 005 439
+      - **currency:** PLN
+      - **major:** -110054.39
+    - **wskaznik:** 12 838 225.76
+    - **uwaga_polityki:** szerokie widelki
+  - **SPLIT**
+    - **pozycja:** 5
+    - **strata**
+      - **minor:** 14 440 389
+      - **currency:** PLN
+      - **major:** 144403.89
+    - **min**
+      - **minor:** 12 529 162
+      - **currency:** PLN
+      - **major:** 125291.62
+    - **max**
+      - **minor:** 16 139 258
+      - **currency:** PLN
+      - **major:** 161392.58
+    - **oszczednosc**
+      - **minor:** -12 671 474
+      - **currency:** PLN
+      - **major:** -126714.74
+    - **wskaznik:** 14 512 590.92
+    - **uwaga_polityki:** szerokie widelki
+  - **CANCEL**
+    - **pozycja:** 6
+    - **strata**
+      - **minor:** 14 703 120
+      - **currency:** PLN
+      - **major:** 147031.20
+    - **min**
+      - **minor:** 12 757 119
+      - **currency:** PLN
+      - **major:** 127571.19
+    - **max**
+      - **minor:** 16 432 898
+      - **currency:** PLN
+      - **major:** 164328.98
+    - **oszczednosc**
+      - **minor:** -12 934 205
+      - **currency:** PLN
+      - **major:** -129342.05
+    - **wskaznik:** 14 776 635.58
+    - **uwaga_polityki:** szerokie widelki
+  - **OVERNIGHT**
+    - **pozycja:** 7
+    - **strata**
+      - **minor:** 15 912 796
+      - **currency:** PLN
+      - **major:** 159127.96
+    - **min**
+      - **minor:** 13 806 691
+      - **currency:** PLN
+      - **major:** 138066.91
+    - **max**
+      - **minor:** 17 784 889
+      - **currency:** PLN
+      - **major:** 177848.89
+    - **oszczednosc**
+      - **minor:** -14 143 881
+      - **currency:** PLN
+      - **major:** -141438.81
+    - **wskaznik:** 15 992 359.96
+    - **uwaga_polityki:** szerokie widelki
+  - **REBOOK-OAL**
+    - **pozycja:** 8
+    - **strata**
+      - **minor:** 16 106 424
+      - **currency:** PLN
+      - **major:** 161064.24
+    - **min**
+      - **minor:** 13 974 692
+      - **currency:** PLN
+      - **major:** 139746.92
+    - **max**
+      - **minor:** 18 001 297
+      - **currency:** PLN
+      - **major:** 180012.97
+    - **oszczednosc**
+      - **minor:** -14 337 509
+      - **currency:** PLN
+      - **major:** -143375.09
+    - **wskaznik:** 16 186 956.10
+    - **uwaga_polityki:** szerokie widelki
+- **test_wrazliwosci**
+  - **krok_min:** 30
+  - **lider:** SWAP-SP-LIO
+  - **ranking**
+    - **SWAP-SP-LIO**
+      - **strata**
+        - **minor:** 1 451 846
+        - **currency:** PLN
+        - **major:** 14518.46
+    - **SWAP-SP-LIC**
+      - **strata**
+        - **minor:** 1 626 914
+        - **currency:** PLN
+        - **major:** 16269.14
+    - **REBOOK-SPILL**
+      - **strata**
+        - **minor:** 1 933 915
+        - **currency:** PLN
+        - **major:** 19339.15
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 12 774 354
+        - **currency:** PLN
+        - **major:** 127743.54
+    - **SPLIT**
+      - **strata**
+        - **minor:** 14 440 389
+        - **currency:** PLN
+        - **major:** 144403.89
+    - **CANCEL**
+      - **strata**
+        - **minor:** 14 703 120
+        - **currency:** PLN
+        - **major:** 147031.20
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 15 912 796
+        - **currency:** PLN
+        - **major:** 159127.96
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 16 106 424
+        - **currency:** PLN
+        - **major:** 161064.24
+  - **krok_min:** 60
+  - **lider:** SWAP-SP-LIO
+  - **ranking**
+    - **SWAP-SP-LIO**
+      - **strata**
+        - **minor:** 1 487 846
+        - **currency:** PLN
+        - **major:** 14878.46
+    - **SWAP-SP-LIC**
+      - **strata**
+        - **minor:** 1 662 914
+        - **currency:** PLN
+        - **major:** 16629.14
+    - **REBOOK-SPILL**
+      - **strata**
+        - **minor:** 2 098 915
+        - **currency:** PLN
+        - **major:** 20989.15
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 12 774 354
+        - **currency:** PLN
+        - **major:** 127743.54
+    - **SPLIT**
+      - **strata**
+        - **minor:** 14 440 389
+        - **currency:** PLN
+        - **major:** 144403.89
+    - **CANCEL**
+      - **strata**
+        - **minor:** 14 703 120
+        - **currency:** PLN
+        - **major:** 147031.20
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 15 912 796
+        - **currency:** PLN
+        - **major:** 159127.96
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 16 106 424
+        - **currency:** PLN
+        - **major:** 161064.24
+  - **krok_min:** 120
+  - **lider:** SWAP-SP-LIO
+  - **ranking**
+    - **SWAP-SP-LIO**
+      - **strata**
+        - **minor:** 1 559 846
+        - **currency:** PLN
+        - **major:** 15598.46
+    - **SWAP-SP-LIC**
+      - **strata**
+        - **minor:** 1 734 914
+        - **currency:** PLN
+        - **major:** 17349.14
+    - **REBOOK-SPILL**
+      - **strata**
+        - **minor:** 2 428 915
+        - **currency:** PLN
+        - **major:** 24289.15
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 12 774 354
+        - **currency:** PLN
+        - **major:** 127743.54
+    - **SPLIT**
+      - **strata**
+        - **minor:** 14 440 389
+        - **currency:** PLN
+        - **major:** 144403.89
+    - **CANCEL**
+      - **strata**
+        - **minor:** 14 703 120
+        - **currency:** PLN
+        - **major:** 147031.20
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 15 912 796
+        - **currency:** PLN
+        - **major:** 159127.96
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 16 106 424
+        - **currency:** PLN
+        - **major:** 161064.24
+- **prog_oplacalnosci**
+  - **do_minut:** 120
+  - **przejmuje:** 
+  - **opis:** `SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min
+- **wagi_polityki**
+  - **rot:** 1.00
+  - **trf:** 1.00
+  - **vuln:** 1.00
+  - **unc:** 1.00
+  - **cx:** 1.00
+  - **crew:** 1.00
+- **opcje_odrzucone_przez_prawo**
+  - **HOLD**
+    - **reguly**
+      - Art. 8 EU261
+      - Art. 4 EU261
+  - **SWAP-SP-LDH**
+    - **reguly**
+      - Art. 8 EU261
+      - Art. 4 EU261
+- **karta_wykonania**
+  - **option_id:** SWAP-SP-LIO
+  - **label:** Podmien maszyne na SP-LIO (E75S)
+  - **what_changes**
+    - podmiana maszyny miedzy LO3931 i LO265
+    - LO265: odlot pozniej o 20 min (z 07:25 UTC)
+    - LO3931: odlot pozniej o 36 min (z 07:05 UTC)
+  - **pax_offloaded:** 0
+  - **pax_order:** -
+  - **rebooked_to:** {}
+  - **crew_actions**
+    - zaloga rejsu LO3931 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem
+    - wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne
+  - **valid_until:** 2026-08-21T07:05:00+00:00
+  - **cost_low**
+    - **minor:** 1 228 455
+    - **currency:** PLN
+    - **major:** 12284.55
+  - **cost_expected**
+    - **minor:** 1 415 846
+    - **currency:** PLN
+    - **major:** 14158.46
+  - **cost_high**
+    - **minor:** 1 582 416
+    - **currency:** PLN
+    - **major:** 15824.16
+  - **threshold_note:** `SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min
+  - **authorization_role:** Dyzurny OCC
+  - **second_signature:** 0
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `prog oplacalnosci` | derived | 0.70 | policzony na siatce +30/+60/+120 min, nie w sposob ciagly |
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

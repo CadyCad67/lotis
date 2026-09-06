@@ -1,0 +1,145 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T190327",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 2 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "OVERNIGHT",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 193628,
+        "currency": "PLN",
+        "major": "1936.28"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "HOLD",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      },
+      {
+        "id": "SWAP-SP-LDH",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "OVERNIGHT",
+      "label": "Nocleg i rejs nastepnego dnia",
+      "strata": {
+        "minor": 15732196,
+        "currency": "PLN",
+        "major": "157321.96"
+      },
+      "widelki": {
+        "min": {
+          "minor": 14046604,
+          "currency": "PLN",
+          "major": "140466.04"
+        },
+        "max": {
+          "minor": 17605076,
+          "currency": "PLN",
+          "major": "176050.76"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "odszkodowanie_art7: 88150.00 PLN",
+        "opieka_art9: 37507.62 PLN",
+        "rebooking_wlasny_spill: 11106.90 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": -271484,
+        "currency": "PLN",
+        "major": "-2714.84"
+      },
+      "alternatywa": {
+        "id": "REBOOK-OAL",
+        "strata": {
+          "minor": 15925824,
+          "currency": "PLN",
+          "major": "159258.24"
+        },
+        "roznica": {
+          "minor": 193628,
+          "currency": "PLN",
+          "major": "1936.28"
+        }
+      },
+      "czolowka_blisko": true,
+      "uwaga_polityki": "szerokie widelki; priorytet 0, indeks pasazerski 18.00"
+    }
+  },
+  "decisions": [
+    "opcje `OVERNIGHT` i `REBOOK-OAL` sa blisko -- rekomendacja nie jest jednoznaczna i czlowiek powinien to zobaczyc",
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `HOLD`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie.",
+    "anomalia w `SWAP-SP-LDH`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+  ],
+  "duration_ms": 38.27
+}

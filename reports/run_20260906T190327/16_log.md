@@ -1,0 +1,313 @@
+# [16] LOG
+
+**Status:** ok · **run:** `20260906T190327` · **snapshot:** `sha256:f3c290f4e6930407` · **3.91 ms**
+
+Zapisano 7 rozwazonych opcji, w tym 1 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `opcji_w_logu` | 7 | szt |
+| `opcji_odrzuconych` | 1 | szt |
+| `odcisk_wpisu` | sha256:17dff598db539e071aa9e02d | - |
+| `wersja_silnika` | 1.0.0 | - |
+| `wersja_bazy` | 5.0 | - |
+| `nadpisania` | brak | - |
+| `decyzja` | ACCEPT | - |
+| `wybrana_opcja` | OVERNIGHT | - |
+
+## Co ten node ustalil
+
+- log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego
+- wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku
+
+## Szczegoly
+
+- **wpis**
+  - **schema:** lotis.audit/v1
+  - **run_id:** 20260906T190327
+  - **snapshot:** sha256:f3c290f4e6930407fb2bcad856fc671f
+  - **czas_runu:** 2026-09-06T19:03:27.945688+00:00
+  - **zaklocenie**
+    - **id:** DSR-LO3981-2026-08-21-0
+    - **rejs:** LO3981-2026-08-21
+    - **typ:** TECHNICAL
+    - **opoznienie_min:** 180
+    - **termin_decyzji:** 2026-08-21T07:05:00+00:00
+    - **iteracja:** 0
+    - **wyzwalacz:** INITIAL
+  - **opcje_rozwazone**
+    - **HOLD**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.HOLD
+      - **strata**
+        - **minor:** 15 460 712
+        - **currency:** PLN
+        - **major:** 154607.12
+      - **widelki**
+        - **min**
+          - **minor:** 13 804 208
+          - **currency:** PLN
+          - **major:** 138042.08
+        - **max**
+          - **minor:** 17 301 272
+          - **currency:** PLN
+          - **major:** 173012.72
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 6
+    - **SWAP-SP-LDH**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 8 227 873
+        - **currency:** PLN
+        - **major:** 82278.73
+      - **widelki**
+        - **min**
+          - **minor:** 7 346 316
+          - **currency:** PLN
+          - **major:** 73463.16
+        - **max**
+          - **minor:** 9 207 381
+          - **currency:** PLN
+          - **major:** 92073.81
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 6 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 6 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LIO**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 6 299 194
+        - **currency:** PLN
+        - **major:** 62991.94
+      - **widelki**
+        - **min**
+          - **minor:** 5 624 281
+          - **currency:** PLN
+          - **major:** 56242.81
+        - **max**
+          - **minor:** 7 049 098
+          - **currency:** PLN
+          - **major:** 70490.98
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 4
+    - **SWAP-SP-LIQ**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 6 525 334
+        - **currency:** PLN
+        - **major:** 65253.34
+      - **widelki**
+        - **min**
+          - **minor:** 5 826 192
+          - **currency:** PLN
+          - **major:** 58261.92
+        - **max**
+          - **minor:** 7 302 159
+          - **currency:** PLN
+          - **major:** 73021.59
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 5
+    - **REBOOK-OAL**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.REBOOK-OAL
+      - **strata**
+        - **minor:** 15 925 824
+        - **currency:** PLN
+        - **major:** 159258.24
+      - **widelki**
+        - **min**
+          - **minor:** 14 219 486
+          - **currency:** PLN
+          - **major:** 142194.86
+        - **max**
+          - **minor:** 17 821 755
+          - **currency:** PLN
+          - **major:** 178217.55
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 2
+    - **OVERNIGHT**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.OVERNIGHT
+      - **strata**
+        - **minor:** 15 732 196
+        - **currency:** PLN
+        - **major:** 157321.96
+      - **widelki**
+        - **min**
+          - **minor:** 14 046 604
+          - **currency:** PLN
+          - **major:** 140466.04
+        - **max**
+          - **minor:** 17 605 076
+          - **currency:** PLN
+          - **major:** 176050.76
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 1
+    - **CANCEL**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.CANCEL
+      - **strata**
+        - **minor:** 17 008 109
+        - **currency:** PLN
+        - **major:** 170081.09
+      - **widelki**
+        - **min**
+          - **minor:** 15 185 812
+          - **currency:** PLN
+          - **major:** 151858.12
+        - **max**
+          - **minor:** 19 032 883
+          - **currency:** PLN
+          - **major:** 190328.83
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 3
+  - **rekomendacja**
+    - **id:** OVERNIGHT
+    - **strata**
+      - **minor:** 15 732 196
+      - **currency:** PLN
+      - **major:** 157321.96
+    - **oszczednosc**
+      - **minor:** -271 484
+      - **currency:** PLN
+      - **major:** -2714.84
+  - **decyzja_czlowieka**
+    - **rodzaj:** ACCEPT
+    - **opcja:** OVERNIGHT
+    - **operator:** OCC-DUTY
+    - **kod_przyczyny:** 
+    - **rola:** Duty Manager OCC
+    - **drugi_podpis:** 1
+    - **odstepstwo:** 0
+  - **wykonanie**
+    - **opcja:** OVERNIGHT
+    - **kroki**
+      - **kasacja_w_systemie**
+        - **wykonawca:** System rezerwacyjny
+        - **opis:** odwolanie rejsu i zwolnienie miejsc
+        - **odwracalny:** 0
+        - **krytyczny:** 1
+        - **status:** wykonany
+      - **przepisanie_wlasne**
+        - **wykonawca:** System rezerwacyjny
+        - **opis:** przepisanie pasazerow na wlasny rejs
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **rezerwacja_hotelu**
+        - **wykonawca:** Pax Care
+        - **opis:** rezerwacja hoteli i transportu
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **powiadomienie_pax**
+        - **wykonawca:** Komunikacja
+        - **opis:** wyslanie SMS i e-mail do pasazerow
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **brief_zalogi**
+        - **wykonawca:** Crew Control
+        - **opis:** poinformowanie zalogi o zmianie
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+    - **udane:** 1
+  - **karta_wykonania**
+    - **option_id:** OVERNIGHT
+    - **label:** Nocleg i rejs nastepnego dnia
+    - **what_changes**
+      - LO3981: rejs odwolany
+      - 82 pasazerow na wlasny rejs -- oczekiwanie 840 min
+      - 82 pasazerow z noclegiem na koszt przewoznika (Art. 9)
+    - **pax_offloaded:** 0
+    - **pax_order:** -
+    - **rebooked_to**
+      - **PAX001266:** wlasny rejs
+      - **PAX001293:** wlasny rejs
+      - **PAX001320:** wlasny rejs
+      - **PAX001328:** wlasny rejs
+      - **PAX001373:** wlasny rejs
+      - **PAX001379:** wlasny rejs
+      - **PAX001387:** wlasny rejs
+      - **PAX002053:** wlasny rejs
+      - **PAX002084:** wlasny rejs
+      - **PAX002086:** wlasny rejs
+      - **PAX002089:** wlasny rejs
+      - **PAX002097:** wlasny rejs
+      - **PAX002105:** wlasny rejs
+      - **PAX002130:** wlasny rejs
+      - **PAX002136:** wlasny rejs
+      - **PAX002137:** wlasny rejs
+      - **PAX002156:** wlasny rejs
+      - **PAX002163:** wlasny rejs
+      - **PAX002169:** wlasny rejs
+      - **PAX002171:** wlasny rejs
+    - **crew_actions**
+      - nocleg zalogi poza baza
+    - **valid_until:** 2026-08-21T07:05:00+00:00
+    - **cost_low**
+      - **minor:** 14 046 604
+      - **currency:** PLN
+      - **major:** 140466.04
+    - **cost_expected**
+      - **minor:** 15 732 196
+      - **currency:** PLN
+      - **major:** 157321.96
+    - **cost_high**
+      - **minor:** 17 605 076
+      - **currency:** PLN
+      - **major:** 176050.76
+    - **threshold_note:** `OVERNIGHT` jest najlepsza do okolo +30 min dodatkowego opoznienia; powyzej przejmuje `SWAP-SP-LIO`
+    - **authorization_role:** Duty Manager OCC
+    - **second_signature:** 1
+  - **wersje**
+    - **engine:** 1.0.0
+    - **data:** 5.0
+    - **data_generated:** 2026-08-28
+    - **authorization:** 2026.07
+    - **escalation:** 2026.07
+    - **sop:** 2026.03
+    - **overrides:** brak
+  - **nadpisania_uzyte:** {}
+  - **budzet**
+    - **total_ms:** 20 000.00
+    - **elapsed_ms:** 2 540.30
+    - **remaining_ms:** 17 459.70
+    - **level:** FULL
+    - **level_label:** pelny
+    - **per_node_ms**
+      - **01:** 1 712.80
+      - **02:** 11.60
+      - **03:** 624.00
+      - **04:** 11.40
+      - **05:** 10.10
+      - **06:** 0.10
+      - **07:** 16.00
+      - **08:** 1.70
+      - **09:** 7.20
+      - **10:** 61.90
+      - **11:** 0.40
+      - **12:** 0.40
+      - **13:** 0.50
+      - **14:** 38.30
+      - **15:** 0.10
+      - **15b:** 0.10
+  - **degradacja:** FULL
+  - **odcisk:** sha256:17dff598db539e071aa9e02d
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

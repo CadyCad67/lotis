@@ -1,0 +1,350 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T175956",
+  "node": {
+    "id": "09",
+    "name": "koszt",
+    "title": "COST ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Wyceniono 6 opcji. Kategoria EU261: A (1075.00 PLN na pasazera), prog opieki 120 min, p(odszkodowanie) = 1.0. Najtansza `HOLD` (14299.80 PLN), najdrozsza `OVERNIGHT` (107319.06 PLN).",
+  "numbers": {
+    "kategoria_eu261": {
+      "value": "A",
+      "unit": ""
+    },
+    "odszkodowanie_na_pasazera": {
+      "value": {
+        "minor": 107500,
+        "currency": "PLN",
+        "major": "1075.00"
+      },
+      "unit": "PLN"
+    },
+    "prog_opieki": {
+      "value": 120,
+      "unit": "min"
+    },
+    "prog_odszkodowania": {
+      "value": 180,
+      "unit": "min"
+    },
+    "p_odszkodowania": {
+      "value": 1.0,
+      "unit": ""
+    },
+    "kurs_eur_pln": {
+      "value": 4.3,
+      "unit": ""
+    },
+    "koszt_najtanszej": {
+      "value": {
+        "minor": 1429980,
+        "currency": "PLN",
+        "major": "14299.80"
+      },
+      "unit": "PLN"
+    },
+    "koszt_najdrozszej": {
+      "value": {
+        "minor": 10731906,
+        "currency": "PLN",
+        "major": "107319.06"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "koszty_opcji": [
+      {
+        "id": "HOLD",
+        "tryb": "MODIFYING",
+        "koszt": {
+          "minor": 1429980,
+          "currency": "PLN",
+          "major": "14299.80"
+        },
+        "najwieksze": [
+          {
+            "pozycja": "opoznienie_w_siatce",
+            "kwota": {
+              "minor": 1268730,
+              "currency": "PLN",
+              "major": "12687.30"
+            }
+          },
+          {
+            "pozycja": "zaloga",
+            "kwota": {
+              "minor": 161250,
+              "currency": "PLN",
+              "major": "1612.50"
+            }
+          }
+        ],
+        "pasazerow_z_odszkodowaniem": 0,
+        "noclegow": 0
+      },
+      {
+        "id": "REBOOK-OWN",
+        "tryb": "RESTRUCTURING",
+        "koszt": {
+          "minor": 8109413,
+          "currency": "PLN",
+          "major": "81094.13"
+        },
+        "najwieksze": [
+          {
+            "pozycja": "odszkodowanie_art7",
+            "kwota": {
+              "minor": 6557500,
+              "currency": "PLN",
+              "major": "65575.00"
+            }
+          },
+          {
+            "pozycja": "rebooking_wlasny_spill",
+            "kwota": {
+              "minor": 826245,
+              "currency": "PLN",
+              "major": "8262.45"
+            }
+          },
+          {
+            "pozycja": "opieka_art9",
+            "kwota": {
+              "minor": 577060,
+              "currency": "PLN",
+              "major": "5770.60"
+            }
+          }
+        ],
+        "pasazerow_z_odszkodowaniem": 61,
+        "noclegow": 0
+      },
+      {
+        "id": "REBOOK-OAL",
+        "tryb": "RESTRUCTURING",
+        "koszt": {
+          "minor": 9643868,
+          "currency": "PLN",
+          "major": "96438.68"
+        },
+        "najwieksze": [
+          {
+            "pozycja": "odszkodowanie_art7",
+            "kwota": {
+              "minor": 6557500,
+              "currency": "PLN",
+              "major": "65575.00"
+            }
+          },
+          {
+            "pozycja": "rozliczenie_interline",
+            "kwota": {
+              "minor": 2360700,
+              "currency": "PLN",
+              "major": "23607.00"
+            }
+          },
+          {
+            "pozycja": "opieka_art9",
+            "kwota": {
+              "minor": 577060,
+              "currency": "PLN",
+              "major": "5770.60"
+            }
+          }
+        ],
+        "pasazerow_z_odszkodowaniem": 61,
+        "noclegow": 0
+      },
+      {
+        "id": "OVERNIGHT",
+        "tryb": "RESTRUCTURING",
+        "koszt": {
+          "minor": 10731906,
+          "currency": "PLN",
+          "major": "107319.06"
+        },
+        "najwieksze": [
+          {
+            "pozycja": "odszkodowanie_art7",
+            "kwota": {
+              "minor": 6557500,
+              "currency": "PLN",
+              "major": "65575.00"
+            }
+          },
+          {
+            "pozycja": "opieka_art9",
+            "kwota": {
+              "minor": 3036153,
+              "currency": "PLN",
+              "major": "30361.53"
+            }
+          },
+          {
+            "pozycja": "rebooking_wlasny_spill",
+            "kwota": {
+              "minor": 826245,
+              "currency": "PLN",
+              "major": "8262.45"
+            }
+          }
+        ],
+        "pasazerow_z_odszkodowaniem": 61,
+        "noclegow": 61
+      },
+      {
+        "id": "CANCEL",
+        "tryb": "MODIFYING",
+        "koszt": {
+          "minor": 7283168,
+          "currency": "PLN",
+          "major": "72831.68"
+        },
+        "najwieksze": [
+          {
+            "pozycja": "odszkodowanie_art7",
+            "kwota": {
+              "minor": 6557500,
+              "currency": "PLN",
+              "major": "65575.00"
+            }
+          },
+          {
+            "pozycja": "opieka_art9",
+            "kwota": {
+              "minor": 577060,
+              "currency": "PLN",
+              "major": "5770.60"
+            }
+          },
+          {
+            "pozycja": "roszczenia_mc99",
+            "kwota": {
+              "minor": 148608,
+              "currency": "PLN",
+              "major": "1486.08"
+            }
+          }
+        ],
+        "pasazerow_z_odszkodowaniem": 61,
+        "noclegow": 0
+      },
+      {
+        "id": "SPLIT",
+        "tryb": "RESTRUCTURING",
+        "koszt": {
+          "minor": 8889218,
+          "currency": "PLN",
+          "major": "88892.18"
+        },
+        "najwieksze": [
+          {
+            "pozycja": "odszkodowanie_art7",
+            "kwota": {
+              "minor": 6557500,
+              "currency": "PLN",
+              "major": "65575.00"
+            }
+          },
+          {
+            "pozycja": "rozliczenie_interline",
+            "kwota": {
+              "minor": 1199700,
+              "currency": "PLN",
+              "major": "11997.00"
+            }
+          },
+          {
+            "pozycja": "opieka_art9",
+            "kwota": {
+              "minor": 577060,
+              "currency": "PLN",
+              "major": "5770.60"
+            }
+          }
+        ],
+        "pasazerow_z_odszkodowaniem": 61,
+        "noclegow": 0
+      }
+    ],
+    "tryby_liczenia": {
+      "MODIFYING": "roznica wobec sytuacji bez zaklocenia",
+      "RESTRUCTURING": "pelny nowy zestaw kosztow minus stary"
+    }
+  },
+  "decisions": [
+    "opieka z Art. 9 wchodzi do kazdej opcji od 120 min NIEZALEZNIE od przyczyny -- to koszt pewny",
+    "odszkodowanie z Art. 7 wchodzi jako koszt oczekiwany: kwota x liczba pax x 1.0",
+    "filtr prawny NIE dopisuje ceny do opcji -- ten node liczy ekspozycje, node 12 usuwa opcje niedopuszczalne"
+  ],
+  "assumptions": [
+    {
+      "field": "kurs EUR/PLN",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "4.3 -- placeholder - kurs do ustawienia w Konfiguracji"
+    },
+    {
+      "field": "stawki K.care",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    },
+    {
+      "field": "stawki K.reb",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    },
+    {
+      "field": "stawki K.crew",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    },
+    {
+      "field": "stawki K.grd",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    },
+    {
+      "field": "stawki K.cxl",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    },
+    {
+      "field": "stawki K.div",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    },
+    {
+      "field": "stawki K.mc99",
+      "source": "policy",
+      "confidence": 0.6,
+      "note": "estimate"
+    }
+  ],
+  "data_gaps": [
+    "odsetek ochotnikow przy odmowie przyjecia (PoC) nie jest w bazie -- opcje z offloadem liczone sciezka 'wbrew woli', czyli najdrozsza"
+  ],
+  "warnings": [],
+  "duration_ms": 4.78
+}

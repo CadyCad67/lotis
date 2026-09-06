@@ -1,0 +1,106 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T184422",
+  "node": {
+    "id": "04",
+    "name": "zaklocenie",
+    "title": "ZAKLOCENIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:d7806668b46167a39f400ef7880d14c4",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Usterka techniczna na rejsie LO35 WAW-SFO, szacowane opoznienie 0 min. Decyzja do 11:00 UTC (45 min).",
+  "numbers": {
+    "rejs": {
+      "value": "LO35",
+      "unit": ""
+    },
+    "relacja": {
+      "value": "WAW-SFO",
+      "unit": ""
+    },
+    "typ_zaklocenia": {
+      "value": "TECHNICAL",
+      "unit": ""
+    },
+    "opoznienie_szacowane": {
+      "value": 0,
+      "unit": "min"
+    },
+    "kod_opoznienia": {
+      "value": "41",
+      "unit": ""
+    },
+    "klasa_kodu": {
+      "value": "c",
+      "unit": ""
+    },
+    "p_odszkodowania": {
+      "value": 1.0,
+      "unit": ""
+    },
+    "okno_decyzji": {
+      "value": 45,
+      "unit": "min"
+    },
+    "iteracja": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "powod_wejscia": {
+      "value": "INITIAL",
+      "unit": ""
+    },
+    "odcinkow_ponizej": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "pasazerow_na_rejsie": {
+      "value": 256,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "rejs": {
+      "id": "LO35-2026-08-23",
+      "numer": "LO35",
+      "z": "WAW",
+      "do": "SFO",
+      "std": "2026-08-23T11:00:00+00:00",
+      "sta": "2026-08-23T23:00:00+00:00",
+      "typ": "B789",
+      "maszyna": "SP-LSE",
+      "rotacja": "ROT-SP-LSE-2026-08-23"
+    },
+    "kod_opoznienia": {
+      "kod": "41",
+      "opis": "Usterka techniczna samolotu",
+      "grupa": "Techniczne",
+      "orzecznictwo_tsue": true
+    },
+    "odcinki_ponizej": []
+  },
+  "decisions": [
+    "klasa kodu `c` daje prawdopodobienstwo odszkodowania 1.0 -- node 09 mnozy przez nie kwote z Art. 7"
+  ],
+  "assumptions": [
+    {
+      "field": "opoznienie szacowane",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "wartosc podana przy zgloszeniu, nie zmierzona"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 6.3
+}

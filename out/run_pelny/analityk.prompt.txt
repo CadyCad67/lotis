@@ -1,0 +1,1266 @@
+===== SYSTEM =====
+Pracujesz w systemie LOTIS, ktory wspiera decyzje przy nieregularnosciach
+operacyjnych w PLL LOT. Dostajesz raporty policzone przez silnik deterministyczny.
+
+Zasady bezwzgledne:
+1. NIE LICZYSZ. Kazda liczba w twojej odpowiedzi musi doslownie pochodzic
+   z sekcji "Liczby" albo "Szczegoly" otrzymanych raportow. Nie sumuj,
+   nie przeliczaj walut, nie usredniaj, nie zaokraglaj inaczej niz w zrodle.
+2. Jesli czegos nie ma w raportach, napisz "brak danych w raporcie" i wskaz,
+   ktory node powinien to policzyc. Nie zgaduj.
+3. Zalozenia i braki danych z raportu przenies do swojej odpowiedzi. Liczba
+   oparta na zalozeniu ma byc podana jako oparta na zalozeniu.
+4. Nie podejmujesz decyzji. Przygotowujesz material dla czlowieka, ktory
+   decyduje i podpisuje.
+5. Piszesz po polsku, rzeczowo, bez marketingu i bez przepraszania.
+
+
+Twoja rola: Analityk kosztowy.
+Odbiorca: kontroling i network operations, analiza po fakcie.
+
+Rozkladasz koszt na skladniki dokladnie tak, jak zrobil to silnik, i pokazujesz,
+ktory skladnik decyduje o wyniku. Odroznasz koszt liczony jako roznica wobec
+sytuacji bez zaklocenia (tryb MODIFYING) od pelnego przeliczenia (RESTRUCTURING)
+-- pomylenie ich sprawia, ze dwie opcje przestaja byc porownywalne.
+
+Podajesz widelki niepewnosci tam, gdzie raport je podaje, i piszesz wprost,
+kiedy widelki dwoch opcji zachodza na siebie na tyle, ze roznica miedzy nimi
+nie jest istotna.
+
+Struktura odpowiedzi -- dokladnie te naglowki, w tej kolejnosci:
+  1. STRUKTURA KOSZTU -- skladniki i ich udzial
+  2. CO DECYDUJE O WYNIKU
+  3. NIEPEWNOSC -- widelki i ich zrodlo
+  4. WPLYW NA SIATKE -- propagacja poza rejs zrodlowy
+  5. ZALOZENIA, KTORE TRZEBA ZWERYFIKOWAC
+
+===== USER =====
+# RUN pelny
+snapshot: sha256:f3c290f4e6930407fb2bcad856fc671f
+tryb obliczen: FULL
+raporty w tym runie: 01_snapshot, 02_walidacja, 03_baseline, 04_zaklocenie, 05_feasibility, 06_zasoby, 07_scenariusze, 08_revenue, 09_koszt, 10_siec, 11_optymalizacja, 12_filtr_prawny, 13_wrazliwosc, 14_ai_reasoning, 15_pracownik, 15b_wykonanie, 16_log, 17_wynik
+raporty widoczne dla twojej roli: 01_snapshot, 02_walidacja, 09_koszt, 10_siec, 11_optymalizacja, 13_wrazliwosc, 17_wynik
+
+======================================================================
+# [01] DANE
+
+**Status:** degraded · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **1816.04 ms**
+
+Zamrozony stan piątek 2026-08-21: 390 rejsow LOT-u na 86 lancuchach, 32911 pasazerow na 32911 podrozach.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `doba` | 2026-08-21 | - |
+| `dzien_tygodnia` | piątek | - |
+| `rejsy` | 390 | szt |
+| `rotacje` | 86 | szt |
+| `rotacje_przerwane` | 1 | szt |
+| `maszyny` | 94 | szt |
+| `zaloga` | 536 | osob |
+| `pasazerowie` | 32 911 | osob |
+| `podroze` | 32 911 | szt |
+| `udzial_transferowych` | 31.00 | % |
+| `porty` | 148 | szt |
+| `typy_statkow` | 11 | szt |
+| `odcisk` | sha256:f3c290f4e6930407fb2bcad856fc671f | - |
+
+## Co ten node ustalil
+
+- snapshot sha256:f3c290f4e6930407fb2bcad856fc671f jest podstawa calego runu
+- horyzont propagacji konczy sie na dobie operacyjnej 2026-08-21 albo na powrocie maszyny do WAW, co nastapi pierwsze
+
+## Szczegoly
+
+- **zasieg_doby**
+  - **pierwszy_odlot_utc:** 2026-08-21T00:10:00+00:00
+  - **ostatni_przylot_utc:** 2026-08-22T11:25:00+00:00
+  - **rozpietosc_h:** 35.20
+- **najwieksze_porty**
+  - **WAW**
+    - **operacji:** 360
+  - **KRK**
+    - **operacji:** 27
+  - **GDN**
+    - **operacji:** 17
+  - **WRO**
+    - **operacji:** 14
+  - **POZ**
+    - **operacji:** 12
+  - **VNO**
+    - **operacji:** 12
+  - **KTW**
+    - **operacji:** 11
+  - **RZE**
+    - **operacji:** 11
+- **flota_wg_typu**
+  - **B38M:** 124
+  - **E195:** 74
+  - **E75S:** 70
+  - **E190:** 47
+  - **B738:** 24
+  - **E170:** 17
+  - **B788:** 13
+  - **E295:** 11
+  - **B789:** 10
+- **pewnosc_pol**
+  - **flights:** KNOWN
+  - **rotations:** KNOWN
+  - **airports:** KNOWN
+  - **aircraft_types:** KNOWN
+  - **crew:** ESTIMATED
+  - **passengers:** ESTIMATED
+  - **fares:** ESTIMATED
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `manifest` | synthetic | 0.60 | rozklad klas rezerwacyjnych w obrebie kabiny (baza podaje mnozniki, nie udzialy) |
+| `manifest` | synthetic | 0.60 | ancillary jako ulamek taryfy |
+| `manifest` | synthetic | 0.60 | moment zakupu skorelowany z elastycznoscia klasy |
+| `manifest` | synthetic | 0.60 | zaloga wyliczona z tabel FDP EASA, nie z grafiku operatora |
+| `rozklad` | real | 1.00 | siedem rzeczywistych dob operacyjnych, nie generator |
+| `porty i prawo` | real | 1.00 | baza parametryczna loops.jsx |
+
+## Braki danych
+
+- 1 przerw w lancuchach rotacji (1 maszyn) -- okno eksportu, nie blad
+
+## Ostrzezenia
+
+- 1 maszyn ma przerwany lancuch doby -- czesc odcinkow wypadla poza okno eksportu
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [02] DATA ENGINE
+
+**Status:** ok · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **13.07 ms**
+
+Sprawdzono 6 rodzin niezmiennikow na 390 rejsach. Zadne pole nie schodzi do UNKNOWN. Osobno: 47 operacji w oknie ciszy nocnej typu 1 -- to rozklad, nie blad danych.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `porty_rejsow_bledow` | 0 | szt |
+| `typy_statkow_bledow` | 0 | szt |
+| `ciaglosc_rotacji_bledow` | 6 | szt |
+| `zapas_fdp_bledow` | 0 | szt |
+| `obsadzenie_bledow` | 0 | szt |
+| `kwalifikacje_zalogi_bledow` | 0 | szt |
+| `operacje_w_ciszy_nocnej` | 47 | szt |
+| `rejsy_bez_numeru_handlowego` | 2 | szt |
+| `pol_znanych` | 9 | szt |
+| `pol_szacowanych` | 4 | szt |
+| `pol_nieznanych` | 0 | szt |
+
+## Co ten node ustalil
+
+- 47 operacji lezy w oknie zakazu planowania -- node 05 traktuje je jako istniejace, ale nie wolno na nich planowac nowych
+- manifest pasazerski dla tych rejsow jest niepewny: lot techniczny nie ma pasazerow, a wiec nie ma tez ekspozycji z Art. 7 EU261
+- pole `ciaglosc_rotacji` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `crew` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `fares` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `passengers` liczone jako ESTIMATED -- node 11 rozszerza widelki
+
+## Szczegoly
+
+- **ciaglosc_rotacji**
+  - **ROT-SP-LMD-2026-08-21**
+    - **z:** LO456-2026-08-21
+    - **do:** LO395-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LMF-2026-08-21**
+    - **z:** LO462-2026-08-21
+    - **do:** LO3951-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LNG-2026-08-21**
+    - **z:** LO524-2026-08-21
+    - **do:** LO783-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LNK-2026-08-21**
+    - **z:** LO460-2026-08-21
+    - **do:** LO453-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LSD-2026-08-21**
+    - **z:** LO2084-2026-08-21
+    - **do:** LO11-2026-08-21
+    - **konczy_w:** KRK
+    - **zaczyna_w:** WAW
+  - **ROT-SP-LSG-2026-08-21**
+    - **z:** LO22-2026-08-21
+    - **do:** LO21-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+- **operacje_w_ciszy_nocnej**
+  - **LO1155-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:15
+  - **LO151-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:00
+  - **LO195-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:00
+  - **LO234-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:35
+  - **LO254-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:50
+  - **LO268-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO280-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO304-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:30
+  - **LO320-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:50
+  - **LO336-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:05
+  - **LO344-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:00
+  - **LO348-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:40
+  - **LO355-2026-08-21**
+    - **pole:** przylot
+    - **port:** MUC
+    - **lokalnie:** 00:20
+  - **LO374-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:30
+  - **LO380-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO3803-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:10
+  - **LO3827-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:55
+  - **LO3849-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:45
+  - **LO3860-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:25
+  - **LO3879-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:45
+- **operacje_w_ciszy_nocnej_pominietych:** 27
+- **rejsy_bez_numeru_handlowego**
+  - **znak:LOT3AD-2026-08-21**
+    - **znak:** znak:LOT3AD
+    - **z:** WAW
+    - **do:** BOJ
+    - **maszyna:** SP-LVN
+  - **znak:LOT7LP-2026-08-21**
+    - **znak:** znak:LOT7LP
+    - **z:** WAW
+    - **do:** VAR
+    - **maszyna:** SP-LYL
+- **poziomy_pewnosci**
+  - **aircraft_types:** KNOWN
+  - **airports:** KNOWN
+  - **ciaglosc_rotacji:** ESTIMATED
+  - **crew:** ESTIMATED
+  - **fares:** ESTIMATED
+  - **flights:** KNOWN
+  - **kwalifikacje_zalogi:** KNOWN
+  - **obsadzenie:** KNOWN
+  - **passengers:** ESTIMATED
+  - **porty_rejsow:** KNOWN
+  - **rotations:** KNOWN
+  - **typy_statkow:** KNOWN
+  - **zapas_fdp:** KNOWN
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `zaloga` | derived | 0.70 | sklad i limity FDP wyliczone z tabel EASA, nie z grafiku operatora |
+| `obsadzenie` | synthetic | 0.60 | manifest z rozkladow bazy, tozsamosci pasazerow modelowane |
+
+## Braki danych
+
+- 2 rejsow ma tylko znak wywolawczy, bez numeru handlowego -- zrodlo nie rozstrzyga, czy to loty techniczne (dolot, przebazowanie), czy rejsy handlowe, ktorym eksport zgubil numer
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [09] COST ENGINE
+
+**Status:** ok · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **5.55 ms**
+
+Wyceniono 6 opcji. Kategoria EU261: A (1075.00 PLN na pasazera), prog opieki 120 min, p(odszkodowanie) = 1.0. Najtansza `CANCEL` (72831.68 PLN), najdrozsza `OVERNIGHT` (107319.06 PLN).
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `kategoria_eu261` | A | - |
+| `odszkodowanie_na_pasazera` | 1075.00 PLN | PLN |
+| `prog_opieki` | 120 | min |
+| `prog_odszkodowania` | 180 | min |
+| `p_odszkodowania` | 1.00 | - |
+| `kurs_eur_pln` | 4.30 | - |
+| `koszt_najtanszej` | 72831.68 PLN | PLN |
+| `koszt_najdrozszej` | 107319.06 PLN | PLN |
+
+## Co ten node ustalil
+
+- opieka z Art. 9 wchodzi do kazdej opcji od 120 min NIEZALEZNIE od przyczyny -- to koszt pewny
+- odszkodowanie z Art. 7 wchodzi jako koszt oczekiwany: kwota x liczba pax x 1.0
+- filtr prawny NIE dopisuje ceny do opcji -- ten node liczy ekspozycje, node 12 usuwa opcje niedopuszczalne
+
+## Szczegoly
+
+- **koszty_opcji**
+  - **HOLD**
+    - **tryb:** MODIFYING
+    - **koszt**
+      - **minor:** 9 933 288
+      - **currency:** PLN
+      - **major:** 99332.88
+    - **najwieksze**
+      - **pozycja:** odszkodowanie_art7
+      - **kwota**
+        - **minor:** 6 557 500
+        - **currency:** PLN
+        - **major:** 65575.00
+      - **pozycja:** opoznienie_w_siatce
+      - **kwota**
+        - **minor:** 2 537 460
+        - **currency:** PLN
+        - **major:** 25374.60
+      - **pozycja:** opieka_art9
+      - **kwota**
+        - **minor:** 367 220
+        - **currency:** PLN
+        - **major:** 3672.20
+    - **pasazerow_z_odszkodowaniem:** 61
+    - **noclegow:** 0
+  - **REBOOK-OWN**
+    - **tryb:** RESTRUCTURING
+    - **koszt**
+      - **minor:** 8 109 413
+      - **currency:** PLN
+      - **major:** 81094.13
+    - **najwieksze**
+      - **pozycja:** odszkodowanie_art7
+      - **kwota**
+        - **minor:** 6 557 500
+        - **currency:** PLN
+        - **major:** 65575.00
+      - **pozycja:** rebooking_wlasny_spill
+      - **kwota**
+        - **minor:** 826 245
+        - **currency:** PLN
+        - **major:** 8262.45
+      - **pozycja:** opieka_art9
+      - **kwota**
+        - **minor:** 577 060
+        - **currency:** PLN
+        - **major:** 5770.60
+    - **pasazerow_z_odszkodowaniem:** 61
+    - **noclegow:** 0
+  - **REBOOK-OAL**
+    - **tryb:** RESTRUCTURING
+    - **koszt**
+      - **minor:** 9 643 868
+      - **currency:** PLN
+      - **major:** 96438.68
+    - **najwieksze**
+      - **pozycja:** odszkodowanie_art7
+      - **kwota**
+        - **minor:** 6 557 500
+        - **currency:** PLN
+        - **major:** 65575.00
+      - **pozycja:** rozliczenie_interline
+      - **kwota**
+        - **minor:** 2 360 700
+        - **currency:** PLN
+        - **major:** 23607.00
+      - **pozycja:** opieka_art9
+      - **kwota**
+        - **minor:** 577 060
+        - **currency:** PLN
+        - **major:** 5770.60
+    - **pasazerow_z_odszkodowaniem:** 61
+    - **noclegow:** 0
+  - **OVERNIGHT**
+    - **tryb:** RESTRUCTURING
+    - **koszt**
+      - **minor:** 10 731 906
+      - **currency:** PLN
+      - **major:** 107319.06
+    - **najwieksze**
+      - **pozycja:** odszkodowanie_art7
+      - **kwota**
+        - **minor:** 6 557 500
+        - **currency:** PLN
+        - **major:** 65575.00
+      - **pozycja:** opieka_art9
+      - **kwota**
+        - **minor:** 3 036 153
+        - **currency:** PLN
+        - **major:** 30361.53
+      - **pozycja:** rebooking_wlasny_spill
+      - **kwota**
+        - **minor:** 826 245
+        - **currency:** PLN
+        - **major:** 8262.45
+    - **pasazerow_z_odszkodowaniem:** 61
+    - **noclegow:** 61
+  - **CANCEL**
+    - **tryb:** MODIFYING
+    - **koszt**
+      - **minor:** 7 283 168
+      - **currency:** PLN
+      - **major:** 72831.68
+    - **najwieksze**
+      - **pozycja:** odszkodowanie_art7
+      - **kwota**
+        - **minor:** 6 557 500
+        - **currency:** PLN
+        - **major:** 65575.00
+      - **pozycja:** opieka_art9
+      - **kwota**
+        - **minor:** 577 060
+        - **currency:** PLN
+        - **major:** 5770.60
+      - **pozycja:** roszczenia_mc99
+      - **kwota**
+        - **minor:** 148 608
+        - **currency:** PLN
+        - **major:** 1486.08
+    - **pasazerow_z_odszkodowaniem:** 61
+    - **noclegow:** 0
+  - **SPLIT**
+    - **tryb:** RESTRUCTURING
+    - **koszt**
+      - **minor:** 8 889 218
+      - **currency:** PLN
+      - **major:** 88892.18
+    - **najwieksze**
+      - **pozycja:** odszkodowanie_art7
+      - **kwota**
+        - **minor:** 6 557 500
+        - **currency:** PLN
+        - **major:** 65575.00
+      - **pozycja:** rozliczenie_interline
+      - **kwota**
+        - **minor:** 1 199 700
+        - **currency:** PLN
+        - **major:** 11997.00
+      - **pozycja:** opieka_art9
+      - **kwota**
+        - **minor:** 577 060
+        - **currency:** PLN
+        - **major:** 5770.60
+    - **pasazerow_z_odszkodowaniem:** 61
+    - **noclegow:** 0
+- **tryby_liczenia**
+  - **MODIFYING:** roznica wobec sytuacji bez zaklocenia
+  - **RESTRUCTURING:** pelny nowy zestaw kosztow minus stary
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `kurs EUR/PLN` | policy | 0.50 | 4.3 -- placeholder - kurs do ustawienia w Konfiguracji |
+| `stawki K.care` | policy | 0.60 | estimate |
+| `stawki K.reb` | policy | 0.60 | estimate |
+| `stawki K.crew` | policy | 0.60 | estimate |
+| `stawki K.grd` | policy | 0.60 | estimate |
+| `stawki K.cxl` | policy | 0.60 | estimate |
+| `stawki K.div` | policy | 0.60 | estimate |
+| `stawki K.mc99` | policy | 0.60 | estimate |
+
+## Braki danych
+
+- odsetek ochotnikow przy odmowie przyjecia (PoC) nie jest w bazie -- opcje z offloadem liczone sciezka 'wbrew woli', czyli najdrozsza
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [10] NETWORK IMPACT
+
+**Status:** ok · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **63.96 ms**
+
+Horyzont propagacji: 2 odcinkow, zatrzymany na `BASE_RETURN`. 24 pasazerow transferowych na rejsie zrodlowym.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `odcinkow_w_horyzoncie` | 2 | szt |
+| `powod_zatrzymania` | BASE_RETURN | - |
+| `koniec_doby_operacyjnej` | 2026-08-22T02:00:00+00:00 | - |
+| `pasazerow_transferowych` | 24 | osob |
+| `zalogi_poza_fdp` | 4 | osob |
+
+## Co ten node ustalil
+
+- horyzont konczy sie na `BASE_RETURN` -- dalej opcje przestaja sie roznic i liczenie nie zmienia rankingu
+- opoznienie propaguje sie pomniejszone o bufor postoju; bufor wieszy od opoznienia wchlania je w calosci
+
+## Szczegoly
+
+- **horyzont**
+  - **LO3805-2026-08-21**
+    - **numer:** LO3805
+    - **z:** WAW
+    - **do:** RZE
+    - **std:** 2026-08-21T07:20:00+00:00
+    - **bufor_min:** 19
+  - **LO3806-2026-08-21**
+    - **numer:** LO3806
+    - **z:** RZE
+    - **do:** WAW
+    - **std:** 2026-08-21T08:55:00+00:00
+    - **bufor_min:** 4
+- **propagacja_wg_opcji**
+  - **HOLD**
+    - **odcinkow_ponizej:** 2
+    - **suma_propagacji_min:** 318
+    - **przesiadek_utraconych:** 24
+    - **koszt_propagacji**
+      - **minor:** 4 482 846
+      - **currency:** PLN
+      - **major:** 44828.46
+    - **rejsow_bez_podstawienia:** 0
+  - **REBOOK-OWN**
+    - **odcinkow_ponizej:** 2
+    - **suma_propagacji_min:** 0
+    - **przesiadek_utraconych:** 24
+    - **koszt_propagacji**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **rejsow_bez_podstawienia:** 2
+  - **REBOOK-OAL**
+    - **odcinkow_ponizej:** 2
+    - **suma_propagacji_min:** 0
+    - **przesiadek_utraconych:** 24
+    - **koszt_propagacji**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **rejsow_bez_podstawienia:** 2
+  - **OVERNIGHT**
+    - **odcinkow_ponizej:** 2
+    - **suma_propagacji_min:** 0
+    - **przesiadek_utraconych:** 24
+    - **koszt_propagacji**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **rejsow_bez_podstawienia:** 2
+  - **CANCEL**
+    - **odcinkow_ponizej:** 2
+    - **suma_propagacji_min:** 0
+    - **przesiadek_utraconych:** 24
+    - **koszt_propagacji**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **rejsow_bez_podstawienia:** 2
+  - **SPLIT**
+    - **odcinkow_ponizej:** 2
+    - **suma_propagacji_min:** 0
+    - **przesiadek_utraconych:** 24
+    - **koszt_propagacji**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **rejsow_bez_podstawienia:** 2
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [11] OPTIMIZATION ENGINE
+
+**Status:** degraded · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **3.48 ms**
+
+Ranking wstepny 6 opcji. Najmniejsza strata: `REBOOK-OWN` (87716.13 PLN), najwieksza: `HOLD` (144161.34 PLN).
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `najlepsza_opcja` | REBOOK-OWN | - |
+| `strata_najlepszej` | 87716.13 PLN | PLN |
+| `strata_najgorszej` | 144161.34 PLN | PLN |
+| `rozpietosc_rankingu` | 56445.21 PLN | PLN |
+| `wspolczynnik_dolny` | 0.91 | - |
+| `wspolczynnik_gorny` | 1.21 | - |
+| `opcji` | 6 | szt |
+
+## Co ten node ustalil
+
+- strata = (baseline - revenue opcji) + koszty + propagacja
+- najlepsza opcja to najmniejsza strata, nie najmniejszy koszt
+- przy zachodzacych widelkach o wyborze decyduja kryteria poza kosztem: node 13 dokłada wage polityki firmy
+
+## Szczegoly
+
+- **ranking_wstepny**
+  - **REBOOK-OWN**
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 8 109 413
+      - **currency:** PLN
+      - **major:** 81094.13
+    - **propagacja**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **strata**
+      - **minor:** 8 771 613
+      - **currency:** PLN
+      - **major:** 87716.13
+    - **widelki_min**
+      - **minor:** 7 949 274
+      - **currency:** PLN
+      - **major:** 79492.74
+    - **widelki_max**
+      - **minor:** 10 599 032
+      - **currency:** PLN
+      - **major:** 105990.32
+    - **rozpietosc**
+      - **minor:** 2 649 758
+      - **currency:** PLN
+      - **major:** 26497.58
+    - **pozycja_wstepna:** 1
+  - **CANCEL**
+    - **tryb:** MODIFYING
+    - **revenue_at_risk**
+      - **minor:** 1 296 354
+      - **currency:** PLN
+      - **major:** 12963.54
+    - **koszty**
+      - **minor:** 7 283 168
+      - **currency:** PLN
+      - **major:** 72831.68
+    - **propagacja**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **strata**
+      - **minor:** 9 241 722
+      - **currency:** PLN
+      - **major:** 92417.22
+    - **widelki_min**
+      - **minor:** 8 375 311
+      - **currency:** PLN
+      - **major:** 83753.11
+    - **widelki_max**
+      - **minor:** 11 167 081
+      - **currency:** PLN
+      - **major:** 111670.81
+    - **rozpietosc**
+      - **minor:** 2 791 770
+      - **currency:** PLN
+      - **major:** 27917.70
+    - **pozycja_wstepna:** 2
+  - **SPLIT**
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 8 889 218
+      - **currency:** PLN
+      - **major:** 88892.18
+    - **propagacja**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **strata**
+      - **minor:** 9 551 418
+      - **currency:** PLN
+      - **major:** 95514.18
+    - **widelki_min**
+      - **minor:** 8 655 973
+      - **currency:** PLN
+      - **major:** 86559.73
+    - **widelki_max**
+      - **minor:** 11 541 297
+      - **currency:** PLN
+      - **major:** 115412.97
+    - **rozpietosc**
+      - **minor:** 2 885 324
+      - **currency:** PLN
+      - **major:** 28853.24
+    - **pozycja_wstepna:** 3
+  - **REBOOK-OAL**
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 9 643 868
+      - **currency:** PLN
+      - **major:** 96438.68
+    - **propagacja**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **strata**
+      - **minor:** 10 306 068
+      - **currency:** PLN
+      - **major:** 103060.68
+    - **widelki_min**
+      - **minor:** 9 339 874
+      - **currency:** PLN
+      - **major:** 93398.74
+    - **widelki_max**
+      - **minor:** 12 453 165
+      - **currency:** PLN
+      - **major:** 124531.65
+    - **rozpietosc**
+      - **minor:** 3 113 291
+      - **currency:** PLN
+      - **major:** 31132.91
+    - **pozycja_wstepna:** 4
+  - **OVERNIGHT**
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 10 731 906
+      - **currency:** PLN
+      - **major:** 107319.06
+    - **propagacja**
+      - **minor:** 662 200
+      - **currency:** PLN
+      - **major:** 6622.00
+    - **strata**
+      - **minor:** 11 394 106
+      - **currency:** PLN
+      - **major:** 113941.06
+    - **widelki_min**
+      - **minor:** 10 325 909
+      - **currency:** PLN
+      - **major:** 103259.09
+    - **widelki_max**
+      - **minor:** 13 767 878
+      - **currency:** PLN
+      - **major:** 137678.78
+    - **rozpietosc**
+      - **minor:** 3 441 969
+      - **currency:** PLN
+      - **major:** 34419.69
+    - **pozycja_wstepna:** 5
+  - **HOLD**
+    - **tryb:** MODIFYING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 9 933 288
+      - **currency:** PLN
+      - **major:** 99332.88
+    - **propagacja**
+      - **minor:** 4 482 846
+      - **currency:** PLN
+      - **major:** 44828.46
+    - **strata**
+      - **minor:** 14 416 134
+      - **currency:** PLN
+      - **major:** 144161.34
+    - **widelki_min**
+      - **minor:** 13 064 621
+      - **currency:** PLN
+      - **major:** 130646.21
+    - **widelki_max**
+      - **minor:** 17 419 495
+      - **currency:** PLN
+      - **major:** 174194.95
+    - **rozpietosc**
+      - **minor:** 4 354 874
+      - **currency:** PLN
+      - **major:** 43548.74
+    - **pozycja_wstepna:** 6
+- **zrodlo_widelek**
+  - **poziom:** rejs
+  - **obserwacji:** 14
+  - **p25:** 5.00
+  - **mediana:** 8.00
+  - **p90:** 13.00
+  - **punktualnosc15:** 92.90
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `widelki` | real | 0.80 | kwantyle p25/mediana/p90 z rzeczywistych operacji tej siatki |
+| `kurs EUR/PLN` | policy | 0.50 | 4.3 -- placeholder - kurs do ustawienia w Konfiguracji |
+
+## Ostrzezenia
+
+- widelki opcji `REBOOK-OWN` i `CANCEL` zachodza na siebie -- roznica miedzy nimi nie jest istotna statystycznie
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [13] WRAZLIWOSC
+
+**Status:** degraded · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **0.3 ms**
+
+Ranking koncowy 6 dopuszczalnych opcji. Rekomendacja: `REBOOK-OWN` (87716.13 PLN), oszczednosc wobec opcji domyslnej `HOLD`: 56445.21 PLN.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `rekomendacja` | REBOOK-OWN | - |
+| `strata_rekomendacji` | 87716.13 PLN | PLN |
+| `widelki_min` | 79492.74 PLN | PLN |
+| `widelki_max` | 105990.32 PLN | PLN |
+| `opcja_domyslna` | HOLD | - |
+| `strata_opcji_domyslnej` | 144161.34 PLN | PLN |
+| `oszczednosc` | 56445.21 PLN | PLN |
+| `prog_oplacalnosci` | 120 | min |
+| `opcji_w_rankingu` | 6 | szt |
+
+## Co ten node ustalil
+
+- opcja domyslna to `HOLD` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia
+- `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+- waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie
+- przy bliskiej czolowce decyzja nalezy do czlowieka, nie do rankingu
+
+## Szczegoly
+
+- **ranking_koncowy**
+  - **REBOOK-OWN**
+    - **pozycja:** 1
+    - **strata**
+      - **minor:** 8 771 613
+      - **currency:** PLN
+      - **major:** 87716.13
+    - **min**
+      - **minor:** 7 949 274
+      - **currency:** PLN
+      - **major:** 79492.74
+    - **max**
+      - **minor:** 10 599 032
+      - **currency:** PLN
+      - **major:** 105990.32
+    - **oszczednosc**
+      - **minor:** 5 644 521
+      - **currency:** PLN
+      - **major:** 56445.21
+    - **wskaznik:** 9 459 979.95
+    - **uwaga_polityki:** 24 utraconych przesiadek; szerokie widelki
+  - **CANCEL**
+    - **pozycja:** 2
+    - **strata**
+      - **minor:** 9 241 722
+      - **currency:** PLN
+      - **major:** 92417.22
+    - **min**
+      - **minor:** 8 375 311
+      - **currency:** PLN
+      - **major:** 83753.11
+    - **max**
+      - **minor:** 11 167 081
+      - **currency:** PLN
+      - **major:** 111670.81
+    - **oszczednosc**
+      - **minor:** 5 174 412
+      - **currency:** PLN
+      - **major:** 51744.12
+    - **wskaznik:** 9 966 981.53
+    - **uwaga_polityki:** 24 utraconych przesiadek; szerokie widelki
+  - **SPLIT**
+    - **pozycja:** 3
+    - **strata**
+      - **minor:** 9 551 418
+      - **currency:** PLN
+      - **major:** 95514.18
+    - **min**
+      - **minor:** 8 655 973
+      - **currency:** PLN
+      - **major:** 86559.73
+    - **max**
+      - **minor:** 11 541 297
+      - **currency:** PLN
+      - **major:** 115412.97
+    - **oszczednosc**
+      - **minor:** 4 864 716
+      - **currency:** PLN
+      - **major:** 48647.16
+    - **wskaznik:** 10 300 981.44
+    - **uwaga_polityki:** 24 utraconych przesiadek; szerokie widelki
+  - **REBOOK-OAL**
+    - **pozycja:** 4
+    - **strata**
+      - **minor:** 10 306 068
+      - **currency:** PLN
+      - **major:** 103060.68
+    - **min**
+      - **minor:** 9 339 874
+      - **currency:** PLN
+      - **major:** 93398.74
+    - **max**
+      - **minor:** 12 453 165
+      - **currency:** PLN
+      - **major:** 124531.65
+    - **oszczednosc**
+      - **minor:** 4 110 066
+      - **currency:** PLN
+      - **major:** 41100.66
+    - **wskaznik:** 11 114 853.86
+    - **uwaga_polityki:** 24 utraconych przesiadek; szerokie widelki
+  - **OVERNIGHT**
+    - **pozycja:** 5
+    - **strata**
+      - **minor:** 11 394 106
+      - **currency:** PLN
+      - **major:** 113941.06
+    - **min**
+      - **minor:** 10 325 909
+      - **currency:** PLN
+      - **major:** 103259.09
+    - **max**
+      - **minor:** 13 767 878
+      - **currency:** PLN
+      - **major:** 137678.78
+    - **oszczednosc**
+      - **minor:** 3 022 028
+      - **currency:** PLN
+      - **major:** 30220.28
+    - **wskaznik:** 12 288 277.45
+    - **uwaga_polityki:** 24 utraconych przesiadek; szerokie widelki
+  - **HOLD**
+    - **pozycja:** 6
+    - **strata**
+      - **minor:** 14 416 134
+      - **currency:** PLN
+      - **major:** 144161.34
+    - **min**
+      - **minor:** 13 064 621
+      - **currency:** PLN
+      - **major:** 130646.21
+    - **max**
+      - **minor:** 17 419 495
+      - **currency:** PLN
+      - **major:** 174194.95
+    - **oszczednosc**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **wskaznik:** 18 656 956.98
+    - **uwaga_polityki:** propagacja 318 min (waga rotacji 1.0); 24 utraconych przesiadek; szerokie widelki
+- **test_wrazliwosci**
+  - **krok_min:** 30
+  - **lider:** REBOOK-OWN
+  - **ranking**
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 8 771 613
+        - **currency:** PLN
+        - **major:** 87716.13
+    - **CANCEL**
+      - **strata**
+        - **minor:** 9 241 722
+        - **currency:** PLN
+        - **major:** 92417.22
+    - **SPLIT**
+      - **strata**
+        - **minor:** 9 551 418
+        - **currency:** PLN
+        - **major:** 95514.18
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 10 306 068
+        - **currency:** PLN
+        - **major:** 103060.68
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 11 394 106
+        - **currency:** PLN
+        - **major:** 113941.06
+    - **HOLD**
+      - **strata**
+        - **minor:** 14 581 134
+        - **currency:** PLN
+        - **major:** 145811.34
+  - **krok_min:** 60
+  - **lider:** REBOOK-OWN
+  - **ranking**
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 8 771 613
+        - **currency:** PLN
+        - **major:** 87716.13
+    - **CANCEL**
+      - **strata**
+        - **minor:** 9 241 722
+        - **currency:** PLN
+        - **major:** 92417.22
+    - **SPLIT**
+      - **strata**
+        - **minor:** 9 551 418
+        - **currency:** PLN
+        - **major:** 95514.18
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 10 306 068
+        - **currency:** PLN
+        - **major:** 103060.68
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 11 394 106
+        - **currency:** PLN
+        - **major:** 113941.06
+    - **HOLD**
+      - **strata**
+        - **minor:** 14 746 134
+        - **currency:** PLN
+        - **major:** 147461.34
+  - **krok_min:** 120
+  - **lider:** REBOOK-OWN
+  - **ranking**
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 8 771 613
+        - **currency:** PLN
+        - **major:** 87716.13
+    - **CANCEL**
+      - **strata**
+        - **minor:** 9 241 722
+        - **currency:** PLN
+        - **major:** 92417.22
+    - **SPLIT**
+      - **strata**
+        - **minor:** 9 551 418
+        - **currency:** PLN
+        - **major:** 95514.18
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 10 306 068
+        - **currency:** PLN
+        - **major:** 103060.68
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 11 394 106
+        - **currency:** PLN
+        - **major:** 113941.06
+    - **HOLD**
+      - **strata**
+        - **minor:** 15 076 134
+        - **currency:** PLN
+        - **major:** 150761.34
+- **prog_oplacalnosci**
+  - **do_minut:** 120
+  - **przejmuje:** 
+  - **opis:** `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+- **wagi_polityki**
+  - **rot:** 1.00
+  - **trf:** 1.00
+  - **vuln:** 1.00
+  - **unc:** 1.00
+  - **cx:** 1.00
+  - **crew:** 1.00
+- **opcje_odrzucone_przez_prawo:** -
+- **karta_wykonania**
+  - **option_id:** REBOOK-OWN
+  - **label:** Przenies na wlasny rejs LO3994 (+560 min)
+  - **what_changes**
+    - LO3996: rejs odwolany
+  - **pax_offloaded:** 0
+  - **pax_order:** -
+  - **rebooked_to**
+    - **PAX003776:** wlasny rejs
+    - **PAX003777:** wlasny rejs
+    - **PAX003778:** wlasny rejs
+    - **PAX003779:** wlasny rejs
+    - **PAX003780:** wlasny rejs
+    - **PAX003781:** wlasny rejs
+    - **PAX003782:** wlasny rejs
+    - **PAX003783:** wlasny rejs
+    - **PAX003784:** wlasny rejs
+    - **PAX003785:** wlasny rejs
+    - **PAX003786:** wlasny rejs
+    - **PAX003787:** wlasny rejs
+    - **PAX003788:** wlasny rejs
+    - **PAX003789:** wlasny rejs
+    - **PAX003790:** wlasny rejs
+    - **PAX003791:** wlasny rejs
+    - **PAX003792:** wlasny rejs
+    - **PAX003793:** wlasny rejs
+    - **PAX003794:** wlasny rejs
+    - **PAX003795:** wlasny rejs
+  - **crew_actions**
+    - bez zmian dla zalogi
+  - **valid_until:** 2026-08-21T05:35:00+00:00
+  - **cost_low**
+    - **minor:** 7 949 274
+    - **currency:** PLN
+    - **major:** 79492.74
+  - **cost_expected**
+    - **minor:** 8 771 613
+    - **currency:** PLN
+    - **major:** 87716.13
+  - **cost_high**
+    - **minor:** 10 599 032
+    - **currency:** PLN
+    - **major:** 105990.32
+  - **threshold_note:** `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+  - **authorization_role:** Supervisor OCC
+  - **second_signature:** 0
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `prog oplacalnosci` | derived | 0.70 | policzony na siatce +30/+60/+120 min, nie w sposob ciagly |
+
+## Ostrzezenia
+
+- opcje `REBOOK-OWN` i `CANCEL` roznia sie o mniej niz 10% -- roznica moze byc szumem
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [17] WYNIK RZECZYWISTY
+
+**Status:** ok · **run:** `pelny` · **snapshot:** `sha256:f3c290f4e6930407` · **0.09 ms**
+
+Rejs LO3996: prognoza 87716.13 PLN, rzeczywistosc 87716.13 PLN, blad +0.0%. Klasyfikacja: ZGODNY. Wynik miesci sie w widelkach.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `opcja_wykonana` | REBOOK-OWN | - |
+| `opoznienie_prognozowane` | 180 | min |
+| `opoznienie_rzeczywiste` | 8 | min |
+| `strata_prognozowana` | 87716.13 PLN | PLN |
+| `strata_rzeczywista` | 87716.13 PLN | PLN |
+| `blad` | 0.00 PLN | PLN |
+| `blad_procentowo` | 0.00 | % |
+| `w_widelkach` | 1 | - |
+| `rodzaj_bledu` | ZGODNY | - |
+
+## Co ten node ustalil
+
+- prognoza zgodna z rzeczywistoscia w granicach +0.0%
+- blad modelu, blad wykonania i odstepstwo czlowieka sa liczone osobno -- mieszanie ich uczy model na cudzych pomylkach
+- blad +0.0% miesci sie w szumie (5%) -- bez poprawek
+
+## Szczegoly
+
+- **klasyfikacja**
+  - **rodzaj:** ZGODNY
+  - **opis:** prognoza zgodna z rzeczywistoscia w granicach +0.0%
+  - **blad_modelu:** 0
+  - **blad_wykonania:** 0
+  - **odstepstwo_czlowieka:** 0
+- **zrodlo_rzeczywistosci**
+  - **poziom:** rejs
+  - **p25:** 5.00
+  - **mediana:** 8.00
+  - **p90:** 13.00
+- **kalibracja**
+  - **poprawki:** -
+  - **powod_pominiecia:** rodzaj `ZGODNY` nie kalibruje modelu
+  - **tlumienie:** 0.20
+- **wykonanie**
+  - **opcja:** REBOOK-OWN
+  - **kroki**
+    - **kasacja_w_systemie**
+      - **wykonawca:** System rezerwacyjny
+      - **opis:** odwolanie rejsu i zwolnienie miejsc
+      - **odwracalny:** 0
+      - **krytyczny:** 1
+      - **status:** wykonany
+    - **przepisanie_wlasne**
+      - **wykonawca:** System rezerwacyjny
+      - **opis:** przepisanie pasazerow na wlasny rejs
+      - **odwracalny:** 1
+      - **krytyczny:** 0
+      - **status:** wykonany
+    - **powiadomienie_pax**
+      - **wykonawca:** Komunikacja
+      - **opis:** wyslanie SMS i e-mail do pasazerow
+      - **odwracalny:** 1
+      - **krytyczny:** 0
+      - **status:** wykonany
+    - **brief_zalogi**
+      - **wykonawca:** Crew Control
+      - **opis:** poinformowanie zalogi o zmianie
+      - **odwracalny:** 1
+      - **krytyczny:** 0
+      - **status:** wykonany
+  - **udane:** 1
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `rzeczywiste opoznienie` | real | 0.90 | mediana rozkladu z 6374 operacji |
+
+## Braki danych
+
+- rzeczywisty koszt operacji nie jest w zadnym ze zrodel -- porownanie opiera sie na opoznieniu, nie na fakturach
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+## LICZBY, KTORE WOLNO CI ZACYTOWAC
+
+Kazda liczba w twojej odpowiedzi musi byc jedna z ponizszych albo numerem rejsu, godzina lub data przepisana z raportu. Odpowiedz zawierajaca liczbe spoza tej listy jest odrzucana automatycznie.
+
+0, 0.09, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 0.906, 1, 1.208, 2, 3, 3.48, 4, 4.3, 5, 5.55, 6, 8, 9, 10, 11, 12, 13, 13.07, 14, 17, 19, 24, 27, 30, 31, 35.2, 47, 60, 61, 63.96, 70, 74, 86, 92.9, 94, 120, 124, 148, 180, 318, 360, 390, 536, 1075, 1486.08, 1816.04, 2026.03, 2026.07, 3672.2, 5770.6, 6622, 8262.45, 11997, 12963.5, 23607, 25374.6, 26497.6, 27917.7, 28853.2, 30220.3, 30361.5, 31132.9, 32911, 34419.7, 41100.7, 43548.7, 44828.5, 48647.2, 51744.1, 56445.2, 65575, 72831.7, 79492.7, 81094.1, 83753.1, 86559.7, 87716.1, 88892.2, 92417.2, 93398.7, 95514.2, 96438.7, 99332.9, 103061, 103259, 105990, 107319, 107500, 111671, 113941, 115413, 124532, 130646, 137679, 144161, 145811, 147461, 148608, 150761, 174195, 367220, 577060, 662200, 826245, 1199700, 1296354, 2360700, 2537460, 2649758, 2791770, 2885324, 3022028, 3036153, 3113291, 3441969, 4110066, 4354874, 4482846, 4864716, 5174412, 5644521, 6557500, 7283168, 7949274, 8109413, 8375311, 8655973, 8771613, 8889218, 9241722, 9339874, 9.45998e+06, 9551418, 9643868, 9933288, 9.96698e+06, 1.0301e+07, 10306068, 10325909, 10599032, 10731906, 1.11149e+07, 11167081, 11394106, 11541297, 1.22883e+07, 12453165, 13064621, 13767878, 14416134, 14581134, 14746134, 15076134, 17419495, 1.8657e+07
+
+======================================================================
+Przygotuj material zgodnie ze swoja rola i narzucona struktura.

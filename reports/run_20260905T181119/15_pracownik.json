@@ -1,0 +1,160 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181119",
+  "node": {
+    "id": "15",
+    "name": "pracownik",
+    "title": "PRACOWNIK"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "OCC-DUTY: ACCEPT dla `REBOOK-OWN` (88103.99 PLN). Wymagana rola: Supervisor OCC.",
+  "numbers": {
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "rekomendacja_silnika": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "odstepstwo_od_rekomendacji": {
+      "value": false,
+      "unit": ""
+    },
+    "kwota_do_autoryzacji": {
+      "value": {
+        "minor": 11380099,
+        "currency": "PLN",
+        "major": "113800.99"
+      },
+      "unit": "PLN"
+    },
+    "rola_autoryzujaca": {
+      "value": "Supervisor OCC",
+      "unit": ""
+    },
+    "drugi_podpis": {
+      "value": false,
+      "unit": ""
+    },
+    "kod_przyczyny": {
+      "value": "-",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "pasma_autoryzacji": [
+      {
+        "max_value": 50000.0,
+        "role": "Dyzurny OCC",
+        "second_signature": false
+      },
+      {
+        "max_value": 150000.0,
+        "role": "Supervisor OCC",
+        "second_signature": false
+      },
+      {
+        "max_value": 400000.0,
+        "role": "Duty Manager OCC",
+        "second_signature": true
+      },
+      {
+        "max_value": null,
+        "role": "Director Network Operations",
+        "second_signature": true
+      }
+    ],
+    "dopuszczalne_kody_odrzucenia": [
+      "DANE_NIEAKTUALNE",
+      "CZYNNIK_NIEUJETY_W_MODELU",
+      "DECYZJA_HANDLOWA",
+      "RYZYKO_REPUTACYJNE",
+      "NIEWYKONALNE_OPERACYJNIE"
+    ],
+    "decyzja": {
+      "operator": "OCC-DUTY",
+      "rodzaj": "ACCEPT",
+      "opcja": "REBOOK-OWN",
+      "kod_przyczyny": "",
+      "rola": "Supervisor OCC",
+      "drugi_podpis": false
+    },
+    "karta_wykonania": {
+      "option_id": "REBOOK-OWN",
+      "label": "Przenies na wlasny rejs LO3852 (+190 min)",
+      "what_changes": [
+        "LO3850: rejs odwolany",
+        "55 pasazerow na wlasny rejs (LO3852, odlot 08:45 UTC) -- oczekiwanie 190 min"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {
+        "PAX003129": "wlasny rejs",
+        "PAX003130": "wlasny rejs",
+        "PAX003131": "wlasny rejs",
+        "PAX003132": "wlasny rejs",
+        "PAX003133": "wlasny rejs",
+        "PAX003134": "wlasny rejs",
+        "PAX003135": "wlasny rejs",
+        "PAX003136": "wlasny rejs",
+        "PAX003137": "wlasny rejs",
+        "PAX003138": "wlasny rejs",
+        "PAX003139": "wlasny rejs",
+        "PAX003140": "wlasny rejs",
+        "PAX003141": "wlasny rejs",
+        "PAX003142": "wlasny rejs",
+        "PAX003143": "wlasny rejs",
+        "PAX003144": "wlasny rejs",
+        "PAX003145": "wlasny rejs",
+        "PAX003146": "wlasny rejs",
+        "PAX003147": "wlasny rejs",
+        "PAX003148": "wlasny rejs"
+      },
+      "crew_actions": [
+        "bez zmian dla zalogi"
+      ],
+      "valid_until": "2026-08-25T05:35:00+00:00",
+      "cost_low": {
+        "minor": 8259749,
+        "currency": "PLN",
+        "major": "82597.49"
+      },
+      "cost_expected": {
+        "minor": 8810399,
+        "currency": "PLN",
+        "major": "88103.99"
+      },
+      "cost_high": {
+        "minor": 11380099,
+        "currency": "PLN",
+        "major": "113800.99"
+      },
+      "threshold_note": "`REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Supervisor OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "kwota 113800.99 PLN miesci sie w pasmie roli `Supervisor OCC`"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.04
+}

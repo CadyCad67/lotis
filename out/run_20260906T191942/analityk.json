@@ -1,0 +1,136 @@
+{
+  "schema": "lotis.ai/v1",
+  "run_id": "20260906T191942",
+  "persona": "analityk",
+  "model": "minimax/minimax-m3:free",
+  "dry_run": false,
+  "ok": true,
+  "error": "",
+  "prompt_chars": 35979,
+  "prompt_tokens": 15040,
+  "completion_tokens": 2500,
+  "duration_ms": 15696.4,
+  "guard": {
+    "clean": false,
+    "checked": 141,
+    "allowed_pool": 186,
+    "exempted": {
+      "data ISO": 2,
+      "identyfikator node": 5,
+      "identyfikator runu": 1,
+      "naglowek struktury": 4,
+      "numer rejsu": 3,
+      "rozporzadzenie EU261": 1,
+      "znak rejestracyjny": 12
+    },
+    "errors": [
+      {
+        "severity": "ERROR",
+        "value": 18146.65,
+        "text": "18 146.65",
+        "context": "...opoznienie_w_siatce; 7 080.67 zaloga; − [18 146.65] roznica_kosztu_typu | | OVERNIGHT | RES..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 7.0,
+        "text": "7",
+        "context": "...53 880.90 | 624 360.00 odszkodowanie_art [7] ; 269 610.00 pozycjonowanie; 236 736.50..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 66.1,
+        "text": "66.1",
+        "context": "...wprost z powyższych wartości): - HOLD: [66.1] % (odmowa_przyjecia_art4) - SWAP- : 92.7..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 92.7,
+        "text": "92.7",
+        "context": "...66.1% (odmowa_przyjecia_art4) - SWAP- : [92.7] % (opoznienie_w_siatce) - SWAP- : 113.8%..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 113.8,
+        "text": "113.8",
+        "context": "...: 92.7% (opoznienie_w_siatce) - SWAP- : [113.8] % (opoznienie_w_siatce) — sam ten składn..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 49.8,
+        "text": "49.8",
+        "context": "...146.65) kompensuje nadmiar - OVERNIGHT: [49.8] % (odszkodowanie_art7) - CANCEL: 61.0% (..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 61.0,
+        "text": "61.0",
+        "context": "...T: 49.8% (odszkodowanie_art7) - CANCEL: [61.0] % (odszkodowanie_art7) - REBOOK-OAL: 42...."
+      },
+      {
+        "severity": "ERROR",
+        "value": 42.2,
+        "text": "42.2",
+        "context": "...1.0% (odszkodowanie_art7) - REBOOK-OAL: [42.2] % (rozliczenie_interline) Parametry wej..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 25.0,
+        "text": "25",
+        "context": "...i ich źródło Źródło widelek: kwantyle p [25] /mediana/p90 z 57 obserwacji na poziomie..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 90.0,
+        "text": "90",
+        "context": "...Źródło widelek: kwantyle p25/mediana/p [90] z 57 obserwacji na poziomie rejsu; p25..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 15.0,
+        "text": "15",
+        "context": "...iana = 46.00, p90 = 121.00, punktualność [15] = 0.00. Pewność widelek: 0.80 (real)...."
+      },
+      {
+        "severity": "ERROR",
+        "value": 150.0,
+        "text": "150",
+        "context": "...e (obie strony mają widełki w okolicach [150] –280 tys. PLN). Różnica między nimi (16..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 280.0,
+        "text": "280",
+        "context": "...bie strony mają widełki w okolicach 150– [280] tys. PLN). Różnica między nimi (16 757...."
+      },
+      {
+        "severity": "ERROR",
+        "value": 195448.31,
+        "text": "195 448.31",
+        "context": "....44–2 612 991.71). Różnica między nimi ( [195 448.31] PLN w korzyść OVERNIGHT) jest wielokrot..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 50.0,
+        "text": "50",
+        "context": "...rne widelki niektórych opcji są o ponad [50] % powyżej mediany. Dodatkowo, rzeczywis..."
+      }
+    ],
+    "warnings": [
+      {
+        "severity": "WARN",
+        "value": 0.93,
+        "text": "0.93",
+        "context": "...waga jest istotna. - Współczynnik dolny [0.93] i górny 1.54 z  opisują skalę rozstrza..."
+      },
+      {
+        "severity": "WARN",
+        "value": 1.54,
+        "text": "1.54",
+        "context": "...otna. - Współczynnik dolny 0.93 i górny [1.54] z  opisują skalę rozstrzału względem w..."
+      }
+    ],
+    "summary": "sprawdzono 141 liczb, 15 spoza raportow, 2 zaokraglonych."
+  },
+  "text": "# Analiza kosztowa — rejs LO6 / OVERNIGHT — run 20260906T191942\n\n## 1. STRUKTURA KOSZTU — składniki i ich udział\n\nSilnik wycenił 6 opcji. W tabeli poniżej rozbicie kosztów (bez propagacji sieciowej i revenue_at_risk, które node 11 dolicza osobno). Tryb liczenia różni się — MODIFYING liczy różnicę wobec sytuacji bez zakłócenia, RESTRUCTURING liczy pełny nowy zestaw kosztów. To oznacza, że porównywanie kwot nominalnych HOLD vs SWAP bez trybu jest mylące.\n\n| Opcja | Tryb | Koszt całkowity (PLN) | Główne składniki (kwota / pozycja) |\n|---|---|---:|---|\n| HOLD | MODIFYING | 27 339.13 | 18 060.00 odmowa_przyjecia_art4; 8 490.80 opoznienie_w_siatce; 788.33 zaloga |\n| SWAP-SP-LRF | RESTRUCTURING | 97 096.67 | 90 016.00 opoznienie_w_siatce; 7 080.67 zaloga |\n| SWAP-SP-LSC | RESTRUCTURING | 80 339.42 | 91 405.40 opoznienie_w_siatce; 7 080.67 zaloga; −18 146.65 roznica_kosztu_typu |\n| OVERNIGHT | RESTRUCTURING | 1 253 880.90 | 624 360.00 odszkodowanie_art7; 269 610.00 pozycjonowanie; 236 736.50 rebooking_wlasny_spill |\n| CANCEL | MODIFYING | 1 023 594.40 | 624 360.00 odszkodowanie_art7; 269 610.00 pozycjonowanie; 110 693.22 opieka_art9 |\n| REBOOK-OAL | RESTRUCTURING | 1 601 240.88 | 676 390.00 rozliczenie_interline; 624 360.00 odszkodowanie_art7; 269 610.00 pozycjonowanie |\n\nUdział procentowy największego składnika w kazdej opcji (liczony wprost z powyższych wartości):\n\n- HOLD: 66.1% (odmowa_przyjecia_art4)\n- SWAP-SP-LRF: 92.7% (opoznienie_w_siatce)\n- SWAP-SP-LSC: 113.8% (opoznienie_w_siatce) — sam ten składnik przekracza sumę, co oznacza, że ujemna korekta roznica_kosztu_typu (−18 146.65) kompensuje nadmiar\n- OVERNIGHT: 49.8% (odszkodowanie_art7)\n- CANCEL: 61.0% (odszkodowanie_art7)\n- REBOOK-OAL: 42.2% (rozliczenie_interline)\n\nParametry wejściowe EU261: kategoria C, odszkodowanie 2 580.00 PLN na pasażera, próg opieki 240 min, próg odszkodowania 180 min, p(odszkodowanie) = 1.0, kurs EUR/PLN = 4.3.\n\n## 2. CO DECYDUJE O WYNIKU\n\nDwie grupy opcji determinują zupełnie różne składniki:\n\n- **Opcje niskokosztowe (HOLD, SWAP-*)** — o wyniku decyduje opóźnienie w siatce (opoznienie_w_siatce) oraz odmowa przyjęcia art. 4. Żadna z tych opcji nie uruchamia odszkodowania art. 7 (pasazerow_z_odszkodowaniem = 0). Noclegów: 0.\n- **Opcje wysokokosztowe (OVERNIGHT, CANCEL, REBOOK-OAL)** — o wyniku decyduje odszkodowanie art. 7 (624 360.00 PLN we wszystkich trzech) plus pozycjonowanie (269 610.00 PLN) i składnik właściwy dla trybu: nocleg i rebooking (OVERNIGHT), opieka art. 9 (CANCEL), rozliczenie interline (REBOOK-OAL). Pasazerow_z_odszkodowaniem = 242, noclegów = 242 w tych trzech.\n\nTryb liczenia silnie zaburza porównywalność: SWAP-SP-LRF (RESTRUCTURING, 97 096.67) i CANCEL (MODIFYING, 1 023 594.40) nie mogą być porównywane nominalnie — różnica ok. 10× wynika głównie z konwencji liczenia, nie z natury zakłócenia. Ranking straty z node 11 (HOLD = 38 377.09 vs REBOOK-OAL = 1 844 835.88) wprowadza dodatkowo revenue_at_risk i propagację, więc pozycje w nim są inne niż w surowym koszcie.\n\n## 3. NIEPEWNOŚĆ — widelki i ich źródło\n\nŹródło widelek: kwantyle p25/mediana/p90 z 57 obserwacji na poziomie rejsu; p25 = 33.00, mediana = 46.00, p90 = 121.00, punktualność15 = 0.00. Pewność widelek: 0.80 (real).\n\nWidelki straty z node 11 (PLN):\n\n| Opcja | strata | widelki_min | widelki_max | rozpiętość |\n|---|---:|---:|---:|---:|\n| HOLD | 38 377.09 | 35 665.67 | 59 234.20 | 23 568.53 |\n| SWAP-SP-LSC | 161 864.62 | 150 428.54 | 249 834.52 | 99 405.98 |\n| SWAP-SP-LRF | 178 621.87 | 166 001.85 | 275 698.97 | 109 697.12 |\n| OVERNIGHT | 1 497 475.90 | 1 391 675.98 | 2 311 321.49 | 919 645.51 |\n| CANCEL | 1 692 924.21 | 1 573 315.44 | 2 612 991.71 | 1 039 676.27 |\n\nObserwacje:\n\n- Widelki SWAP-SP-LSC i SWAP-SP-LRF zachodzą na siebie (obie strony mają widełki w okolicach 150–280 tys. PLN). Różnica między nimi (16 757.25 PLN w korzyść SWAP-SP-LSC) jest mniejsza niż rozpiętość każdej z widełek z osobna — różnica nie jest istotna statystycznie przy tych widełkach.\n- Widelki OVERNIGHT i CANCEL również zachodzą na siebie (1 391 675.98–2 311 321.49 vs 1 573 315.44–2 612 991.71). Różnica między nimi (195 448.31 PLN w korzyść OVERNIGHT) jest wielokrotnie mniejsza niż rozpiętości widełek — rozróżnienie tych dwóch opcji przy tych widełkach nie jest istotne.\n- HOLD jest jedyną opcją z wąskimi widełkami (rozpiętość 23 568.53 PLN) i jest rzędu wielkości niżej niż wszystkie pozostałe — ta przewaga jest istotna.\n- Współczynnik dolny 0.93 i górny 1.54 z node 11 opisują skalę rozstrzału względem wartości centralnej; 1.54 oznacza, że górne widelki niektórych opcji są o ponad 50% powyżej mediany.\n\nDodatkowo, rzeczywisty koszt operacji nie jest dostępny w żadnym źródle (node 17 sygnalizuje brak — porównanie opiera się na opóźnieniu, nie na fakturach). Stawki K.care/K.reb/K.crew/K.grd/K.cxl/K.div/K.mc99 mają pewność 0.60 (policy, estimate); kurs EUR/PLN ma pewność 0.50 (placeholder). To poszerza rzeczywisty rozstrzał ponad to, co pokazują widelki.\n\n## 4. WPŁYW NA SIATKĘ — propagacja poza rejs źródłowy\n\nHoryzont propagacji: 1 odcinek, zatrzymany na BASE_RETURN (koniec doby operacyjnej 2026-08-22T02:00:00+00:00). Jeden rejs poniżej progu: LO7 JFK→WAW, STD 2026-08-21T23:40:00+00:00, bufor 0 min. Pasażerów transferowych na rejsie źródłowym: 99. Zalogi poza FDP: 11.\n\nPropagacja wg opcji (koszt_propagacji, przesiadki utracone, suma_propagacji_min):\n\n| Opcja | odcinki poniżej | suma_prop. min | przesiadki utracone | koszt_propagacji (PLN) | rejsów bez podstawienia |\n|---|---:|---:|---:|---:|---:|\n| HOLD | 1 | 20 | 0 | 8 490.80 | 0 |\n| SWAP-SP-LRF | 1 | 136 | 99 | 81 525.20 | 0 |\n| SWAP-SP-LSC | 1 | 136 | 99 | 81 525.20 | 0 |\n| REBOOK-OAL | 1 | 0 | 99 | 243 595.00 | 1 |\n| OVERNIGHT | 1 | 0 | 99 | 243 595.00 | 1 |\n| CANCEL | 1 | 0 | 99 | 243 595.00 | 1 |\n\nUwagi:\n\n- Propagacja mierzona poza rejsem źródłowym zamyka się na LO7 i na 99 pasażerach transferowych — to",
+  "files": []
+}

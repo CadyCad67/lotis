@@ -1,0 +1,414 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T130726",
+  "node": {
+    "id": "16",
+    "name": "log",
+    "title": "LOG"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Zapisano 9 rozwazonych opcji, w tym 0 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.",
+  "numbers": {
+    "opcji_w_logu": {
+      "value": 9,
+      "unit": "szt"
+    },
+    "opcji_odrzuconych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "odcisk_wpisu": {
+      "value": "sha256:b464e42bc44e4d43b6bf47e6",
+      "unit": ""
+    },
+    "wersja_silnika": {
+      "value": "1.0.0",
+      "unit": ""
+    },
+    "wersja_bazy": {
+      "value": "5.0",
+      "unit": ""
+    },
+    "nadpisania": {
+      "value": "brak",
+      "unit": ""
+    },
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "SWAP-SP-LDH",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "wpis": {
+      "schema": "lotis.audit/v1",
+      "run_id": "20260906T130726",
+      "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+      "czas_runu": "2026-09-06T13:07:26.912171+00:00",
+      "zaklocenie": {
+        "id": "DSR-LO417-2026-08-25-0",
+        "rejs": "LO417-2026-08-25",
+        "typ": "TECHNICAL",
+        "opoznienie_min": 180,
+        "termin_decyzji": "2026-08-25T07:20:00+00:00",
+        "iteracja": 0,
+        "wyzwalacz": "INITIAL"
+      },
+      "opcje_rozwazone": [
+        {
+          "id": "HOLD",
+          "label": "Wstrzymaj odlot o 180 min",
+          "tryb": "MODIFYING",
+          "generator": "SZ.HOLD",
+          "strata": {
+            "minor": 8776060,
+            "currency": "PLN",
+            "major": "87760.60"
+          },
+          "widelki": {
+            "min": {
+              "minor": 8227557,
+              "currency": "PLN",
+              "major": "82275.57"
+            },
+            "max": {
+              "minor": 11262610,
+              "currency": "PLN",
+              "major": "112626.10"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 9
+        },
+        {
+          "id": "SWAP-SP-LDH",
+          "label": "Podmien maszyne na SP-LDH (E170)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 6078355,
+            "currency": "PLN",
+            "major": "60783.55"
+          },
+          "widelki": {
+            "min": {
+              "minor": 5698458,
+              "currency": "PLN",
+              "major": "56984.58"
+            },
+            "max": {
+              "minor": 7800555,
+              "currency": "PLN",
+              "major": "78005.55"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 1
+        },
+        {
+          "id": "SWAP-SP-LIK",
+          "label": "Podmien maszyne na SP-LIK (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 6398688,
+            "currency": "PLN",
+            "major": "63986.88"
+          },
+          "widelki": {
+            "min": {
+              "minor": 5998770,
+              "currency": "PLN",
+              "major": "59987.70"
+            },
+            "max": {
+              "minor": 8211649,
+              "currency": "PLN",
+              "major": "82116.49"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 2
+        },
+        {
+          "id": "SWAP-SP-LIL",
+          "label": "Podmien maszyne na SP-LIL (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 6398688,
+            "currency": "PLN",
+            "major": "63986.88"
+          },
+          "widelki": {
+            "min": {
+              "minor": 5998770,
+              "currency": "PLN",
+              "major": "59987.70"
+            },
+            "max": {
+              "minor": 8211649,
+              "currency": "PLN",
+              "major": "82116.49"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 3
+        },
+        {
+          "id": "REBOOK-OWN",
+          "label": "Przenies na wlasny rejs LO415 (+550 min)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OWN",
+          "strata": {
+            "minor": 7810692,
+            "currency": "PLN",
+            "major": "78106.92"
+          },
+          "widelki": {
+            "min": {
+              "minor": 7322524,
+              "currency": "PLN",
+              "major": "73225.24"
+            },
+            "max": {
+              "minor": 10023721,
+              "currency": "PLN",
+              "major": "100237.21"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 4
+        },
+        {
+          "id": "REBOOK-OAL",
+          "label": "Przenies na przewoznika obcego do GVA",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OAL",
+          "strata": {
+            "minor": 9990792,
+            "currency": "PLN",
+            "major": "99907.92"
+          },
+          "widelki": {
+            "min": {
+              "minor": 9366368,
+              "currency": "PLN",
+              "major": "93663.68"
+            },
+            "max": {
+              "minor": 12821516,
+              "currency": "PLN",
+              "major": "128215.16"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 8
+        },
+        {
+          "id": "OVERNIGHT",
+          "label": "Nocleg i rejs nastepnego dnia",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.OVERNIGHT",
+          "strata": {
+            "minor": 9860704,
+            "currency": "PLN",
+            "major": "98607.04"
+          },
+          "widelki": {
+            "min": {
+              "minor": 9244410,
+              "currency": "PLN",
+              "major": "92444.10"
+            },
+            "max": {
+              "minor": 12654570,
+              "currency": "PLN",
+              "major": "126545.70"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 7
+        },
+        {
+          "id": "CANCEL",
+          "label": "Odwolaj rejs",
+          "tryb": "MODIFYING",
+          "generator": "SZ.CANCEL",
+          "strata": {
+            "minor": 9516094,
+            "currency": "PLN",
+            "major": "95160.94"
+          },
+          "widelki": {
+            "min": {
+              "minor": 8921339,
+              "currency": "PLN",
+              "major": "89213.39"
+            },
+            "max": {
+              "minor": 12212320,
+              "currency": "PLN",
+              "major": "122123.20"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 6
+        },
+        {
+          "id": "SPLIT",
+          "label": "Rozdziel: 26 na LO415, reszta na obcego",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SPLIT",
+          "strata": {
+            "minor": 8900742,
+            "currency": "PLN",
+            "major": "89007.42"
+          },
+          "widelki": {
+            "min": {
+              "minor": 8344446,
+              "currency": "PLN",
+              "major": "83444.46"
+            },
+            "max": {
+              "minor": 11422618,
+              "currency": "PLN",
+              "major": "114226.18"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 5
+        }
+      ],
+      "rekomendacja": {
+        "id": "SWAP-SP-LDH",
+        "strata": {
+          "minor": 6078355,
+          "currency": "PLN",
+          "major": "60783.55"
+        },
+        "oszczednosc": {
+          "minor": 2697705,
+          "currency": "PLN",
+          "major": "26977.05"
+        }
+      },
+      "decyzja_czlowieka": {
+        "rodzaj": "ACCEPT",
+        "opcja": "SWAP-SP-LDH",
+        "operator": "OCC-DUTY",
+        "kod_przyczyny": "",
+        "rola": "Supervisor OCC",
+        "drugi_podpis": false,
+        "odstepstwo": false
+      },
+      "wykonanie": null,
+      "karta_wykonania": {
+        "option_id": "SWAP-SP-LDH",
+        "label": "Podmien maszyne na SP-LDH (E170)",
+        "what_changes": [
+          "podmiana maszyny miedzy LO417 i LO509",
+          "LO417: odlot pozniej o 36 min (z 07:20 UTC)",
+          "LO509: odlot pozniej o 180 min (z 11:05 UTC)",
+          "LO417: typ E75S -> E170",
+          "LO509: typ E170 -> E75S"
+        ],
+        "pax_offloaded": 0,
+        "pax_order": [],
+        "rebooked_to": {},
+        "crew_actions": [
+          "zaloga rejsu LO417 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem",
+          "wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne"
+        ],
+        "valid_until": "2026-08-25T07:20:00+00:00",
+        "cost_low": {
+          "minor": 5698458,
+          "currency": "PLN",
+          "major": "56984.58"
+        },
+        "cost_expected": {
+          "minor": 6078355,
+          "currency": "PLN",
+          "major": "60783.55"
+        },
+        "cost_high": {
+          "minor": 7800555,
+          "currency": "PLN",
+          "major": "78005.55"
+        },
+        "threshold_note": "`SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min",
+        "authorization_role": "Supervisor OCC",
+        "second_signature": false
+      },
+      "wersje": {
+        "engine": "1.0.0",
+        "data": "5.0",
+        "data_generated": "2026-08-28",
+        "authorization": "2026.07",
+        "escalation": "2026.07",
+        "sop": "2026.03",
+        "overrides": "brak"
+      },
+      "nadpisania_uzyte": {},
+      "budzet": {
+        "total_ms": 20000.0,
+        "elapsed_ms": 2327.4,
+        "remaining_ms": 17672.6,
+        "level": "FULL",
+        "level_label": "pelny",
+        "per_node_ms": {
+          "01": 1576.5,
+          "02": 10.7,
+          "03": 521.2,
+          "04": 5.9,
+          "05": 9.4,
+          "06": 0.1,
+          "07": 33.3,
+          "08": 1.1,
+          "09": 5.3,
+          "10": 70.2,
+          "11": 0.3,
+          "12": 0.4,
+          "13": 0.4,
+          "14": 48.7,
+          "15": 0.1,
+          "15b": 0.1
+        }
+      },
+      "degradacja": "FULL",
+      "odcisk": "sha256:b464e42bc44e4d43b6bf47e6"
+    }
+  },
+  "decisions": [
+    "log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego",
+    "wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 4.1
+}

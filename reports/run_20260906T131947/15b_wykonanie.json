@@ -1,0 +1,35 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T131947",
+  "node": {
+    "id": "15b",
+    "name": "wykonanie",
+    "title": "WYKONANIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:3b1d18402faf79f0e77fd3d167817e01",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "wykonanie nie powiodlo sie na kroku nowy_slot: Slot Coordination / EUROCONTROL nie potwierdzil kroku `wystapienie o nowe okno startowe`",
+  "numbers": {},
+  "findings": {
+    "execution_failure": {
+      "step": "nowy_slot",
+      "reason": "Slot Coordination / EUROCONTROL nie potwierdzil kroku `wystapienie o nowe okno startowe`",
+      "recoverable": true
+    }
+  },
+  "decisions": [],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.11
+}

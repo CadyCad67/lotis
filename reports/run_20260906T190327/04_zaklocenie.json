@@ -1,0 +1,151 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T190327",
+  "node": {
+    "id": "04",
+    "name": "zaklocenie",
+    "title": "ZAKLOCENIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Usterka techniczna na rejsie LO3981 WAW-IEG, szacowane opoznienie 180 min. Decyzja do 07:05 UTC (45 min).",
+  "numbers": {
+    "rejs": {
+      "value": "LO3981",
+      "unit": ""
+    },
+    "relacja": {
+      "value": "WAW-IEG",
+      "unit": ""
+    },
+    "typ_zaklocenia": {
+      "value": "TECHNICAL",
+      "unit": ""
+    },
+    "opoznienie_szacowane": {
+      "value": 180,
+      "unit": "min"
+    },
+    "nadsprzedaz": {
+      "value": 0,
+      "unit": "rezerwacji"
+    },
+    "ponad_pojemnosc": {
+      "value": 0,
+      "unit": "osob"
+    },
+    "kod_opoznienia": {
+      "value": "41",
+      "unit": ""
+    },
+    "klasa_kodu": {
+      "value": "c",
+      "unit": ""
+    },
+    "p_odszkodowania": {
+      "value": 1.0,
+      "unit": ""
+    },
+    "okno_decyzji": {
+      "value": 45,
+      "unit": "min"
+    },
+    "iteracja": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "powod_wejscia": {
+      "value": "INITIAL",
+      "unit": ""
+    },
+    "odcinkow_ponizej": {
+      "value": 6,
+      "unit": "szt"
+    },
+    "pasazerow_na_rejsie": {
+      "value": 82,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "rejs": {
+      "id": "LO3981-2026-08-21",
+      "numer": "LO3981",
+      "z": "WAW",
+      "do": "IEG",
+      "std": "2026-08-21T07:05:00+00:00",
+      "sta": "2026-08-21T08:05:00+00:00",
+      "typ": "E75S",
+      "maszyna": "SP-LIC",
+      "rotacja": "ROT-SP-LIC-2026-08-21"
+    },
+    "kod_opoznienia": {
+      "kod": "41",
+      "opis": "Usterka techniczna samolotu",
+      "grupa": "Techniczne",
+      "orzecznictwo_tsue": true
+    },
+    "odcinki_ponizej": [
+      {
+        "id": "LO3982-2026-08-21",
+        "numer": "LO3982",
+        "z": "IEG",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3853-2026-08-21",
+        "numer": "LO3853",
+        "z": "WAW",
+        "do": "WRO"
+      },
+      {
+        "id": "LO3854-2026-08-21",
+        "numer": "LO3854",
+        "z": "WRO",
+        "do": "WAW"
+      },
+      {
+        "id": "LO237-2026-08-21",
+        "numer": "LO237",
+        "z": "WAW",
+        "do": "BRU"
+      },
+      {
+        "id": "LO238-2026-08-21",
+        "numer": "LO238",
+        "z": "BRU",
+        "do": "WAW"
+      },
+      {
+        "id": "LO485-2026-08-21",
+        "numer": "LO485",
+        "z": "WAW",
+        "do": "OSL"
+      }
+    ]
+  },
+  "decisions": [
+    "klasa kodu `c` daje prawdopodobienstwo odszkodowania 1.0 -- node 09 mnozy przez nie kwote z Art. 7"
+  ],
+  "assumptions": [
+    {
+      "field": "opoznienie szacowane",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "wartosc podana przy zgloszeniu, nie zmierzona"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 11.42
+}

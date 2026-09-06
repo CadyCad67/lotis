@@ -1,0 +1,342 @@
+# [16] LOG
+
+**Status:** ok · **run:** `20260906T194742` · **snapshot:** `sha256:6c790f69f87c3591` · **3.98 ms**
+
+Zapisano 9 rozwazonych opcji, w tym 1 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `opcji_w_logu` | 9 | szt |
+| `opcji_odrzuconych` | 1 | szt |
+| `odcisk_wpisu` | sha256:1fc47cd67529d25dc040334d | - |
+| `wersja_silnika` | 1.0.0 | - |
+| `wersja_bazy` | 5.0 | - |
+| `nadpisania` | brak | - |
+| `decyzja` | ACCEPT | - |
+| `wybrana_opcja` | REBOOK-OWN | - |
+
+## Co ten node ustalil
+
+- log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego
+- wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku
+
+## Szczegoly
+
+- **wpis**
+  - **schema:** lotis.audit/v1
+  - **run_id:** 20260906T194742
+  - **snapshot:** sha256:6c790f69f87c359132b1de878467789b
+  - **czas_runu:** 2026-09-06T19:47:42.790400+00:00
+  - **zaklocenie**
+    - **id:** DSR-LO395-2026-08-24-0
+    - **rejs:** LO395-2026-08-24
+    - **typ:** TECHNICAL
+    - **opoznienie_min:** 720
+    - **termin_decyzji:** 2026-08-24T09:05:00+00:00
+    - **iteracja:** 0
+    - **wyzwalacz:** INITIAL
+  - **opcje_rozwazone**
+    - **HOLD**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.HOLD
+      - **strata**
+        - **minor:** 39 033 403
+        - **currency:** PLN
+        - **major:** 390334.03
+      - **widelki**
+        - **min**
+          - **minor:** 34 967 424
+          - **currency:** PLN
+          - **major:** 349674.24
+        - **max**
+          - **minor:** 53 670 929
+          - **currency:** PLN
+          - **major:** 536709.29
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 9 EU261
+        - **powod:** oczekiwanie 720 min bez zapewnionego noclegu (prog opieki 120 min)
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LIC**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 23 185 150
+        - **currency:** PLN
+        - **major:** 231851.50
+      - **widelki**
+        - **min**
+          - **minor:** 20 770 031
+          - **currency:** PLN
+          - **major:** 207700.31
+        - **max**
+          - **minor:** 31 879 581
+          - **currency:** PLN
+          - **major:** 318795.81
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 7
+    - **SWAP-SP-LID**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 23 305 560
+        - **currency:** PLN
+        - **major:** 233055.60
+      - **widelki**
+        - **min**
+          - **minor:** 20 877 898
+          - **currency:** PLN
+          - **major:** 208778.98
+        - **max**
+          - **minor:** 32 045 145
+          - **currency:** PLN
+          - **major:** 320451.45
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 8
+    - **SWAP-SP-LII**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 23 125 440
+        - **currency:** PLN
+        - **major:** 231254.40
+      - **widelki**
+        - **min**
+          - **minor:** 20 716 541
+          - **currency:** PLN
+          - **major:** 207165.41
+        - **max**
+          - **minor:** 31 797 480
+          - **currency:** PLN
+          - **major:** 317974.80
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 6
+    - **REBOOK-OWN**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.REBOOK-OWN
+      - **strata**
+        - **minor:** 13 516 921
+        - **currency:** PLN
+        - **major:** 135169.21
+      - **widelki**
+        - **min**
+          - **minor:** 12 108 909
+          - **currency:** PLN
+          - **major:** 121089.09
+        - **max**
+          - **minor:** 18 585 766
+          - **currency:** PLN
+          - **major:** 185857.66
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 1
+    - **REBOOK-OAL**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.REBOOK-OAL
+      - **strata**
+        - **minor:** 18 867 196
+        - **currency:** PLN
+        - **major:** 188671.96
+      - **widelki**
+        - **min**
+          - **minor:** 16 901 864
+          - **currency:** PLN
+          - **major:** 169018.64
+        - **max**
+          - **minor:** 25 942 394
+          - **currency:** PLN
+          - **major:** 259423.94
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 5
+    - **OVERNIGHT**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.OVERNIGHT
+      - **strata**
+        - **minor:** 16 587 370
+        - **currency:** PLN
+        - **major:** 165873.70
+      - **widelki**
+        - **min**
+          - **minor:** 14 859 519
+          - **currency:** PLN
+          - **major:** 148595.19
+        - **max**
+          - **minor:** 22 807 633
+          - **currency:** PLN
+          - **major:** 228076.33
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 4
+    - **CANCEL**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.CANCEL
+      - **strata**
+        - **minor:** 15 102 637
+        - **currency:** PLN
+        - **major:** 151026.37
+      - **widelki**
+        - **min**
+          - **minor:** 13 529 446
+          - **currency:** PLN
+          - **major:** 135294.46
+        - **max**
+          - **minor:** 20 766 125
+          - **currency:** PLN
+          - **major:** 207661.25
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 2
+    - **SPLIT**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SPLIT
+      - **strata**
+        - **minor:** 16 225 921
+        - **currency:** PLN
+        - **major:** 162259.21
+      - **widelki**
+        - **min**
+          - **minor:** 14 535 721
+          - **currency:** PLN
+          - **major:** 145357.21
+        - **max**
+          - **minor:** 22 310 641
+          - **currency:** PLN
+          - **major:** 223106.41
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 3
+  - **rekomendacja**
+    - **id:** REBOOK-OWN
+    - **strata**
+      - **minor:** 13 516 921
+      - **currency:** PLN
+      - **major:** 135169.21
+    - **oszczednosc**
+      - **minor:** 9 668 229
+      - **currency:** PLN
+      - **major:** 96682.29
+  - **decyzja_czlowieka**
+    - **rodzaj:** ACCEPT
+    - **opcja:** REBOOK-OWN
+    - **operator:** OCC-DUTY
+    - **kod_przyczyny:** 
+    - **rola:** Duty Manager OCC
+    - **drugi_podpis:** 1
+    - **odstepstwo:** 0
+  - **wykonanie**
+    - **opcja:** REBOOK-OWN
+    - **kroki**
+      - **kasacja_w_systemie**
+        - **wykonawca:** System rezerwacyjny
+        - **opis:** odwolanie rejsu i zwolnienie miejsc
+        - **odwracalny:** 0
+        - **krytyczny:** 1
+        - **status:** wykonany
+      - **przepisanie_wlasne**
+        - **wykonawca:** System rezerwacyjny
+        - **opis:** przepisanie pasazerow na wlasny rejs
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **powiadomienie_pax**
+        - **wykonawca:** Komunikacja
+        - **opis:** wyslanie SMS i e-mail do pasazerow
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **brief_zalogi**
+        - **wykonawca:** Crew Control
+        - **opis:** poinformowanie zalogi o zmianie
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+    - **udane:** 1
+  - **karta_wykonania**
+    - **option_id:** REBOOK-OWN
+    - **label:** Przenies na wlasny rejs LO393 (+480 min)
+    - **what_changes**
+      - LO395: rejs odwolany
+      - 79 pasazerow na wlasny rejs (LO393, odlot 17:05 UTC) -- oczekiwanie 480 min
+    - **pax_offloaded:** 0
+    - **pax_order:** -
+    - **rebooked_to**
+      - **PAX002023:** wlasny rejs
+      - **PAX002029:** wlasny rejs
+      - **PAX002036:** wlasny rejs
+      - **PAX002058:** wlasny rejs
+      - **PAX002089:** wlasny rejs
+      - **PAX002101:** wlasny rejs
+      - **PAX002113:** wlasny rejs
+      - **PAX004499:** wlasny rejs
+      - **PAX004540:** wlasny rejs
+      - **PAX005143:** wlasny rejs
+      - **PAX005145:** wlasny rejs
+      - **PAX005166:** wlasny rejs
+      - **PAX005173:** wlasny rejs
+      - **PAX005568:** wlasny rejs
+      - **PAX005579:** wlasny rejs
+      - **PAX005582:** wlasny rejs
+      - **PAX005588:** wlasny rejs
+      - **PAX005590:** wlasny rejs
+      - **PAX005609:** wlasny rejs
+      - **PAX005617:** wlasny rejs
+    - **crew_actions**
+      - bez zmian dla zalogi
+    - **valid_until:** 2026-08-24T09:05:00+00:00
+    - **cost_low**
+      - **minor:** 12 108 909
+      - **currency:** PLN
+      - **major:** 121089.09
+    - **cost_expected**
+      - **minor:** 13 516 921
+      - **currency:** PLN
+      - **major:** 135169.21
+    - **cost_high**
+      - **minor:** 18 585 766
+      - **currency:** PLN
+      - **major:** 185857.66
+    - **threshold_note:** `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+    - **authorization_role:** Duty Manager OCC
+    - **second_signature:** 1
+  - **wersje**
+    - **engine:** 1.0.0
+    - **data:** 5.0
+    - **data_generated:** 2026-08-28
+    - **authorization:** 2026.07
+    - **escalation:** 2026.07
+    - **sop:** 2026.03
+    - **overrides:** brak
+  - **nadpisania_uzyte:** {}
+  - **budzet**
+    - **total_ms:** 20 000.00
+    - **elapsed_ms:** 2 636.90
+    - **remaining_ms:** 17 363.10
+    - **level:** FULL
+    - **level_label:** pelny
+    - **per_node_ms**
+      - **01:** 1 785.70
+      - **02:** 12.30
+      - **03:** 576.50
+      - **04:** 14.60
+      - **05:** 11.30
+      - **06:** 0.10
+      - **07:** 40.00
+      - **08:** 1.60
+      - **09:** 7.60
+      - **10:** 82.70
+      - **11:** 0.60
+      - **12:** 0.50
+      - **13:** 0.40
+      - **14:** 56.30
+      - **15:** 0.00
+      - **15b:** 0.10
+  - **degradacja:** FULL
+  - **odcisk:** sha256:1fc47cd67529d25dc040334d
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

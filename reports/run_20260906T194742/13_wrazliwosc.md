@@ -1,0 +1,389 @@
+# [13] WRAZLIWOSC
+
+**Status:** ok · **run:** `20260906T194742` · **snapshot:** `sha256:6c790f69f87c3591` · **0.43 ms**
+
+Ranking koncowy 8 dopuszczalnych opcji. Rekomendacja: `REBOOK-OWN` (135169.21 PLN), oszczednosc wobec opcji domyslnej `SWAP-SP-LIC`: 96682.29 PLN.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `rekomendacja` | REBOOK-OWN | - |
+| `strata_rekomendacji` | 135169.21 PLN | PLN |
+| `widelki_min` | 121089.09 PLN | PLN |
+| `widelki_max` | 185857.66 PLN | PLN |
+| `opcja_domyslna` | SWAP-SP-LIC | - |
+| `strata_opcji_domyslnej` | 231851.50 PLN | PLN |
+| `oszczednosc` | 96682.29 PLN | PLN |
+| `prog_oplacalnosci` | 120 | min |
+| `opcji_w_rankingu` | 8 | szt |
+
+## Co ten node ustalil
+
+- opcja domyslna to `SWAP-SP-LIC` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia
+- `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+- waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie
+
+## Szczegoly
+
+- **ranking_koncowy**
+  - **REBOOK-OWN**
+    - **pozycja:** 1
+    - **strata**
+      - **minor:** 13 516 921
+      - **currency:** PLN
+      - **major:** 135169.21
+    - **min**
+      - **minor:** 12 108 909
+      - **currency:** PLN
+      - **major:** 121089.09
+    - **max**
+      - **minor:** 18 585 766
+      - **currency:** PLN
+      - **major:** 185857.66
+    - **oszczednosc**
+      - **minor:** 9 668 229
+      - **currency:** PLN
+      - **major:** 96682.29
+    - **wskaznik:** 14 588 063.75
+    - **uwaga_polityki:** 23 utraconych przesiadek; szerokie widelki
+  - **CANCEL**
+    - **pozycja:** 2
+    - **strata**
+      - **minor:** 15 102 637
+      - **currency:** PLN
+      - **major:** 151026.37
+    - **min**
+      - **minor:** 13 529 446
+      - **currency:** PLN
+      - **major:** 135294.46
+    - **max**
+      - **minor:** 20 766 125
+      - **currency:** PLN
+      - **major:** 207661.25
+    - **oszczednosc**
+      - **minor:** 8 082 513
+      - **currency:** PLN
+      - **major:** 80825.13
+    - **wskaznik:** 16 299 439.15
+    - **uwaga_polityki:** 23 utraconych przesiadek; szerokie widelki
+  - **SPLIT**
+    - **pozycja:** 3
+    - **strata**
+      - **minor:** 16 225 921
+      - **currency:** PLN
+      - **major:** 162259.21
+    - **min**
+      - **minor:** 14 535 721
+      - **currency:** PLN
+      - **major:** 145357.21
+    - **max**
+      - **minor:** 22 310 641
+      - **currency:** PLN
+      - **major:** 223106.41
+    - **oszczednosc**
+      - **minor:** 6 959 229
+      - **currency:** PLN
+      - **major:** 69592.29
+    - **wskaznik:** 17 511 737.34
+    - **uwaga_polityki:** 23 utraconych przesiadek; szerokie widelki
+  - **OVERNIGHT**
+    - **pozycja:** 4
+    - **strata**
+      - **minor:** 16 587 370
+      - **currency:** PLN
+      - **major:** 165873.70
+    - **min**
+      - **minor:** 14 859 519
+      - **currency:** PLN
+      - **major:** 148595.19
+    - **max**
+      - **minor:** 22 807 633
+      - **currency:** PLN
+      - **major:** 228076.33
+    - **oszczednosc**
+      - **minor:** 6 597 780
+      - **currency:** PLN
+      - **major:** 65977.80
+    - **wskaznik:** 17 901 829.21
+    - **uwaga_polityki:** 23 utraconych przesiadek; szerokie widelki
+  - **REBOOK-OAL**
+    - **pozycja:** 5
+    - **strata**
+      - **minor:** 18 867 196
+      - **currency:** PLN
+      - **major:** 188671.96
+    - **min**
+      - **minor:** 16 901 864
+      - **currency:** PLN
+      - **major:** 169018.64
+    - **max**
+      - **minor:** 25 942 394
+      - **currency:** PLN
+      - **major:** 259423.94
+    - **oszczednosc**
+      - **minor:** 4 317 954
+      - **currency:** PLN
+      - **major:** 43179.54
+    - **wskaznik:** 20 362 319.06
+    - **uwaga_polityki:** 23 utraconych przesiadek; szerokie widelki
+  - **SWAP-SP-LII**
+    - **pozycja:** 6
+    - **strata**
+      - **minor:** 23 125 440
+      - **currency:** PLN
+      - **major:** 231254.40
+    - **min**
+      - **minor:** 20 716 541
+      - **currency:** PLN
+      - **major:** 207165.41
+    - **max**
+      - **minor:** 31 797 480
+      - **currency:** PLN
+      - **major:** 317974.80
+    - **oszczednosc**
+      - **minor:** 59 710
+      - **currency:** PLN
+      - **major:** 597.10
+    - **wskaznik:** 28 016 470.54
+    - **uwaga_polityki:** propagacja 747 min (waga rotacji 1.0); szerokie widelki
+  - **SWAP-SP-LIC**
+    - **pozycja:** 7
+    - **strata**
+      - **minor:** 23 185 150
+      - **currency:** PLN
+      - **major:** 231851.50
+    - **min**
+      - **minor:** 20 770 031
+      - **currency:** PLN
+      - **major:** 207700.31
+    - **max**
+      - **minor:** 31 879 581
+      - **currency:** PLN
+      - **major:** 318795.81
+    - **oszczednosc**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **wskaznik:** 28 088 809.20
+    - **uwaga_polityki:** propagacja 742 min (waga rotacji 1.0); szerokie widelki
+  - **SWAP-SP-LID**
+    - **pozycja:** 8
+    - **strata**
+      - **minor:** 23 305 560
+      - **currency:** PLN
+      - **major:** 233055.60
+    - **min**
+      - **minor:** 20 877 898
+      - **currency:** PLN
+      - **major:** 208778.98
+    - **max**
+      - **minor:** 32 045 145
+      - **currency:** PLN
+      - **major:** 320451.45
+    - **oszczednosc**
+      - **minor:** -120 410
+      - **currency:** PLN
+      - **major:** -1204.10
+    - **wskaznik:** 28 234 685.93
+    - **uwaga_polityki:** propagacja 747 min (waga rotacji 1.0); szerokie widelki
+- **test_wrazliwosci**
+  - **krok_min:** 30
+  - **lider:** REBOOK-OWN
+  - **ranking**
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 13 516 921
+        - **currency:** PLN
+        - **major:** 135169.21
+    - **CANCEL**
+      - **strata**
+        - **minor:** 15 102 637
+        - **currency:** PLN
+        - **major:** 151026.37
+    - **SPLIT**
+      - **strata**
+        - **minor:** 16 225 921
+        - **currency:** PLN
+        - **major:** 162259.21
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 16 587 370
+        - **currency:** PLN
+        - **major:** 165873.70
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 18 867 196
+        - **currency:** PLN
+        - **major:** 188671.96
+    - **SWAP-SP-LII**
+      - **strata**
+        - **minor:** 23 161 440
+        - **currency:** PLN
+        - **major:** 231614.40
+    - **SWAP-SP-LIC**
+      - **strata**
+        - **minor:** 23 221 150
+        - **currency:** PLN
+        - **major:** 232211.50
+    - **SWAP-SP-LID**
+      - **strata**
+        - **minor:** 23 341 560
+        - **currency:** PLN
+        - **major:** 233415.60
+  - **krok_min:** 60
+  - **lider:** REBOOK-OWN
+  - **ranking**
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 13 516 921
+        - **currency:** PLN
+        - **major:** 135169.21
+    - **CANCEL**
+      - **strata**
+        - **minor:** 15 102 637
+        - **currency:** PLN
+        - **major:** 151026.37
+    - **SPLIT**
+      - **strata**
+        - **minor:** 16 225 921
+        - **currency:** PLN
+        - **major:** 162259.21
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 16 587 370
+        - **currency:** PLN
+        - **major:** 165873.70
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 18 867 196
+        - **currency:** PLN
+        - **major:** 188671.96
+    - **SWAP-SP-LII**
+      - **strata**
+        - **minor:** 23 197 440
+        - **currency:** PLN
+        - **major:** 231974.40
+    - **SWAP-SP-LIC**
+      - **strata**
+        - **minor:** 23 257 150
+        - **currency:** PLN
+        - **major:** 232571.50
+    - **SWAP-SP-LID**
+      - **strata**
+        - **minor:** 23 377 560
+        - **currency:** PLN
+        - **major:** 233775.60
+  - **krok_min:** 120
+  - **lider:** REBOOK-OWN
+  - **ranking**
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 13 516 921
+        - **currency:** PLN
+        - **major:** 135169.21
+    - **CANCEL**
+      - **strata**
+        - **minor:** 15 102 637
+        - **currency:** PLN
+        - **major:** 151026.37
+    - **SPLIT**
+      - **strata**
+        - **minor:** 16 225 921
+        - **currency:** PLN
+        - **major:** 162259.21
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 16 587 370
+        - **currency:** PLN
+        - **major:** 165873.70
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 18 867 196
+        - **currency:** PLN
+        - **major:** 188671.96
+    - **SWAP-SP-LII**
+      - **strata**
+        - **minor:** 23 269 440
+        - **currency:** PLN
+        - **major:** 232694.40
+    - **SWAP-SP-LIC**
+      - **strata**
+        - **minor:** 23 329 150
+        - **currency:** PLN
+        - **major:** 233291.50
+    - **SWAP-SP-LID**
+      - **strata**
+        - **minor:** 23 449 560
+        - **currency:** PLN
+        - **major:** 234495.60
+- **prog_oplacalnosci**
+  - **do_minut:** 120
+  - **przejmuje:** 
+  - **opis:** `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+- **wagi_polityki**
+  - **rot:** 1.00
+  - **trf:** 1.00
+  - **vuln:** 1.00
+  - **unc:** 1.00
+  - **cx:** 1.00
+  - **crew:** 1.00
+- **opcje_odrzucone_przez_prawo**
+  - **HOLD**
+    - **reguly**
+      - Art. 9 EU261
+- **karta_wykonania**
+  - **option_id:** REBOOK-OWN
+  - **label:** Przenies na wlasny rejs LO393 (+480 min)
+  - **what_changes**
+    - LO395: rejs odwolany
+    - 79 pasazerow na wlasny rejs (LO393, odlot 17:05 UTC) -- oczekiwanie 480 min
+  - **pax_offloaded:** 0
+  - **pax_order:** -
+  - **rebooked_to**
+    - **PAX002023:** wlasny rejs
+    - **PAX002029:** wlasny rejs
+    - **PAX002036:** wlasny rejs
+    - **PAX002058:** wlasny rejs
+    - **PAX002089:** wlasny rejs
+    - **PAX002101:** wlasny rejs
+    - **PAX002113:** wlasny rejs
+    - **PAX004499:** wlasny rejs
+    - **PAX004540:** wlasny rejs
+    - **PAX005143:** wlasny rejs
+    - **PAX005145:** wlasny rejs
+    - **PAX005166:** wlasny rejs
+    - **PAX005173:** wlasny rejs
+    - **PAX005568:** wlasny rejs
+    - **PAX005579:** wlasny rejs
+    - **PAX005582:** wlasny rejs
+    - **PAX005588:** wlasny rejs
+    - **PAX005590:** wlasny rejs
+    - **PAX005609:** wlasny rejs
+    - **PAX005617:** wlasny rejs
+  - **crew_actions**
+    - bez zmian dla zalogi
+  - **valid_until:** 2026-08-24T09:05:00+00:00
+  - **cost_low**
+    - **minor:** 12 108 909
+    - **currency:** PLN
+    - **major:** 121089.09
+  - **cost_expected**
+    - **minor:** 13 516 921
+    - **currency:** PLN
+    - **major:** 135169.21
+  - **cost_high**
+    - **minor:** 18 585 766
+    - **currency:** PLN
+    - **major:** 185857.66
+  - **threshold_note:** `REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min
+  - **authorization_role:** Duty Manager OCC
+  - **second_signature:** 1
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `prog oplacalnosci` | derived | 0.70 | policzony na siatce +30/+60/+120 min, nie w sposob ciagly |
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

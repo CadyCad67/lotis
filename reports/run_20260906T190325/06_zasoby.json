@@ -1,0 +1,89 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T190325",
+  "node": {
+    "id": "06",
+    "name": "zasoby",
+    "title": "REZERWACJA ZASOBU"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "W WAW do dyspozycji 3 rodzajow zasobu. Sporne: SLOT.",
+  "numbers": {
+    "rodzajow_zasobu": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "zasobow_spornych": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "zapasowych_maszyn": {
+      "value": 12,
+      "unit": "szt"
+    },
+    "zalogi_rezerwowej": {
+      "value": 21,
+      "unit": "osob"
+    },
+    "partnerow_w_porcie_docelowym": {
+      "value": 0,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "zasoby": [
+      {
+        "id": "SPARE_AIRCRAFT@WAW",
+        "ilosc": 12,
+        "sporny": false
+      },
+      {
+        "id": "RESERVE_CREW@WAW",
+        "ilosc": 21,
+        "sporny": false
+      },
+      {
+        "id": "SLOT@WAW",
+        "ilosc": 1,
+        "sporny": true
+      }
+    ],
+    "partnerzy": [],
+    "bazy_maszyn_zapasowych": [
+      "WAW",
+      "KRK"
+    ]
+  },
+  "decisions": [
+    "SLOT w WAW jest sporny (1 szt) -- dwie opcje nie moga po niego siegnac naraz",
+    "WAW jest portem koordynowanym (poziom 3) -- kazda zmiana godziny wymaga nowego slotu"
+  ],
+  "assumptions": [
+    {
+      "field": "zaloga rezerwowa",
+      "source": "derived",
+      "confidence": 0.4,
+      "note": "oszacowana z obsady bazy; zrodla nie podaja grafiku standby"
+    },
+    {
+      "field": "miejsca u partnera",
+      "source": "derived",
+      "confidence": 0.4,
+      "note": "obecnosc partnera w porcie, nie potwierdzona dostepnosc miejsc"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.12
+}

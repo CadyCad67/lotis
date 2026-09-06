@@ -1,0 +1,391 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T131947",
+  "node": {
+    "id": "13",
+    "name": "wrazliwosc",
+    "title": "WRAZLIWOSC"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:3b1d18402faf79f0e77fd3d167817e01",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Ranking koncowy 4 dopuszczalnych opcji. Rekomendacja: `HOLD` (22108.70 PLN), oszczednosc wobec opcji domyslnej `HOLD`: 0.00 PLN.",
+  "numbers": {
+    "rekomendacja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_rekomendacji": {
+      "value": {
+        "minor": 2210870,
+        "currency": "PLN",
+        "major": "22108.70"
+      },
+      "unit": "PLN"
+    },
+    "widelki_min": {
+      "value": {
+        "minor": 2092431,
+        "currency": "PLN",
+        "major": "20924.31"
+      },
+      "unit": "PLN"
+    },
+    "widelki_max": {
+      "value": {
+        "minor": 2912733,
+        "currency": "PLN",
+        "major": "29127.33"
+      },
+      "unit": "PLN"
+    },
+    "opcja_domyslna": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_opcji_domyslnej": {
+      "value": {
+        "minor": 2210870,
+        "currency": "PLN",
+        "major": "22108.70"
+      },
+      "unit": "PLN"
+    },
+    "oszczednosc": {
+      "value": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "unit": "PLN"
+    },
+    "prog_oplacalnosci": {
+      "value": 120,
+      "unit": "min"
+    },
+    "opcji_w_rankingu": {
+      "value": 4,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_koncowy": [
+      {
+        "id": "HOLD",
+        "pozycja": 1,
+        "label": "Wstrzymaj odlot o 30 min",
+        "strata": {
+          "minor": 2210870,
+          "currency": "PLN",
+          "major": "22108.70"
+        },
+        "min": {
+          "minor": 2092431,
+          "currency": "PLN",
+          "major": "20924.31"
+        },
+        "max": {
+          "minor": 2912733,
+          "currency": "PLN",
+          "major": "29127.33"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "wskaznik": 2227276.04,
+        "uwaga_polityki": "szerokie widelki"
+      },
+      {
+        "id": "SWAP-SP-LSC",
+        "pozycja": 2,
+        "label": "Podmien maszyne na SP-LSC (B789)",
+        "strata": {
+          "minor": 14600938,
+          "currency": "PLN",
+          "major": "146009.38"
+        },
+        "min": {
+          "minor": 13818745,
+          "currency": "PLN",
+          "major": "138187.45"
+        },
+        "max": {
+          "minor": 19236156,
+          "currency": "PLN",
+          "major": "192361.56"
+        },
+        "oszczednosc": {
+          "minor": -12390068,
+          "currency": "PLN",
+          "major": "-123900.68"
+        },
+        "wskaznik": 15077018.38,
+        "uwaga_polityki": "propagacja 30 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "OVERNIGHT",
+        "pozycja": 3,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "strata": {
+          "minor": 148203504,
+          "currency": "PLN",
+          "major": "1482035.04"
+        },
+        "min": {
+          "minor": 140264031,
+          "currency": "PLN",
+          "major": "1402640.31"
+        },
+        "max": {
+          "minor": 195252235,
+          "currency": "PLN",
+          "major": "1952522.35"
+        },
+        "oszczednosc": {
+          "minor": -145992634,
+          "currency": "PLN",
+          "major": "-1459926.34"
+        },
+        "wskaznik": 149303268.08,
+        "uwaga_polityki": "szerokie widelki"
+      },
+      {
+        "id": "CANCEL",
+        "pozycja": 4,
+        "label": "Odwolaj rejs",
+        "strata": {
+          "minor": 186457661,
+          "currency": "PLN",
+          "major": "1864576.61"
+        },
+        "min": {
+          "minor": 176468858,
+          "currency": "PLN",
+          "major": "1764688.58"
+        },
+        "max": {
+          "minor": 245650569,
+          "currency": "PLN",
+          "major": "2456505.69"
+        },
+        "oszczednosc": {
+          "minor": -184246791,
+          "currency": "PLN",
+          "major": "-1842467.91"
+        },
+        "wskaznik": 187841295.22,
+        "uwaga_polityki": "szerokie widelki"
+      }
+    ],
+    "test_wrazliwosci": [
+      {
+        "krok_min": 30,
+        "lider": "HOLD",
+        "ranking": [
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 2375870,
+              "currency": "PLN",
+              "major": "23758.70"
+            }
+          },
+          {
+            "id": "SWAP-SP-LSC",
+            "strata": {
+              "minor": 14636938,
+              "currency": "PLN",
+              "major": "146369.38"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 148203504,
+              "currency": "PLN",
+              "major": "1482035.04"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 186457661,
+              "currency": "PLN",
+              "major": "1864576.61"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 60,
+        "lider": "HOLD",
+        "ranking": [
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 2540870,
+              "currency": "PLN",
+              "major": "25408.70"
+            }
+          },
+          {
+            "id": "SWAP-SP-LSC",
+            "strata": {
+              "minor": 14672938,
+              "currency": "PLN",
+              "major": "146729.38"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 148203504,
+              "currency": "PLN",
+              "major": "1482035.04"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 186457661,
+              "currency": "PLN",
+              "major": "1864576.61"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 120,
+        "lider": "HOLD",
+        "ranking": [
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 2870870,
+              "currency": "PLN",
+              "major": "28708.70"
+            }
+          },
+          {
+            "id": "SWAP-SP-LSC",
+            "strata": {
+              "minor": 14744938,
+              "currency": "PLN",
+              "major": "147449.38"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 148203504,
+              "currency": "PLN",
+              "major": "1482035.04"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 186457661,
+              "currency": "PLN",
+              "major": "1864576.61"
+            }
+          }
+        ]
+      }
+    ],
+    "prog_oplacalnosci": {
+      "do_minut": 120,
+      "przejmuje": "",
+      "opis": "`HOLD` pozostaje najlepsza w calym badanym zakresie do +120 min"
+    },
+    "wagi_polityki": {
+      "rot": 1.0,
+      "trf": 1.0,
+      "vuln": 1.0,
+      "unc": 1.0,
+      "cx": 1.0,
+      "crew": 1.0
+    },
+    "opcje_odrzucone_przez_prawo": [
+      {
+        "id": "SWAP-SP-LRD",
+        "reguly": [
+          "Art. 8 EU261",
+          "Art. 4 EU261"
+        ]
+      },
+      {
+        "id": "SWAP-SP-LRG",
+        "reguly": [
+          "Art. 8 EU261",
+          "Art. 4 EU261"
+        ]
+      },
+      {
+        "id": "REBOOK-OAL",
+        "reguly": [
+          "Art. 9 EU261"
+        ]
+      }
+    ],
+    "karta_wykonania": {
+      "option_id": "HOLD",
+      "label": "Wstrzymaj odlot o 30 min",
+      "what_changes": [
+        "LO21: odlot pozniej o 30 min (z 11:20 UTC)"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {},
+      "crew_actions": [
+        "zaloga rejsu LO21 pozostaje na sluzbie +30 min -- sprawdzic FDP przed odlotem"
+      ],
+      "valid_until": "2026-08-26T11:20:00+00:00",
+      "cost_low": {
+        "minor": 2092431,
+        "currency": "PLN",
+        "major": "20924.31"
+      },
+      "cost_expected": {
+        "minor": 2210870,
+        "currency": "PLN",
+        "major": "22108.70"
+      },
+      "cost_high": {
+        "minor": 2912733,
+        "currency": "PLN",
+        "major": "29127.33"
+      },
+      "threshold_note": "`HOLD` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Dyzurny OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "opcja domyslna to `HOLD` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia",
+    "`HOLD` pozostaje najlepsza w calym badanym zakresie do +120 min",
+    "waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie"
+  ],
+  "assumptions": [
+    {
+      "field": "prog oplacalnosci",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "policzony na siatce +30/+60/+120 min, nie w sposob ciagly"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.53
+}

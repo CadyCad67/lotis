@@ -1,0 +1,144 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T190330",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 2 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "SWAP-SP-LIO",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 226140,
+        "currency": "PLN",
+        "major": "2261.40"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "HOLD",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      },
+      {
+        "id": "SWAP-SP-LDH",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "SWAP-SP-LIO",
+      "label": "Podmien maszyne na SP-LIO (E75S)",
+      "strata": {
+        "minor": 6299194,
+        "currency": "PLN",
+        "major": "62991.94"
+      },
+      "widelki": {
+        "min": {
+          "minor": 5624281,
+          "currency": "PLN",
+          "major": "56242.81"
+        },
+        "max": {
+          "minor": 7049098,
+          "currency": "PLN",
+          "major": "70490.98"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "opoznienie_w_siatce: 32564.16 PLN",
+        "zaloga: 2365.00 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 9161518,
+        "currency": "PLN",
+        "major": "91615.18"
+      },
+      "alternatywa": {
+        "id": "SWAP-SP-LIQ",
+        "strata": {
+          "minor": 6525334,
+          "currency": "PLN",
+          "major": "65253.34"
+        },
+        "roznica": {
+          "minor": 226140,
+          "currency": "PLN",
+          "major": "2261.40"
+        }
+      },
+      "czolowka_blisko": true,
+      "uwaga_polityki": "propagacja 187 min (waga rotacji 1.0); szerokie widelki; priorytet 100, indeks pasazerski 0.60"
+    }
+  },
+  "decisions": [
+    "opcje `SWAP-SP-LIO` i `SWAP-SP-LIQ` sa blisko -- rekomendacja nie jest jednoznaczna i czlowiek powinien to zobaczyc",
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `HOLD`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie.",
+    "anomalia w `SWAP-SP-LDH`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+  ],
+  "duration_ms": 39.13
+}

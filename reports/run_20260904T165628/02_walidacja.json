@@ -1,0 +1,261 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260904T165628",
+  "node": {
+    "id": "02",
+    "name": "walidacja",
+    "title": "WALIDACJA DANYCH"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:3b1d18402faf79f0e77fd3d167817e01",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 6 rodzin niezmiennikow na 381 rejsach. Zadne pole nie schodzi do UNKNOWN. Osobno: 42 operacji w oknie ciszy nocnej typu 1 -- to rozklad, nie blad danych.",
+  "numbers": {
+    "porty_rejsow_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "typy_statkow_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "ciaglosc_rotacji_bledow": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "zapas_fdp_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "obsadzenie_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "kwalifikacje_zalogi_bledow": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "operacje_w_ciszy_nocnej": {
+      "value": 42,
+      "unit": "szt"
+    },
+    "pol_znanych": {
+      "value": 9,
+      "unit": "szt"
+    },
+    "pol_szacowanych": {
+      "value": 4,
+      "unit": "szt"
+    },
+    "pol_nieznanych": {
+      "value": 0,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ciaglosc_rotacji": [
+      {
+        "id": "ROT-SP-LRF-2026-08-26",
+        "z": "LO30-2026-08-26",
+        "do": "LO72-2026-08-26",
+        "konczy_w": "WAW",
+        "zaczyna_w": "DEL"
+      },
+      {
+        "id": "ROT-SP-LRF-2026-08-26",
+        "z": "LO72-2026-08-26",
+        "do": "LO29-2026-08-26",
+        "problem": "odlot przed przylotem poprzedniego odcinka"
+      },
+      {
+        "id": "ROT-SP-LSA-2026-08-26",
+        "z": "LO22-2026-08-26",
+        "do": "LO21-2026-08-26",
+        "problem": "odlot przed przylotem poprzedniego odcinka"
+      },
+      {
+        "id": "ROT-SP-LVI-2026-08-26",
+        "z": "LO584-2026-08-26",
+        "do": "LO3919-2026-08-26",
+        "problem": "odlot przed przylotem poprzedniego odcinka"
+      },
+      {
+        "id": "ROT-SP-LYK-2026-08-26",
+        "z": "LO286-2026-08-26",
+        "do": "LO601-2026-08-26",
+        "problem": "odlot przed przylotem poprzedniego odcinka"
+      }
+    ],
+    "operacje_w_ciszy_nocnej": [
+      {
+        "id": "LO151-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:00"
+      },
+      {
+        "id": "LO195-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:00"
+      },
+      {
+        "id": "LO234-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:35"
+      },
+      {
+        "id": "LO268-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:45"
+      },
+      {
+        "id": "LO280-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:45"
+      },
+      {
+        "id": "LO304-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:30"
+      },
+      {
+        "id": "LO320-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:50"
+      },
+      {
+        "id": "LO336-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:05"
+      },
+      {
+        "id": "LO344-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:00"
+      },
+      {
+        "id": "LO348-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:40"
+      },
+      {
+        "id": "LO355-2026-08-26",
+        "pole": "przylot",
+        "port": "MUC",
+        "lokalnie": "00:20"
+      },
+      {
+        "id": "LO380-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "23:35"
+      },
+      {
+        "id": "LO3803-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "01:10"
+      },
+      {
+        "id": "LO3826-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:20"
+      },
+      {
+        "id": "LO3827-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:55"
+      },
+      {
+        "id": "LO3849-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:45"
+      },
+      {
+        "id": "LO3860-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:25"
+      },
+      {
+        "id": "LO3879-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:45"
+      },
+      {
+        "id": "LO3911-2026-08-26",
+        "pole": "wylot",
+        "port": "WAW",
+        "lokalnie": "00:55"
+      },
+      {
+        "id": "LO3936-2026-08-26",
+        "pole": "przylot",
+        "port": "WAW",
+        "lokalnie": "00:25"
+      }
+    ],
+    "operacje_w_ciszy_nocnej_pominietych": 22,
+    "poziomy_pewnosci": {
+      "aircraft_types": "KNOWN",
+      "airports": "KNOWN",
+      "ciaglosc_rotacji": "ESTIMATED",
+      "crew": "ESTIMATED",
+      "fares": "ESTIMATED",
+      "flights": "KNOWN",
+      "kwalifikacje_zalogi": "KNOWN",
+      "obsadzenie": "KNOWN",
+      "passengers": "ESTIMATED",
+      "porty_rejsow": "KNOWN",
+      "rotations": "KNOWN",
+      "typy_statkow": "KNOWN",
+      "zapas_fdp": "KNOWN"
+    }
+  },
+  "decisions": [
+    "42 operacji lezy w oknie zakazu planowania -- node 05 traktuje je jako istniejace, ale nie wolno na nich planowac nowych",
+    "pole `ciaglosc_rotacji` liczone jako ESTIMATED -- node 11 rozszerza widelki",
+    "pole `crew` liczone jako ESTIMATED -- node 11 rozszerza widelki",
+    "pole `fares` liczone jako ESTIMATED -- node 11 rozszerza widelki",
+    "pole `passengers` liczone jako ESTIMATED -- node 11 rozszerza widelki"
+  ],
+  "assumptions": [
+    {
+      "field": "zaloga",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "sklad i limity FDP wyliczone z tabel EASA, nie z grafiku operatora"
+    },
+    {
+      "field": "obsadzenie",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "manifest z rozkladow bazy, tozsamosci pasazerow modelowane"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 10.57
+}

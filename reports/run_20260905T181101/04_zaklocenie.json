@@ -1,0 +1,155 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181101",
+  "node": {
+    "id": "04",
+    "name": "zaklocenie",
+    "title": "ZAKLOCENIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Usterka techniczna na rejsie LO3850 WRO-WAW, szacowane opoznienie 240 min. Decyzja do 05:35 UTC (45 min).",
+  "numbers": {
+    "rejs": {
+      "value": "LO3850",
+      "unit": ""
+    },
+    "relacja": {
+      "value": "WRO-WAW",
+      "unit": ""
+    },
+    "typ_zaklocenia": {
+      "value": "TECHNICAL",
+      "unit": ""
+    },
+    "opoznienie_szacowane": {
+      "value": 240,
+      "unit": "min"
+    },
+    "kod_opoznienia": {
+      "value": "41",
+      "unit": ""
+    },
+    "klasa_kodu": {
+      "value": "c",
+      "unit": ""
+    },
+    "p_odszkodowania": {
+      "value": 1.0,
+      "unit": ""
+    },
+    "okno_decyzji": {
+      "value": 45,
+      "unit": "min"
+    },
+    "iteracja": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "powod_wejscia": {
+      "value": "INITIAL",
+      "unit": ""
+    },
+    "odcinkow_ponizej": {
+      "value": 8,
+      "unit": "szt"
+    },
+    "pasazerow_na_rejsie": {
+      "value": 55,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "rejs": {
+      "id": "LO3850-2026-08-25",
+      "numer": "LO3850",
+      "z": "WRO",
+      "do": "WAW",
+      "std": "2026-08-25T05:35:00+00:00",
+      "sta": "2026-08-25T06:30:00+00:00",
+      "typ": "E75S",
+      "maszyna": "SP-LIM",
+      "rotacja": "ROT-SP-LIM-2026-08-25"
+    },
+    "kod_opoznienia": {
+      "kod": "41",
+      "opis": "Usterka techniczna samolotu",
+      "grupa": "Techniczne",
+      "orzecznictwo_tsue": true
+    },
+    "odcinki_ponizej": [
+      {
+        "id": "LO417-2026-08-25",
+        "numer": "LO417",
+        "z": "WAW",
+        "do": "GVA"
+      },
+      {
+        "id": "LO418-2026-08-25",
+        "numer": "LO418",
+        "z": "GVA",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3943-2026-08-25",
+        "numer": "LO3943",
+        "z": "WAW",
+        "do": "POZ"
+      },
+      {
+        "id": "LO3944-2026-08-25",
+        "numer": "LO3944",
+        "z": "POZ",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3923-2026-08-25",
+        "numer": "LO3923",
+        "z": "WAW",
+        "do": "KRK"
+      },
+      {
+        "id": "LO3924-2026-08-25",
+        "numer": "LO3924",
+        "z": "KRK",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3985-2026-08-25",
+        "numer": "LO3985",
+        "z": "WAW",
+        "do": "IEG"
+      },
+      {
+        "id": "LO3986-2026-08-25",
+        "numer": "LO3986",
+        "z": "IEG",
+        "do": "WAW"
+      }
+    ]
+  },
+  "decisions": [
+    "klasa kodu `c` daje prawdopodobienstwo odszkodowania 1.0 -- node 09 mnozy przez nie kwote z Art. 7"
+  ],
+  "assumptions": [
+    {
+      "field": "opoznienie szacowane",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "wartosc podana przy zgloszeniu, nie zmierzona"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 13.4
+}

@@ -1,0 +1,402 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T184422",
+  "node": {
+    "id": "03",
+    "name": "baseline",
+    "title": "BASELINE REVENUE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:d7806668b46167a39f400ef7880d14c4",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Baseline calej doby: 30287600.48 PLN. 31966 podrozy rozlozonych na 371 rejsow wedlug udzialu dystansu.",
+  "numbers": {
+    "baseline_doby": {
+      "value": {
+        "minor": 3028760048,
+        "currency": "PLN",
+        "major": "30287600.48"
+      },
+      "unit": "PLN"
+    },
+    "taryfy": {
+      "value": {
+        "minor": 2678194727,
+        "currency": "PLN",
+        "major": "26781947.27"
+      },
+      "unit": "PLN"
+    },
+    "ancillary": {
+      "value": {
+        "minor": 350565321,
+        "currency": "PLN",
+        "major": "3505653.21"
+      },
+      "unit": "PLN"
+    },
+    "udzial_ancillary": {
+      "value": 11.57,
+      "unit": "%"
+    },
+    "podroze": {
+      "value": 31966,
+      "unit": "szt"
+    },
+    "rejsy_z_przychodem": {
+      "value": 371,
+      "unit": "szt"
+    },
+    "srednia_wartosc_podrozy": {
+      "value": {
+        "minor": 94749,
+        "currency": "PLN",
+        "major": "947.49"
+      },
+      "unit": "PLN"
+    },
+    "kontrola_proraty": {
+      "value": {
+        "minor": 3028760048,
+        "currency": "PLN",
+        "major": "30287600.48"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "najcenniejsze_rejsy": [
+      {
+        "id": "LO100-2026-08-23",
+        "revenue": {
+          "minor": 84253619,
+          "currency": "PLN",
+          "major": "842536.19"
+        },
+        "pasazerow": 278
+      },
+      {
+        "id": "LO36-2026-08-23",
+        "revenue": {
+          "minor": 82387226,
+          "currency": "PLN",
+          "major": "823872.26"
+        },
+        "pasazerow": 264
+      },
+      {
+        "id": "LO42-2026-08-23",
+        "revenue": {
+          "minor": 80162115,
+          "currency": "PLN",
+          "major": "801621.15"
+        },
+        "pasazerow": 264
+      },
+      {
+        "id": "LO24-2026-08-23",
+        "revenue": {
+          "minor": 77861213,
+          "currency": "PLN",
+          "major": "778612.13"
+        },
+        "pasazerow": 262
+      },
+      {
+        "id": "LO2082-2026-08-23",
+        "revenue": {
+          "minor": 74257742,
+          "currency": "PLN",
+          "major": "742577.42"
+        },
+        "pasazerow": 256
+      },
+      {
+        "id": "LO72-2026-08-23",
+        "revenue": {
+          "minor": 73723302,
+          "currency": "PLN",
+          "major": "737233.02"
+        },
+        "pasazerow": 239
+      },
+      {
+        "id": "LO35-2026-08-23",
+        "revenue": {
+          "minor": 65560025,
+          "currency": "PLN",
+          "major": "655600.25"
+        },
+        "pasazerow": 256
+      },
+      {
+        "id": "LO2098-2026-08-23",
+        "revenue": {
+          "minor": 62718892,
+          "currency": "PLN",
+          "major": "627188.92"
+        },
+        "pasazerow": 238
+      },
+      {
+        "id": "LO80-2026-08-23",
+        "revenue": {
+          "minor": 60675087,
+          "currency": "PLN",
+          "major": "606750.87"
+        },
+        "pasazerow": 253
+      },
+      {
+        "id": "LO41-2026-08-23",
+        "revenue": {
+          "minor": 58662885,
+          "currency": "PLN",
+          "major": "586628.85"
+        },
+        "pasazerow": 279
+      }
+    ],
+    "wartosc_wg_koszyka": {
+      "Y-DIR-EAR-BAS": {
+        "pasazerow": 15041,
+        "wartosc": {
+          "minor": 947115720,
+          "currency": "PLN",
+          "major": "9471157.20"
+        },
+        "srednia": {
+          "minor": 62969,
+          "currency": "PLN",
+          "major": "629.69"
+        }
+      },
+      "Y-CON-EAR-BAS": {
+        "pasazerow": 6799,
+        "wartosc": {
+          "minor": 581471327,
+          "currency": "PLN",
+          "major": "5814713.27"
+        },
+        "srednia": {
+          "minor": 85523,
+          "currency": "PLN",
+          "major": "855.23"
+        }
+      },
+      "Y-DIR-LAT-BAS": {
+        "pasazerow": 4723,
+        "wartosc": {
+          "minor": 328286297,
+          "currency": "PLN",
+          "major": "3282862.97"
+        },
+        "srednia": {
+          "minor": 69508,
+          "currency": "PLN",
+          "major": "695.08"
+        }
+      },
+      "J-DIR-LAT-BAS": {
+        "pasazerow": 668,
+        "wartosc": {
+          "minor": 319086858,
+          "currency": "PLN",
+          "major": "3190868.58"
+        },
+        "srednia": {
+          "minor": 477675,
+          "currency": "PLN",
+          "major": "4776.75"
+        }
+      },
+      "J-CON-LAT-BAS": {
+        "pasazerow": 310,
+        "wartosc": {
+          "minor": 208256537,
+          "currency": "PLN",
+          "major": "2082565.37"
+        },
+        "srednia": {
+          "minor": 671795,
+          "currency": "PLN",
+          "major": "6717.95"
+        }
+      },
+      "Y-CON-LAT-BAS": {
+        "pasazerow": 2058,
+        "wartosc": {
+          "minor": 192335086,
+          "currency": "PLN",
+          "major": "1923350.86"
+        },
+        "srednia": {
+          "minor": 93457,
+          "currency": "PLN",
+          "major": "934.57"
+        }
+      },
+      "J-DIR-EAR-BAS": {
+        "pasazerow": 236,
+        "wartosc": {
+          "minor": 118413592,
+          "currency": "PLN",
+          "major": "1184135.92"
+        },
+        "srednia": {
+          "minor": 501753,
+          "currency": "PLN",
+          "major": "5017.53"
+        }
+      },
+      "Y-DIR-EAR-LOY": {
+        "pasazerow": 1055,
+        "wartosc": {
+          "minor": 91899599,
+          "currency": "PLN",
+          "major": "918995.99"
+        },
+        "srednia": {
+          "minor": 87109,
+          "currency": "PLN",
+          "major": "871.09"
+        }
+      },
+      "J-CON-EAR-BAS": {
+        "pasazerow": 99,
+        "wartosc": {
+          "minor": 73570299,
+          "currency": "PLN",
+          "major": "735702.99"
+        },
+        "srednia": {
+          "minor": 743134,
+          "currency": "PLN",
+          "major": "7431.34"
+        }
+      },
+      "Y-CON-EAR-LOY": {
+        "pasazerow": 438,
+        "wartosc": {
+          "minor": 49762194,
+          "currency": "PLN",
+          "major": "497621.94"
+        },
+        "srednia": {
+          "minor": 113612,
+          "currency": "PLN",
+          "major": "1136.12"
+        }
+      },
+      "J-DIR-LAT-LOY": {
+        "pasazerow": 58,
+        "wartosc": {
+          "minor": 33641451,
+          "currency": "PLN",
+          "major": "336414.51"
+        },
+        "srednia": {
+          "minor": 580025,
+          "currency": "PLN",
+          "major": "5800.25"
+        }
+      },
+      "Y-DIR-LAT-LOY": {
+        "pasazerow": 324,
+        "wartosc": {
+          "minor": 29716664,
+          "currency": "PLN",
+          "major": "297166.64"
+        },
+        "srednia": {
+          "minor": 91718,
+          "currency": "PLN",
+          "major": "917.18"
+        }
+      },
+      "J-CON-LAT-LOY": {
+        "pasazerow": 26,
+        "wartosc": {
+          "minor": 20853203,
+          "currency": "PLN",
+          "major": "208532.03"
+        },
+        "srednia": {
+          "minor": 802046,
+          "currency": "PLN",
+          "major": "8020.46"
+        }
+      },
+      "Y-CON-LAT-LOY": {
+        "pasazerow": 108,
+        "wartosc": {
+          "minor": 13231455,
+          "currency": "PLN",
+          "major": "132314.55"
+        },
+        "srednia": {
+          "minor": 122513,
+          "currency": "PLN",
+          "major": "1225.13"
+        }
+      },
+      "J-CON-EAR-LOY": {
+        "pasazerow": 11,
+        "wartosc": {
+          "minor": 12382718,
+          "currency": "PLN",
+          "major": "123827.18"
+        },
+        "srednia": {
+          "minor": 1125702,
+          "currency": "PLN",
+          "major": "11257.02"
+        }
+      },
+      "J-DIR-EAR-LOY": {
+        "pasazerow": 12,
+        "wartosc": {
+          "minor": 8737048,
+          "currency": "PLN",
+          "major": "87370.48"
+        },
+        "srednia": {
+          "minor": 728087,
+          "currency": "PLN",
+          "major": "7280.87"
+        }
+      }
+    }
+  },
+  "decisions": [
+    "prorata O&D domyka sie co do grosza: suma po odcinkach = suma po podrozach",
+    "wartosc pasazera wisi na podrozy; odcinek konsumuje ulamek wedlug dystansu",
+    "strata opcji liczy sie jako baseline minus revenue opcji, a nie jako osobna wielkosc"
+  ],
+  "assumptions": [
+    {
+      "field": "wartosc biletu",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "manifest modelowany z rozkladow bazy"
+    },
+    {
+      "field": "prorata",
+      "source": "derived",
+      "confidence": 0.8,
+      "note": "udzial dystansu wielkiego kola, nie udzial taryfowy IATA"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 621.34
+}

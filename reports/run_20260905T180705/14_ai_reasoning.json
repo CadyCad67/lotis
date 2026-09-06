@@ -1,0 +1,131 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T180705",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 5396247,
+        "currency": "PLN",
+        "major": "53962.47"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [],
+    "uzasadnienie": {
+      "wybrana": "HOLD",
+      "label": "Wstrzymaj odlot o 90 min",
+      "strata": {
+        "minor": 3375366,
+        "currency": "PLN",
+        "major": "33753.66"
+      },
+      "widelki": {
+        "min": {
+          "minor": 3058925,
+          "currency": "PLN",
+          "major": "30589.25"
+        },
+        "max": {
+          "minor": 4078567,
+          "currency": "PLN",
+          "major": "40785.67"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "opoznienie_w_siatce: 12687.30 PLN",
+        "zaloga: 1612.50 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "alternatywa": {
+        "id": "REBOOK-OWN",
+        "strata": {
+          "minor": 8771613,
+          "currency": "PLN",
+          "major": "87716.13"
+        },
+        "roznica": {
+          "minor": 5396247,
+          "currency": "PLN",
+          "major": "53962.47"
+        }
+      },
+      "czolowka_blisko": false,
+      "uwaga_polityki": "propagacja 138 min (waga rotacji 1.0); 24 utraconych przesiadek; szerokie widelki"
+    }
+  },
+  "decisions": [
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 29.66
+}

@@ -1,0 +1,410 @@
+# [13] WRAZLIWOSC
+
+**Status:** degraded · **run:** `20260906T130705` · **snapshot:** `sha256:44a9b3ee12dd2f25` · **0.43 ms**
+
+Ranking koncowy 9 dopuszczalnych opcji. Rekomendacja: `SWAP-SP-LDH` (60783.55 PLN), oszczednosc wobec opcji domyslnej `HOLD`: 26977.05 PLN.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `rekomendacja` | SWAP-SP-LDH | - |
+| `strata_rekomendacji` | 60783.55 PLN | PLN |
+| `widelki_min` | 56984.58 PLN | PLN |
+| `widelki_max` | 78005.55 PLN | PLN |
+| `opcja_domyslna` | HOLD | - |
+| `strata_opcji_domyslnej` | 87760.60 PLN | PLN |
+| `oszczednosc` | 26977.05 PLN | PLN |
+| `prog_oplacalnosci` | 120 | min |
+| `opcji_w_rankingu` | 9 | szt |
+
+## Co ten node ustalil
+
+- opcja domyslna to `HOLD` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia
+- `SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min
+- waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie
+- przy bliskiej czolowce decyzja nalezy do czlowieka, nie do rankingu
+
+## Szczegoly
+
+- **ranking_koncowy**
+  - **SWAP-SP-LDH**
+    - **pozycja:** 1
+    - **strata**
+      - **minor:** 6 078 355
+      - **currency:** PLN
+      - **major:** 60783.55
+    - **min**
+      - **minor:** 5 698 458
+      - **currency:** PLN
+      - **major:** 56984.58
+    - **max**
+      - **minor:** 7 800 555
+      - **currency:** PLN
+      - **major:** 78005.55
+    - **oszczednosc**
+      - **minor:** 2 697 705
+      - **currency:** PLN
+      - **major:** 26977.05
+    - **wskaznik:** 7 160 864.42
+    - **uwaga_polityki:** propagacja 204 min (waga rotacji 1.0); szerokie widelki
+  - **SWAP-SP-LIK**
+    - **pozycja:** 2
+    - **strata**
+      - **minor:** 6 398 688
+      - **currency:** PLN
+      - **major:** 63986.88
+    - **min**
+      - **minor:** 5 998 770
+      - **currency:** PLN
+      - **major:** 59987.70
+    - **max**
+      - **minor:** 8 211 649
+      - **currency:** PLN
+      - **major:** 82116.49
+    - **oszczednosc**
+      - **minor:** 2 377 372
+      - **currency:** PLN
+      - **major:** 23773.72
+    - **wskaznik:** 7 500 662.48
+    - **uwaga_polityki:** propagacja 197 min (waga rotacji 1.0); szerokie widelki
+  - **SWAP-SP-LIL**
+    - **pozycja:** 3
+    - **strata**
+      - **minor:** 6 398 688
+      - **currency:** PLN
+      - **major:** 63986.88
+    - **min**
+      - **minor:** 5 998 770
+      - **currency:** PLN
+      - **major:** 59987.70
+    - **max**
+      - **minor:** 8 211 649
+      - **currency:** PLN
+      - **major:** 82116.49
+    - **oszczednosc**
+      - **minor:** 2 377 372
+      - **currency:** PLN
+      - **major:** 23773.72
+    - **wskaznik:** 7 500 662.48
+    - **uwaga_polityki:** propagacja 197 min (waga rotacji 1.0); szerokie widelki
+  - **REBOOK-OWN**
+    - **pozycja:** 4
+    - **strata**
+      - **minor:** 7 810 692
+      - **currency:** PLN
+      - **major:** 78106.92
+    - **min**
+      - **minor:** 7 322 524
+      - **currency:** PLN
+      - **major:** 73225.24
+    - **max**
+      - **minor:** 10 023 721
+      - **currency:** PLN
+      - **major:** 100237.21
+    - **oszczednosc**
+      - **minor:** 965 368
+      - **currency:** PLN
+      - **major:** 9653.68
+    - **wskaznik:** 8 242 222.31
+    - **uwaga_polityki:** 16 utraconych przesiadek; szerokie widelki
+  - **SPLIT**
+    - **pozycja:** 5
+    - **strata**
+      - **minor:** 8 900 742
+      - **currency:** PLN
+      - **major:** 89007.42
+    - **min**
+      - **minor:** 8 344 446
+      - **currency:** PLN
+      - **major:** 83444.46
+    - **max**
+      - **minor:** 11 422 618
+      - **currency:** PLN
+      - **major:** 114226.18
+    - **oszczednosc**
+      - **minor:** -124 682
+      - **currency:** PLN
+      - **major:** -1246.82
+    - **wskaznik:** 9 392 496.10
+    - **uwaga_polityki:** 16 utraconych przesiadek; szerokie widelki
+  - **CANCEL**
+    - **pozycja:** 6
+    - **strata**
+      - **minor:** 9 516 094
+      - **currency:** PLN
+      - **major:** 95160.94
+    - **min**
+      - **minor:** 8 921 339
+      - **currency:** PLN
+      - **major:** 89213.39
+    - **max**
+      - **minor:** 12 212 320
+      - **currency:** PLN
+      - **major:** 122123.20
+    - **oszczednosc**
+      - **minor:** -740 034
+      - **currency:** PLN
+      - **major:** -7400.34
+    - **wskaznik:** 10 041 845.47
+    - **uwaga_polityki:** 16 utraconych przesiadek; szerokie widelki
+  - **OVERNIGHT**
+    - **pozycja:** 7
+    - **strata**
+      - **minor:** 9 860 704
+      - **currency:** PLN
+      - **major:** 98607.04
+    - **min**
+      - **minor:** 9 244 410
+      - **currency:** PLN
+      - **major:** 92444.10
+    - **max**
+      - **minor:** 12 654 570
+      - **currency:** PLN
+      - **major:** 126545.70
+    - **oszczednosc**
+      - **minor:** -1 084 644
+      - **currency:** PLN
+      - **major:** -10846.44
+    - **wskaznik:** 10 405 494.75
+    - **uwaga_polityki:** 16 utraconych przesiadek; szerokie widelki
+  - **REBOOK-OAL**
+    - **pozycja:** 8
+    - **strata**
+      - **minor:** 9 990 792
+      - **currency:** PLN
+      - **major:** 99907.92
+    - **min**
+      - **minor:** 9 366 368
+      - **currency:** PLN
+      - **major:** 93663.68
+    - **max**
+      - **minor:** 12 821 516
+      - **currency:** PLN
+      - **major:** 128215.16
+    - **oszczednosc**
+      - **minor:** -1 214 732
+      - **currency:** PLN
+      - **major:** -12147.32
+    - **wskaznik:** 10 542 769.92
+    - **uwaga_polityki:** 16 utraconych przesiadek; szerokie widelki
+  - **HOLD**
+    - **pozycja:** 9
+    - **strata**
+      - **minor:** 8 776 060
+      - **currency:** PLN
+      - **major:** 87760.60
+    - **min**
+      - **minor:** 8 227 557
+      - **currency:** PLN
+      - **major:** 82275.57
+    - **max**
+      - **minor:** 11 262 610
+      - **currency:** PLN
+      - **major:** 112626.10
+    - **oszczednosc**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **wskaznik:** 10 557 455.17
+    - **uwaga_polityki:** propagacja 168 min (waga rotacji 1.0); 16 utraconych przesiadek; szerokie widelki
+- **test_wrazliwosci**
+  - **krok_min:** 30
+  - **lider:** SWAP-SP-LDH
+  - **ranking**
+    - **SWAP-SP-LDH**
+      - **strata**
+        - **minor:** 6 114 355
+        - **currency:** PLN
+        - **major:** 61143.55
+    - **SWAP-SP-LIK**
+      - **strata**
+        - **minor:** 6 434 688
+        - **currency:** PLN
+        - **major:** 64346.88
+    - **SWAP-SP-LIL**
+      - **strata**
+        - **minor:** 6 434 688
+        - **currency:** PLN
+        - **major:** 64346.88
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 7 810 692
+        - **currency:** PLN
+        - **major:** 78106.92
+    - **SPLIT**
+      - **strata**
+        - **minor:** 8 900 742
+        - **currency:** PLN
+        - **major:** 89007.42
+    - **HOLD**
+      - **strata**
+        - **minor:** 8 941 060
+        - **currency:** PLN
+        - **major:** 89410.60
+    - **CANCEL**
+      - **strata**
+        - **minor:** 9 516 094
+        - **currency:** PLN
+        - **major:** 95160.94
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 9 860 704
+        - **currency:** PLN
+        - **major:** 98607.04
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 9 990 792
+        - **currency:** PLN
+        - **major:** 99907.92
+  - **krok_min:** 60
+  - **lider:** SWAP-SP-LDH
+  - **ranking**
+    - **SWAP-SP-LDH**
+      - **strata**
+        - **minor:** 6 150 355
+        - **currency:** PLN
+        - **major:** 61503.55
+    - **SWAP-SP-LIK**
+      - **strata**
+        - **minor:** 6 470 688
+        - **currency:** PLN
+        - **major:** 64706.88
+    - **SWAP-SP-LIL**
+      - **strata**
+        - **minor:** 6 470 688
+        - **currency:** PLN
+        - **major:** 64706.88
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 7 810 692
+        - **currency:** PLN
+        - **major:** 78106.92
+    - **SPLIT**
+      - **strata**
+        - **minor:** 8 900 742
+        - **currency:** PLN
+        - **major:** 89007.42
+    - **HOLD**
+      - **strata**
+        - **minor:** 9 106 060
+        - **currency:** PLN
+        - **major:** 91060.60
+    - **CANCEL**
+      - **strata**
+        - **minor:** 9 516 094
+        - **currency:** PLN
+        - **major:** 95160.94
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 9 860 704
+        - **currency:** PLN
+        - **major:** 98607.04
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 9 990 792
+        - **currency:** PLN
+        - **major:** 99907.92
+  - **krok_min:** 120
+  - **lider:** SWAP-SP-LDH
+  - **ranking**
+    - **SWAP-SP-LDH**
+      - **strata**
+        - **minor:** 6 222 355
+        - **currency:** PLN
+        - **major:** 62223.55
+    - **SWAP-SP-LIK**
+      - **strata**
+        - **minor:** 6 542 688
+        - **currency:** PLN
+        - **major:** 65426.88
+    - **SWAP-SP-LIL**
+      - **strata**
+        - **minor:** 6 542 688
+        - **currency:** PLN
+        - **major:** 65426.88
+    - **REBOOK-OWN**
+      - **strata**
+        - **minor:** 7 810 692
+        - **currency:** PLN
+        - **major:** 78106.92
+    - **SPLIT**
+      - **strata**
+        - **minor:** 8 900 742
+        - **currency:** PLN
+        - **major:** 89007.42
+    - **HOLD**
+      - **strata**
+        - **minor:** 9 436 060
+        - **currency:** PLN
+        - **major:** 94360.60
+    - **CANCEL**
+      - **strata**
+        - **minor:** 9 516 094
+        - **currency:** PLN
+        - **major:** 95160.94
+    - **OVERNIGHT**
+      - **strata**
+        - **minor:** 9 860 704
+        - **currency:** PLN
+        - **major:** 98607.04
+    - **REBOOK-OAL**
+      - **strata**
+        - **minor:** 9 990 792
+        - **currency:** PLN
+        - **major:** 99907.92
+- **prog_oplacalnosci**
+  - **do_minut:** 120
+  - **przejmuje:** 
+  - **opis:** `SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min
+- **wagi_polityki**
+  - **rot:** 1.00
+  - **trf:** 1.00
+  - **vuln:** 1.00
+  - **unc:** 1.00
+  - **cx:** 1.00
+  - **crew:** 1.00
+- **opcje_odrzucone_przez_prawo:** -
+- **karta_wykonania**
+  - **option_id:** SWAP-SP-LDH
+  - **label:** Podmien maszyne na SP-LDH (E170)
+  - **what_changes**
+    - podmiana maszyny miedzy LO417 i LO509
+    - LO417: odlot pozniej o 36 min (z 07:20 UTC)
+    - LO509: odlot pozniej o 180 min (z 11:05 UTC)
+    - LO417: typ E75S -> E170
+    - LO509: typ E170 -> E75S
+  - **pax_offloaded:** 0
+  - **pax_order:** -
+  - **rebooked_to:** {}
+  - **crew_actions**
+    - zaloga rejsu LO417 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem
+    - wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne
+  - **valid_until:** 2026-08-25T07:20:00+00:00
+  - **cost_low**
+    - **minor:** 5 698 458
+    - **currency:** PLN
+    - **major:** 56984.58
+  - **cost_expected**
+    - **minor:** 6 078 355
+    - **currency:** PLN
+    - **major:** 60783.55
+  - **cost_high**
+    - **minor:** 7 800 555
+    - **currency:** PLN
+    - **major:** 78005.55
+  - **threshold_note:** `SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min
+  - **authorization_role:** Supervisor OCC
+  - **second_signature:** 0
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `prog oplacalnosci` | derived | 0.70 | policzony na siatce +30/+60/+120 min, nie w sposob ciagly |
+
+## Ostrzezenia
+
+- opcje `SWAP-SP-LDH` i `SWAP-SP-LIK` roznia sie o mniej niz 10% -- roznica moze byc szumem
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

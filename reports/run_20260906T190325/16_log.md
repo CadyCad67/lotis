@@ -1,0 +1,297 @@
+# [16] LOG
+
+**Status:** ok · **run:** `20260906T190325` · **snapshot:** `sha256:f3c290f4e6930407` · **4.38 ms**
+
+Zapisano 7 rozwazonych opcji, w tym 2 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `opcji_w_logu` | 7 | szt |
+| `opcji_odrzuconych` | 2 | szt |
+| `odcisk_wpisu` | sha256:39aa15214ecadbc7e4d36a7f | - |
+| `wersja_silnika` | 1.0.0 | - |
+| `wersja_bazy` | 5.0 | - |
+| `nadpisania` | brak | - |
+| `decyzja` | ACCEPT | - |
+| `wybrana_opcja` | SWAP-SP-LIO | - |
+
+## Co ten node ustalil
+
+- log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego
+- wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku
+
+## Szczegoly
+
+- **wpis**
+  - **schema:** lotis.audit/v1
+  - **run_id:** 20260906T190325
+  - **snapshot:** sha256:f3c290f4e6930407fb2bcad856fc671f
+  - **czas_runu:** 2026-09-06T19:03:25.241515+00:00
+  - **zaklocenie**
+    - **id:** DSR-LO3981-2026-08-21-0
+    - **rejs:** LO3981-2026-08-21
+    - **typ:** PAX
+    - **opoznienie_min:** 0
+    - **termin_decyzji:** 2026-08-21T07:05:00+00:00
+    - **iteracja:** 0
+    - **wyzwalacz:** INITIAL
+  - **opcje_rozwazone**
+    - **HOLD**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.HOLD
+      - **strata**
+        - **minor:** 5 035 933
+        - **currency:** PLN
+        - **major:** 50359.33
+      - **widelki**
+        - **min**
+          - **minor:** 4 496 369
+          - **currency:** PLN
+          - **major:** 44963.69
+        - **max**
+          - **minor:** 5 635 448
+          - **currency:** PLN
+          - **major:** 56354.48
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 40 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 40 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LDH**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 1 964 089
+        - **currency:** PLN
+        - **major:** 19640.89
+      - **widelki**
+        - **min**
+          - **minor:** 1 753 651
+          - **currency:** PLN
+          - **major:** 17536.51
+        - **max**
+          - **minor:** 2 197 909
+          - **currency:** PLN
+          - **major:** 21979.09
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 6 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 6 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LIO**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 1 203 506
+        - **currency:** PLN
+        - **major:** 12035.06
+      - **widelki**
+        - **min**
+          - **minor:** 1 074 559
+          - **currency:** PLN
+          - **major:** 10745.59
+        - **max**
+          - **minor:** 1 346 780
+          - **currency:** PLN
+          - **major:** 13467.80
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 1
+    - **SWAP-SP-LIQ**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 1 203 506
+        - **currency:** PLN
+        - **major:** 12035.06
+      - **widelki**
+        - **min**
+          - **minor:** 1 074 559
+          - **currency:** PLN
+          - **major:** 10745.59
+        - **max**
+          - **minor:** 1 346 780
+          - **currency:** PLN
+          - **major:** 13467.80
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 2
+    - **REBOOK-OAL**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.REBOOK-OAL
+      - **strata**
+        - **minor:** 15 925 824
+        - **currency:** PLN
+        - **major:** 159258.24
+      - **widelki**
+        - **min**
+          - **minor:** 14 219 486
+          - **currency:** PLN
+          - **major:** 142194.86
+        - **max**
+          - **minor:** 17 821 755
+          - **currency:** PLN
+          - **major:** 178217.55
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 4
+    - **OVERNIGHT**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.OVERNIGHT
+      - **strata**
+        - **minor:** 15 732 196
+        - **currency:** PLN
+        - **major:** 157321.96
+      - **widelki**
+        - **min**
+          - **minor:** 14 046 604
+          - **currency:** PLN
+          - **major:** 140466.04
+        - **max**
+          - **minor:** 17 605 076
+          - **currency:** PLN
+          - **major:** 176050.76
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 3
+    - **CANCEL**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.CANCEL
+      - **strata**
+        - **minor:** 17 008 109
+        - **currency:** PLN
+        - **major:** 170081.09
+      - **widelki**
+        - **min**
+          - **minor:** 15 185 812
+          - **currency:** PLN
+          - **major:** 151858.12
+        - **max**
+          - **minor:** 19 032 883
+          - **currency:** PLN
+          - **major:** 190328.83
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 5
+  - **rekomendacja**
+    - **id:** SWAP-SP-LIO
+    - **strata**
+      - **minor:** 1 203 506
+      - **currency:** PLN
+      - **major:** 12035.06
+    - **oszczednosc**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+  - **decyzja_czlowieka**
+    - **rodzaj:** ACCEPT
+    - **opcja:** SWAP-SP-LIO
+    - **operator:** OCC-DUTY
+    - **kod_przyczyny:** 
+    - **rola:** Dyzurny OCC
+    - **drugi_podpis:** 0
+    - **odstepstwo:** 0
+  - **wykonanie**
+    - **opcja:** SWAP-SP-LIO
+    - **kroki**
+      - **przydzial_maszyny**
+        - **wykonawca:** OCC / Maintenance Control
+        - **opis:** przepiecie rejsow miedzy maszynami
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **obsluga_naziemna**
+        - **wykonawca:** Handling
+        - **opis:** przestawienie sprzetu i bagazu
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **nowy_slot**
+        - **wykonawca:** Slot Coordination / EUROCONTROL
+        - **opis:** wystapienie o nowe okno startowe
+        - **odwracalny:** 0
+        - **krytyczny:** 1
+        - **status:** wykonany
+      - **powiadomienie_pax**
+        - **wykonawca:** Komunikacja
+        - **opis:** wyslanie SMS i e-mail do pasazerow
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **brief_zalogi**
+        - **wykonawca:** Crew Control
+        - **opis:** poinformowanie zalogi o zmianie
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+    - **udane:** 1
+  - **karta_wykonania**
+    - **option_id:** SWAP-SP-LIO
+    - **label:** Podmien maszyne na SP-LIO (E75S)
+    - **what_changes**
+      - podmiana maszyny miedzy LO3981 i LO265
+      - LO3981: odlot pozniej o 36 min (z 07:05 UTC)
+    - **pax_offloaded:** 0
+    - **pax_order:** -
+    - **rebooked_to:** {}
+    - **crew_actions**
+      - zaloga rejsu LO3981 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem
+      - wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne
+    - **valid_until:** 2026-08-21T07:05:00+00:00
+    - **cost_low**
+      - **minor:** 1 074 559
+      - **currency:** PLN
+      - **major:** 10745.59
+    - **cost_expected**
+      - **minor:** 1 203 506
+      - **currency:** PLN
+      - **major:** 12035.06
+    - **cost_high**
+      - **minor:** 1 346 780
+      - **currency:** PLN
+      - **major:** 13467.80
+    - **threshold_note:** `SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min
+    - **authorization_role:** Dyzurny OCC
+    - **second_signature:** 0
+  - **wersje**
+    - **engine:** 1.0.0
+    - **data:** 5.0
+    - **data_generated:** 2026-08-28
+    - **authorization:** 2026.07
+    - **escalation:** 2026.07
+    - **sop:** 2026.03
+    - **overrides:** brak
+  - **nadpisania_uzyte:** {}
+  - **budzet**
+    - **total_ms:** 20 000.00
+    - **elapsed_ms:** 2 549.40
+    - **remaining_ms:** 17 450.60
+    - **level:** FULL
+    - **level_label:** pelny
+    - **per_node_ms**
+      - **01:** 1 721.80
+      - **02:** 11.20
+      - **03:** 628.20
+      - **04:** 10.80
+      - **05:** 9.90
+      - **06:** 0.10
+      - **07:** 15.50
+      - **08:** 2.30
+      - **09:** 6.40
+      - **10:** 58.00
+      - **11:** 3.70
+      - **12:** 0.50
+      - **13:** 0.30
+      - **14:** 36.70
+      - **15:** 0.10
+      - **15b:** 0.10
+  - **degradacja:** FULL
+  - **odcisk:** sha256:39aa15214ecadbc7e4d36a7f
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

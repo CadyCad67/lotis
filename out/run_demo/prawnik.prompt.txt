@@ -1,0 +1,218 @@
+===== SYSTEM =====
+Pracujesz w systemie LOTIS, ktory wspiera decyzje przy nieregularnosciach
+operacyjnych w PLL LOT. Dostajesz raporty policzone przez silnik deterministyczny.
+
+Zasady bezwzgledne:
+1. NIE LICZYSZ. Kazda liczba w twojej odpowiedzi musi doslownie pochodzic
+   z sekcji "Liczby" albo "Szczegoly" otrzymanych raportow. Nie sumuj,
+   nie przeliczaj walut, nie usredniaj, nie zaokraglaj inaczej niz w zrodle.
+2. Jesli czegos nie ma w raportach, napisz "brak danych w raporcie" i wskaz,
+   ktory node powinien to policzyc. Nie zgaduj.
+3. Zalozenia i braki danych z raportu przenies do swojej odpowiedzi. Liczba
+   oparta na zalozeniu ma byc podana jako oparta na zalozeniu.
+4. Nie podejmujesz decyzji. Przygotowujesz material dla czlowieka, ktory
+   decyduje i podpisuje.
+5. Piszesz po polsku, rzeczowo, bez marketingu i bez przepraszania.
+
+
+Twoja rola: Analityk zgodnosci.
+Odbiorca: dzial prawny i compliance, dokumentacja na wypadek sporu.
+
+Opisujesz strone prawna decyzji. Przy kazdej kwocie i kazdym progu podajesz
+podstawe prawna dokladnie taka, jaka wystepuje w raporcie -- artykul, akt,
+a jesli raport podaje sygnature orzeczenia, to takze sygnature.
+
+Osobno wypisujesz opcje odrzucone przez filtr prawny i regule, ktora kazda
+z nich zabila. To jest najwazniejsza czesc twojego tekstu: w sporze liczy sie
+nie to, co wybrano, tylko to, czego swiadomie nie wybrano i dlaczego.
+
+Nie oceniasz, czy przepis jest sluszny. Nie proponujesz obejsc.
+
+Struktura odpowiedzi -- dokladnie te naglowki, w tej kolejnosci:
+  1. PODSTAWY PRAWNE ZASTOSOWANE W TYM RUNIE
+  2. OPCJE ODRZUCONE I REGULA, KTORA JE ODRZUCILA
+  3. EKSPOZYCJA ODSZKODOWAWCZA -- kwoty i progi z raportu
+  4. OBOWIAZKI OPIEKI -- co i od ktorej minuty
+  5. RYZYKA I NIEDOMKNIECIA
+
+===== USER =====
+# RUN demo
+snapshot: sha256:f3c290f4e6930407fb2bcad856fc671f
+tryb obliczen: FULL
+raporty w tym runie: 01_snapshot, 02_walidacja
+raporty widoczne dla twojej roli: 02_walidacja
+
+======================================================================
+# [02] WALIDACJA DANYCH
+
+**Status:** ok · **run:** `demo` · **snapshot:** `sha256:f3c290f4e6930407` · **10.96 ms**
+
+Sprawdzono 6 rodzin niezmiennikow na 390 rejsach. Zadne pole nie schodzi do UNKNOWN. Osobno: 47 operacji w oknie ciszy nocnej typu 1 -- to rozklad, nie blad danych.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `porty_rejsow_bledow` | 0 | szt |
+| `typy_statkow_bledow` | 0 | szt |
+| `ciaglosc_rotacji_bledow` | 6 | szt |
+| `zapas_fdp_bledow` | 0 | szt |
+| `obsadzenie_bledow` | 0 | szt |
+| `kwalifikacje_zalogi_bledow` | 0 | szt |
+| `operacje_w_ciszy_nocnej` | 47 | szt |
+| `pol_znanych` | 9 | szt |
+| `pol_szacowanych` | 4 | szt |
+| `pol_nieznanych` | 0 | szt |
+
+## Co ten node ustalil
+
+- 47 operacji lezy w oknie zakazu planowania -- node 05 traktuje je jako istniejace, ale nie wolno na nich planowac nowych
+- pole `ciaglosc_rotacji` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `crew` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `fares` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `passengers` liczone jako ESTIMATED -- node 11 rozszerza widelki
+
+## Szczegoly
+
+- **ciaglosc_rotacji**
+  - **ROT-SP-LMD-2026-08-21**
+    - **z:** LO456-2026-08-21
+    - **do:** LO395-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LMF-2026-08-21**
+    - **z:** LO462-2026-08-21
+    - **do:** LO3951-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LNG-2026-08-21**
+    - **z:** LO524-2026-08-21
+    - **do:** LO783-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LNK-2026-08-21**
+    - **z:** LO460-2026-08-21
+    - **do:** LO453-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LSD-2026-08-21**
+    - **z:** LO2084-2026-08-21
+    - **do:** LO11-2026-08-21
+    - **konczy_w:** KRK
+    - **zaczyna_w:** WAW
+  - **ROT-SP-LSG-2026-08-21**
+    - **z:** LO22-2026-08-21
+    - **do:** LO21-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+- **operacje_w_ciszy_nocnej**
+  - **LO1155-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:15
+  - **LO151-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:00
+  - **LO195-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:00
+  - **LO234-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:35
+  - **LO254-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:50
+  - **LO268-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO280-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO304-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:30
+  - **LO320-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:50
+  - **LO336-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:05
+  - **LO344-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:00
+  - **LO348-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:40
+  - **LO355-2026-08-21**
+    - **pole:** przylot
+    - **port:** MUC
+    - **lokalnie:** 00:20
+  - **LO374-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:30
+  - **LO380-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO3803-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:10
+  - **LO3827-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:55
+  - **LO3849-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:45
+  - **LO3860-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:25
+  - **LO3879-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:45
+- **operacje_w_ciszy_nocnej_pominietych:** 27
+- **poziomy_pewnosci**
+  - **aircraft_types:** KNOWN
+  - **airports:** KNOWN
+  - **ciaglosc_rotacji:** ESTIMATED
+  - **crew:** ESTIMATED
+  - **fares:** ESTIMATED
+  - **flights:** KNOWN
+  - **kwalifikacje_zalogi:** KNOWN
+  - **obsadzenie:** KNOWN
+  - **passengers:** ESTIMATED
+  - **porty_rejsow:** KNOWN
+  - **rotations:** KNOWN
+  - **typy_statkow:** KNOWN
+  - **zapas_fdp:** KNOWN
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `zaloga` | derived | 0.70 | sklad i limity FDP wyliczone z tabel EASA, nie z grafiku operatora |
+| `obsadzenie` | synthetic | 0.60 | manifest z rozkladow bazy, tozsamosci pasazerow modelowane |
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+## LICZBY, KTORE WOLNO CI ZACYTOWAC
+
+Kazda liczba w twojej odpowiedzi musi byc jedna z ponizszych albo numerem rejsu, godzina lub data przepisana z raportu. Odpowiedz zawierajaca liczbe spoza tej listy jest odrzucana automatycznie.
+
+0, 0.6, 0.7, 2, 4, 5, 6, 9, 10.96, 27, 47, 2026.03, 2026.07
+
+======================================================================
+Przygotuj material zgodnie ze swoja rola i narzucona struktura.

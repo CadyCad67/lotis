@@ -1,0 +1,224 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T193212",
+  "node": {
+    "id": "07",
+    "name": "scenariusze",
+    "title": "SCENARIO ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Wygenerowano 9 opcji dla rejsu LO6 (272 pasazerow, opoznienie 0 min). Odrzucono 0 rodzajow przed wycena.",
+  "numbers": {
+    "opcji": {
+      "value": 9,
+      "unit": "szt"
+    },
+    "rodzajow_odrzuconych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "pasazerow_dotknietych": {
+      "value": 272,
+      "unit": "osob"
+    },
+    "modyfikujacych": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "restrukturyzujacych": {
+      "value": 6,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "opcje": [
+      {
+        "id": "HOLD",
+        "label": "Odlec zgodnie z rozkladem, 8 pasazerow nie wejdzie na poklad",
+        "tryb": "MODIFYING",
+        "generator": "SZ.HOLD",
+        "rejsy": [
+          "LO6-2026-08-24"
+        ],
+        "opoznienia": {
+          "LO6-2026-08-24": 0
+        },
+        "kasowane": [],
+        "uwagi": [
+          "koszt = minuty x stawka krancowa typu + propagacja",
+          "ekspozycja EU261 rosnie po przekroczeniu 3 h na przylocie",
+          "odmowa przyjecia z nadsprzedazy: Art. 4 ust. 3 odsyla do Art. 7"
+        ]
+      },
+      {
+        "id": "REBOOK-SPILL",
+        "label": "Przenies 8 nadmiarowych na LO26 (+280 min)",
+        "tryb": "MODIFYING",
+        "generator": "SZ.REBOOK-SPILL",
+        "rejsy": [
+          "LO6-2026-08-24",
+          "LO26-2026-08-24"
+        ],
+        "opoznienia": {},
+        "kasowane": [],
+        "uwagi": [
+          "Art. 4 ust. 1: najpierw ochotnicy, dopiero potem odmowa wbrew woli",
+          "czekanie 280 min liczy sie do progu opieki z Art. 9"
+        ]
+      },
+      {
+        "id": "SWAP-SP-LSA",
+        "label": "Podmien maszyne na SP-LSA (B789)",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.SWAP",
+        "rejsy": [
+          "LO6-2026-08-24",
+          "LO79-2026-08-24"
+        ],
+        "opoznienia": {
+          "LO6-2026-08-24": 139,
+          "LO79-2026-08-24": 0
+        },
+        "kasowane": [],
+        "uwagi": [
+          "zmiana pojemnosci +0 miejsc",
+          "rejs LO79 przejmuje opoznienie 0 min",
+          "rejs otrzymujacy maszyne nie zarabia -- unika straty"
+        ]
+      },
+      {
+        "id": "SWAP-SP-LSE",
+        "label": "Podmien maszyne na SP-LSE (B789)",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.SWAP",
+        "rejsy": [
+          "LO6-2026-08-24",
+          "LO99-2026-08-24"
+        ],
+        "opoznienia": {
+          "LO6-2026-08-24": 139,
+          "LO99-2026-08-24": 0
+        },
+        "kasowane": [],
+        "uwagi": [
+          "zmiana pojemnosci +0 miejsc",
+          "rejs LO99 przejmuje opoznienie 0 min",
+          "rejs otrzymujacy maszyne nie zarabia -- unika straty"
+        ]
+      },
+      {
+        "id": "REBOOK-OWN",
+        "label": "Przenies na wlasny rejs LO26 (+280 min)",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.REBOOK-OWN",
+        "rejsy": [
+          "LO6-2026-08-24",
+          "LO26-2026-08-24"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO6-2026-08-24"
+        ],
+        "uwagi": [
+          "koszt = utracona sprzedaz miejsca (spill), nie pelna taryfa",
+          "czekanie 280 min liczy sie do progu opieki z Art. 9"
+        ]
+      },
+      {
+        "id": "REBOOK-OAL",
+        "label": "Przenies na przewoznika obcego do JFK",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.REBOOK-OAL",
+        "rejsy": [
+          "LO6-2026-08-24"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO6-2026-08-24"
+        ],
+        "uwagi": [
+          "doplata wg poziomu partnera i dystansu -- bez niej OAL wychodzi za tanio",
+          "mozliwa redukcja odszkodowania o 50% (Art. 7 ust. 2)",
+          "oczekiwanie 625 min z CF.onward.next_bank_min (2 rejsow dziennie na tej relacji) + MCT partnera",
+          "partnerzy w porcie docelowym: B6"
+        ]
+      },
+      {
+        "id": "OVERNIGHT",
+        "label": "Nocleg i rejs nastepnego dnia",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.OVERNIGHT",
+        "rejsy": [
+          "LO6-2026-08-24"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO6-2026-08-24"
+        ],
+        "uwagi": [
+          "pelna opieka: hotel, posilki, transport",
+          "pelna ekspozycja EU261 przy klasie kodu przewoznika",
+          "nocleg zalogi dochodzi osobno"
+        ]
+      },
+      {
+        "id": "CANCEL",
+        "label": "Odwolaj rejs",
+        "tryb": "MODIFYING",
+        "generator": "SZ.CANCEL",
+        "rejsy": [
+          "LO6-2026-08-24"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO6-2026-08-24"
+        ],
+        "uwagi": [
+          "Art. 5: prawo wyboru zwrotu albo zmiany planu",
+          "Art. 5 ust. 1 lit. c: odszkodowanie nalezy sie za SAM fakt odwolania, bez progu opoznienia",
+          "pelna opieka przez czas oczekiwania (Art. 9)",
+          "pelna utrata przychodu z pasazerow nieprzebukowanych",
+          "przestawienie rotacji na kolejne odcinki"
+        ]
+      },
+      {
+        "id": "SPLIT",
+        "label": "Rozdziel: 136 na LO26, reszta na obcego",
+        "tryb": "RESTRUCTURING",
+        "generator": "SZ.SPLIT",
+        "rejsy": [
+          "LO6-2026-08-24",
+          "LO26-2026-08-24"
+        ],
+        "opoznienia": {},
+        "kasowane": [
+          "LO6-2026-08-24"
+        ],
+        "uwagi": [
+          "koszt = suma kosztow skladowych",
+          "ZAKAZ rozdzielania rodzin, grup i maloletnich bez opieki -- sprawdza filtr prawny"
+        ]
+      }
+    ],
+    "odrzucone_rodzaje": []
+  },
+  "decisions": [
+    "SWAP wchodzi zawsze jako para rejsow -- rejs oddajacy i rejs otrzymujacy maszyne liczy sie razem",
+    "opcje modyfikujace wycenia sie jako roznice wobec sytuacji bez zaklocenia, restrukturyzujace jako pelny nowy zestaw minus stary"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 46.73
+}

@@ -1,0 +1,294 @@
+# [16] LOG
+
+**Status:** ok · **run:** `20260906T190330` · **snapshot:** `sha256:f3c290f4e6930407` · **4.11 ms**
+
+Zapisano 7 rozwazonych opcji, w tym 1 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `opcji_w_logu` | 7 | szt |
+| `opcji_odrzuconych` | 1 | szt |
+| `odcisk_wpisu` | sha256:a3c6c220d9b182d3e0e52aca | - |
+| `wersja_silnika` | 1.0.0 | - |
+| `wersja_bazy` | 5.0 | - |
+| `nadpisania` | brak | - |
+| `decyzja` | ACCEPT | - |
+| `wybrana_opcja` | SWAP-SP-LIO | - |
+
+## Co ten node ustalil
+
+- log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego
+- wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku
+
+## Szczegoly
+
+- **wpis**
+  - **schema:** lotis.audit/v1
+  - **run_id:** 20260906T190330
+  - **snapshot:** sha256:f3c290f4e6930407fb2bcad856fc671f
+  - **czas_runu:** 2026-09-06T19:03:30.620688+00:00
+  - **zaklocenie**
+    - **id:** DSR-LO3981-2026-08-21-0
+    - **rejs:** LO3981-2026-08-21
+    - **typ:** TECHNICAL
+    - **opoznienie_min:** 180
+    - **termin_decyzji:** 2026-08-21T07:05:00+00:00
+    - **iteracja:** 0
+    - **wyzwalacz:** INITIAL
+  - **opcje_rozwazone**
+    - **HOLD**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.HOLD
+      - **strata**
+        - **minor:** 15 460 712
+        - **currency:** PLN
+        - **major:** 154607.12
+      - **widelki**
+        - **min**
+          - **minor:** 13 804 208
+          - **currency:** PLN
+          - **major:** 138042.08
+        - **max**
+          - **minor:** 17 301 272
+          - **currency:** PLN
+          - **major:** 173012.72
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 3
+    - **SWAP-SP-LDH**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 8 227 873
+        - **currency:** PLN
+        - **major:** 82278.73
+      - **widelki**
+        - **min**
+          - **minor:** 7 346 316
+          - **currency:** PLN
+          - **major:** 73463.16
+        - **max**
+          - **minor:** 9 207 381
+          - **currency:** PLN
+          - **major:** 92073.81
+      - **dopuszczalna:** 0
+      - **powod_odrzucenia**
+        - **podstawa:** Art. 8 EU261
+        - **powod:** 6 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu
+        - **podstawa:** Art. 4 EU261
+        - **powod:** 6 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow
+      - **pozycja_koncowa:** None
+    - **SWAP-SP-LIO**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 6 299 194
+        - **currency:** PLN
+        - **major:** 62991.94
+      - **widelki**
+        - **min**
+          - **minor:** 5 624 281
+          - **currency:** PLN
+          - **major:** 56242.81
+        - **max**
+          - **minor:** 7 049 098
+          - **currency:** PLN
+          - **major:** 70490.98
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 1
+    - **SWAP-SP-LIQ**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.SWAP
+      - **strata**
+        - **minor:** 6 525 334
+        - **currency:** PLN
+        - **major:** 65253.34
+      - **widelki**
+        - **min**
+          - **minor:** 5 826 192
+          - **currency:** PLN
+          - **major:** 58261.92
+        - **max**
+          - **minor:** 7 302 159
+          - **currency:** PLN
+          - **major:** 73021.59
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 2
+    - **REBOOK-OAL**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.REBOOK-OAL
+      - **strata**
+        - **minor:** 15 925 824
+        - **currency:** PLN
+        - **major:** 159258.24
+      - **widelki**
+        - **min**
+          - **minor:** 14 219 486
+          - **currency:** PLN
+          - **major:** 142194.86
+        - **max**
+          - **minor:** 17 821 755
+          - **currency:** PLN
+          - **major:** 178217.55
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 5
+    - **OVERNIGHT**
+      - **tryb:** RESTRUCTURING
+      - **generator:** SZ.OVERNIGHT
+      - **strata**
+        - **minor:** 15 732 196
+        - **currency:** PLN
+        - **major:** 157321.96
+      - **widelki**
+        - **min**
+          - **minor:** 14 046 604
+          - **currency:** PLN
+          - **major:** 140466.04
+        - **max**
+          - **minor:** 17 605 076
+          - **currency:** PLN
+          - **major:** 176050.76
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 4
+    - **CANCEL**
+      - **tryb:** MODIFYING
+      - **generator:** SZ.CANCEL
+      - **strata**
+        - **minor:** 17 008 109
+        - **currency:** PLN
+        - **major:** 170081.09
+      - **widelki**
+        - **min**
+          - **minor:** 15 185 812
+          - **currency:** PLN
+          - **major:** 151858.12
+        - **max**
+          - **minor:** 19 032 883
+          - **currency:** PLN
+          - **major:** 190328.83
+      - **dopuszczalna:** 1
+      - **powod_odrzucenia:** -
+      - **pozycja_koncowa:** 6
+  - **rekomendacja**
+    - **id:** SWAP-SP-LIO
+    - **strata**
+      - **minor:** 6 299 194
+      - **currency:** PLN
+      - **major:** 62991.94
+    - **oszczednosc**
+      - **minor:** 9 161 518
+      - **currency:** PLN
+      - **major:** 91615.18
+  - **decyzja_czlowieka**
+    - **rodzaj:** ACCEPT
+    - **opcja:** SWAP-SP-LIO
+    - **operator:** OCC-DUTY
+    - **kod_przyczyny:** 
+    - **rola:** Supervisor OCC
+    - **drugi_podpis:** 0
+    - **odstepstwo:** 0
+  - **wykonanie**
+    - **opcja:** SWAP-SP-LIO
+    - **kroki**
+      - **przydzial_maszyny**
+        - **wykonawca:** OCC / Maintenance Control
+        - **opis:** przepiecie rejsow miedzy maszynami
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **obsluga_naziemna**
+        - **wykonawca:** Handling
+        - **opis:** przestawienie sprzetu i bagazu
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **nowy_slot**
+        - **wykonawca:** Slot Coordination / EUROCONTROL
+        - **opis:** wystapienie o nowe okno startowe
+        - **odwracalny:** 0
+        - **krytyczny:** 1
+        - **status:** wykonany
+      - **powiadomienie_pax**
+        - **wykonawca:** Komunikacja
+        - **opis:** wyslanie SMS i e-mail do pasazerow
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+      - **brief_zalogi**
+        - **wykonawca:** Crew Control
+        - **opis:** poinformowanie zalogi o zmianie
+        - **odwracalny:** 1
+        - **krytyczny:** 0
+        - **status:** wykonany
+    - **udane:** 1
+  - **karta_wykonania**
+    - **option_id:** SWAP-SP-LIO
+    - **label:** Podmien maszyne na SP-LIO (E75S)
+    - **what_changes**
+      - podmiana maszyny miedzy LO3981 i LO265
+      - LO265: odlot pozniej o 180 min (z 07:25 UTC)
+      - LO3981: odlot pozniej o 36 min (z 07:05 UTC)
+    - **pax_offloaded:** 0
+    - **pax_order:** -
+    - **rebooked_to:** {}
+    - **crew_actions**
+      - zaloga rejsu LO3981 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem
+      - wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne
+    - **valid_until:** 2026-08-21T07:05:00+00:00
+    - **cost_low**
+      - **minor:** 5 624 281
+      - **currency:** PLN
+      - **major:** 56242.81
+    - **cost_expected**
+      - **minor:** 6 299 194
+      - **currency:** PLN
+      - **major:** 62991.94
+    - **cost_high**
+      - **minor:** 7 049 098
+      - **currency:** PLN
+      - **major:** 70490.98
+    - **threshold_note:** `SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min
+    - **authorization_role:** Supervisor OCC
+    - **second_signature:** 0
+  - **wersje**
+    - **engine:** 1.0.0
+    - **data:** 5.0
+    - **data_generated:** 2026-08-28
+    - **authorization:** 2026.07
+    - **escalation:** 2026.07
+    - **sop:** 2026.03
+    - **overrides:** brak
+  - **nadpisania_uzyte:** {}
+  - **budzet**
+    - **total_ms:** 20 000.00
+    - **elapsed_ms:** 2 565.60
+    - **remaining_ms:** 17 434.40
+    - **level:** FULL
+    - **level_label:** pelny
+    - **per_node_ms**
+      - **01:** 1 733.30
+      - **02:** 11.50
+      - **03:** 629.60
+      - **04:** 11.50
+      - **05:** 10.40
+      - **06:** 0.10
+      - **07:** 16.60
+      - **08:** 1.70
+      - **09:** 7.10
+      - **10:** 60.00
+      - **11:** 0.40
+      - **12:** 0.40
+      - **13:** 0.40
+      - **14:** 39.10
+      - **15:** 0.00
+      - **15b:** 0.10
+  - **degradacja:** FULL
+  - **odcisk:** sha256:a3c6c220d9b182d3e0e52aca
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

@@ -1,0 +1,174 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T130705",
+  "node": {
+    "id": "10",
+    "name": "siec",
+    "title": "NETWORK IMPACT"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Horyzont propagacji: 1 odcinkow, zatrzymany na `BASE_RETURN`. 16 pasazerow transferowych na rejsie zrodlowym.",
+  "numbers": {
+    "odcinkow_w_horyzoncie": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "powod_zatrzymania": {
+      "value": "BASE_RETURN",
+      "unit": ""
+    },
+    "koniec_doby_operacyjnej": {
+      "value": "2026-08-26T02:00:00+00:00",
+      "unit": ""
+    },
+    "pasazerow_transferowych": {
+      "value": 16,
+      "unit": "osob"
+    },
+    "zalogi_poza_fdp": {
+      "value": 4,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "horyzont": [
+      {
+        "id": "LO418-2026-08-25",
+        "numer": "LO418",
+        "z": "GVA",
+        "do": "WAW",
+        "std": "2026-08-25T10:25:00+00:00",
+        "bufor_min": 12
+      }
+    ],
+    "propagacja_wg_opcji": [
+      {
+        "id": "HOLD",
+        "odcinkow_ponizej": 1,
+        "suma_propagacji_min": 168,
+        "przesiadek_utraconych": 16,
+        "koszt_propagacji": {
+          "minor": 2532768,
+          "currency": "PLN",
+          "major": "25327.68"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "SWAP-SP-LDH",
+        "odcinkow_ponizej": 2,
+        "suma_propagacji_min": 204,
+        "przesiadek_utraconych": 0,
+        "koszt_propagacji": {
+          "minor": 2835084,
+          "currency": "PLN",
+          "major": "28350.84"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "SWAP-SP-LIK",
+        "odcinkow_ponizej": 2,
+        "suma_propagacji_min": 197,
+        "przesiadek_utraconych": 0,
+        "koszt_propagacji": {
+          "minor": 2905772,
+          "currency": "PLN",
+          "major": "29057.72"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "SWAP-SP-LIL",
+        "odcinkow_ponizej": 2,
+        "suma_propagacji_min": 197,
+        "przesiadek_utraconych": 0,
+        "koszt_propagacji": {
+          "minor": 2905772,
+          "currency": "PLN",
+          "major": "29057.72"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "REBOOK-OWN",
+        "odcinkow_ponizej": 1,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 16,
+        "koszt_propagacji": {
+          "minor": 1565200,
+          "currency": "PLN",
+          "major": "15652.00"
+        },
+        "rejsow_bez_podstawienia": 1
+      },
+      {
+        "id": "REBOOK-OAL",
+        "odcinkow_ponizej": 1,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 16,
+        "koszt_propagacji": {
+          "minor": 1565200,
+          "currency": "PLN",
+          "major": "15652.00"
+        },
+        "rejsow_bez_podstawienia": 1
+      },
+      {
+        "id": "OVERNIGHT",
+        "odcinkow_ponizej": 1,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 16,
+        "koszt_propagacji": {
+          "minor": 1565200,
+          "currency": "PLN",
+          "major": "15652.00"
+        },
+        "rejsow_bez_podstawienia": 1
+      },
+      {
+        "id": "CANCEL",
+        "odcinkow_ponizej": 1,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 16,
+        "koszt_propagacji": {
+          "minor": 1565200,
+          "currency": "PLN",
+          "major": "15652.00"
+        },
+        "rejsow_bez_podstawienia": 1
+      },
+      {
+        "id": "SPLIT",
+        "odcinkow_ponizej": 1,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 16,
+        "koszt_propagacji": {
+          "minor": 1565200,
+          "currency": "PLN",
+          "major": "15652.00"
+        },
+        "rejsow_bez_podstawienia": 1
+      }
+    ]
+  },
+  "decisions": [
+    "horyzont konczy sie na `BASE_RETURN` -- dalej opcje przestaja sie roznic i liczenie nie zmienia rankingu",
+    "opoznienie propaguje sie pomniejszone o bufor postoju; bufor wieszy od opoznienia wchlania je w calosci"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 64.61
+}

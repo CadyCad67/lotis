@@ -1,0 +1,486 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T194612",
+  "node": {
+    "id": "16",
+    "name": "log",
+    "title": "LOG"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Zapisano 10 rozwazonych opcji, w tym 1 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.",
+  "numbers": {
+    "opcji_w_logu": {
+      "value": 10,
+      "unit": "szt"
+    },
+    "opcji_odrzuconych": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "odcisk_wpisu": {
+      "value": "sha256:7643e4e777f9188a548dd00f",
+      "unit": ""
+    },
+    "wersja_silnika": {
+      "value": "1.0.0",
+      "unit": ""
+    },
+    "wersja_bazy": {
+      "value": "5.0",
+      "unit": ""
+    },
+    "nadpisania": {
+      "value": "brak",
+      "unit": ""
+    },
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "REBOOK-SPILL",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "wpis": {
+      "schema": "lotis.audit/v1",
+      "run_id": "20260906T194612",
+      "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+      "czas_runu": "2026-09-06T19:46:12.106442+00:00",
+      "zaklocenie": {
+        "id": "DSR-LO395-2026-08-24-0",
+        "rejs": "LO395-2026-08-24",
+        "typ": "TECHNICAL",
+        "opoznienie_min": 60,
+        "termin_decyzji": "2026-08-24T09:05:00+00:00",
+        "iteracja": 0,
+        "wyzwalacz": "INITIAL"
+      },
+      "opcje_rozwazone": [
+        {
+          "id": "HOLD",
+          "label": "Wstrzymaj odlot o 60 min, 3 pasazerow nie wejdzie na poklad",
+          "tryb": "MODIFYING",
+          "generator": "SZ.HOLD",
+          "strata": {
+            "minor": 2710409,
+            "currency": "PLN",
+            "major": "27104.09"
+          },
+          "widelki": {
+            "min": {
+              "minor": 2428075,
+              "currency": "PLN",
+              "major": "24280.75"
+            },
+            "max": {
+              "minor": 3726812,
+              "currency": "PLN",
+              "major": "37268.12"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 8 EU261",
+              "powod": "3 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu"
+            },
+            {
+              "podstawa": "Art. 4 EU261",
+              "powod": "3 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "REBOOK-SPILL",
+          "label": "Przenies 3 nadmiarowych na LO393 (+480 min)",
+          "tryb": "MODIFYING",
+          "generator": "SZ.REBOOK-SPILL",
+          "strata": {
+            "minor": 3019838,
+            "currency": "PLN",
+            "major": "30198.38"
+          },
+          "widelki": {
+            "min": {
+              "minor": 2705272,
+              "currency": "PLN",
+              "major": "27052.72"
+            },
+            "max": {
+              "minor": 4152277,
+              "currency": "PLN",
+              "major": "41522.77"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 1
+        },
+        {
+          "id": "SWAP-SP-LIC",
+          "label": "Podmien maszyne na SP-LIC (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 3284830,
+            "currency": "PLN",
+            "major": "32848.30"
+          },
+          "widelki": {
+            "min": {
+              "minor": 2942661,
+              "currency": "PLN",
+              "major": "29426.61"
+            },
+            "max": {
+              "minor": 4516641,
+              "currency": "PLN",
+              "major": "45166.41"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 3
+        },
+        {
+          "id": "SWAP-SP-LID",
+          "label": "Podmien maszyne na SP-LID (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 3405240,
+            "currency": "PLN",
+            "major": "34052.40"
+          },
+          "widelki": {
+            "min": {
+              "minor": 3050528,
+              "currency": "PLN",
+              "major": "30505.28"
+            },
+            "max": {
+              "minor": 4682205,
+              "currency": "PLN",
+              "major": "46822.05"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 4
+        },
+        {
+          "id": "SWAP-SP-LII",
+          "label": "Podmien maszyne na SP-LII (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 3225120,
+            "currency": "PLN",
+            "major": "32251.20"
+          },
+          "widelki": {
+            "min": {
+              "minor": 2889171,
+              "currency": "PLN",
+              "major": "28891.71"
+            },
+            "max": {
+              "minor": 4434540,
+              "currency": "PLN",
+              "major": "44345.40"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 2
+        },
+        {
+          "id": "REBOOK-OWN",
+          "label": "Przenies na wlasny rejs LO393 (+480 min)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OWN",
+          "strata": {
+            "minor": 13516921,
+            "currency": "PLN",
+            "major": "135169.21"
+          },
+          "widelki": {
+            "min": {
+              "minor": 12108909,
+              "currency": "PLN",
+              "major": "121089.09"
+            },
+            "max": {
+              "minor": 18585766,
+              "currency": "PLN",
+              "major": "185857.66"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 5
+        },
+        {
+          "id": "REBOOK-OAL",
+          "label": "Przenies na przewoznika obcego do HAM",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OAL",
+          "strata": {
+            "minor": 18867196,
+            "currency": "PLN",
+            "major": "188671.96"
+          },
+          "widelki": {
+            "min": {
+              "minor": 16901864,
+              "currency": "PLN",
+              "major": "169018.64"
+            },
+            "max": {
+              "minor": 25942394,
+              "currency": "PLN",
+              "major": "259423.94"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 9
+        },
+        {
+          "id": "OVERNIGHT",
+          "label": "Nocleg i rejs nastepnego dnia",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.OVERNIGHT",
+          "strata": {
+            "minor": 16587370,
+            "currency": "PLN",
+            "major": "165873.70"
+          },
+          "widelki": {
+            "min": {
+              "minor": 14859519,
+              "currency": "PLN",
+              "major": "148595.19"
+            },
+            "max": {
+              "minor": 22807633,
+              "currency": "PLN",
+              "major": "228076.33"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 8
+        },
+        {
+          "id": "CANCEL",
+          "label": "Odwolaj rejs",
+          "tryb": "MODIFYING",
+          "generator": "SZ.CANCEL",
+          "strata": {
+            "minor": 15102637,
+            "currency": "PLN",
+            "major": "151026.37"
+          },
+          "widelki": {
+            "min": {
+              "minor": 13529446,
+              "currency": "PLN",
+              "major": "135294.46"
+            },
+            "max": {
+              "minor": 20766125,
+              "currency": "PLN",
+              "major": "207661.25"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 6
+        },
+        {
+          "id": "SPLIT",
+          "label": "Rozdziel: 39 na LO393, reszta na obcego",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SPLIT",
+          "strata": {
+            "minor": 16225921,
+            "currency": "PLN",
+            "major": "162259.21"
+          },
+          "widelki": {
+            "min": {
+              "minor": 14535721,
+              "currency": "PLN",
+              "major": "145357.21"
+            },
+            "max": {
+              "minor": 22310641,
+              "currency": "PLN",
+              "major": "223106.41"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 7
+        }
+      ],
+      "rekomendacja": {
+        "id": "REBOOK-SPILL",
+        "strata": {
+          "minor": 3019838,
+          "currency": "PLN",
+          "major": "30198.38"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        }
+      },
+      "decyzja_czlowieka": {
+        "rodzaj": "ACCEPT",
+        "opcja": "REBOOK-SPILL",
+        "operator": "OCC-DUTY",
+        "kod_przyczyny": "",
+        "rola": "Dyzurny OCC",
+        "drugi_podpis": false,
+        "odstepstwo": false
+      },
+      "wykonanie": {
+        "opcja": "REBOOK-SPILL",
+        "kroki": [
+          {
+            "id": "nowy_slot",
+            "wykonawca": "Slot Coordination / EUROCONTROL",
+            "opis": "wystapienie o nowe okno startowe",
+            "odwracalny": false,
+            "krytyczny": true,
+            "status": "wykonany"
+          },
+          {
+            "id": "przepisanie_wlasne",
+            "wykonawca": "System rezerwacyjny",
+            "opis": "przepisanie pasazerow na wlasny rejs",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "powiadomienie_pax",
+            "wykonawca": "Komunikacja",
+            "opis": "wyslanie SMS i e-mail do pasazerow",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "brief_zalogi",
+            "wykonawca": "Crew Control",
+            "opis": "poinformowanie zalogi o zmianie",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          }
+        ],
+        "udane": true
+      },
+      "karta_wykonania": {
+        "option_id": "REBOOK-SPILL",
+        "label": "Przenies 3 nadmiarowych na LO393 (+480 min)",
+        "what_changes": [
+          "LO395: odlot pozniej o 60 min (z 09:05 UTC)",
+          "3 pasazerow na wlasny rejs (LO393, odlot 17:05 UTC) -- oczekiwanie 480 min"
+        ],
+        "pax_offloaded": 0,
+        "pax_order": [],
+        "rebooked_to": {
+          "PAX002023": "wlasny rejs",
+          "PAX002029": "wlasny rejs",
+          "PAX002036": "wlasny rejs"
+        },
+        "crew_actions": [
+          "zaloga rejsu LO395 pozostaje na sluzbie +60 min -- sprawdzic FDP przed odlotem"
+        ],
+        "valid_until": "2026-08-24T09:05:00+00:00",
+        "cost_low": {
+          "minor": 2705272,
+          "currency": "PLN",
+          "major": "27052.72"
+        },
+        "cost_expected": {
+          "minor": 3019838,
+          "currency": "PLN",
+          "major": "30198.38"
+        },
+        "cost_high": {
+          "minor": 4152277,
+          "currency": "PLN",
+          "major": "41522.77"
+        },
+        "threshold_note": "`REBOOK-SPILL` jest najlepsza do okolo +60 min dodatkowego opoznienia; powyzej przejmuje `SWAP-SP-LII`",
+        "authorization_role": "Dyzurny OCC",
+        "second_signature": false
+      },
+      "wersje": {
+        "engine": "1.0.0",
+        "data": "5.0",
+        "data_generated": "2026-08-28",
+        "authorization": "2026.07",
+        "escalation": "2026.07",
+        "sop": "2026.03",
+        "overrides": "brak"
+      },
+      "nadpisania_uzyte": {},
+      "budzet": {
+        "total_ms": 20000.0,
+        "elapsed_ms": 2672.2,
+        "remaining_ms": 17327.8,
+        "level": "FULL",
+        "level_label": "pelny",
+        "per_node_ms": {
+          "01": 1809.4,
+          "02": 12.4,
+          "03": 570.5,
+          "04": 12.2,
+          "05": 10.9,
+          "06": 0.1,
+          "07": 47.0,
+          "08": 1.6,
+          "09": 7.0,
+          "10": 92.1,
+          "11": 0.6,
+          "12": 0.6,
+          "13": 0.4,
+          "14": 60.9,
+          "15": 0.0,
+          "15b": 0.1
+        }
+      },
+      "degradacja": "FULL",
+      "odcisk": "sha256:7643e4e777f9188a548dd00f"
+    }
+  },
+  "decisions": [
+    "log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego",
+    "wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 4.37
+}

@@ -1,0 +1,220 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181101",
+  "node": {
+    "id": "08",
+    "name": "revenue",
+    "title": "REVENUE ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Policzono przychod 6 opcji. Najmniej traci `HOLD` (0.00 PLN), najwiecej `CANCEL` (12898.65 PLN).",
+  "numbers": {
+    "opcji_wycenionych": {
+      "value": 6,
+      "unit": "szt"
+    },
+    "najmniejszy_revenue_at_risk": {
+      "value": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "unit": "PLN"
+    },
+    "najwiekszy_revenue_at_risk": {
+      "value": {
+        "minor": 1289865,
+        "currency": "PLN",
+        "major": "12898.65"
+      },
+      "unit": "PLN"
+    },
+    "baseline_doby": {
+      "value": {
+        "minor": 2731484325,
+        "currency": "PLN",
+        "major": "27314843.25"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "revenue_opcji": [
+      {
+        "id": "HOLD",
+        "baseline_dotknietych": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_opcji": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "zwroty": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "pasazerow": 55
+      },
+      {
+        "id": "REBOOK-OWN",
+        "baseline_dotknietych": {
+          "minor": 2524247,
+          "currency": "PLN",
+          "major": "25242.47"
+        },
+        "revenue_opcji": {
+          "minor": 2524247,
+          "currency": "PLN",
+          "major": "25242.47"
+        },
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "zwroty": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "pasazerow": 55
+      },
+      {
+        "id": "REBOOK-OAL",
+        "baseline_dotknietych": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_opcji": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "zwroty": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "pasazerow": 55
+      },
+      {
+        "id": "OVERNIGHT",
+        "baseline_dotknietych": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_opcji": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "zwroty": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "pasazerow": 55
+      },
+      {
+        "id": "CANCEL",
+        "baseline_dotknietych": {
+          "minor": 1152756,
+          "currency": "PLN",
+          "major": "11527.56"
+        },
+        "revenue_opcji": {
+          "minor": -137109,
+          "currency": "PLN",
+          "major": "-1371.09"
+        },
+        "revenue_at_risk": {
+          "minor": 1289865,
+          "currency": "PLN",
+          "major": "12898.65"
+        },
+        "zwroty": {
+          "minor": 1289865,
+          "currency": "PLN",
+          "major": "12898.65"
+        },
+        "pasazerow": 55
+      },
+      {
+        "id": "SPLIT",
+        "baseline_dotknietych": {
+          "minor": 2524247,
+          "currency": "PLN",
+          "major": "25242.47"
+        },
+        "revenue_opcji": {
+          "minor": 2524247,
+          "currency": "PLN",
+          "major": "25242.47"
+        },
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "zwroty": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "pasazerow": 55
+      }
+    ],
+    "zasada": {
+      "revenue_at_risk": "baseline dotknietych rejsow minus revenue opcji",
+      "rebooking_na_OAL": "zachowuje przychod, generuje koszt rozliczenia w node 09",
+      "zwrot": "kasuje przychod w calosci"
+    }
+  },
+  "decisions": [
+    "rebooking na obcego przewoznika zachowuje przychod z biletu; rozliczenie interline jest kosztem, nie utrata przychodu",
+    "revenue at risk to wynik odejmowania, nie osobna wielkosc"
+  ],
+  "assumptions": [
+    {
+      "field": "kurs EUR/PLN",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "4.3 -- placeholder - kurs do ustawienia w Konfiguracji"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 2.82
+}

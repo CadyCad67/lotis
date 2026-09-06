@@ -1,0 +1,120 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T131947",
+  "node": {
+    "id": "17",
+    "name": "wynik",
+    "title": "WYNIK RZECZYWISTY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:3b1d18402faf79f0e77fd3d167817e01",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Rejs LO21: prognoza 22108.70 PLN, rzeczywistosc 30479.18 PLN, blad +37.9%. Klasyfikacja: BLAD_WYKONANIA. Wynik POZA widelkami prognozy.",
+  "numbers": {
+    "opcja_wykonana": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "opoznienie_prognozowane": {
+      "value": 30,
+      "unit": "min"
+    },
+    "opoznienie_rzeczywiste": {
+      "value": 42,
+      "unit": "min"
+    },
+    "strata_prognozowana": {
+      "value": {
+        "minor": 2210870,
+        "currency": "PLN",
+        "major": "22108.70"
+      },
+      "unit": "PLN"
+    },
+    "strata_rzeczywista": {
+      "value": {
+        "minor": 3047918,
+        "currency": "PLN",
+        "major": "30479.18"
+      },
+      "unit": "PLN"
+    },
+    "blad": {
+      "value": {
+        "minor": 837048,
+        "currency": "PLN",
+        "major": "8370.48"
+      },
+      "unit": "PLN"
+    },
+    "blad_procentowo": {
+      "value": 37.86,
+      "unit": "%"
+    },
+    "w_widelkach": {
+      "value": false,
+      "unit": ""
+    },
+    "rodzaj_bledu": {
+      "value": "BLAD_WYKONANIA",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "klasyfikacja": {
+      "rodzaj": "BLAD_WYKONANIA",
+      "opis": "wykonanie nie powiodlo sie na kroku `nowy_slot` (Slot Coordination / EUROCONTROL nie potwierdzil kroku `wystapienie o nowe okno startowe`) -- model nie ponosi za to odpowiedzialnosci",
+      "blad_modelu": false,
+      "blad_wykonania": true,
+      "odstepstwo_czlowieka": false
+    },
+    "zrodlo_rzeczywistosci": {
+      "poziom": "rejs",
+      "p25": 33.0,
+      "mediana": 42.0,
+      "p90": 82.0
+    },
+    "kalibracja": {
+      "poprawki": [],
+      "powod_pominiecia": "rodzaj `BLAD_WYKONANIA` nie kalibruje modelu",
+      "tlumienie": 0.2
+    },
+    "wykonanie": {
+      "udane": false,
+      "powod": {
+        "step": "nowy_slot",
+        "reason": "Slot Coordination / EUROCONTROL nie potwierdzil kroku `wystapienie o nowe okno startowe`",
+        "recoverable": true
+      }
+    }
+  },
+  "decisions": [
+    "wykonanie nie powiodlo sie na kroku `nowy_slot` (Slot Coordination / EUROCONTROL nie potwierdzil kroku `wystapienie o nowe okno startowe`) -- model nie ponosi za to odpowiedzialnosci",
+    "blad modelu, blad wykonania i odstepstwo czlowieka sa liczone osobno -- mieszanie ich uczy model na cudzych pomylkach",
+    "blad +37.9% miesci sie w szumie (5%) -- bez poprawek"
+  ],
+  "assumptions": [
+    {
+      "field": "rzeczywiste opoznienie",
+      "source": "real",
+      "confidence": 0.9,
+      "note": "mediana rozkladu z 6374 operacji"
+    }
+  ],
+  "data_gaps": [
+    "rzeczywisty koszt operacji nie jest w zadnym ze zrodel -- porownanie opiera sie na opoznieniu, nie na fakturach"
+  ],
+  "warnings": [
+    "rzeczywistosc wypadla poza widelkami prognozy -- widelki byly za waskie albo model pominal skladnik"
+  ],
+  "duration_ms": 0.21
+}

@@ -1,0 +1,107 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T191046",
+  "node": {
+    "id": "10",
+    "name": "siec",
+    "title": "NETWORK IMPACT"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Horyzont propagacji: 0 odcinkow, zatrzymany na `END_OF_DAY`. 120 pasazerow transferowych na rejsie zrodlowym.",
+  "numbers": {
+    "odcinkow_w_horyzoncie": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "powod_zatrzymania": {
+      "value": "END_OF_DAY",
+      "unit": ""
+    },
+    "koniec_doby_operacyjnej": {
+      "value": "2026-08-21T09:00:00+00:00",
+      "unit": ""
+    },
+    "pasazerow_transferowych": {
+      "value": 120,
+      "unit": "osob"
+    },
+    "zalogi_poza_fdp": {
+      "value": 11,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "horyzont": [],
+    "propagacja_wg_opcji": [
+      {
+        "id": "HOLD",
+        "odcinkow_ponizej": 0,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 70,
+        "koszt_propagacji": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "REBOOK-OAL",
+        "odcinkow_ponizej": 0,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 120,
+        "koszt_propagacji": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "OVERNIGHT",
+        "odcinkow_ponizej": 0,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 120,
+        "koszt_propagacji": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "rejsow_bez_podstawienia": 0
+      },
+      {
+        "id": "CANCEL",
+        "odcinkow_ponizej": 0,
+        "suma_propagacji_min": 0,
+        "przesiadek_utraconych": 120,
+        "koszt_propagacji": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "rejsow_bez_podstawienia": 0
+      }
+    ]
+  },
+  "decisions": [
+    "horyzont konczy sie na `END_OF_DAY` -- dalej opcje przestaja sie roznic i liczenie nie zmienia rankingu",
+    "opoznienie propaguje sie pomniejszone o bufor postoju; bufor wieszy od opoznienia wchlania je w calosci"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "rejs zrodlowy nie ma odcinkow ponizej -- network impact wynosi zero i nie rozroznia opcji"
+  ],
+  "duration_ms": 6.46
+}

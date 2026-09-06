@@ -1,0 +1,501 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T192747",
+  "node": {
+    "id": "16",
+    "name": "log",
+    "title": "LOG"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Zapisano 10 rozwazonych opcji, w tym 2 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.",
+  "numbers": {
+    "opcji_w_logu": {
+      "value": 10,
+      "unit": "szt"
+    },
+    "opcji_odrzuconych": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "odcisk_wpisu": {
+      "value": "sha256:8217c821434ea3868695e027",
+      "unit": ""
+    },
+    "wersja_silnika": {
+      "value": "1.0.0",
+      "unit": ""
+    },
+    "wersja_bazy": {
+      "value": "5.0",
+      "unit": ""
+    },
+    "nadpisania": {
+      "value": "brak",
+      "unit": ""
+    },
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "SWAP-SP-LIO",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "wpis": {
+      "schema": "lotis.audit/v1",
+      "run_id": "20260906T192747",
+      "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+      "czas_runu": "2026-09-06T19:27:47.387758+00:00",
+      "zaklocenie": {
+        "id": "DSR-LO3931-2026-08-21-0",
+        "rejs": "LO3931-2026-08-21",
+        "typ": "TECHNICAL",
+        "opoznienie_min": 20,
+        "termin_decyzji": "2026-08-21T07:05:00+00:00",
+        "iteracja": 0,
+        "wyzwalacz": "INITIAL"
+      },
+      "opcje_rozwazone": [
+        {
+          "id": "HOLD",
+          "label": "Wstrzymaj odlot o 20 min, 7 pasazerow nie wejdzie na poklad",
+          "tryb": "MODIFYING",
+          "generator": "SZ.HOLD",
+          "strata": {
+            "minor": 1261999,
+            "currency": "PLN",
+            "major": "12619.99"
+          },
+          "widelki": {
+            "min": {
+              "minor": 1094970,
+              "currency": "PLN",
+              "major": "10949.70"
+            },
+            "max": {
+              "minor": 1410469,
+              "currency": "PLN",
+              "major": "14104.69"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 8 EU261",
+              "powod": "7 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu"
+            },
+            {
+              "podstawa": "Art. 4 EU261",
+              "powod": "7 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "REBOOK-SPILL",
+          "label": "Przenies 7 nadmiarowych na LO3933 (+290 min)",
+          "tryb": "MODIFYING",
+          "generator": "SZ.REBOOK-SPILL",
+          "strata": {
+            "minor": 1768915,
+            "currency": "PLN",
+            "major": "17689.15"
+          },
+          "widelki": {
+            "min": {
+              "minor": 1534794,
+              "currency": "PLN",
+              "major": "15347.94"
+            },
+            "max": {
+              "minor": 1977022,
+              "currency": "PLN",
+              "major": "19770.22"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 3
+        },
+        {
+          "id": "SWAP-SP-LDH",
+          "label": "Podmien maszyne na SP-LDH (E170)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 2351697,
+            "currency": "PLN",
+            "major": "23516.97"
+          },
+          "widelki": {
+            "min": {
+              "minor": 2040443,
+              "currency": "PLN",
+              "major": "20404.43"
+            },
+            "max": {
+              "minor": 2628367,
+              "currency": "PLN",
+              "major": "26283.67"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 8 EU261",
+              "powod": "6 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu"
+            },
+            {
+              "podstawa": "Art. 4 EU261",
+              "powod": "6 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "SWAP-SP-LIC",
+          "label": "Podmien maszyne na SP-LIC (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 1590914,
+            "currency": "PLN",
+            "major": "15909.14"
+          },
+          "widelki": {
+            "min": {
+              "minor": 1380352,
+              "currency": "PLN",
+              "major": "13803.52"
+            },
+            "max": {
+              "minor": 1778080,
+              "currency": "PLN",
+              "major": "17780.80"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 2
+        },
+        {
+          "id": "SWAP-SP-LIO",
+          "label": "Podmien maszyne na SP-LIO (E75S)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 1415846,
+            "currency": "PLN",
+            "major": "14158.46"
+          },
+          "widelki": {
+            "min": {
+              "minor": 1228455,
+              "currency": "PLN",
+              "major": "12284.55"
+            },
+            "max": {
+              "minor": 1582416,
+              "currency": "PLN",
+              "major": "15824.16"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 1
+        },
+        {
+          "id": "REBOOK-OWN",
+          "label": "Przenies na wlasny rejs LO3933 (+290 min)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OWN",
+          "strata": {
+            "minor": 12774354,
+            "currency": "PLN",
+            "major": "127743.54"
+          },
+          "widelki": {
+            "min": {
+              "minor": 11083631,
+              "currency": "PLN",
+              "major": "110836.31"
+            },
+            "max": {
+              "minor": 14277219,
+              "currency": "PLN",
+              "major": "142772.19"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 4
+        },
+        {
+          "id": "REBOOK-OAL",
+          "label": "Przenies na przewoznika obcego do SZZ",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OAL",
+          "strata": {
+            "minor": 16106424,
+            "currency": "PLN",
+            "major": "161064.24"
+          },
+          "widelki": {
+            "min": {
+              "minor": 13974692,
+              "currency": "PLN",
+              "major": "139746.92"
+            },
+            "max": {
+              "minor": 18001297,
+              "currency": "PLN",
+              "major": "180012.97"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 8
+        },
+        {
+          "id": "OVERNIGHT",
+          "label": "Nocleg i rejs nastepnego dnia",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.OVERNIGHT",
+          "strata": {
+            "minor": 15912796,
+            "currency": "PLN",
+            "major": "159127.96"
+          },
+          "widelki": {
+            "min": {
+              "minor": 13806691,
+              "currency": "PLN",
+              "major": "138066.91"
+            },
+            "max": {
+              "minor": 17784889,
+              "currency": "PLN",
+              "major": "177848.89"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 7
+        },
+        {
+          "id": "CANCEL",
+          "label": "Odwolaj rejs",
+          "tryb": "MODIFYING",
+          "generator": "SZ.CANCEL",
+          "strata": {
+            "minor": 14703120,
+            "currency": "PLN",
+            "major": "147031.20"
+          },
+          "widelki": {
+            "min": {
+              "minor": 12757119,
+              "currency": "PLN",
+              "major": "127571.19"
+            },
+            "max": {
+              "minor": 16432898,
+              "currency": "PLN",
+              "major": "164328.98"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 6
+        },
+        {
+          "id": "SPLIT",
+          "label": "Rozdziel: 41 na LO3933, reszta na obcego",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SPLIT",
+          "strata": {
+            "minor": 14440389,
+            "currency": "PLN",
+            "major": "144403.89"
+          },
+          "widelki": {
+            "min": {
+              "minor": 12529162,
+              "currency": "PLN",
+              "major": "125291.62"
+            },
+            "max": {
+              "minor": 16139258,
+              "currency": "PLN",
+              "major": "161392.58"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 5
+        }
+      ],
+      "rekomendacja": {
+        "id": "SWAP-SP-LIO",
+        "strata": {
+          "minor": 1415846,
+          "currency": "PLN",
+          "major": "14158.46"
+        },
+        "oszczednosc": {
+          "minor": 353069,
+          "currency": "PLN",
+          "major": "3530.69"
+        }
+      },
+      "decyzja_czlowieka": {
+        "rodzaj": "ACCEPT",
+        "opcja": "SWAP-SP-LIO",
+        "operator": "OCC-DUTY",
+        "kod_przyczyny": "",
+        "rola": "Dyzurny OCC",
+        "drugi_podpis": false,
+        "odstepstwo": false
+      },
+      "wykonanie": {
+        "opcja": "SWAP-SP-LIO",
+        "kroki": [
+          {
+            "id": "przydzial_maszyny",
+            "wykonawca": "OCC / Maintenance Control",
+            "opis": "przepiecie rejsow miedzy maszynami",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "obsluga_naziemna",
+            "wykonawca": "Handling",
+            "opis": "przestawienie sprzetu i bagazu",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "nowy_slot",
+            "wykonawca": "Slot Coordination / EUROCONTROL",
+            "opis": "wystapienie o nowe okno startowe",
+            "odwracalny": false,
+            "krytyczny": true,
+            "status": "wykonany"
+          },
+          {
+            "id": "powiadomienie_pax",
+            "wykonawca": "Komunikacja",
+            "opis": "wyslanie SMS i e-mail do pasazerow",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "brief_zalogi",
+            "wykonawca": "Crew Control",
+            "opis": "poinformowanie zalogi o zmianie",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          }
+        ],
+        "udane": true
+      },
+      "karta_wykonania": {
+        "option_id": "SWAP-SP-LIO",
+        "label": "Podmien maszyne na SP-LIO (E75S)",
+        "what_changes": [
+          "podmiana maszyny miedzy LO3931 i LO265",
+          "LO265: odlot pozniej o 20 min (z 07:25 UTC)",
+          "LO3931: odlot pozniej o 36 min (z 07:05 UTC)"
+        ],
+        "pax_offloaded": 0,
+        "pax_order": [],
+        "rebooked_to": {},
+        "crew_actions": [
+          "zaloga rejsu LO3931 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem",
+          "wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne"
+        ],
+        "valid_until": "2026-08-21T07:05:00+00:00",
+        "cost_low": {
+          "minor": 1228455,
+          "currency": "PLN",
+          "major": "12284.55"
+        },
+        "cost_expected": {
+          "minor": 1415846,
+          "currency": "PLN",
+          "major": "14158.46"
+        },
+        "cost_high": {
+          "minor": 1582416,
+          "currency": "PLN",
+          "major": "15824.16"
+        },
+        "threshold_note": "`SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min",
+        "authorization_role": "Dyzurny OCC",
+        "second_signature": false
+      },
+      "wersje": {
+        "engine": "1.0.0",
+        "data": "5.0",
+        "data_generated": "2026-08-28",
+        "authorization": "2026.07",
+        "escalation": "2026.07",
+        "sop": "2026.03",
+        "overrides": "brak"
+      },
+      "nadpisania_uzyte": {},
+      "budzet": {
+        "total_ms": 20000.0,
+        "elapsed_ms": 2643.5,
+        "remaining_ms": 17356.5,
+        "level": "FULL",
+        "level_label": "pelny",
+        "per_node_ms": {
+          "01": 1741.0,
+          "02": 12.3,
+          "03": 625.9,
+          "04": 12.4,
+          "05": 10.5,
+          "06": 0.1,
+          "07": 46.6,
+          "08": 1.9,
+          "09": 7.2,
+          "10": 80.7,
+          "11": 0.6,
+          "12": 0.7,
+          "13": 0.4,
+          "14": 57.7,
+          "15": 0.0,
+          "15b": 0.1
+        }
+      },
+      "degradacja": "FULL",
+      "odcisk": "sha256:8217c821434ea3868695e027"
+    }
+  },
+  "decisions": [
+    "log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego",
+    "wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 4.0
+}

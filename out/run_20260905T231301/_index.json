@@ -1,0 +1,20 @@
+{
+  "schema": "lotis.ai.index/v1",
+  "run_id": "20260905T231301",
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "personas": [
+    {
+      "persona": "dyspozytor",
+      "ok": true,
+      "dry_run": true,
+      "model": "minimax/minimax-m3:free",
+      "error": "",
+      "guard_clean": null,
+      "guard_summary": null,
+      "files": [
+        "dyspozytor.prompt.txt",
+        "dyspozytor.json"
+      ]
+    }
+  ]
+}

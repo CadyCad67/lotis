@@ -1,0 +1,418 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T184422",
+  "node": {
+    "id": "16",
+    "name": "log",
+    "title": "LOG"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:d7806668b46167a39f400ef7880d14c4",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Zapisano 7 rozwazonych opcji, w tym 4 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.",
+  "numbers": {
+    "opcji_w_logu": {
+      "value": 7,
+      "unit": "szt"
+    },
+    "opcji_odrzuconych": {
+      "value": 4,
+      "unit": "szt"
+    },
+    "odcisk_wpisu": {
+      "value": "sha256:08d2a86970e5cc39f568bf9f",
+      "unit": ""
+    },
+    "wersja_silnika": {
+      "value": "1.0.0",
+      "unit": ""
+    },
+    "wersja_bazy": {
+      "value": "5.0",
+      "unit": ""
+    },
+    "nadpisania": {
+      "value": "brak",
+      "unit": ""
+    },
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "HOLD",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "wpis": {
+      "schema": "lotis.audit/v1",
+      "run_id": "20260906T184422",
+      "snapshot": "sha256:d7806668b46167a39f400ef7880d14c4",
+      "czas_runu": "2026-09-06T18:44:22.682221+00:00",
+      "zaklocenie": {
+        "id": "DSR-LO35-2026-08-23-0",
+        "rejs": "LO35-2026-08-23",
+        "typ": "TECHNICAL",
+        "opoznienie_min": 0,
+        "termin_decyzji": "2026-08-23T11:00:00+00:00",
+        "iteracja": 0,
+        "wyzwalacz": "INITIAL"
+      },
+      "opcje_rozwazone": [
+        {
+          "id": "HOLD",
+          "label": "Wstrzymaj odlot o 0 min",
+          "tryb": "MODIFYING",
+          "generator": "SZ.HOLD",
+          "strata": {
+            "minor": 0,
+            "currency": "PLN",
+            "major": "0.00"
+          },
+          "widelki": {
+            "min": {
+              "minor": 0,
+              "currency": "PLN",
+              "major": "0.00"
+            },
+            "max": {
+              "minor": 0,
+              "currency": "PLN",
+              "major": "0.00"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 1
+        },
+        {
+          "id": "SWAP-SP-LRC",
+          "label": "Podmien maszyne na SP-LRC (B788)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 9559950,
+            "currency": "PLN",
+            "major": "95599.50"
+          },
+          "widelki": {
+            "min": {
+              "minor": 9109009,
+              "currency": "PLN",
+              "major": "91090.09"
+            },
+            "max": {
+              "minor": 14850991,
+              "currency": "PLN",
+              "major": "148509.91"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 8 EU261",
+              "powod": "4 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu"
+            },
+            {
+              "podstawa": "Art. 4 EU261",
+              "powod": "4 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "SWAP-SP-LRD",
+          "label": "Podmien maszyne na SP-LRD (B788)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 12551695,
+            "currency": "PLN",
+            "major": "125516.95"
+          },
+          "widelki": {
+            "min": {
+              "minor": 11959634,
+              "currency": "PLN",
+              "major": "119596.34"
+            },
+            "max": {
+              "minor": 19498545,
+              "currency": "PLN",
+              "major": "194985.45"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 8 EU261",
+              "powod": "4 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu"
+            },
+            {
+              "podstawa": "Art. 4 EU261",
+              "powod": "4 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "SWAP-SP-LRH",
+          "label": "Podmien maszyne na SP-LRH (B788)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SWAP",
+          "strata": {
+            "minor": 10737030,
+            "currency": "PLN",
+            "major": "107370.30"
+          },
+          "widelki": {
+            "min": {
+              "minor": 10230567,
+              "currency": "PLN",
+              "major": "102305.67"
+            },
+            "max": {
+              "minor": 16679537,
+              "currency": "PLN",
+              "major": "166795.37"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 8 EU261",
+              "powod": "4 pasazerow zdjetych bez zapewnienia przewozu ani zwrotu"
+            },
+            {
+              "podstawa": "Art. 4 EU261",
+              "powod": "4 pasazerow zdjetych wbrew woli bez uprzedniego wezwania ochotnikow"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "REBOOK-OAL",
+          "label": "Przenies na przewoznika obcego do SFO",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OAL",
+          "strata": {
+            "minor": 202698560,
+            "currency": "PLN",
+            "major": "2026985.60"
+          },
+          "widelki": {
+            "min": {
+              "minor": 193137308,
+              "currency": "PLN",
+              "major": "1931373.08"
+            },
+            "max": {
+              "minor": 314883926,
+              "currency": "PLN",
+              "major": "3148839.26"
+            }
+          },
+          "dopuszczalna": false,
+          "powod_odrzucenia": [
+            {
+              "podstawa": "Art. 9 EU261",
+              "powod": "oczekiwanie 925 min bez zapewnionego noclegu (prog opieki 240 min)"
+            }
+          ],
+          "pozycja_koncowa": null
+        },
+        {
+          "id": "OVERNIGHT",
+          "label": "Nocleg i rejs nastepnego dnia",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.OVERNIGHT",
+          "strata": {
+            "minor": 137306246,
+            "currency": "PLN",
+            "major": "1373062.46"
+          },
+          "widelki": {
+            "min": {
+              "minor": 130829537,
+              "currency": "PLN",
+              "major": "1308295.37"
+            },
+            "max": {
+              "minor": 213299640,
+              "currency": "PLN",
+              "major": "2132996.40"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 2
+        },
+        {
+          "id": "CANCEL",
+          "label": "Odwolaj rejs",
+          "tryb": "MODIFYING",
+          "generator": "SZ.CANCEL",
+          "strata": {
+            "minor": 178468071,
+            "currency": "PLN",
+            "major": "1784680.71"
+          },
+          "widelki": {
+            "min": {
+              "minor": 170049766,
+              "currency": "PLN",
+              "major": "1700497.66"
+            },
+            "max": {
+              "minor": 277242852,
+              "currency": "PLN",
+              "major": "2772428.52"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 3
+        }
+      ],
+      "rekomendacja": {
+        "id": "HOLD",
+        "strata": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        }
+      },
+      "decyzja_czlowieka": {
+        "rodzaj": "ACCEPT",
+        "opcja": "HOLD",
+        "operator": "OCC-DUTY",
+        "kod_przyczyny": "",
+        "rola": "Dyzurny OCC",
+        "drugi_podpis": false,
+        "odstepstwo": false
+      },
+      "wykonanie": {
+        "opcja": "HOLD",
+        "kroki": [
+          {
+            "id": "nowy_slot",
+            "wykonawca": "Slot Coordination / EUROCONTROL",
+            "opis": "wystapienie o nowe okno startowe",
+            "odwracalny": false,
+            "krytyczny": true,
+            "status": "wykonany"
+          },
+          {
+            "id": "powiadomienie_pax",
+            "wykonawca": "Komunikacja",
+            "opis": "wyslanie SMS i e-mail do pasazerow",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "brief_zalogi",
+            "wykonawca": "Crew Control",
+            "opis": "poinformowanie zalogi o zmianie",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          }
+        ],
+        "udane": true
+      },
+      "karta_wykonania": {
+        "option_id": "HOLD",
+        "label": "Wstrzymaj odlot o 0 min",
+        "what_changes": [
+          "bez zmian operacyjnych"
+        ],
+        "pax_offloaded": 0,
+        "pax_order": [],
+        "rebooked_to": {},
+        "crew_actions": [
+          "bez zmian dla zalogi"
+        ],
+        "valid_until": "2026-08-23T11:00:00+00:00",
+        "cost_low": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "cost_expected": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "cost_high": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "threshold_note": "`HOLD` pozostaje najlepsza w calym badanym zakresie do +120 min",
+        "authorization_role": "Dyzurny OCC",
+        "second_signature": false
+      },
+      "wersje": {
+        "engine": "1.0.0",
+        "data": "5.0",
+        "data_generated": "2026-08-28",
+        "authorization": "2026.07",
+        "escalation": "2026.07",
+        "sop": "2026.03",
+        "overrides": "brak"
+      },
+      "nadpisania_uzyte": {},
+      "budzet": {
+        "total_ms": 20000.0,
+        "elapsed_ms": 2424.1,
+        "remaining_ms": 17575.9,
+        "level": "FULL",
+        "level_label": "pelny",
+        "per_node_ms": {
+          "01": 1638.7,
+          "02": 11.9,
+          "03": 621.3,
+          "04": 6.3,
+          "05": 9.7,
+          "06": 0.1,
+          "07": 16.8,
+          "08": 3.8,
+          "09": 18.2,
+          "10": 11.5,
+          "11": 3.6,
+          "12": 1.4,
+          "13": 0.4,
+          "14": 36.4,
+          "15": 0.1,
+          "15b": 0.1
+        }
+      },
+      "degradacja": "FULL",
+      "odcisk": "sha256:08d2a86970e5cc39f568bf9f"
+    }
+  },
+  "decisions": [
+    "log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego",
+    "wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 4.02
+}

@@ -1,0 +1,108 @@
+{
+  "schema": "lotis.ai/v1",
+  "run_id": "20260906T193212",
+  "persona": "analityk",
+  "model": "minimax/minimax-m3:free",
+  "dry_run": false,
+  "ok": true,
+  "error": "",
+  "prompt_chars": 44269,
+  "prompt_tokens": 18168,
+  "completion_tokens": 2500,
+  "duration_ms": 31702.9,
+  "guard": {
+    "clean": false,
+    "checked": 128,
+    "allowed_pool": 209,
+    "exempted": {
+      "artykul": 5,
+      "data ISO": 2,
+      "godzina": 2,
+      "identyfikator node": 7,
+      "identyfikator rekordu": 8,
+      "naglowek struktury": 5,
+      "numer rejsu": 10,
+      "rozporzadzenie EU261": 4,
+      "znak rejestracyjny": 4
+    },
+    "errors": [
+      {
+        "severity": "ERROR",
+        "value": 54.0,
+        "text": "54,0",
+        "context": "...-- | | odszkodowanie_art7 | 20 640,00 | [54,0] % | MODIFYING | | roszczenia_mc99 | 8 97..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 99.0,
+        "text": "99",
+        "context": "...00 | 54,0% | MODIFYING | | roszczenia_mc [99] | 8 978,40 | 23,5% | MODIFYING | | rebo..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 23.5,
+        "text": "23,5",
+        "context": "...IFYING | | roszczenia_mc99 | 8 978,40 | [23,5] % | MODIFYING | | rebooking_wlasny_spill..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 20.5,
+        "text": "20,5",
+        "context": "...| | rebooking_wlasny_spill | 7 826,00 | [20,5] % | MODIFYING | Koszt w całości liczony..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 34.0,
+        "text": "34",
+        "context": "...PLN (272 pax w opcjach RESTRUCTURING) — [34] -krotność. - `pozycjonowanie` (269 610,0..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 25.0,
+        "text": "25",
+        "context": "...ć: **23 460,51 PLN** Źródło: kwantyle p [25] = 33,00 min, mediana = 46,00 min, p90 =..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 90.0,
+        "text": "90",
+        "context": "...p25 = 33,00 min, mediana = 46,00 min, p [90] = 121,00 min z rzeczywistych operacji t..."
+      },
+      {
+        "severity": "ERROR",
+        "value": 280.0,
+        "text": "280",
+        "context": "...esionych na  (odlot  UTC, oczekiwanie [280] min). Ważność karty: . Rola autoryzują..."
+      }
+    ],
+    "warnings": [
+      {
+        "severity": "WARN",
+        "value": 186906.0,
+        "text": "186 906",
+        "context": "...h parach widelki nie zachodzą — SWAP-y ( [186 906] –310 417 PLN), REBOOK-OWN (1 408 667–2 3..."
+      },
+      {
+        "severity": "WARN",
+        "value": 310417.0,
+        "text": "310 417",
+        "context": "...widelki nie zachodzą — SWAP-y (186 906– [310 417] PLN), REBOOK-OWN (1 408 667–2 339 540 P..."
+      },
+      {
+        "severity": "WARN",
+        "value": 1408667.0,
+        "text": "1 408 667",
+        "context": "...AP-y (186 906–310 417 PLN), REBOOK-OWN ( [1 408 667] –2 339 540 PLN) i dalej są wyraźnie droż..."
+      },
+      {
+        "severity": "WARN",
+        "value": 2339540.0,
+        "text": "2 339 540",
+        "context": "...906–310 417 PLN), REBOOK-OWN (1 408 667– [2 339 540] PLN) i dalej są wyraźnie droższe bez na..."
+      }
+    ],
+    "summary": "sprawdzono 128 liczb, 8 spoza raportow, 4 zaokraglonych."
+  },
+  "text": "# Analiza kosztowa — LO6, 2026-08-24\n\n## 1. STRUKTURA KOSZTU — składniki i ich udział\n\nWykonana opcja: **REBOOK-SPILL** (tryb MODIFYING). Koszt oczekiwany: **38 201,20 PLN**. Trzy pozycje składowe:\n\n| Pozycja | Kwota (PLN) | Udział w koszcie | Tryb |\n| --- | --- | --- | --- |\n| odszkodowanie_art7 | 20 640,00 | 54,0% | MODIFYING |\n| roszczenia_mc99 | 8 978,40 | 23,5% | MODIFYING |\n| rebooking_wlasny_spill | 7 826,00 | 20,5% | MODIFYING |\n\nKoszt w całości liczony jako różnica wobec sytuacji bez zakłócenia — nie ma tu przebudowy siatki, więc nie wchodzą pozycje typu `pozycjonowanie` (269 610,00 PLN), `rozliczenie_interline` (380 120,00–760 240,00 PLN) czy `opóźnienie_w_siatce` (96 958,06 PLN), które dominują w opcjach RESTRUCTURING.\n\nDla porządku — pozycje, których tu nie ma, ale decydują o wyniku w opcjach droższych:\n- `odszkodowanie_art7` rośnie z 20 640,00 PLN (8 pax z odszkodowaniem w REBOOK-SPILL) do 701 760,00 PLN (272 pax w opcjach RESTRUCTURING) — 34-krotność.\n- `pozycjonowanie` (269 610,00 PLN) i `rozliczenie_interline` (do 760 240,00 PLN w REBOOK-OAL) są widoczne tylko w trybie RESTRUCTURING, bo w MODIFYING są częścią baseline.\n\n## 2. CO DECYDUJE O WYNIKU\n\nO wyniku REBOOK-SPILL decyduje liczba pasazerów z odszkodowaniem Art. 7: **8**. To 8 osób z opóźnieniem ≥180 min (próg odszkodowania), które kwalifikują się do rekompensaty 2 580,00 PLN/os. Wszystkie pozostałe pozycje (`mc99`, `rebooking_wlasny_spill`) są z tej samej grupy 8 pax.\n\nPorównanie z opcjami gorszymi:\n- CANCEL, OVERNIGHT, SPLIT, REBOOK-OWN, REBOOK-OAL mają **272** pax z odszkodowaniem (pełny rejs), co winduje `odszkodowanie_art7` do 701 760,00 PLN.\n- SWAP-SP-LSA / SWAP-SP-LSE nie generują odszkodowania (0 pax), ale ładują 96 958,06 PLN propagacji na LO7 (JFK→WAW) — 130 utraconych przesiadek, 139 min opóźnienia wtórnego.\n- HOLD jest najtańsza (20 640,00 PLN), ale node 12 usuwa ją jako niedopuszczalną (Art. 8 i Art. 4 EU261).\n\nDecydujący łańcuch: **próg 180 min → 8 vs 272 pax → 20 640,00 vs 701 760,00 PLN odszkodowania**. To jedna liczba (8 vs 272) różnicuje opcję rekomendowaną od najdroższej o czynnik ~46×.\n\n## 3. NIEPEWNOŚĆ — widelki i ich źródło\n\nWidelki REBOOK-SPILL pochodzą z rozkładu empirycznego 57 obserwacji na poziomie rejsu:\n- min: **35 502,21 PLN**\n- oczekiwany: **38 201,20 PLN**\n- max: **58 962,72 PLN**\n- rozpiętość: **23 460,51 PLN**\n\nŹródło: kwantyle p25 = 33,00 min, mediana = 46,00 min, p90 = 121,00 min z rzeczywistych operacji tej siatki. Pewność widelek: 0,80 (real). Kurs EUR/PLN 4,3 — placeholder, pewność 0,50.\n\n**Zachodzenie widelek (istotne dla ranking):**\n- HOLD: 26 774,81–44 468,10 PLN\n- REBOOK-SPILL: 35 502,21–58 962,72 PLN\n\nWidelki HOLD i REBOOK-SPILL zachodzą się w przedziale 35 502,21–44 468,10 PLN. **Różnica między nimi nie jest istotna statystycznie** (ostrzeżenie node 11). Mimo to ranking daje REBOOK-SPILL pierwszeństwo, bo HOLD jest wykluczona prawnie (Art. 4/8 EU261) — o wyborze decyduje filtr prawny, nie koszt.\n\nW pozostałych parach widelki nie zachodzą — SWAP-y (186 906–310 417 PLN), REBOOK-OWN (1 408 667–2 339 540 PLN) i dalej są wyraźnie droższe bez nakładania się.\n\nTest wrażliwości: przy +30, +60 i +120 min lider pozostaje REBOOK-SPILL. Ranking jest stabilny w zadanym zakresie.\n\n## 4. WPŁYW NA SIATKĘ — propagacja poza rejs źródłowy\n\nHoryzont zatrzymany na `BASE_RETURN` — 1 odcinek poniżej, **LO7** (JFK→WAW, STD 23:40 UTC, bufor 0 min).\n\n| Opcja | Suma propagacji (min) | Utracone przesiadki | Rejsów bez podstawienia | Koszt propagacji |\n| --- | --- | --- | --- | --- |\n| HOLD | 0 | 0 | 0 | 0,00 PLN |\n| REBOOK-SPILL | 0 | 0 | 0 | 0,00 PLN |\n| SWAP-SP-LSA | 139 | 130 | 0 | 96 958,06 PLN |\n| SWAP-SP-LSE | 139 | 130 | 0 | 96 958,06 PLN |\n| REBOOK-OWN | 0 | 130 | 1 | 243 595,00 PLN |\n| OVERNIGHT | 0 | 130 | 1 | 243 595,00 PLN |\n| CANCEL | 0 | 130 | 1 | 243 595,00 PLN |\n| SPLIT | 0 | 130 | 1 | 243 595,00 PLN |\n| REBOOK-OAL | 0 | 130 | 1 | 243 595,00 PLN |\n\nKluczowe: REBOOK-SPILL nie obciąża siatki — 0 min propagacji, 0 utraconych przesiadek. SWAP-y przesuwają rotację o 139 min i tracą 130 połączeń transferowych. Opcje RESTRUCTURING z przekładaniem/cancelowaniem mają 1 rejs bez podstawienia (LO7).\n\nPoza LO7 horyzont się nie rozciąga — dalej opcje przestają się różnić.\n\n## 5. ZAŁOŻENIA, KTÓRE TRZEBA ZWERYFIKOWAĆ\n\nPoniższe pozycje oznaczyłam jako oparte na założeniach, nie na danych pewnych:\n\n- **Kurs EUR/PLN = 4,3** (pewność 0,50) — placeholder, wymaga ustawienia w Konfiguracji. Wpływa na wartość odszkodowania 2 580,00 PLN/os (kategoria C EU261).\n- **Stawki kosztowe K.care, K.reb, K.crew, K.grd, K.cxl, K.div, K.mc99** (pewność 0,60 każda) — policy estimates, nie zmierzone.\n- **Manifest** (pewność 0,60): rozkład klas rezerwacyjnych, ancillary, moment zakupu — syntetyczny.\n- **Załoga** (pewność 0,70): wyliczona z tabel EASA FDP, nie z grafiku operatora.\n- **`ciaglosc_rotacji`, `fares`, `passengers`** oznaczone jako ESTIMATED — widelki rozszerzone w node 11.\n\nBraki danych z raportów:\n- 4 rejsy mają tylko znak wywoławczy (LOT2HP, LOT3AT, LOT7NB, LOT7PA) — node 02 nie rozstrzyga, czy to loty techniczne. Ekspozycja Art. 7 EU261 zależy od tego, czy niosą pasażerów (node 02 wskazuje: lot techniczny = 0 pasażerów = brak ekspozycji). Przy 4 takich rejsach w dobie, wpływ na ranking może być materialny, jeśli któryś jest handlowy — **brak danych w raporcie**, powinien rozstrzygnąć node źródłowy rozkładu.\n- Odsetek ochotników przy odmowie przyjęcia (PoC) nie jest w bazie — opcje z offloadem liczone są ścieżką \"wbrew woli\", najdroższą. Raport tego nie waliduje.\n- Rzeczywisty koszt operacji REBOOK-SPILL nie jest w żadnym źródle — node 17 porównuje prognozę z rzeczywistością tylko po opóźnieniu (46 min vs 0 min prognoza → klasyfikacja ZGODNY, błąd 0,0%). Faktury nie istnieją w tym przebiegu.\n\n---\n\n**Karta wykonania (z node 13):** REBOOK-SPILL — 8 pasażerów (PAX010317, PAX010352, PAX010363, PAX010367, PAX010455, PAX010460, PAX010461, PAX010500) przeniesionych na LO26 (odlot 16:50 UTC, oczekiwanie 280 min). Ważność karty: 2026-08-24T12:10:00+00:00. Rola autoryzująca: Supervisor OCC. Drugi podpis: nie wymagany.",
+  "files": []
+}

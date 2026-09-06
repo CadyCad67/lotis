@@ -1,0 +1,143 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T175204",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:91cb2a4af61a3714f4c72ed8bbad9666",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 2 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 8709122,
+        "currency": "PLN",
+        "major": "87091.22"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "SWAP-SP-LSB",
+        "powod": "zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 259075.00 PLN kosztu."
+      },
+      {
+        "id": "SWAP-SP-LSG",
+        "powod": "zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 259075.00 PLN kosztu."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "HOLD",
+      "label": "Wstrzymaj odlot o 120 min",
+      "strata": {
+        "minor": 14859800,
+        "currency": "PLN",
+        "major": "148598.00"
+      },
+      "widelki": {
+        "min": {
+          "minor": 13809923,
+          "currency": "PLN",
+          "major": "138099.23"
+        },
+        "max": {
+          "minor": 22935778,
+          "currency": "PLN",
+          "major": "229357.78"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "opoznienie_w_siatce: 71934.00 PLN",
+        "zaloga: 4730.00 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "alternatywa": {
+        "id": "SWAP-SP-LSB",
+        "strata": {
+          "minor": 23568922,
+          "currency": "PLN",
+          "major": "235689.22"
+        },
+        "roznica": {
+          "minor": 8709122,
+          "currency": "PLN",
+          "major": "87091.22"
+        }
+      },
+      "czolowka_blisko": false,
+      "uwaga_polityki": "propagacja 120 min (waga rotacji 1.0); szerokie widelki"
+    }
+  },
+  "decisions": [
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `SWAP-SP-LSB`: zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 259075.00 PLN kosztu.",
+    "anomalia w `SWAP-SP-LSG`: zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 259075.00 PLN kosztu."
+  ],
+  "duration_ms": 32.47
+}

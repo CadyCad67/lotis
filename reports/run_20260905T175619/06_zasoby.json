@@ -1,0 +1,86 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T175619",
+  "node": {
+    "id": "06",
+    "name": "zasoby",
+    "title": "REZERWACJA ZASOBU"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "W BZG do dyspozycji 1 rodzajow zasobu. Zaden nie jest sporny.",
+  "numbers": {
+    "rodzajow_zasobu": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "zasobow_spornych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "zapasowych_maszyn": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "zalogi_rezerwowej": {
+      "value": 0,
+      "unit": "osob"
+    },
+    "partnerow_w_porcie_docelowym": {
+      "value": 1,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "zasoby": [
+      {
+        "id": "PARTNER_SEATS@WAW",
+        "ilosc": 1,
+        "sporny": false
+      }
+    ],
+    "partnerzy": [
+      {
+        "id": "LO",
+        "nazwa": "LOT Polish Airlines",
+        "poziom": 0,
+        "rodzaj": "own",
+        "mnoznik_kosztu": 1.0
+      }
+    ],
+    "bazy_maszyn_zapasowych": [
+      "WAW",
+      "KRK"
+    ]
+  },
+  "decisions": [
+    "brak zapasowej maszyny w BZG -- SWAP odpada"
+  ],
+  "assumptions": [
+    {
+      "field": "zaloga rezerwowa",
+      "source": "derived",
+      "confidence": 0.4,
+      "note": "oszacowana z obsady bazy; zrodla nie podaja grafiku standby"
+    },
+    {
+      "field": "miejsca u partnera",
+      "source": "derived",
+      "confidence": 0.4,
+      "note": "obecnosc partnera w porcie, nie potwierdzona dostepnosc miejsc"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.08
+}

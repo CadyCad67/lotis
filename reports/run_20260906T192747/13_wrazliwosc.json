@@ -1,0 +1,592 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T192747",
+  "node": {
+    "id": "13",
+    "name": "wrazliwosc",
+    "title": "WRAZLIWOSC"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Ranking koncowy 8 dopuszczalnych opcji. Rekomendacja: `SWAP-SP-LIO` (14158.46 PLN), oszczednosc wobec opcji domyslnej `REBOOK-SPILL`: 3530.69 PLN.",
+  "numbers": {
+    "rekomendacja": {
+      "value": "SWAP-SP-LIO",
+      "unit": ""
+    },
+    "strata_rekomendacji": {
+      "value": {
+        "minor": 1415846,
+        "currency": "PLN",
+        "major": "14158.46"
+      },
+      "unit": "PLN"
+    },
+    "widelki_min": {
+      "value": {
+        "minor": 1228455,
+        "currency": "PLN",
+        "major": "12284.55"
+      },
+      "unit": "PLN"
+    },
+    "widelki_max": {
+      "value": {
+        "minor": 1582416,
+        "currency": "PLN",
+        "major": "15824.16"
+      },
+      "unit": "PLN"
+    },
+    "opcja_domyslna": {
+      "value": "REBOOK-SPILL",
+      "unit": ""
+    },
+    "strata_opcji_domyslnej": {
+      "value": {
+        "minor": 1768915,
+        "currency": "PLN",
+        "major": "17689.15"
+      },
+      "unit": "PLN"
+    },
+    "oszczednosc": {
+      "value": {
+        "minor": 353069,
+        "currency": "PLN",
+        "major": "3530.69"
+      },
+      "unit": "PLN"
+    },
+    "prog_oplacalnosci": {
+      "value": 120,
+      "unit": "min"
+    },
+    "opcji_w_rankingu": {
+      "value": 8,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_koncowy": [
+      {
+        "id": "SWAP-SP-LIO",
+        "pozycja": 1,
+        "label": "Podmien maszyne na SP-LIO (E75S)",
+        "strata": {
+          "minor": 1415846,
+          "currency": "PLN",
+          "major": "14158.46"
+        },
+        "min": {
+          "minor": 1228455,
+          "currency": "PLN",
+          "major": "12284.55"
+        },
+        "max": {
+          "minor": 1582416,
+          "currency": "PLN",
+          "major": "15824.16"
+        },
+        "oszczednosc": {
+          "minor": 353069,
+          "currency": "PLN",
+          "major": "3530.69"
+        },
+        "wskaznik": 1457312.58,
+        "uwaga_polityki": "propagacja 29 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "SWAP-SP-LIC",
+        "pozycja": 2,
+        "label": "Podmien maszyne na SP-LIC (E75S)",
+        "strata": {
+          "minor": 1590914,
+          "currency": "PLN",
+          "major": "15909.14"
+        },
+        "min": {
+          "minor": 1380352,
+          "currency": "PLN",
+          "major": "13803.52"
+        },
+        "max": {
+          "minor": 1778080,
+          "currency": "PLN",
+          "major": "17780.80"
+        },
+        "oszczednosc": {
+          "minor": 178001,
+          "currency": "PLN",
+          "major": "1780.01"
+        },
+        "wskaznik": 1661490.91,
+        "uwaga_polityki": "propagacja 47 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "REBOOK-SPILL",
+        "pozycja": 3,
+        "label": "Przenies 7 nadmiarowych na LO3933 (+290 min)",
+        "strata": {
+          "minor": 1768915,
+          "currency": "PLN",
+          "major": "17689.15"
+        },
+        "min": {
+          "minor": 1534794,
+          "currency": "PLN",
+          "major": "15347.94"
+        },
+        "max": {
+          "minor": 1977022,
+          "currency": "PLN",
+          "major": "19770.22"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "wskaznik": 1797018.62,
+        "uwaga_polityki": "propagacja 13 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "REBOOK-OWN",
+        "pozycja": 4,
+        "label": "Przenies na wlasny rejs LO3933 (+290 min)",
+        "strata": {
+          "minor": 12774354,
+          "currency": "PLN",
+          "major": "127743.54"
+        },
+        "min": {
+          "minor": 11083631,
+          "currency": "PLN",
+          "major": "110836.31"
+        },
+        "max": {
+          "minor": 14277219,
+          "currency": "PLN",
+          "major": "142772.19"
+        },
+        "oszczednosc": {
+          "minor": -11005439,
+          "currency": "PLN",
+          "major": "-110054.39"
+        },
+        "wskaznik": 12838225.76,
+        "uwaga_polityki": "szerokie widelki"
+      },
+      {
+        "id": "SPLIT",
+        "pozycja": 5,
+        "label": "Rozdziel: 41 na LO3933, reszta na obcego",
+        "strata": {
+          "minor": 14440389,
+          "currency": "PLN",
+          "major": "144403.89"
+        },
+        "min": {
+          "minor": 12529162,
+          "currency": "PLN",
+          "major": "125291.62"
+        },
+        "max": {
+          "minor": 16139258,
+          "currency": "PLN",
+          "major": "161392.58"
+        },
+        "oszczednosc": {
+          "minor": -12671474,
+          "currency": "PLN",
+          "major": "-126714.74"
+        },
+        "wskaznik": 14512590.92,
+        "uwaga_polityki": "szerokie widelki"
+      },
+      {
+        "id": "CANCEL",
+        "pozycja": 6,
+        "label": "Odwolaj rejs",
+        "strata": {
+          "minor": 14703120,
+          "currency": "PLN",
+          "major": "147031.20"
+        },
+        "min": {
+          "minor": 12757119,
+          "currency": "PLN",
+          "major": "127571.19"
+        },
+        "max": {
+          "minor": 16432898,
+          "currency": "PLN",
+          "major": "164328.98"
+        },
+        "oszczednosc": {
+          "minor": -12934205,
+          "currency": "PLN",
+          "major": "-129342.05"
+        },
+        "wskaznik": 14776635.58,
+        "uwaga_polityki": "szerokie widelki"
+      },
+      {
+        "id": "OVERNIGHT",
+        "pozycja": 7,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "strata": {
+          "minor": 15912796,
+          "currency": "PLN",
+          "major": "159127.96"
+        },
+        "min": {
+          "minor": 13806691,
+          "currency": "PLN",
+          "major": "138066.91"
+        },
+        "max": {
+          "minor": 17784889,
+          "currency": "PLN",
+          "major": "177848.89"
+        },
+        "oszczednosc": {
+          "minor": -14143881,
+          "currency": "PLN",
+          "major": "-141438.81"
+        },
+        "wskaznik": 15992359.96,
+        "uwaga_polityki": "szerokie widelki"
+      },
+      {
+        "id": "REBOOK-OAL",
+        "pozycja": 8,
+        "label": "Przenies na przewoznika obcego do SZZ",
+        "strata": {
+          "minor": 16106424,
+          "currency": "PLN",
+          "major": "161064.24"
+        },
+        "min": {
+          "minor": 13974692,
+          "currency": "PLN",
+          "major": "139746.92"
+        },
+        "max": {
+          "minor": 18001297,
+          "currency": "PLN",
+          "major": "180012.97"
+        },
+        "oszczednosc": {
+          "minor": -14337509,
+          "currency": "PLN",
+          "major": "-143375.09"
+        },
+        "wskaznik": 16186956.1,
+        "uwaga_polityki": "szerokie widelki"
+      }
+    ],
+    "test_wrazliwosci": [
+      {
+        "krok_min": 30,
+        "lider": "SWAP-SP-LIO",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LIO",
+            "strata": {
+              "minor": 1451846,
+              "currency": "PLN",
+              "major": "14518.46"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIC",
+            "strata": {
+              "minor": 1626914,
+              "currency": "PLN",
+              "major": "16269.14"
+            }
+          },
+          {
+            "id": "REBOOK-SPILL",
+            "strata": {
+              "minor": 1933915,
+              "currency": "PLN",
+              "major": "19339.15"
+            }
+          },
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 12774354,
+              "currency": "PLN",
+              "major": "127743.54"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 14440389,
+              "currency": "PLN",
+              "major": "144403.89"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 14703120,
+              "currency": "PLN",
+              "major": "147031.20"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 15912796,
+              "currency": "PLN",
+              "major": "159127.96"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 16106424,
+              "currency": "PLN",
+              "major": "161064.24"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 60,
+        "lider": "SWAP-SP-LIO",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LIO",
+            "strata": {
+              "minor": 1487846,
+              "currency": "PLN",
+              "major": "14878.46"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIC",
+            "strata": {
+              "minor": 1662914,
+              "currency": "PLN",
+              "major": "16629.14"
+            }
+          },
+          {
+            "id": "REBOOK-SPILL",
+            "strata": {
+              "minor": 2098915,
+              "currency": "PLN",
+              "major": "20989.15"
+            }
+          },
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 12774354,
+              "currency": "PLN",
+              "major": "127743.54"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 14440389,
+              "currency": "PLN",
+              "major": "144403.89"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 14703120,
+              "currency": "PLN",
+              "major": "147031.20"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 15912796,
+              "currency": "PLN",
+              "major": "159127.96"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 16106424,
+              "currency": "PLN",
+              "major": "161064.24"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 120,
+        "lider": "SWAP-SP-LIO",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LIO",
+            "strata": {
+              "minor": 1559846,
+              "currency": "PLN",
+              "major": "15598.46"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIC",
+            "strata": {
+              "minor": 1734914,
+              "currency": "PLN",
+              "major": "17349.14"
+            }
+          },
+          {
+            "id": "REBOOK-SPILL",
+            "strata": {
+              "minor": 2428915,
+              "currency": "PLN",
+              "major": "24289.15"
+            }
+          },
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 12774354,
+              "currency": "PLN",
+              "major": "127743.54"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 14440389,
+              "currency": "PLN",
+              "major": "144403.89"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 14703120,
+              "currency": "PLN",
+              "major": "147031.20"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 15912796,
+              "currency": "PLN",
+              "major": "159127.96"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 16106424,
+              "currency": "PLN",
+              "major": "161064.24"
+            }
+          }
+        ]
+      }
+    ],
+    "prog_oplacalnosci": {
+      "do_minut": 120,
+      "przejmuje": "",
+      "opis": "`SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min"
+    },
+    "wagi_polityki": {
+      "rot": 1.0,
+      "trf": 1.0,
+      "vuln": 1.0,
+      "unc": 1.0,
+      "cx": 1.0,
+      "crew": 1.0
+    },
+    "opcje_odrzucone_przez_prawo": [
+      {
+        "id": "HOLD",
+        "reguly": [
+          "Art. 8 EU261",
+          "Art. 4 EU261"
+        ]
+      },
+      {
+        "id": "SWAP-SP-LDH",
+        "reguly": [
+          "Art. 8 EU261",
+          "Art. 4 EU261"
+        ]
+      }
+    ],
+    "karta_wykonania": {
+      "option_id": "SWAP-SP-LIO",
+      "label": "Podmien maszyne na SP-LIO (E75S)",
+      "what_changes": [
+        "podmiana maszyny miedzy LO3931 i LO265",
+        "LO265: odlot pozniej o 20 min (z 07:25 UTC)",
+        "LO3931: odlot pozniej o 36 min (z 07:05 UTC)"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {},
+      "crew_actions": [
+        "zaloga rejsu LO3931 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem",
+        "wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne"
+      ],
+      "valid_until": "2026-08-21T07:05:00+00:00",
+      "cost_low": {
+        "minor": 1228455,
+        "currency": "PLN",
+        "major": "12284.55"
+      },
+      "cost_expected": {
+        "minor": 1415846,
+        "currency": "PLN",
+        "major": "14158.46"
+      },
+      "cost_high": {
+        "minor": 1582416,
+        "currency": "PLN",
+        "major": "15824.16"
+      },
+      "threshold_note": "`SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Dyzurny OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "opcja domyslna to `REBOOK-SPILL` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia",
+    "`SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min",
+    "waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie"
+  ],
+  "assumptions": [
+    {
+      "field": "prog oplacalnosci",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "policzony na siatce +30/+60/+120 min, nie w sposob ciagly"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.38
+}

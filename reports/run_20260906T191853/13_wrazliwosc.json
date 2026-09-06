@@ -1,0 +1,407 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T191853",
+  "node": {
+    "id": "13",
+    "name": "wrazliwosc",
+    "title": "WRAZLIWOSC"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Ranking koncowy 4 dopuszczalnych opcji. Rekomendacja: `OVERNIGHT` (1497475.90 PLN), oszczednosc wobec opcji domyslnej `SWAP-SP-LRF`: -1318854.03 PLN.",
+  "numbers": {
+    "rekomendacja": {
+      "value": "OVERNIGHT",
+      "unit": ""
+    },
+    "strata_rekomendacji": {
+      "value": {
+        "minor": 149747590,
+        "currency": "PLN",
+        "major": "1497475.90"
+      },
+      "unit": "PLN"
+    },
+    "widelki_min": {
+      "value": {
+        "minor": 139167598,
+        "currency": "PLN",
+        "major": "1391675.98"
+      },
+      "unit": "PLN"
+    },
+    "widelki_max": {
+      "value": {
+        "minor": 231132149,
+        "currency": "PLN",
+        "major": "2311321.49"
+      },
+      "unit": "PLN"
+    },
+    "opcja_domyslna": {
+      "value": "SWAP-SP-LRF",
+      "unit": ""
+    },
+    "strata_opcji_domyslnej": {
+      "value": {
+        "minor": 17862187,
+        "currency": "PLN",
+        "major": "178621.87"
+      },
+      "unit": "PLN"
+    },
+    "oszczednosc": {
+      "value": {
+        "minor": -131885403,
+        "currency": "PLN",
+        "major": "-1318854.03"
+      },
+      "unit": "PLN"
+    },
+    "prog_oplacalnosci": {
+      "value": 30,
+      "unit": "min"
+    },
+    "opcji_w_rankingu": {
+      "value": 4,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_koncowy": [
+      {
+        "id": "OVERNIGHT",
+        "pozycja": 1,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "strata": {
+          "minor": 149747590,
+          "currency": "PLN",
+          "major": "1497475.90"
+        },
+        "min": {
+          "minor": 139167598,
+          "currency": "PLN",
+          "major": "1391675.98"
+        },
+        "max": {
+          "minor": 231132149,
+          "currency": "PLN",
+          "major": "2311321.49"
+        },
+        "oszczednosc": {
+          "minor": -131885403,
+          "currency": "PLN",
+          "major": "-1318854.03"
+        },
+        "wskaznik": 6791092.27,
+        "uwaga_polityki": "99 utraconych przesiadek; szerokie widelki; priorytet 0, indeks pasazerski 18.00"
+      },
+      {
+        "id": "CANCEL",
+        "pozycja": 2,
+        "label": "Odwolaj rejs",
+        "strata": {
+          "minor": 169292421,
+          "currency": "PLN",
+          "major": "1692924.21"
+        },
+        "min": {
+          "minor": 157331544,
+          "currency": "PLN",
+          "major": "1573315.44"
+        },
+        "max": {
+          "minor": 261299171,
+          "currency": "PLN",
+          "major": "2612991.71"
+        },
+        "oszczednosc": {
+          "minor": -151430234,
+          "currency": "PLN",
+          "major": "-1514302.34"
+        },
+        "wskaznik": 7677455.45,
+        "uwaga_polityki": "99 utraconych przesiadek; szerokie widelki; priorytet 0, indeks pasazerski 24.00"
+      },
+      {
+        "id": "SWAP-SP-LSC",
+        "pozycja": 3,
+        "label": "Podmien maszyne na SP-LSC (B789)",
+        "strata": {
+          "minor": 16186462,
+          "currency": "PLN",
+          "major": "161864.62"
+        },
+        "min": {
+          "minor": 15042854,
+          "currency": "PLN",
+          "major": "150428.54"
+        },
+        "max": {
+          "minor": 24983452,
+          "currency": "PLN",
+          "major": "249834.52"
+        },
+        "oszczednosc": {
+          "minor": 1675725,
+          "currency": "PLN",
+          "major": "16757.25"
+        },
+        "wskaznik": 13021576.75,
+        "uwaga_polityki": "propagacja 136 min (waga rotacji 1.0); 99 utraconych przesiadek; szerokie widelki; priorytet 0, indeks pasazerski 2.27"
+      },
+      {
+        "id": "SWAP-SP-LRF",
+        "pozycja": 4,
+        "label": "Podmien maszyne na SP-LRF (B788)",
+        "strata": {
+          "minor": 17862187,
+          "currency": "PLN",
+          "major": "178621.87"
+        },
+        "min": {
+          "minor": 16600185,
+          "currency": "PLN",
+          "major": "166001.85"
+        },
+        "max": {
+          "minor": 27569897,
+          "currency": "PLN",
+          "major": "275698.97"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "wskaznik": 14369652.8,
+        "uwaga_polityki": "propagacja 136 min (waga rotacji 1.0); 99 utraconych przesiadek; szerokie widelki; priorytet 0, indeks pasazerski 2.27"
+      }
+    ],
+    "test_wrazliwosci": [
+      {
+        "krok_min": 30,
+        "lider": "SWAP-SP-LSC",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LSC",
+            "strata": {
+              "minor": 16222462,
+              "currency": "PLN",
+              "major": "162224.62"
+            }
+          },
+          {
+            "id": "SWAP-SP-LRF",
+            "strata": {
+              "minor": 17898187,
+              "currency": "PLN",
+              "major": "178981.87"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 149747590,
+              "currency": "PLN",
+              "major": "1497475.90"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 169292421,
+              "currency": "PLN",
+              "major": "1692924.21"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 60,
+        "lider": "SWAP-SP-LSC",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LSC",
+            "strata": {
+              "minor": 16258462,
+              "currency": "PLN",
+              "major": "162584.62"
+            }
+          },
+          {
+            "id": "SWAP-SP-LRF",
+            "strata": {
+              "minor": 17934187,
+              "currency": "PLN",
+              "major": "179341.87"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 149747590,
+              "currency": "PLN",
+              "major": "1497475.90"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 169292421,
+              "currency": "PLN",
+              "major": "1692924.21"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 120,
+        "lider": "SWAP-SP-LSC",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LSC",
+            "strata": {
+              "minor": 16330462,
+              "currency": "PLN",
+              "major": "163304.62"
+            }
+          },
+          {
+            "id": "SWAP-SP-LRF",
+            "strata": {
+              "minor": 18006187,
+              "currency": "PLN",
+              "major": "180061.87"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 149747590,
+              "currency": "PLN",
+              "major": "1497475.90"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 169292421,
+              "currency": "PLN",
+              "major": "1692924.21"
+            }
+          }
+        ]
+      }
+    ],
+    "prog_oplacalnosci": {
+      "do_minut": 30,
+      "przejmuje": "SWAP-SP-LSC",
+      "opis": "`OVERNIGHT` jest najlepsza do okolo +30 min dodatkowego opoznienia; powyzej przejmuje `SWAP-SP-LSC`"
+    },
+    "wagi_polityki": {
+      "rot": 1.0,
+      "trf": 1.0,
+      "vuln": 1.0,
+      "unc": 1.0,
+      "cx": 1.0,
+      "crew": 1.0
+    },
+    "opcje_odrzucone_przez_prawo": [
+      {
+        "id": "HOLD",
+        "reguly": [
+          "Art. 8 EU261",
+          "Art. 4 EU261"
+        ]
+      },
+      {
+        "id": "REBOOK-OAL",
+        "reguly": [
+          "Art. 9 EU261"
+        ]
+      }
+    ],
+    "karta_wykonania": {
+      "option_id": "OVERNIGHT",
+      "label": "Nocleg i rejs nastepnego dnia",
+      "what_changes": [
+        "LO6: rejs odwolany",
+        "242 pasazerow na wlasny rejs -- oczekiwanie 840 min",
+        "242 pasazerow z noclegiem na koszt przewoznika (Art. 9)"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {
+        "PAX009416": "wlasny rejs",
+        "PAX009425": "wlasny rejs",
+        "PAX009431": "wlasny rejs",
+        "PAX009443": "wlasny rejs",
+        "PAX009460": "wlasny rejs",
+        "PAX009480": "wlasny rejs",
+        "PAX009490": "wlasny rejs",
+        "PAX009499": "wlasny rejs",
+        "PAX009505": "wlasny rejs",
+        "PAX009521": "wlasny rejs",
+        "PAX009526": "wlasny rejs",
+        "PAX009854": "wlasny rejs",
+        "PAX009865": "wlasny rejs",
+        "PAX009868": "wlasny rejs",
+        "PAX009875": "wlasny rejs",
+        "PAX009885": "wlasny rejs",
+        "PAX009886": "wlasny rejs",
+        "PAX009888": "wlasny rejs",
+        "PAX009930": "wlasny rejs",
+        "PAX009931": "wlasny rejs"
+      },
+      "crew_actions": [
+        "nocleg zalogi poza baza"
+      ],
+      "valid_until": "2026-08-21T12:10:00+00:00",
+      "cost_low": {
+        "minor": 139167598,
+        "currency": "PLN",
+        "major": "1391675.98"
+      },
+      "cost_expected": {
+        "minor": 149747590,
+        "currency": "PLN",
+        "major": "1497475.90"
+      },
+      "cost_high": {
+        "minor": 231132149,
+        "currency": "PLN",
+        "major": "2311321.49"
+      },
+      "threshold_note": "`OVERNIGHT` jest najlepsza do okolo +30 min dodatkowego opoznienia; powyzej przejmuje `SWAP-SP-LSC`",
+      "authorization_role": "Director Network Operations",
+      "second_signature": true
+    }
+  },
+  "decisions": [
+    "opcja domyslna to `SWAP-SP-LRF` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia",
+    "`OVERNIGHT` jest najlepsza do okolo +30 min dodatkowego opoznienia; powyzej przejmuje `SWAP-SP-LSC`",
+    "waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie"
+  ],
+  "assumptions": [
+    {
+      "field": "prog oplacalnosci",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "policzony na siatce +30/+60/+120 min, nie w sposob ciagly"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.77
+}

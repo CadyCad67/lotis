@@ -1,0 +1,534 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T192747",
+  "node": {
+    "id": "11",
+    "name": "optymalizacja",
+    "title": "OPTIMIZATION ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Ranking wstepny 10 opcji, priorytet 0. Najmniejsza strata: `HOLD` (12619.99 PLN), najwieksza: `REBOOK-OAL` (161064.24 PLN).",
+  "numbers": {
+    "priorytet": {
+      "value": 0,
+      "unit": "0 finanse, 100 pasazer"
+    },
+    "najlepsza_opcja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_najlepszej": {
+      "value": {
+        "minor": 1261999,
+        "currency": "PLN",
+        "major": "12619.99"
+      },
+      "unit": "PLN"
+    },
+    "strata_najgorszej": {
+      "value": {
+        "minor": 16106424,
+        "currency": "PLN",
+        "major": "161064.24"
+      },
+      "unit": "PLN"
+    },
+    "rozpietosc_rankingu": {
+      "value": {
+        "minor": 14844425,
+        "currency": "PLN",
+        "major": "148444.25"
+      },
+      "unit": "PLN"
+    },
+    "wspolczynnik_dolny": {
+      "value": 0.868,
+      "unit": ""
+    },
+    "wspolczynnik_gorny": {
+      "value": 1.118,
+      "unit": ""
+    },
+    "opcji": {
+      "value": 10,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_wstepny": [
+      {
+        "id": "HOLD",
+        "indeks_pax": 1.159,
+        "label": "Wstrzymaj odlot o 20 min, 7 pasazerow nie wejdzie na poklad",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 161863,
+          "currency": "PLN",
+          "major": "1618.63"
+        },
+        "koszty": {
+          "minor": 1000673,
+          "currency": "PLN",
+          "major": "10006.73"
+        },
+        "propagacja": {
+          "minor": 99463,
+          "currency": "PLN",
+          "major": "994.63"
+        },
+        "strata": {
+          "minor": 1261999,
+          "currency": "PLN",
+          "major": "12619.99"
+        },
+        "widelki_min": {
+          "minor": 1094970,
+          "currency": "PLN",
+          "major": "10949.70"
+        },
+        "widelki_max": {
+          "minor": 1410469,
+          "currency": "PLN",
+          "major": "14104.69"
+        },
+        "rozpietosc": {
+          "minor": 315499,
+          "currency": "PLN",
+          "major": "3154.99"
+        },
+        "wynik_wazony": 0.0,
+        "pozycja_wstepna": 1
+      },
+      {
+        "id": "SWAP-SP-LIO",
+        "indeks_pax": 0.6,
+        "label": "Podmien maszyne na SP-LIO (E75S)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 991576,
+          "currency": "PLN",
+          "major": "9915.76"
+        },
+        "propagacja": {
+          "minor": 424270,
+          "currency": "PLN",
+          "major": "4242.70"
+        },
+        "strata": {
+          "minor": 1415846,
+          "currency": "PLN",
+          "major": "14158.46"
+        },
+        "widelki_min": {
+          "minor": 1228455,
+          "currency": "PLN",
+          "major": "12284.55"
+        },
+        "widelki_max": {
+          "minor": 1582416,
+          "currency": "PLN",
+          "major": "15824.16"
+        },
+        "rozpietosc": {
+          "minor": 353961,
+          "currency": "PLN",
+          "major": "3539.61"
+        },
+        "wynik_wazony": 0.0104,
+        "pozycja_wstepna": 2
+      },
+      {
+        "id": "SWAP-SP-LIC",
+        "indeks_pax": 0.6,
+        "label": "Podmien maszyne na SP-LIC (E75S)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 991576,
+          "currency": "PLN",
+          "major": "9915.76"
+        },
+        "propagacja": {
+          "minor": 599338,
+          "currency": "PLN",
+          "major": "5993.38"
+        },
+        "strata": {
+          "minor": 1590914,
+          "currency": "PLN",
+          "major": "15909.14"
+        },
+        "widelki_min": {
+          "minor": 1380352,
+          "currency": "PLN",
+          "major": "13803.52"
+        },
+        "widelki_max": {
+          "minor": 1778080,
+          "currency": "PLN",
+          "major": "17780.80"
+        },
+        "rozpietosc": {
+          "minor": 397728,
+          "currency": "PLN",
+          "major": "3977.28"
+        },
+        "wynik_wazony": 0.0222,
+        "pozycja_wstepna": 3
+      },
+      {
+        "id": "REBOOK-SPILL",
+        "indeks_pax": 0.888,
+        "label": "Przenies 7 nadmiarowych na LO3933 (+290 min)",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 1669452,
+          "currency": "PLN",
+          "major": "16694.52"
+        },
+        "propagacja": {
+          "minor": 99463,
+          "currency": "PLN",
+          "major": "994.63"
+        },
+        "strata": {
+          "minor": 1768915,
+          "currency": "PLN",
+          "major": "17689.15"
+        },
+        "widelki_min": {
+          "minor": 1534794,
+          "currency": "PLN",
+          "major": "15347.94"
+        },
+        "widelki_max": {
+          "minor": 1977022,
+          "currency": "PLN",
+          "major": "19770.22"
+        },
+        "rozpietosc": {
+          "minor": 442228,
+          "currency": "PLN",
+          "major": "4422.28"
+        },
+        "wynik_wazony": 0.0341,
+        "pozycja_wstepna": 4
+      },
+      {
+        "id": "SWAP-SP-LDH",
+        "indeks_pax": 1.312,
+        "label": "Podmien maszyne na SP-LDH (E170)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 120756,
+          "currency": "PLN",
+          "major": "1207.56"
+        },
+        "koszty": {
+          "minor": 1608111,
+          "currency": "PLN",
+          "major": "16081.11"
+        },
+        "propagacja": {
+          "minor": 622830,
+          "currency": "PLN",
+          "major": "6228.30"
+        },
+        "strata": {
+          "minor": 2351697,
+          "currency": "PLN",
+          "major": "23516.97"
+        },
+        "widelki_min": {
+          "minor": 2040443,
+          "currency": "PLN",
+          "major": "20404.43"
+        },
+        "widelki_max": {
+          "minor": 2628367,
+          "currency": "PLN",
+          "major": "26283.67"
+        },
+        "rozpietosc": {
+          "minor": 587924,
+          "currency": "PLN",
+          "major": "5879.24"
+        },
+        "wynik_wazony": 0.0734,
+        "pozycja_wstepna": 5
+      },
+      {
+        "id": "REBOOK-OWN",
+        "indeks_pax": 6.833,
+        "label": "Przenies na wlasny rejs LO3933 (+290 min)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 11991754,
+          "currency": "PLN",
+          "major": "119917.54"
+        },
+        "propagacja": {
+          "minor": 782600,
+          "currency": "PLN",
+          "major": "7826.00"
+        },
+        "strata": {
+          "minor": 12774354,
+          "currency": "PLN",
+          "major": "127743.54"
+        },
+        "widelki_min": {
+          "minor": 11083631,
+          "currency": "PLN",
+          "major": "110836.31"
+        },
+        "widelki_max": {
+          "minor": 14277219,
+          "currency": "PLN",
+          "major": "142772.19"
+        },
+        "rozpietosc": {
+          "minor": 3193588,
+          "currency": "PLN",
+          "major": "31935.88"
+        },
+        "wynik_wazony": 0.7755,
+        "pozycja_wstepna": 6
+      },
+      {
+        "id": "SPLIT",
+        "indeks_pax": 8.625,
+        "label": "Rozdziel: 41 na LO3933, reszta na obcego",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 13657789,
+          "currency": "PLN",
+          "major": "136577.89"
+        },
+        "propagacja": {
+          "minor": 782600,
+          "currency": "PLN",
+          "major": "7826.00"
+        },
+        "strata": {
+          "minor": 14440389,
+          "currency": "PLN",
+          "major": "144403.89"
+        },
+        "widelki_min": {
+          "minor": 12529162,
+          "currency": "PLN",
+          "major": "125291.62"
+        },
+        "widelki_max": {
+          "minor": 16139258,
+          "currency": "PLN",
+          "major": "161392.58"
+        },
+        "rozpietosc": {
+          "minor": 3610096,
+          "currency": "PLN",
+          "major": "36100.96"
+        },
+        "wynik_wazony": 0.8878,
+        "pozycja_wstepna": 7
+      },
+      {
+        "id": "CANCEL",
+        "indeks_pax": 12.833,
+        "label": "Odwolaj rejs",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 2394456,
+          "currency": "PLN",
+          "major": "23944.56"
+        },
+        "koszty": {
+          "minor": 11526064,
+          "currency": "PLN",
+          "major": "115260.64"
+        },
+        "propagacja": {
+          "minor": 782600,
+          "currency": "PLN",
+          "major": "7826.00"
+        },
+        "strata": {
+          "minor": 14703120,
+          "currency": "PLN",
+          "major": "147031.20"
+        },
+        "widelki_min": {
+          "minor": 12757119,
+          "currency": "PLN",
+          "major": "127571.19"
+        },
+        "widelki_max": {
+          "minor": 16432898,
+          "currency": "PLN",
+          "major": "164328.98"
+        },
+        "rozpietosc": {
+          "minor": 3675779,
+          "currency": "PLN",
+          "major": "36757.79"
+        },
+        "wynik_wazony": 0.9055,
+        "pozycja_wstepna": 8
+      },
+      {
+        "id": "OVERNIGHT",
+        "indeks_pax": 18.0,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 15130196,
+          "currency": "PLN",
+          "major": "151301.96"
+        },
+        "propagacja": {
+          "minor": 782600,
+          "currency": "PLN",
+          "major": "7826.00"
+        },
+        "strata": {
+          "minor": 15912796,
+          "currency": "PLN",
+          "major": "159127.96"
+        },
+        "widelki_min": {
+          "minor": 13806691,
+          "currency": "PLN",
+          "major": "138066.91"
+        },
+        "widelki_max": {
+          "minor": 17784889,
+          "currency": "PLN",
+          "major": "177848.89"
+        },
+        "rozpietosc": {
+          "minor": 3978198,
+          "currency": "PLN",
+          "major": "39781.98"
+        },
+        "wynik_wazony": 0.987,
+        "pozycja_wstepna": 9
+      },
+      {
+        "id": "REBOOK-OAL",
+        "indeks_pax": 10.417,
+        "label": "Przenies na przewoznika obcego do SZZ",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 15323824,
+          "currency": "PLN",
+          "major": "153238.24"
+        },
+        "propagacja": {
+          "minor": 782600,
+          "currency": "PLN",
+          "major": "7826.00"
+        },
+        "strata": {
+          "minor": 16106424,
+          "currency": "PLN",
+          "major": "161064.24"
+        },
+        "widelki_min": {
+          "minor": 13974692,
+          "currency": "PLN",
+          "major": "139746.92"
+        },
+        "widelki_max": {
+          "minor": 18001297,
+          "currency": "PLN",
+          "major": "180012.97"
+        },
+        "rozpietosc": {
+          "minor": 4026605,
+          "currency": "PLN",
+          "major": "40266.05"
+        },
+        "wynik_wazony": 1.0,
+        "pozycja_wstepna": 10
+      }
+    ],
+    "zrodlo_widelek": {
+      "poziom": "rejs",
+      "obserwacji": 15,
+      "p25": 8.0,
+      "mediana": 17.0,
+      "p90": 23.0,
+      "punktualnosc15": 46.7
+    }
+  },
+  "decisions": [
+    "strata = (baseline - revenue opcji) + koszty + propagacja",
+    "najlepsza opcja to najmniejsza strata, nie najmniejszy koszt",
+    "przy zachodzacych widelkach o wyborze decyduja kryteria poza kosztem: node 13 dokłada wage polityki firmy"
+  ],
+  "assumptions": [
+    {
+      "field": "widelki",
+      "source": "real",
+      "confidence": 0.8,
+      "note": "kwantyle p25/mediana/p90 z rzeczywistych operacji tej siatki"
+    },
+    {
+      "field": "kurs EUR/PLN",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "4.3 -- placeholder - kurs do ustawienia w Konfiguracji"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "widelki opcji `HOLD` i `SWAP-SP-LIO` zachodza na siebie -- roznica miedzy nimi nie jest istotna statystycznie"
+  ],
+  "duration_ms": 0.58
+}

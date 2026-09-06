@@ -1,0 +1,21 @@
+{
+  "schema": "lotis.ai.index/v1",
+  "run_id": "20260906T191942",
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "personas": [
+    {
+      "persona": "analityk",
+      "ok": true,
+      "dry_run": false,
+      "model": "minimax/minimax-m3:free",
+      "error": "",
+      "guard_clean": false,
+      "guard_summary": "sprawdzono 141 liczb, 15 spoza raportow, 2 zaokraglonych.",
+      "files": [
+        "analityk.prompt.txt",
+        "analityk.md",
+        "analityk.json"
+      ]
+    }
+  ]
+}

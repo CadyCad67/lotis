@@ -1,0 +1,633 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T130705",
+  "node": {
+    "id": "13",
+    "name": "wrazliwosc",
+    "title": "WRAZLIWOSC"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Ranking koncowy 9 dopuszczalnych opcji. Rekomendacja: `SWAP-SP-LDH` (60783.55 PLN), oszczednosc wobec opcji domyslnej `HOLD`: 26977.05 PLN.",
+  "numbers": {
+    "rekomendacja": {
+      "value": "SWAP-SP-LDH",
+      "unit": ""
+    },
+    "strata_rekomendacji": {
+      "value": {
+        "minor": 6078355,
+        "currency": "PLN",
+        "major": "60783.55"
+      },
+      "unit": "PLN"
+    },
+    "widelki_min": {
+      "value": {
+        "minor": 5698458,
+        "currency": "PLN",
+        "major": "56984.58"
+      },
+      "unit": "PLN"
+    },
+    "widelki_max": {
+      "value": {
+        "minor": 7800555,
+        "currency": "PLN",
+        "major": "78005.55"
+      },
+      "unit": "PLN"
+    },
+    "opcja_domyslna": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_opcji_domyslnej": {
+      "value": {
+        "minor": 8776060,
+        "currency": "PLN",
+        "major": "87760.60"
+      },
+      "unit": "PLN"
+    },
+    "oszczednosc": {
+      "value": {
+        "minor": 2697705,
+        "currency": "PLN",
+        "major": "26977.05"
+      },
+      "unit": "PLN"
+    },
+    "prog_oplacalnosci": {
+      "value": 120,
+      "unit": "min"
+    },
+    "opcji_w_rankingu": {
+      "value": 9,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_koncowy": [
+      {
+        "id": "SWAP-SP-LDH",
+        "pozycja": 1,
+        "label": "Podmien maszyne na SP-LDH (E170)",
+        "strata": {
+          "minor": 6078355,
+          "currency": "PLN",
+          "major": "60783.55"
+        },
+        "min": {
+          "minor": 5698458,
+          "currency": "PLN",
+          "major": "56984.58"
+        },
+        "max": {
+          "minor": 7800555,
+          "currency": "PLN",
+          "major": "78005.55"
+        },
+        "oszczednosc": {
+          "minor": 2697705,
+          "currency": "PLN",
+          "major": "26977.05"
+        },
+        "wskaznik": 7160864.42,
+        "uwaga_polityki": "propagacja 204 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "SWAP-SP-LIK",
+        "pozycja": 2,
+        "label": "Podmien maszyne na SP-LIK (E75S)",
+        "strata": {
+          "minor": 6398688,
+          "currency": "PLN",
+          "major": "63986.88"
+        },
+        "min": {
+          "minor": 5998770,
+          "currency": "PLN",
+          "major": "59987.70"
+        },
+        "max": {
+          "minor": 8211649,
+          "currency": "PLN",
+          "major": "82116.49"
+        },
+        "oszczednosc": {
+          "minor": 2377372,
+          "currency": "PLN",
+          "major": "23773.72"
+        },
+        "wskaznik": 7500662.48,
+        "uwaga_polityki": "propagacja 197 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "SWAP-SP-LIL",
+        "pozycja": 3,
+        "label": "Podmien maszyne na SP-LIL (E75S)",
+        "strata": {
+          "minor": 6398688,
+          "currency": "PLN",
+          "major": "63986.88"
+        },
+        "min": {
+          "minor": 5998770,
+          "currency": "PLN",
+          "major": "59987.70"
+        },
+        "max": {
+          "minor": 8211649,
+          "currency": "PLN",
+          "major": "82116.49"
+        },
+        "oszczednosc": {
+          "minor": 2377372,
+          "currency": "PLN",
+          "major": "23773.72"
+        },
+        "wskaznik": 7500662.48,
+        "uwaga_polityki": "propagacja 197 min (waga rotacji 1.0); szerokie widelki"
+      },
+      {
+        "id": "REBOOK-OWN",
+        "pozycja": 4,
+        "label": "Przenies na wlasny rejs LO415 (+550 min)",
+        "strata": {
+          "minor": 7810692,
+          "currency": "PLN",
+          "major": "78106.92"
+        },
+        "min": {
+          "minor": 7322524,
+          "currency": "PLN",
+          "major": "73225.24"
+        },
+        "max": {
+          "minor": 10023721,
+          "currency": "PLN",
+          "major": "100237.21"
+        },
+        "oszczednosc": {
+          "minor": 965368,
+          "currency": "PLN",
+          "major": "9653.68"
+        },
+        "wskaznik": 8242222.31,
+        "uwaga_polityki": "16 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "SPLIT",
+        "pozycja": 5,
+        "label": "Rozdziel: 26 na LO415, reszta na obcego",
+        "strata": {
+          "minor": 8900742,
+          "currency": "PLN",
+          "major": "89007.42"
+        },
+        "min": {
+          "minor": 8344446,
+          "currency": "PLN",
+          "major": "83444.46"
+        },
+        "max": {
+          "minor": 11422618,
+          "currency": "PLN",
+          "major": "114226.18"
+        },
+        "oszczednosc": {
+          "minor": -124682,
+          "currency": "PLN",
+          "major": "-1246.82"
+        },
+        "wskaznik": 9392496.1,
+        "uwaga_polityki": "16 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "CANCEL",
+        "pozycja": 6,
+        "label": "Odwolaj rejs",
+        "strata": {
+          "minor": 9516094,
+          "currency": "PLN",
+          "major": "95160.94"
+        },
+        "min": {
+          "minor": 8921339,
+          "currency": "PLN",
+          "major": "89213.39"
+        },
+        "max": {
+          "minor": 12212320,
+          "currency": "PLN",
+          "major": "122123.20"
+        },
+        "oszczednosc": {
+          "minor": -740034,
+          "currency": "PLN",
+          "major": "-7400.34"
+        },
+        "wskaznik": 10041845.47,
+        "uwaga_polityki": "16 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "OVERNIGHT",
+        "pozycja": 7,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "strata": {
+          "minor": 9860704,
+          "currency": "PLN",
+          "major": "98607.04"
+        },
+        "min": {
+          "minor": 9244410,
+          "currency": "PLN",
+          "major": "92444.10"
+        },
+        "max": {
+          "minor": 12654570,
+          "currency": "PLN",
+          "major": "126545.70"
+        },
+        "oszczednosc": {
+          "minor": -1084644,
+          "currency": "PLN",
+          "major": "-10846.44"
+        },
+        "wskaznik": 10405494.75,
+        "uwaga_polityki": "16 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "REBOOK-OAL",
+        "pozycja": 8,
+        "label": "Przenies na przewoznika obcego do GVA",
+        "strata": {
+          "minor": 9990792,
+          "currency": "PLN",
+          "major": "99907.92"
+        },
+        "min": {
+          "minor": 9366368,
+          "currency": "PLN",
+          "major": "93663.68"
+        },
+        "max": {
+          "minor": 12821516,
+          "currency": "PLN",
+          "major": "128215.16"
+        },
+        "oszczednosc": {
+          "minor": -1214732,
+          "currency": "PLN",
+          "major": "-12147.32"
+        },
+        "wskaznik": 10542769.92,
+        "uwaga_polityki": "16 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "HOLD",
+        "pozycja": 9,
+        "label": "Wstrzymaj odlot o 180 min",
+        "strata": {
+          "minor": 8776060,
+          "currency": "PLN",
+          "major": "87760.60"
+        },
+        "min": {
+          "minor": 8227557,
+          "currency": "PLN",
+          "major": "82275.57"
+        },
+        "max": {
+          "minor": 11262610,
+          "currency": "PLN",
+          "major": "112626.10"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "wskaznik": 10557455.17,
+        "uwaga_polityki": "propagacja 168 min (waga rotacji 1.0); 16 utraconych przesiadek; szerokie widelki"
+      }
+    ],
+    "test_wrazliwosci": [
+      {
+        "krok_min": 30,
+        "lider": "SWAP-SP-LDH",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LDH",
+            "strata": {
+              "minor": 6114355,
+              "currency": "PLN",
+              "major": "61143.55"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIK",
+            "strata": {
+              "minor": 6434688,
+              "currency": "PLN",
+              "major": "64346.88"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIL",
+            "strata": {
+              "minor": 6434688,
+              "currency": "PLN",
+              "major": "64346.88"
+            }
+          },
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 7810692,
+              "currency": "PLN",
+              "major": "78106.92"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 8900742,
+              "currency": "PLN",
+              "major": "89007.42"
+            }
+          },
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 8941060,
+              "currency": "PLN",
+              "major": "89410.60"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 9516094,
+              "currency": "PLN",
+              "major": "95160.94"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 9860704,
+              "currency": "PLN",
+              "major": "98607.04"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 9990792,
+              "currency": "PLN",
+              "major": "99907.92"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 60,
+        "lider": "SWAP-SP-LDH",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LDH",
+            "strata": {
+              "minor": 6150355,
+              "currency": "PLN",
+              "major": "61503.55"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIK",
+            "strata": {
+              "minor": 6470688,
+              "currency": "PLN",
+              "major": "64706.88"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIL",
+            "strata": {
+              "minor": 6470688,
+              "currency": "PLN",
+              "major": "64706.88"
+            }
+          },
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 7810692,
+              "currency": "PLN",
+              "major": "78106.92"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 8900742,
+              "currency": "PLN",
+              "major": "89007.42"
+            }
+          },
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 9106060,
+              "currency": "PLN",
+              "major": "91060.60"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 9516094,
+              "currency": "PLN",
+              "major": "95160.94"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 9860704,
+              "currency": "PLN",
+              "major": "98607.04"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 9990792,
+              "currency": "PLN",
+              "major": "99907.92"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 120,
+        "lider": "SWAP-SP-LDH",
+        "ranking": [
+          {
+            "id": "SWAP-SP-LDH",
+            "strata": {
+              "minor": 6222355,
+              "currency": "PLN",
+              "major": "62223.55"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIK",
+            "strata": {
+              "minor": 6542688,
+              "currency": "PLN",
+              "major": "65426.88"
+            }
+          },
+          {
+            "id": "SWAP-SP-LIL",
+            "strata": {
+              "minor": 6542688,
+              "currency": "PLN",
+              "major": "65426.88"
+            }
+          },
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 7810692,
+              "currency": "PLN",
+              "major": "78106.92"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 8900742,
+              "currency": "PLN",
+              "major": "89007.42"
+            }
+          },
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 9436060,
+              "currency": "PLN",
+              "major": "94360.60"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 9516094,
+              "currency": "PLN",
+              "major": "95160.94"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 9860704,
+              "currency": "PLN",
+              "major": "98607.04"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 9990792,
+              "currency": "PLN",
+              "major": "99907.92"
+            }
+          }
+        ]
+      }
+    ],
+    "prog_oplacalnosci": {
+      "do_minut": 120,
+      "przejmuje": "",
+      "opis": "`SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min"
+    },
+    "wagi_polityki": {
+      "rot": 1.0,
+      "trf": 1.0,
+      "vuln": 1.0,
+      "unc": 1.0,
+      "cx": 1.0,
+      "crew": 1.0
+    },
+    "opcje_odrzucone_przez_prawo": [],
+    "karta_wykonania": {
+      "option_id": "SWAP-SP-LDH",
+      "label": "Podmien maszyne na SP-LDH (E170)",
+      "what_changes": [
+        "podmiana maszyny miedzy LO417 i LO509",
+        "LO417: odlot pozniej o 36 min (z 07:20 UTC)",
+        "LO509: odlot pozniej o 180 min (z 11:05 UTC)",
+        "LO417: typ E75S -> E170",
+        "LO509: typ E170 -> E75S"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {},
+      "crew_actions": [
+        "zaloga rejsu LO417 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem",
+        "wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne"
+      ],
+      "valid_until": "2026-08-25T07:20:00+00:00",
+      "cost_low": {
+        "minor": 5698458,
+        "currency": "PLN",
+        "major": "56984.58"
+      },
+      "cost_expected": {
+        "minor": 6078355,
+        "currency": "PLN",
+        "major": "60783.55"
+      },
+      "cost_high": {
+        "minor": 7800555,
+        "currency": "PLN",
+        "major": "78005.55"
+      },
+      "threshold_note": "`SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Supervisor OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "opcja domyslna to `HOLD` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia",
+    "`SWAP-SP-LDH` pozostaje najlepsza w calym badanym zakresie do +120 min",
+    "waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie",
+    "przy bliskiej czolowce decyzja nalezy do czlowieka, nie do rankingu"
+  ],
+  "assumptions": [
+    {
+      "field": "prog oplacalnosci",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "policzony na siatce +30/+60/+120 min, nie w sposob ciagly"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "opcje `SWAP-SP-LDH` i `SWAP-SP-LIK` roznia sie o mniej niz 10% -- roznica moze byc szumem"
+  ],
+  "duration_ms": 0.43
+}

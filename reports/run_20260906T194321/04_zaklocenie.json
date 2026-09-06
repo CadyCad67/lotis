@@ -1,0 +1,129 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T194321",
+  "node": {
+    "id": "04",
+    "name": "zaklocenie",
+    "title": "ZAKLOCENIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Zdarzenie pasazerskie na rejsie LO82 NRT-WAW, nadsprzedaz 33 rezerwacji. Decyzja do 01:15 UTC (45 min).",
+  "numbers": {
+    "rejs": {
+      "value": "LO82",
+      "unit": ""
+    },
+    "relacja": {
+      "value": "NRT-WAW",
+      "unit": ""
+    },
+    "typ_zaklocenia": {
+      "value": "PAX",
+      "unit": ""
+    },
+    "opoznienie_szacowane": {
+      "value": 0,
+      "unit": "min"
+    },
+    "nadsprzedaz": {
+      "value": 33,
+      "unit": "rezerwacji"
+    },
+    "ponad_pojemnosc": {
+      "value": 8,
+      "unit": "osob"
+    },
+    "kod_opoznienia": {
+      "value": "14",
+      "unit": ""
+    },
+    "klasa_kodu": {
+      "value": "c",
+      "unit": ""
+    },
+    "p_odszkodowania": {
+      "value": 1.0,
+      "unit": ""
+    },
+    "okno_decyzji": {
+      "value": 45,
+      "unit": "min"
+    },
+    "iteracja": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "powod_wejscia": {
+      "value": "INITIAL",
+      "unit": ""
+    },
+    "odcinkow_ponizej": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "pasazerow_na_rejsie": {
+      "value": 227,
+      "unit": "osob"
+    }
+  },
+  "findings": {
+    "rejs": {
+      "id": "LO82-2026-08-24",
+      "numer": "LO82",
+      "z": "NRT",
+      "do": "WAW",
+      "std": "2026-08-24T01:15:00+00:00",
+      "sta": "2026-08-24T15:30:00+00:00",
+      "typ": "B788",
+      "maszyna": "SP-LRE",
+      "rotacja": "ROT-SP-LRE-2026-08-24"
+    },
+    "kod_opoznienia": {
+      "kod": "14",
+      "opis": "Nadsprzedaz, bledy rezerwacji",
+      "grupa": "Pasazerowie i bagaz",
+      "orzecznictwo_tsue": false
+    },
+    "odcinki_ponizej": [
+      {
+        "id": "LO4-2026-08-24",
+        "numer": "LO4",
+        "z": "ORD",
+        "do": "WAW"
+      },
+      {
+        "id": "LO3-2026-08-24",
+        "numer": "LO3",
+        "z": "WAW",
+        "do": "ORD"
+      }
+    ]
+  },
+  "decisions": [
+    "klasa kodu `c` daje prawdopodobienstwo odszkodowania 1.0 -- node 09 mnozy przez nie kwote z Art. 7"
+  ],
+  "assumptions": [
+    {
+      "field": "opoznienie szacowane",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "wartosc podana przy zgloszeniu, nie zmierzona"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "nadsprzedaz: 8 pasazerow nie miesci sie w kabinie (260 na 252 miejsc)"
+  ],
+  "duration_ms": 12.65
+}

@@ -1,0 +1,148 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T180001",
+  "node": {
+    "id": "17",
+    "name": "wynik",
+    "title": "WYNIK RZECZYWISTY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Rejs LO3996: prognoza 87716.13 PLN, rzeczywistosc 87716.13 PLN, blad +0.0%. Klasyfikacja: ZGODNY. Wynik miesci sie w widelkach.",
+  "numbers": {
+    "opcja_wykonana": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "opoznienie_prognozowane": {
+      "value": 180,
+      "unit": "min"
+    },
+    "opoznienie_rzeczywiste": {
+      "value": 8,
+      "unit": "min"
+    },
+    "strata_prognozowana": {
+      "value": {
+        "minor": 8771613,
+        "currency": "PLN",
+        "major": "87716.13"
+      },
+      "unit": "PLN"
+    },
+    "strata_rzeczywista": {
+      "value": {
+        "minor": 8771613,
+        "currency": "PLN",
+        "major": "87716.13"
+      },
+      "unit": "PLN"
+    },
+    "blad": {
+      "value": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "unit": "PLN"
+    },
+    "blad_procentowo": {
+      "value": 0.0,
+      "unit": "%"
+    },
+    "w_widelkach": {
+      "value": true,
+      "unit": ""
+    },
+    "rodzaj_bledu": {
+      "value": "ZGODNY",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "klasyfikacja": {
+      "rodzaj": "ZGODNY",
+      "opis": "prognoza zgodna z rzeczywistoscia w granicach +0.0%",
+      "blad_modelu": false,
+      "blad_wykonania": false,
+      "odstepstwo_czlowieka": false
+    },
+    "zrodlo_rzeczywistosci": {
+      "poziom": "rejs",
+      "p25": 5.0,
+      "mediana": 8.0,
+      "p90": 13.0
+    },
+    "kalibracja": {
+      "poprawki": [],
+      "powod_pominiecia": "rodzaj `ZGODNY` nie kalibruje modelu",
+      "tlumienie": 0.2
+    },
+    "wykonanie": {
+      "opcja": "REBOOK-OWN",
+      "kroki": [
+        {
+          "id": "kasacja_w_systemie",
+          "wykonawca": "System rezerwacyjny",
+          "opis": "odwolanie rejsu i zwolnienie miejsc",
+          "odwracalny": false,
+          "krytyczny": true,
+          "status": "wykonany"
+        },
+        {
+          "id": "przepisanie_wlasne",
+          "wykonawca": "System rezerwacyjny",
+          "opis": "przepisanie pasazerow na wlasny rejs",
+          "odwracalny": true,
+          "krytyczny": false,
+          "status": "wykonany"
+        },
+        {
+          "id": "powiadomienie_pax",
+          "wykonawca": "Komunikacja",
+          "opis": "wyslanie SMS i e-mail do pasazerow",
+          "odwracalny": true,
+          "krytyczny": false,
+          "status": "wykonany"
+        },
+        {
+          "id": "brief_zalogi",
+          "wykonawca": "Crew Control",
+          "opis": "poinformowanie zalogi o zmianie",
+          "odwracalny": true,
+          "krytyczny": false,
+          "status": "wykonany"
+        }
+      ],
+      "udane": true
+    }
+  },
+  "decisions": [
+    "prognoza zgodna z rzeczywistoscia w granicach +0.0%",
+    "blad modelu, blad wykonania i odstepstwo czlowieka sa liczone osobno -- mieszanie ich uczy model na cudzych pomylkach",
+    "blad +0.0% miesci sie w szumie (5%) -- bez poprawek"
+  ],
+  "assumptions": [
+    {
+      "field": "rzeczywiste opoznienie",
+      "source": "real",
+      "confidence": 0.9,
+      "note": "mediana rozkladu z 6374 operacji"
+    }
+  ],
+  "data_gaps": [
+    "rzeczywisty koszt operacji nie jest w zadnym ze zrodel -- porownanie opiera sie na opoznieniu, nie na fakturach"
+  ],
+  "warnings": [],
+  "duration_ms": 0.07
+}

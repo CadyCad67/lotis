@@ -1,0 +1,163 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T194321",
+  "node": {
+    "id": "05",
+    "name": "feasibility",
+    "title": "FEASIBILITY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Cztery bramki na rejsie LO82 przy opoznieniu 0 min. Odpadly: samolot, zaloga.",
+  "numbers": {
+    "bramka_samolot": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_zaloga": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_port": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_miejsca": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "dopuszczonych_rodzajow": {
+      "value": 6,
+      "unit": "szt"
+    },
+    "nowy_std": {
+      "value": "2026-08-24T01:15:00+00:00",
+      "unit": ""
+    },
+    "nowy_sta": {
+      "value": "2026-08-24T15:30:00+00:00",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "bramki": [
+      {
+        "id": "samolot",
+        "przeszla": false,
+        "powod": "port NRT nie jest baza SWAP (baza dopuszcza WAW)",
+        "kandydaci": 0,
+        "bazy_swap": [
+          "WAW"
+        ]
+      },
+      {
+        "id": "zaloga",
+        "przeszla": false,
+        "powod": "11 osob przekracza FDP przy opoznieniu 0 min (najgorszy zapas -845 min)",
+        "przekroczen": 11,
+        "lista": [
+          {
+            "id": "SP-LRE-CAP0",
+            "rola": "CAPTAIN",
+            "potrzeba_min": 1595,
+            "limit_min": 750,
+            "zapas_min": -845
+          },
+          {
+            "id": "SP-LRE-FIR1",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1595,
+            "limit_min": 750,
+            "zapas_min": -845
+          },
+          {
+            "id": "SP-LRE-FIR2",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1595,
+            "limit_min": 750,
+            "zapas_min": -845
+          },
+          {
+            "id": "SP-LRE-CAB3",
+            "rola": "CABIN",
+            "potrzeba_min": 1580,
+            "limit_min": 765,
+            "zapas_min": -815
+          },
+          {
+            "id": "SP-LRE-CAB4",
+            "rola": "CABIN",
+            "potrzeba_min": 1580,
+            "limit_min": 765,
+            "zapas_min": -815
+          },
+          {
+            "id": "SP-LRE-CAB5",
+            "rola": "CABIN",
+            "potrzeba_min": 1580,
+            "limit_min": 765,
+            "zapas_min": -815
+          }
+        ]
+      },
+      {
+        "id": "port",
+        "przeszla": true,
+        "powod": "nowe godziny poza oknem zakazu planowania",
+        "poziom_slotow_wylotu": 3,
+        "port_koordynowany": true
+      },
+      {
+        "id": "miejsca",
+        "przeszla": true,
+        "powod": "29 wolnych miejsc na 1 wlasnych rejsach",
+        "wolnych_miejsc": 29,
+        "rejsow": 1,
+        "lista": [
+          {
+            "id": "LO80-2026-08-24",
+            "numer": "LO80",
+            "std": "2026-08-24T15:50:00+00:00",
+            "wolnych": 29
+          }
+        ]
+      }
+    ],
+    "dopuszczone_rodzaje_opcji": {
+      "HOLD": false,
+      "DEPART": true,
+      "SWAP": false,
+      "REBOOK-OWN": true,
+      "REBOOK-OAL": true,
+      "OVERNIGHT": true,
+      "SPLIT": true,
+      "CANCEL": true
+    }
+  },
+  "decisions": [
+    "bramka samolot: port NRT nie jest baza SWAP (baza dopuszcza WAW) -- opcje od niej zalezne odpadaja",
+    "bramka zaloga: 11 osob przekracza FDP przy opoznieniu 0 min (najgorszy zapas -845 min) -- opcje od niej zalezne odpadaja",
+    "dyskrecja dowodcy (+2 h wg ORO.FTL.205 lit. f) NIE jest wliczana w wykonalnosc -- to decyzja dowodcy, nie planisty"
+  ],
+  "assumptions": [
+    {
+      "field": "MEL i ETOPS",
+      "source": "policy",
+      "confidence": 0.4,
+      "note": "brak biezacego statusu technicznego floty w zrodlach"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 10.46
+}

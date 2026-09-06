@@ -1,0 +1,378 @@
+# [11] OPTIMIZATION ENGINE
+
+**Status:** degraded · **run:** `20260906T192747` · **snapshot:** `sha256:f3c290f4e6930407` · **0.58 ms**
+
+Ranking wstepny 10 opcji, priorytet 0. Najmniejsza strata: `HOLD` (12619.99 PLN), najwieksza: `REBOOK-OAL` (161064.24 PLN).
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `priorytet` | 0 | 0 finanse, 100 pasazer |
+| `najlepsza_opcja` | HOLD | - |
+| `strata_najlepszej` | 12619.99 PLN | PLN |
+| `strata_najgorszej` | 161064.24 PLN | PLN |
+| `rozpietosc_rankingu` | 148444.25 PLN | PLN |
+| `wspolczynnik_dolny` | 0.87 | - |
+| `wspolczynnik_gorny` | 1.12 | - |
+| `opcji` | 10 | szt |
+
+## Co ten node ustalil
+
+- strata = (baseline - revenue opcji) + koszty + propagacja
+- najlepsza opcja to najmniejsza strata, nie najmniejszy koszt
+- przy zachodzacych widelkach o wyborze decyduja kryteria poza kosztem: node 13 dokłada wage polityki firmy
+
+## Szczegoly
+
+- **ranking_wstepny**
+  - **HOLD**
+    - **indeks_pax:** 1.16
+    - **tryb:** MODIFYING
+    - **revenue_at_risk**
+      - **minor:** 161 863
+      - **currency:** PLN
+      - **major:** 1618.63
+    - **koszty**
+      - **minor:** 1 000 673
+      - **currency:** PLN
+      - **major:** 10006.73
+    - **propagacja**
+      - **minor:** 99 463
+      - **currency:** PLN
+      - **major:** 994.63
+    - **strata**
+      - **minor:** 1 261 999
+      - **currency:** PLN
+      - **major:** 12619.99
+    - **widelki_min**
+      - **minor:** 1 094 970
+      - **currency:** PLN
+      - **major:** 10949.70
+    - **widelki_max**
+      - **minor:** 1 410 469
+      - **currency:** PLN
+      - **major:** 14104.69
+    - **rozpietosc**
+      - **minor:** 315 499
+      - **currency:** PLN
+      - **major:** 3154.99
+    - **wynik_wazony:** 0.00
+    - **pozycja_wstepna:** 1
+  - **SWAP-SP-LIO**
+    - **indeks_pax:** 0.60
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 991 576
+      - **currency:** PLN
+      - **major:** 9915.76
+    - **propagacja**
+      - **minor:** 424 270
+      - **currency:** PLN
+      - **major:** 4242.70
+    - **strata**
+      - **minor:** 1 415 846
+      - **currency:** PLN
+      - **major:** 14158.46
+    - **widelki_min**
+      - **minor:** 1 228 455
+      - **currency:** PLN
+      - **major:** 12284.55
+    - **widelki_max**
+      - **minor:** 1 582 416
+      - **currency:** PLN
+      - **major:** 15824.16
+    - **rozpietosc**
+      - **minor:** 353 961
+      - **currency:** PLN
+      - **major:** 3539.61
+    - **wynik_wazony:** 0.01
+    - **pozycja_wstepna:** 2
+  - **SWAP-SP-LIC**
+    - **indeks_pax:** 0.60
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 991 576
+      - **currency:** PLN
+      - **major:** 9915.76
+    - **propagacja**
+      - **minor:** 599 338
+      - **currency:** PLN
+      - **major:** 5993.38
+    - **strata**
+      - **minor:** 1 590 914
+      - **currency:** PLN
+      - **major:** 15909.14
+    - **widelki_min**
+      - **minor:** 1 380 352
+      - **currency:** PLN
+      - **major:** 13803.52
+    - **widelki_max**
+      - **minor:** 1 778 080
+      - **currency:** PLN
+      - **major:** 17780.80
+    - **rozpietosc**
+      - **minor:** 397 728
+      - **currency:** PLN
+      - **major:** 3977.28
+    - **wynik_wazony:** 0.02
+    - **pozycja_wstepna:** 3
+  - **REBOOK-SPILL**
+    - **indeks_pax:** 0.89
+    - **tryb:** MODIFYING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 1 669 452
+      - **currency:** PLN
+      - **major:** 16694.52
+    - **propagacja**
+      - **minor:** 99 463
+      - **currency:** PLN
+      - **major:** 994.63
+    - **strata**
+      - **minor:** 1 768 915
+      - **currency:** PLN
+      - **major:** 17689.15
+    - **widelki_min**
+      - **minor:** 1 534 794
+      - **currency:** PLN
+      - **major:** 15347.94
+    - **widelki_max**
+      - **minor:** 1 977 022
+      - **currency:** PLN
+      - **major:** 19770.22
+    - **rozpietosc**
+      - **minor:** 442 228
+      - **currency:** PLN
+      - **major:** 4422.28
+    - **wynik_wazony:** 0.03
+    - **pozycja_wstepna:** 4
+  - **SWAP-SP-LDH**
+    - **indeks_pax:** 1.31
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 120 756
+      - **currency:** PLN
+      - **major:** 1207.56
+    - **koszty**
+      - **minor:** 1 608 111
+      - **currency:** PLN
+      - **major:** 16081.11
+    - **propagacja**
+      - **minor:** 622 830
+      - **currency:** PLN
+      - **major:** 6228.30
+    - **strata**
+      - **minor:** 2 351 697
+      - **currency:** PLN
+      - **major:** 23516.97
+    - **widelki_min**
+      - **minor:** 2 040 443
+      - **currency:** PLN
+      - **major:** 20404.43
+    - **widelki_max**
+      - **minor:** 2 628 367
+      - **currency:** PLN
+      - **major:** 26283.67
+    - **rozpietosc**
+      - **minor:** 587 924
+      - **currency:** PLN
+      - **major:** 5879.24
+    - **wynik_wazony:** 0.07
+    - **pozycja_wstepna:** 5
+  - **REBOOK-OWN**
+    - **indeks_pax:** 6.83
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 11 991 754
+      - **currency:** PLN
+      - **major:** 119917.54
+    - **propagacja**
+      - **minor:** 782 600
+      - **currency:** PLN
+      - **major:** 7826.00
+    - **strata**
+      - **minor:** 12 774 354
+      - **currency:** PLN
+      - **major:** 127743.54
+    - **widelki_min**
+      - **minor:** 11 083 631
+      - **currency:** PLN
+      - **major:** 110836.31
+    - **widelki_max**
+      - **minor:** 14 277 219
+      - **currency:** PLN
+      - **major:** 142772.19
+    - **rozpietosc**
+      - **minor:** 3 193 588
+      - **currency:** PLN
+      - **major:** 31935.88
+    - **wynik_wazony:** 0.78
+    - **pozycja_wstepna:** 6
+  - **SPLIT**
+    - **indeks_pax:** 8.62
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 13 657 789
+      - **currency:** PLN
+      - **major:** 136577.89
+    - **propagacja**
+      - **minor:** 782 600
+      - **currency:** PLN
+      - **major:** 7826.00
+    - **strata**
+      - **minor:** 14 440 389
+      - **currency:** PLN
+      - **major:** 144403.89
+    - **widelki_min**
+      - **minor:** 12 529 162
+      - **currency:** PLN
+      - **major:** 125291.62
+    - **widelki_max**
+      - **minor:** 16 139 258
+      - **currency:** PLN
+      - **major:** 161392.58
+    - **rozpietosc**
+      - **minor:** 3 610 096
+      - **currency:** PLN
+      - **major:** 36100.96
+    - **wynik_wazony:** 0.89
+    - **pozycja_wstepna:** 7
+  - **CANCEL**
+    - **indeks_pax:** 12.83
+    - **tryb:** MODIFYING
+    - **revenue_at_risk**
+      - **minor:** 2 394 456
+      - **currency:** PLN
+      - **major:** 23944.56
+    - **koszty**
+      - **minor:** 11 526 064
+      - **currency:** PLN
+      - **major:** 115260.64
+    - **propagacja**
+      - **minor:** 782 600
+      - **currency:** PLN
+      - **major:** 7826.00
+    - **strata**
+      - **minor:** 14 703 120
+      - **currency:** PLN
+      - **major:** 147031.20
+    - **widelki_min**
+      - **minor:** 12 757 119
+      - **currency:** PLN
+      - **major:** 127571.19
+    - **widelki_max**
+      - **minor:** 16 432 898
+      - **currency:** PLN
+      - **major:** 164328.98
+    - **rozpietosc**
+      - **minor:** 3 675 779
+      - **currency:** PLN
+      - **major:** 36757.79
+    - **wynik_wazony:** 0.91
+    - **pozycja_wstepna:** 8
+  - **OVERNIGHT**
+    - **indeks_pax:** 18.00
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 15 130 196
+      - **currency:** PLN
+      - **major:** 151301.96
+    - **propagacja**
+      - **minor:** 782 600
+      - **currency:** PLN
+      - **major:** 7826.00
+    - **strata**
+      - **minor:** 15 912 796
+      - **currency:** PLN
+      - **major:** 159127.96
+    - **widelki_min**
+      - **minor:** 13 806 691
+      - **currency:** PLN
+      - **major:** 138066.91
+    - **widelki_max**
+      - **minor:** 17 784 889
+      - **currency:** PLN
+      - **major:** 177848.89
+    - **rozpietosc**
+      - **minor:** 3 978 198
+      - **currency:** PLN
+      - **major:** 39781.98
+    - **wynik_wazony:** 0.99
+    - **pozycja_wstepna:** 9
+  - **REBOOK-OAL**
+    - **indeks_pax:** 10.42
+    - **tryb:** RESTRUCTURING
+    - **revenue_at_risk**
+      - **minor:** 0
+      - **currency:** PLN
+      - **major:** 0.00
+    - **koszty**
+      - **minor:** 15 323 824
+      - **currency:** PLN
+      - **major:** 153238.24
+    - **propagacja**
+      - **minor:** 782 600
+      - **currency:** PLN
+      - **major:** 7826.00
+    - **strata**
+      - **minor:** 16 106 424
+      - **currency:** PLN
+      - **major:** 161064.24
+    - **widelki_min**
+      - **minor:** 13 974 692
+      - **currency:** PLN
+      - **major:** 139746.92
+    - **widelki_max**
+      - **minor:** 18 001 297
+      - **currency:** PLN
+      - **major:** 180012.97
+    - **rozpietosc**
+      - **minor:** 4 026 605
+      - **currency:** PLN
+      - **major:** 40266.05
+    - **wynik_wazony:** 1.00
+    - **pozycja_wstepna:** 10
+- **zrodlo_widelek**
+  - **poziom:** rejs
+  - **obserwacji:** 15
+  - **p25:** 8.00
+  - **mediana:** 17.00
+  - **p90:** 23.00
+  - **punktualnosc15:** 46.70
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `widelki` | real | 0.80 | kwantyle p25/mediana/p90 z rzeczywistych operacji tej siatki |
+| `kurs EUR/PLN` | policy | 0.50 | 4.3 -- placeholder - kurs do ustawienia w Konfiguracji |
+
+## Ostrzezenia
+
+- widelki opcji `HOLD` i `SWAP-SP-LIO` zachodza na siebie -- roznica miedzy nimi nie jest istotna statystycznie
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_

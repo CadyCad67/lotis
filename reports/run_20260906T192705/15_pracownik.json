@@ -1,0 +1,141 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T192705",
+  "node": {
+    "id": "15",
+    "name": "pracownik",
+    "title": "PRACOWNIK"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "OCC-DUTY: ACCEPT dla `SWAP-SP-LIO` (14158.46 PLN). Wymagana rola: Dyzurny OCC.",
+  "numbers": {
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "SWAP-SP-LIO",
+      "unit": ""
+    },
+    "rekomendacja_silnika": {
+      "value": "SWAP-SP-LIO",
+      "unit": ""
+    },
+    "odstepstwo_od_rekomendacji": {
+      "value": false,
+      "unit": ""
+    },
+    "kwota_do_autoryzacji": {
+      "value": {
+        "minor": 1584399,
+        "currency": "PLN",
+        "major": "15843.99"
+      },
+      "unit": "PLN"
+    },
+    "rola_autoryzujaca": {
+      "value": "Dyzurny OCC",
+      "unit": ""
+    },
+    "drugi_podpis": {
+      "value": false,
+      "unit": ""
+    },
+    "kod_przyczyny": {
+      "value": "-",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "pasma_autoryzacji": [
+      {
+        "max_value": 50000.0,
+        "role": "Dyzurny OCC",
+        "second_signature": false
+      },
+      {
+        "max_value": 150000.0,
+        "role": "Supervisor OCC",
+        "second_signature": false
+      },
+      {
+        "max_value": 400000.0,
+        "role": "Duty Manager OCC",
+        "second_signature": true
+      },
+      {
+        "max_value": null,
+        "role": "Director Network Operations",
+        "second_signature": true
+      }
+    ],
+    "dopuszczalne_kody_odrzucenia": [
+      "DANE_NIEAKTUALNE",
+      "CZYNNIK_NIEUJETY_W_MODELU",
+      "DECYZJA_HANDLOWA",
+      "RYZYKO_REPUTACYJNE",
+      "NIEWYKONALNE_OPERACYJNIE"
+    ],
+    "decyzja": {
+      "operator": "OCC-DUTY",
+      "rodzaj": "ACCEPT",
+      "opcja": "SWAP-SP-LIO",
+      "kod_przyczyny": "",
+      "rola": "Dyzurny OCC",
+      "drugi_podpis": false
+    },
+    "karta_wykonania": {
+      "option_id": "SWAP-SP-LIO",
+      "label": "Podmien maszyne na SP-LIO (E75S)",
+      "what_changes": [
+        "podmiana maszyny miedzy LO3981 i LO265",
+        "LO265: odlot pozniej o 20 min (z 07:25 UTC)",
+        "LO3981: odlot pozniej o 36 min (z 07:05 UTC)"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {},
+      "crew_actions": [
+        "zaloga rejsu LO3981 pozostaje na sluzbie +36 min -- sprawdzic FDP przed odlotem",
+        "wezwanie zalogi z rezerwy dla rejsu przejmujacego maszyne"
+      ],
+      "valid_until": "2026-08-21T07:05:00+00:00",
+      "cost_low": {
+        "minor": 1264149,
+        "currency": "PLN",
+        "major": "12641.49"
+      },
+      "cost_expected": {
+        "minor": 1415846,
+        "currency": "PLN",
+        "major": "14158.46"
+      },
+      "cost_high": {
+        "minor": 1584399,
+        "currency": "PLN",
+        "major": "15843.99"
+      },
+      "threshold_note": "`SWAP-SP-LIO` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Dyzurny OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "kwota 15843.99 PLN miesci sie w pasmie roli `Dyzurny OCC`"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.06
+}

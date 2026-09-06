@@ -1,0 +1,276 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T191046",
+  "node": {
+    "id": "11",
+    "name": "optymalizacja",
+    "title": "OPTIMIZATION ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Ranking wstepny 4 opcji, priorytet 50. Najmniejsza strata: `HOLD` (805722.60 PLN), najwieksza: `CANCEL` (1719112.11 PLN).",
+  "numbers": {
+    "priorytet": {
+      "value": 50,
+      "unit": "0 finanse, 100 pasazer"
+    },
+    "najlepsza_opcja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_najlepszej": {
+      "value": {
+        "minor": 80572260,
+        "currency": "PLN",
+        "major": "805722.60"
+      },
+      "unit": "PLN"
+    },
+    "strata_najgorszej": {
+      "value": {
+        "minor": 171911211,
+        "currency": "PLN",
+        "major": "1719112.11"
+      },
+      "unit": "PLN"
+    },
+    "rozpietosc_rankingu": {
+      "value": {
+        "minor": 91338951,
+        "currency": "PLN",
+        "major": "913389.51"
+      },
+      "unit": "PLN"
+    },
+    "wspolczynnik_dolny": {
+      "value": 0.912,
+      "unit": ""
+    },
+    "wspolczynnik_gorny": {
+      "value": 1.741,
+      "unit": ""
+    },
+    "opcji": {
+      "value": 4,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_wstepny": [
+      {
+        "id": "HOLD",
+        "indeks_pax": 3.0,
+        "label": "Wstrzymaj odlot o 180 min",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 80572260,
+          "currency": "PLN",
+          "major": "805722.60"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 80572260,
+          "currency": "PLN",
+          "major": "805722.60"
+        },
+        "widelki_min": {
+          "minor": 73484886,
+          "currency": "PLN",
+          "major": "734848.86"
+        },
+        "widelki_max": {
+          "minor": 140255415,
+          "currency": "PLN",
+          "major": "1402554.15"
+        },
+        "rozpietosc": {
+          "minor": 66770529,
+          "currency": "PLN",
+          "major": "667705.29"
+        },
+        "wynik_wazony": 0.0,
+        "pozycja_wstepna": 1
+      },
+      {
+        "id": "OVERNIGHT",
+        "indeks_pax": 18.0,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 135098174,
+          "currency": "PLN",
+          "major": "1350981.74"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 135098174,
+          "currency": "PLN",
+          "major": "1350981.74"
+        },
+        "widelki_min": {
+          "minor": 123214539,
+          "currency": "PLN",
+          "major": "1232145.39"
+        },
+        "widelki_max": {
+          "minor": 235170895,
+          "currency": "PLN",
+          "major": "2351708.95"
+        },
+        "rozpietosc": {
+          "minor": 111956356,
+          "currency": "PLN",
+          "major": "1119563.56"
+        },
+        "wynik_wazony": 0.6556,
+        "pozycja_wstepna": 2
+      },
+      {
+        "id": "REBOOK-OAL",
+        "indeks_pax": 18.417,
+        "label": "Przenies na przewoznika obcego do KRK",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 168346720,
+          "currency": "PLN",
+          "major": "1683467.20"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 168346720,
+          "currency": "PLN",
+          "major": "1683467.20"
+        },
+        "widelki_min": {
+          "minor": 153538444,
+          "currency": "PLN",
+          "major": "1535384.44"
+        },
+        "widelki_max": {
+          "minor": 293047994,
+          "currency": "PLN",
+          "major": "2930479.94"
+        },
+        "rozpietosc": {
+          "minor": 139509550,
+          "currency": "PLN",
+          "major": "1395095.50"
+        },
+        "wynik_wazony": 0.8476,
+        "pozycja_wstepna": 3
+      },
+      {
+        "id": "CANCEL",
+        "indeks_pax": 24.0,
+        "label": "Odwolaj rejs",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 62051887,
+          "currency": "PLN",
+          "major": "620518.87"
+        },
+        "koszty": {
+          "minor": 109859324,
+          "currency": "PLN",
+          "major": "1098593.24"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 171911211,
+          "currency": "PLN",
+          "major": "1719112.11"
+        },
+        "widelki_min": {
+          "minor": 156789392,
+          "currency": "PLN",
+          "major": "1567893.92"
+        },
+        "widelki_max": {
+          "minor": 299252848,
+          "currency": "PLN",
+          "major": "2992528.48"
+        },
+        "rozpietosc": {
+          "minor": 142463456,
+          "currency": "PLN",
+          "major": "1424634.56"
+        },
+        "wynik_wazony": 1.0,
+        "pozycja_wstepna": 4
+      }
+    ],
+    "zrodlo_widelek": {
+      "poziom": "rejs",
+      "obserwacji": 42,
+      "p25": 35.0,
+      "mediana": 54.0,
+      "p90": 174.0,
+      "punktualnosc15": 2.4
+    }
+  },
+  "decisions": [
+    "strata = (baseline - revenue opcji) + koszty + propagacja",
+    "najlepsza opcja to najmniejsza strata, nie najmniejszy koszt",
+    "przy zachodzacych widelkach o wyborze decyduja kryteria poza kosztem: node 13 dokłada wage polityki firmy"
+  ],
+  "assumptions": [
+    {
+      "field": "widelki",
+      "source": "real",
+      "confidence": 0.8,
+      "note": "kwantyle p25/mediana/p90 z rzeczywistych operacji tej siatki"
+    },
+    {
+      "field": "kurs EUR/PLN",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "4.3 -- placeholder - kurs do ustawienia w Konfiguracji"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "widelki opcji `HOLD` i `OVERNIGHT` zachodza na siebie -- roznica miedzy nimi nie jest istotna statystycznie"
+  ],
+  "duration_ms": 0.52
+}

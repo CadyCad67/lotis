@@ -1,0 +1,85 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T230818",
+  "node": {
+    "id": "15b",
+    "name": "wykonanie",
+    "title": "WYKONANIE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Wykonano 3 krokow opcji `HOLD`. 1 krokow nieodwracalnych.",
+  "numbers": {
+    "krokow": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "krokow_nieodwracalnych": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "wykonawcow": {
+      "value": 3,
+      "unit": "szt"
+    },
+    "opcja": {
+      "value": "HOLD",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "kroki": [
+      {
+        "id": "nowy_slot",
+        "wykonawca": "Slot Coordination / EUROCONTROL",
+        "opis": "wystapienie o nowe okno startowe",
+        "odwracalny": false,
+        "krytyczny": true,
+        "status": "wykonany"
+      },
+      {
+        "id": "powiadomienie_pax",
+        "wykonawca": "Komunikacja",
+        "opis": "wyslanie SMS i e-mail do pasazerow",
+        "odwracalny": true,
+        "krytyczny": false,
+        "status": "wykonany"
+      },
+      {
+        "id": "brief_zalogi",
+        "wykonawca": "Crew Control",
+        "opis": "poinformowanie zalogi o zmianie",
+        "odwracalny": true,
+        "krytyczny": false,
+        "status": "wykonany"
+      }
+    ],
+    "punkt_bez_powrotu": {
+      "krok": "nowy_slot",
+      "opis": "wystapienie o nowe okno startowe"
+    },
+    "sciezka_porazki": {
+      "wyzwalacz": "EXECUTION_FAILED",
+      "wraca_do": "node 04 ZAKLOCENIE",
+      "po_co": "blad wykonania nie moze byc liczony jako blad modelu (luka 3)"
+    }
+  },
+  "decisions": [
+    "wykonanie jest osobnym etapem miedzy decyzja a logiem -- bez niego node 17 nie odroznilby bledu modelu od nieudanej realizacji",
+    "krok `nowy_slot` jest nieodwracalny -- po nim przeliczenie nie przywroci stanu wyjsciowego"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.05
+}

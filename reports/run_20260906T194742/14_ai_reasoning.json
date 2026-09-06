@@ -1,0 +1,132 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T194742",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 1585716,
+        "currency": "PLN",
+        "major": "15857.16"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [],
+    "uzasadnienie": {
+      "wybrana": "REBOOK-OWN",
+      "label": "Przenies na wlasny rejs LO393 (+480 min)",
+      "strata": {
+        "minor": 13516921,
+        "currency": "PLN",
+        "major": "135169.21"
+      },
+      "widelki": {
+        "min": {
+          "minor": 12108909,
+          "currency": "PLN",
+          "major": "121089.09"
+        },
+        "max": {
+          "minor": 18585766,
+          "currency": "PLN",
+          "major": "185857.66"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "odszkodowanie_art7: 84925.00 PLN",
+        "rebooking_wlasny_spill: 17834.25 PLN",
+        "pozycjonowanie: 11438.00 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 9668229,
+        "currency": "PLN",
+        "major": "96682.29"
+      },
+      "alternatywa": {
+        "id": "CANCEL",
+        "strata": {
+          "minor": 15102637,
+          "currency": "PLN",
+          "major": "151026.37"
+        },
+        "roznica": {
+          "minor": 1585716,
+          "currency": "PLN",
+          "major": "15857.16"
+        }
+      },
+      "czolowka_blisko": false,
+      "uwaga_polityki": "23 utraconych przesiadek; szerokie widelki"
+    }
+  },
+  "decisions": [
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 56.3
+}

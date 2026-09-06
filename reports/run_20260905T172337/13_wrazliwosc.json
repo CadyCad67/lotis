@@ -1,0 +1,497 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T172337",
+  "node": {
+    "id": "13",
+    "name": "wrazliwosc",
+    "title": "WRAZLIWOSC"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Ranking koncowy 6 dopuszczalnych opcji. Rekomendacja: `REBOOK-OWN` (87716.13 PLN), oszczednosc wobec opcji domyslnej `HOLD`: 56445.21 PLN.",
+  "numbers": {
+    "rekomendacja": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "strata_rekomendacji": {
+      "value": {
+        "minor": 8771613,
+        "currency": "PLN",
+        "major": "87716.13"
+      },
+      "unit": "PLN"
+    },
+    "widelki_min": {
+      "value": {
+        "minor": 7949274,
+        "currency": "PLN",
+        "major": "79492.74"
+      },
+      "unit": "PLN"
+    },
+    "widelki_max": {
+      "value": {
+        "minor": 10599032,
+        "currency": "PLN",
+        "major": "105990.32"
+      },
+      "unit": "PLN"
+    },
+    "opcja_domyslna": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_opcji_domyslnej": {
+      "value": {
+        "minor": 14416134,
+        "currency": "PLN",
+        "major": "144161.34"
+      },
+      "unit": "PLN"
+    },
+    "oszczednosc": {
+      "value": {
+        "minor": 5644521,
+        "currency": "PLN",
+        "major": "56445.21"
+      },
+      "unit": "PLN"
+    },
+    "prog_oplacalnosci": {
+      "value": 120,
+      "unit": "min"
+    },
+    "opcji_w_rankingu": {
+      "value": 6,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_koncowy": [
+      {
+        "id": "REBOOK-OWN",
+        "pozycja": 1,
+        "label": "Przenies na wlasny rejs LO3994 (+560 min)",
+        "strata": {
+          "minor": 8771613,
+          "currency": "PLN",
+          "major": "87716.13"
+        },
+        "min": {
+          "minor": 7949274,
+          "currency": "PLN",
+          "major": "79492.74"
+        },
+        "max": {
+          "minor": 10599032,
+          "currency": "PLN",
+          "major": "105990.32"
+        },
+        "oszczednosc": {
+          "minor": 5644521,
+          "currency": "PLN",
+          "major": "56445.21"
+        },
+        "wskaznik": 9459979.95,
+        "uwaga_polityki": "24 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "CANCEL",
+        "pozycja": 2,
+        "label": "Odwolaj rejs",
+        "strata": {
+          "minor": 9241722,
+          "currency": "PLN",
+          "major": "92417.22"
+        },
+        "min": {
+          "minor": 8375311,
+          "currency": "PLN",
+          "major": "83753.11"
+        },
+        "max": {
+          "minor": 11167081,
+          "currency": "PLN",
+          "major": "111670.81"
+        },
+        "oszczednosc": {
+          "minor": 5174412,
+          "currency": "PLN",
+          "major": "51744.12"
+        },
+        "wskaznik": 9966981.53,
+        "uwaga_polityki": "24 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "SPLIT",
+        "pozycja": 3,
+        "label": "Rozdziel: 30 na LO3994, reszta na obcego",
+        "strata": {
+          "minor": 9551418,
+          "currency": "PLN",
+          "major": "95514.18"
+        },
+        "min": {
+          "minor": 8655973,
+          "currency": "PLN",
+          "major": "86559.73"
+        },
+        "max": {
+          "minor": 11541297,
+          "currency": "PLN",
+          "major": "115412.97"
+        },
+        "oszczednosc": {
+          "minor": 4864716,
+          "currency": "PLN",
+          "major": "48647.16"
+        },
+        "wskaznik": 10300981.44,
+        "uwaga_polityki": "24 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "REBOOK-OAL",
+        "pozycja": 4,
+        "label": "Przenies na przewoznika obcego do WAW",
+        "strata": {
+          "minor": 10306068,
+          "currency": "PLN",
+          "major": "103060.68"
+        },
+        "min": {
+          "minor": 9339874,
+          "currency": "PLN",
+          "major": "93398.74"
+        },
+        "max": {
+          "minor": 12453165,
+          "currency": "PLN",
+          "major": "124531.65"
+        },
+        "oszczednosc": {
+          "minor": 4110066,
+          "currency": "PLN",
+          "major": "41100.66"
+        },
+        "wskaznik": 11114853.86,
+        "uwaga_polityki": "24 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "OVERNIGHT",
+        "pozycja": 5,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "strata": {
+          "minor": 11394106,
+          "currency": "PLN",
+          "major": "113941.06"
+        },
+        "min": {
+          "minor": 10325909,
+          "currency": "PLN",
+          "major": "103259.09"
+        },
+        "max": {
+          "minor": 13767878,
+          "currency": "PLN",
+          "major": "137678.78"
+        },
+        "oszczednosc": {
+          "minor": 3022028,
+          "currency": "PLN",
+          "major": "30220.28"
+        },
+        "wskaznik": 12288277.45,
+        "uwaga_polityki": "24 utraconych przesiadek; szerokie widelki"
+      },
+      {
+        "id": "HOLD",
+        "pozycja": 6,
+        "label": "Wstrzymaj odlot o 180 min",
+        "strata": {
+          "minor": 14416134,
+          "currency": "PLN",
+          "major": "144161.34"
+        },
+        "min": {
+          "minor": 13064621,
+          "currency": "PLN",
+          "major": "130646.21"
+        },
+        "max": {
+          "minor": 17419495,
+          "currency": "PLN",
+          "major": "174194.95"
+        },
+        "oszczednosc": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "wskaznik": 18656956.98,
+        "uwaga_polityki": "propagacja 318 min (waga rotacji 1.0); 24 utraconych przesiadek; szerokie widelki"
+      }
+    ],
+    "test_wrazliwosci": [
+      {
+        "krok_min": 30,
+        "lider": "REBOOK-OWN",
+        "ranking": [
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 8771613,
+              "currency": "PLN",
+              "major": "87716.13"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 9241722,
+              "currency": "PLN",
+              "major": "92417.22"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 9551418,
+              "currency": "PLN",
+              "major": "95514.18"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 10306068,
+              "currency": "PLN",
+              "major": "103060.68"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 11394106,
+              "currency": "PLN",
+              "major": "113941.06"
+            }
+          },
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 14581134,
+              "currency": "PLN",
+              "major": "145811.34"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 60,
+        "lider": "REBOOK-OWN",
+        "ranking": [
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 8771613,
+              "currency": "PLN",
+              "major": "87716.13"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 9241722,
+              "currency": "PLN",
+              "major": "92417.22"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 9551418,
+              "currency": "PLN",
+              "major": "95514.18"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 10306068,
+              "currency": "PLN",
+              "major": "103060.68"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 11394106,
+              "currency": "PLN",
+              "major": "113941.06"
+            }
+          },
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 14746134,
+              "currency": "PLN",
+              "major": "147461.34"
+            }
+          }
+        ]
+      },
+      {
+        "krok_min": 120,
+        "lider": "REBOOK-OWN",
+        "ranking": [
+          {
+            "id": "REBOOK-OWN",
+            "strata": {
+              "minor": 8771613,
+              "currency": "PLN",
+              "major": "87716.13"
+            }
+          },
+          {
+            "id": "CANCEL",
+            "strata": {
+              "minor": 9241722,
+              "currency": "PLN",
+              "major": "92417.22"
+            }
+          },
+          {
+            "id": "SPLIT",
+            "strata": {
+              "minor": 9551418,
+              "currency": "PLN",
+              "major": "95514.18"
+            }
+          },
+          {
+            "id": "REBOOK-OAL",
+            "strata": {
+              "minor": 10306068,
+              "currency": "PLN",
+              "major": "103060.68"
+            }
+          },
+          {
+            "id": "OVERNIGHT",
+            "strata": {
+              "minor": 11394106,
+              "currency": "PLN",
+              "major": "113941.06"
+            }
+          },
+          {
+            "id": "HOLD",
+            "strata": {
+              "minor": 15076134,
+              "currency": "PLN",
+              "major": "150761.34"
+            }
+          }
+        ]
+      }
+    ],
+    "prog_oplacalnosci": {
+      "do_minut": 120,
+      "przejmuje": "",
+      "opis": "`REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min"
+    },
+    "wagi_polityki": {
+      "rot": 1.0,
+      "trf": 1.0,
+      "vuln": 1.0,
+      "unc": 1.0,
+      "cx": 1.0,
+      "crew": 1.0
+    },
+    "opcje_odrzucone_przez_prawo": [],
+    "karta_wykonania": {
+      "option_id": "REBOOK-OWN",
+      "label": "Przenies na wlasny rejs LO3994 (+560 min)",
+      "what_changes": [
+        "LO3996: rejs odwolany",
+        "61 pasazerow na wlasny rejs (LO3994, odlot 14:55 UTC) -- oczekiwanie 560 min"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {
+        "PAX003776": "wlasny rejs",
+        "PAX003777": "wlasny rejs",
+        "PAX003778": "wlasny rejs",
+        "PAX003779": "wlasny rejs",
+        "PAX003780": "wlasny rejs",
+        "PAX003781": "wlasny rejs",
+        "PAX003782": "wlasny rejs",
+        "PAX003783": "wlasny rejs",
+        "PAX003784": "wlasny rejs",
+        "PAX003785": "wlasny rejs",
+        "PAX003786": "wlasny rejs",
+        "PAX003787": "wlasny rejs",
+        "PAX003788": "wlasny rejs",
+        "PAX003789": "wlasny rejs",
+        "PAX003790": "wlasny rejs",
+        "PAX003791": "wlasny rejs",
+        "PAX003792": "wlasny rejs",
+        "PAX003793": "wlasny rejs",
+        "PAX003794": "wlasny rejs",
+        "PAX003795": "wlasny rejs"
+      },
+      "crew_actions": [
+        "bez zmian dla zalogi"
+      ],
+      "valid_until": "2026-08-21T05:35:00+00:00",
+      "cost_low": {
+        "minor": 7949274,
+        "currency": "PLN",
+        "major": "79492.74"
+      },
+      "cost_expected": {
+        "minor": 8771613,
+        "currency": "PLN",
+        "major": "87716.13"
+      },
+      "cost_high": {
+        "minor": 10599032,
+        "currency": "PLN",
+        "major": "105990.32"
+      },
+      "threshold_note": "`REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Supervisor OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "opcja domyslna to `HOLD` -- oszczednosc liczy sie wzgledem niej, a nie wzgledem nicnierobienia",
+    "`REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min",
+    "waga polityki firmy przesuwa ranking, ale nie zmienia zadnej kwoty w raporcie",
+    "przy bliskiej czolowce decyzja nalezy do czlowieka, nie do rankingu"
+  ],
+  "assumptions": [
+    {
+      "field": "prog oplacalnosci",
+      "source": "derived",
+      "confidence": 0.7,
+      "note": "policzony na siatce +30/+60/+120 min, nie w sposob ciagly"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "opcje `REBOOK-OWN` i `CANCEL` roznia sie o mniej niz 10% -- roznica moze byc szumem"
+  ],
+  "duration_ms": 0.35
+}

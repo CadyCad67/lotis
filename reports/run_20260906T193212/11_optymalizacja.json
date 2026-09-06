@@ -1,0 +1,491 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T193212",
+  "node": {
+    "id": "11",
+    "name": "optymalizacja",
+    "title": "OPTIMIZATION ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Ranking wstepny 9 opcji, priorytet 0. Najmniejsza strata: `HOLD` (28810.32 PLN), najwieksza: `REBOOK-OAL` (2009914.60 PLN).",
+  "numbers": {
+    "priorytet": {
+      "value": 0,
+      "unit": "0 finanse, 100 pasazer"
+    },
+    "najlepsza_opcja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "strata_najlepszej": {
+      "value": {
+        "minor": 2881032,
+        "currency": "PLN",
+        "major": "28810.32"
+      },
+      "unit": "PLN"
+    },
+    "strata_najgorszej": {
+      "value": {
+        "minor": 200991460,
+        "currency": "PLN",
+        "major": "2009914.60"
+      },
+      "unit": "PLN"
+    },
+    "rozpietosc_rankingu": {
+      "value": {
+        "minor": 198110428,
+        "currency": "PLN",
+        "major": "1981104.28"
+      },
+      "unit": "PLN"
+    },
+    "wspolczynnik_dolny": {
+      "value": 0.929,
+      "unit": ""
+    },
+    "wspolczynnik_gorny": {
+      "value": 1.543,
+      "unit": ""
+    },
+    "opcji": {
+      "value": 9,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_wstepny": [
+      {
+        "id": "HOLD",
+        "indeks_pax": 0.294,
+        "label": "Odlec zgodnie z rozkladem, 8 pasazerow nie wejdzie na poklad",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 817032,
+          "currency": "PLN",
+          "major": "8170.32"
+        },
+        "koszty": {
+          "minor": 2064000,
+          "currency": "PLN",
+          "major": "20640.00"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 2881032,
+          "currency": "PLN",
+          "major": "28810.32"
+        },
+        "widelki_min": {
+          "minor": 2677481,
+          "currency": "PLN",
+          "major": "26774.81"
+        },
+        "widelki_max": {
+          "minor": 4446810,
+          "currency": "PLN",
+          "major": "44468.10"
+        },
+        "rozpietosc": {
+          "minor": 1769329,
+          "currency": "PLN",
+          "major": "17693.29"
+        },
+        "wynik_wazony": 0.0,
+        "pozycja_wstepna": 1
+      },
+      {
+        "id": "REBOOK-SPILL",
+        "indeks_pax": 0.196,
+        "label": "Przenies 8 nadmiarowych na LO26 (+280 min)",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 3820120,
+          "currency": "PLN",
+          "major": "38201.20"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 3820120,
+          "currency": "PLN",
+          "major": "38201.20"
+        },
+        "widelki_min": {
+          "minor": 3550221,
+          "currency": "PLN",
+          "major": "35502.21"
+        },
+        "widelki_max": {
+          "minor": 5896272,
+          "currency": "PLN",
+          "major": "58962.72"
+        },
+        "rozpietosc": {
+          "minor": 2346051,
+          "currency": "PLN",
+          "major": "23460.51"
+        },
+        "wynik_wazony": 0.0047,
+        "pozycja_wstepna": 2
+      },
+      {
+        "id": "SWAP-SP-LSA",
+        "indeks_pax": 2.317,
+        "label": "Podmien maszyne na SP-LSA (B789)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 10415698,
+          "currency": "PLN",
+          "major": "104156.98"
+        },
+        "propagacja": {
+          "minor": 9695806,
+          "currency": "PLN",
+          "major": "96958.06"
+        },
+        "strata": {
+          "minor": 20111504,
+          "currency": "PLN",
+          "major": "201115.04"
+        },
+        "widelki_min": {
+          "minor": 18690583,
+          "currency": "PLN",
+          "major": "186905.83"
+        },
+        "widelki_max": {
+          "minor": 31041669,
+          "currency": "PLN",
+          "major": "310416.69"
+        },
+        "rozpietosc": {
+          "minor": 12351086,
+          "currency": "PLN",
+          "major": "123510.86"
+        },
+        "wynik_wazony": 0.087,
+        "pozycja_wstepna": 3
+      },
+      {
+        "id": "SWAP-SP-LSE",
+        "indeks_pax": 2.317,
+        "label": "Podmien maszyne na SP-LSE (B789)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 10415698,
+          "currency": "PLN",
+          "major": "104156.98"
+        },
+        "propagacja": {
+          "minor": 9695806,
+          "currency": "PLN",
+          "major": "96958.06"
+        },
+        "strata": {
+          "minor": 20111504,
+          "currency": "PLN",
+          "major": "201115.04"
+        },
+        "widelki_min": {
+          "minor": 18690583,
+          "currency": "PLN",
+          "major": "186905.83"
+        },
+        "widelki_max": {
+          "minor": 31041669,
+          "currency": "PLN",
+          "major": "310416.69"
+        },
+        "rozpietosc": {
+          "minor": 12351086,
+          "currency": "PLN",
+          "major": "123510.86"
+        },
+        "wynik_wazony": 0.087,
+        "pozycja_wstepna": 4
+      },
+      {
+        "id": "REBOOK-OWN",
+        "indeks_pax": 6.667,
+        "label": "Przenies na wlasny rejs LO26 (+280 min)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 127216360,
+          "currency": "PLN",
+          "major": "1272163.60"
+        },
+        "propagacja": {
+          "minor": 24359500,
+          "currency": "PLN",
+          "major": "243595.00"
+        },
+        "strata": {
+          "minor": 151575860,
+          "currency": "PLN",
+          "major": "1515758.60"
+        },
+        "widelki_min": {
+          "minor": 140866696,
+          "currency": "PLN",
+          "major": "1408666.96"
+        },
+        "widelki_max": {
+          "minor": 233954044,
+          "currency": "PLN",
+          "major": "2339540.44"
+        },
+        "rozpietosc": {
+          "minor": 93087348,
+          "currency": "PLN",
+          "major": "930873.48"
+        },
+        "wynik_wazony": 0.7506,
+        "pozycja_wstepna": 5
+      },
+      {
+        "id": "OVERNIGHT",
+        "indeks_pax": 18.0,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 137534142,
+          "currency": "PLN",
+          "major": "1375341.42"
+        },
+        "propagacja": {
+          "minor": 24359500,
+          "currency": "PLN",
+          "major": "243595.00"
+        },
+        "strata": {
+          "minor": 161893642,
+          "currency": "PLN",
+          "major": "1618936.42"
+        },
+        "widelki_min": {
+          "minor": 150455505,
+          "currency": "PLN",
+          "major": "1504555.05"
+        },
+        "widelki_max": {
+          "minor": 249879317,
+          "currency": "PLN",
+          "major": "2498793.17"
+        },
+        "rozpietosc": {
+          "minor": 99423812,
+          "currency": "PLN",
+          "major": "994238.12"
+        },
+        "wynik_wazony": 0.8026,
+        "pozycja_wstepna": 6
+      },
+      {
+        "id": "SPLIT",
+        "indeks_pax": 10.042,
+        "label": "Rozdziel: 136 na LO26, reszta na obcego",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 151924160,
+          "currency": "PLN",
+          "major": "1519241.60"
+        },
+        "propagacja": {
+          "minor": 24359500,
+          "currency": "PLN",
+          "major": "243595.00"
+        },
+        "strata": {
+          "minor": 176283660,
+          "currency": "PLN",
+          "major": "1762836.60"
+        },
+        "widelki_min": {
+          "minor": 163828837,
+          "currency": "PLN",
+          "major": "1638288.37"
+        },
+        "widelki_max": {
+          "minor": 272089996,
+          "currency": "PLN",
+          "major": "2720899.96"
+        },
+        "rozpietosc": {
+          "minor": 108261159,
+          "currency": "PLN",
+          "major": "1082611.59"
+        },
+        "wynik_wazony": 0.8753,
+        "pozycja_wstepna": 7
+      },
+      {
+        "id": "CANCEL",
+        "indeks_pax": 12.667,
+        "label": "Odwolaj rejs",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 54405974,
+          "currency": "PLN",
+          "major": "544059.74"
+        },
+        "koszty": {
+          "minor": 101252960,
+          "currency": "PLN",
+          "major": "1012529.60"
+        },
+        "propagacja": {
+          "minor": 24359500,
+          "currency": "PLN",
+          "major": "243595.00"
+        },
+        "strata": {
+          "minor": 180018434,
+          "currency": "PLN",
+          "major": "1800184.34"
+        },
+        "widelki_min": {
+          "minor": 167299741,
+          "currency": "PLN",
+          "major": "1672997.41"
+        },
+        "widelki_max": {
+          "minor": 277854539,
+          "currency": "PLN",
+          "major": "2778545.39"
+        },
+        "rozpietosc": {
+          "minor": 110554798,
+          "currency": "PLN",
+          "major": "1105547.98"
+        },
+        "wynik_wazony": 0.8941,
+        "pozycja_wstepna": 8
+      },
+      {
+        "id": "REBOOK-OAL",
+        "indeks_pax": 13.417,
+        "label": "Przenies na przewoznika obcego do JFK",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 176631960,
+          "currency": "PLN",
+          "major": "1766319.60"
+        },
+        "propagacja": {
+          "minor": 24359500,
+          "currency": "PLN",
+          "major": "243595.00"
+        },
+        "strata": {
+          "minor": 200991460,
+          "currency": "PLN",
+          "major": "2009914.60"
+        },
+        "widelki_min": {
+          "minor": 186790977,
+          "currency": "PLN",
+          "major": "1867909.77"
+        },
+        "widelki_max": {
+          "minor": 310225949,
+          "currency": "PLN",
+          "major": "3102259.49"
+        },
+        "rozpietosc": {
+          "minor": 123434972,
+          "currency": "PLN",
+          "major": "1234349.72"
+        },
+        "wynik_wazony": 1.0,
+        "pozycja_wstepna": 9
+      }
+    ],
+    "zrodlo_widelek": {
+      "poziom": "rejs",
+      "obserwacji": 57,
+      "p25": 33.0,
+      "mediana": 46.0,
+      "p90": 121.0,
+      "punktualnosc15": 0.0
+    }
+  },
+  "decisions": [
+    "strata = (baseline - revenue opcji) + koszty + propagacja",
+    "najlepsza opcja to najmniejsza strata, nie najmniejszy koszt",
+    "przy zachodzacych widelkach o wyborze decyduja kryteria poza kosztem: node 13 dokłada wage polityki firmy"
+  ],
+  "assumptions": [
+    {
+      "field": "widelki",
+      "source": "real",
+      "confidence": 0.8,
+      "note": "kwantyle p25/mediana/p90 z rzeczywistych operacji tej siatki"
+    },
+    {
+      "field": "kurs EUR/PLN",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "4.3 -- placeholder - kurs do ustawienia w Konfiguracji"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "widelki opcji `HOLD` i `REBOOK-SPILL` zachodza na siebie -- roznica miedzy nimi nie jest istotna statystycznie"
+  ],
+  "duration_ms": 4.32
+}

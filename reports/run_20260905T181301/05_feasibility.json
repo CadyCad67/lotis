@@ -1,0 +1,173 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181301",
+  "node": {
+    "id": "05",
+    "name": "feasibility",
+    "title": "FEASIBILITY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Cztery bramki na rejsie LO3850 przy opoznieniu 240 min. Odpadly: samolot, zaloga.",
+  "numbers": {
+    "bramka_samolot": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_zaloga": {
+      "value": "odpadla",
+      "unit": ""
+    },
+    "bramka_port": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "bramka_miejsca": {
+      "value": "przeszla",
+      "unit": ""
+    },
+    "dopuszczonych_rodzajow": {
+      "value": 6,
+      "unit": "szt"
+    },
+    "nowy_std": {
+      "value": "2026-08-25T09:35:00+00:00",
+      "unit": ""
+    },
+    "nowy_sta": {
+      "value": "2026-08-25T10:30:00+00:00",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "bramki": [
+      {
+        "id": "samolot",
+        "przeszla": false,
+        "powod": "port WRO nie jest baza SWAP (baza dopuszcza WAW)",
+        "kandydaci": 0,
+        "bazy_swap": [
+          "WAW"
+        ]
+      },
+      {
+        "id": "zaloga",
+        "przeszla": false,
+        "powod": "4 osob przekracza FDP przy opoznieniu 240 min (najgorszy zapas -745 min)",
+        "przekroczen": 4,
+        "lista": [
+          {
+            "id": "SP-LIM-CAP0",
+            "rola": "CAPTAIN",
+            "potrzeba_min": 1315,
+            "limit_min": 570,
+            "zapas_min": -745
+          },
+          {
+            "id": "SP-LIM-FIR1",
+            "rola": "FIRST_OFFICER",
+            "potrzeba_min": 1315,
+            "limit_min": 570,
+            "zapas_min": -745
+          },
+          {
+            "id": "SP-LIM-CAB2",
+            "rola": "CABIN",
+            "potrzeba_min": 1315,
+            "limit_min": 630,
+            "zapas_min": -685
+          },
+          {
+            "id": "SP-LIM-CAB3",
+            "rola": "CABIN",
+            "potrzeba_min": 1315,
+            "limit_min": 630,
+            "zapas_min": -685
+          }
+        ]
+      },
+      {
+        "id": "port",
+        "przeszla": true,
+        "powod": "nowe godziny poza oknem zakazu planowania",
+        "poziom_slotow_wylotu": 0,
+        "port_koordynowany": false
+      },
+      {
+        "id": "miejsca",
+        "przeszla": true,
+        "powod": "161 wolnych miejsc na 5 wlasnych rejsach",
+        "wolnych_miejsc": 161,
+        "rejsow": 5,
+        "lista": [
+          {
+            "id": "LO3852-2026-08-25",
+            "numer": "LO3852",
+            "std": "2026-08-25T08:45:00+00:00",
+            "wolnych": 41
+          },
+          {
+            "id": "LO3854-2026-08-25",
+            "numer": "LO3854",
+            "std": "2026-08-25T12:10:00+00:00",
+            "wolnych": 27
+          },
+          {
+            "id": "LO3844-2026-08-25",
+            "numer": "LO3844",
+            "std": "2026-08-25T14:55:00+00:00",
+            "wolnych": 25
+          },
+          {
+            "id": "LO3848-2026-08-25",
+            "numer": "LO3848",
+            "std": "2026-08-25T18:15:00+00:00",
+            "wolnych": 39
+          },
+          {
+            "id": "LO3860-2026-08-25",
+            "numer": "LO3860",
+            "std": "2026-08-25T21:30:00+00:00",
+            "wolnych": 29
+          }
+        ]
+      }
+    ],
+    "dopuszczone_rodzaje_opcji": {
+      "HOLD": false,
+      "DEPART": true,
+      "SWAP": false,
+      "REBOOK-OWN": true,
+      "REBOOK-OAL": true,
+      "OVERNIGHT": true,
+      "SPLIT": true,
+      "CANCEL": true
+    }
+  },
+  "decisions": [
+    "bramka samolot: port WRO nie jest baza SWAP (baza dopuszcza WAW) -- opcje od niej zalezne odpadaja",
+    "bramka zaloga: 4 osob przekracza FDP przy opoznieniu 240 min (najgorszy zapas -745 min) -- opcje od niej zalezne odpadaja",
+    "dyskrecja dowodcy (+2 h wg ORO.FTL.205 lit. f) NIE jest wliczana w wykonalnosc -- to decyzja dowodcy, nie planisty"
+  ],
+  "assumptions": [
+    {
+      "field": "MEL i ETOPS",
+      "source": "policy",
+      "confidence": 0.4,
+      "note": "brak biezacego statusu technicznego floty w zrodlach"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 8.54
+}

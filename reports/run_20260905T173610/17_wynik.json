@@ -1,0 +1,155 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T173610",
+  "node": {
+    "id": "17",
+    "name": "wynik",
+    "title": "WYNIK RZECZYWISTY"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Rejs LO3996: prognoza 33753.66 PLN, rzeczywistosc 22194.12 PLN, blad -34.2%. Klasyfikacja: BLAD_MODELU. Wynik POZA widelkami prognozy.",
+  "numbers": {
+    "opcja_wykonana": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "opoznienie_prognozowane": {
+      "value": 90,
+      "unit": "min"
+    },
+    "opoznienie_rzeczywiste": {
+      "value": 8,
+      "unit": "min"
+    },
+    "strata_prognozowana": {
+      "value": {
+        "minor": 3375366,
+        "currency": "PLN",
+        "major": "33753.66"
+      },
+      "unit": "PLN"
+    },
+    "strata_rzeczywista": {
+      "value": {
+        "minor": 2219412,
+        "currency": "PLN",
+        "major": "22194.12"
+      },
+      "unit": "PLN"
+    },
+    "blad": {
+      "value": {
+        "minor": -1155954,
+        "currency": "PLN",
+        "major": "-11559.54"
+      },
+      "unit": "PLN"
+    },
+    "blad_procentowo": {
+      "value": -34.25,
+      "unit": "%"
+    },
+    "w_widelkach": {
+      "value": false,
+      "unit": ""
+    },
+    "rodzaj_bledu": {
+      "value": "BLAD_MODELU",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "klasyfikacja": {
+      "rodzaj": "BLAD_MODELU",
+      "opis": "wycena rozminela sie o -34.2% przy poprawnym wykonaniu i przyjetej rekomendacji",
+      "blad_modelu": true,
+      "blad_wykonania": false,
+      "odstepstwo_czlowieka": false
+    },
+    "zrodlo_rzeczywistosci": {
+      "poziom": "rejs",
+      "p25": 5.0,
+      "mediana": 8.0,
+      "p90": 13.0
+    },
+    "kalibracja": {
+      "poprawki": [
+        {
+          "parametr": "koszt_minuty_opoznienia",
+          "kierunek": "w dol",
+          "sugerowana_zmiana_pct": -6.85,
+          "podstawa": "roznica miedzy strata prognozowana a rzeczywista"
+        },
+        {
+          "parametr": "szacunek_opoznienia",
+          "kierunek": "w dol",
+          "sugerowana_zmiana_pct": -18.22,
+          "podstawa": "prognoza 90 min wobec rzeczywistych 8 min"
+        }
+      ],
+      "tlumienie": 0.2,
+      "zasada": "poprawka wchodzi z waga 20% -- potrzeba kilkunastu zgodnych obserwacji"
+    },
+    "wykonanie": {
+      "opcja": "HOLD",
+      "kroki": [
+        {
+          "id": "nowy_slot",
+          "wykonawca": "Slot Coordination / EUROCONTROL",
+          "opis": "wystapienie o nowe okno startowe",
+          "odwracalny": false,
+          "krytyczny": true,
+          "status": "wykonany"
+        },
+        {
+          "id": "powiadomienie_pax",
+          "wykonawca": "Komunikacja",
+          "opis": "wyslanie SMS i e-mail do pasazerow",
+          "odwracalny": true,
+          "krytyczny": false,
+          "status": "wykonany"
+        },
+        {
+          "id": "brief_zalogi",
+          "wykonawca": "Crew Control",
+          "opis": "poinformowanie zalogi o zmianie",
+          "odwracalny": true,
+          "krytyczny": false,
+          "status": "wykonany"
+        }
+      ],
+      "udane": true
+    }
+  },
+  "decisions": [
+    "wycena rozminela sie o -34.2% przy poprawnym wykonaniu i przyjetej rekomendacji",
+    "blad modelu, blad wykonania i odstepstwo czlowieka sa liczone osobno -- mieszanie ich uczy model na cudzych pomylkach",
+    "kalibracja z tlumieniem 20%: jedna doba nie przestawia modelu"
+  ],
+  "assumptions": [
+    {
+      "field": "rzeczywiste opoznienie",
+      "source": "real",
+      "confidence": 0.9,
+      "note": "mediana rozkladu z 6374 operacji"
+    }
+  ],
+  "data_gaps": [
+    "rzeczywisty koszt operacji nie jest w zadnym ze zrodel -- porownanie opiera sie na opoznieniu, nie na fakturach"
+  ],
+  "warnings": [
+    "rzeczywistosc wypadla poza widelkami prognozy -- widelki byly za waskie albo model pominal skladnik"
+  ],
+  "duration_ms": 0.11
+}

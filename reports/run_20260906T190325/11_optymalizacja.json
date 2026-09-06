@@ -1,0 +1,405 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T190325",
+  "node": {
+    "id": "11",
+    "name": "optymalizacja",
+    "title": "OPTIMIZATION ENGINE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Ranking wstepny 7 opcji, priorytet 50. Najmniejsza strata: `SWAP-SP-LIO` (12035.06 PLN), najwieksza: `CANCEL` (170081.09 PLN).",
+  "numbers": {
+    "priorytet": {
+      "value": 50,
+      "unit": "0 finanse, 100 pasazer"
+    },
+    "najlepsza_opcja": {
+      "value": "SWAP-SP-LIO",
+      "unit": ""
+    },
+    "strata_najlepszej": {
+      "value": {
+        "minor": 1203506,
+        "currency": "PLN",
+        "major": "12035.06"
+      },
+      "unit": "PLN"
+    },
+    "strata_najgorszej": {
+      "value": {
+        "minor": 17008109,
+        "currency": "PLN",
+        "major": "170081.09"
+      },
+      "unit": "PLN"
+    },
+    "rozpietosc_rankingu": {
+      "value": {
+        "minor": 15804603,
+        "currency": "PLN",
+        "major": "158046.03"
+      },
+      "unit": "PLN"
+    },
+    "wspolczynnik_dolny": {
+      "value": 0.893,
+      "unit": ""
+    },
+    "wspolczynnik_gorny": {
+      "value": 1.119,
+      "unit": ""
+    },
+    "opcji": {
+      "value": 7,
+      "unit": "szt"
+    }
+  },
+  "findings": {
+    "ranking_wstepny": [
+      {
+        "id": "SWAP-SP-LIO",
+        "indeks_pax": 0.6,
+        "label": "Podmien maszyne na SP-LIO (E75S)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 779236,
+          "currency": "PLN",
+          "major": "7792.36"
+        },
+        "propagacja": {
+          "minor": 424270,
+          "currency": "PLN",
+          "major": "4242.70"
+        },
+        "strata": {
+          "minor": 1203506,
+          "currency": "PLN",
+          "major": "12035.06"
+        },
+        "widelki_min": {
+          "minor": 1074559,
+          "currency": "PLN",
+          "major": "10745.59"
+        },
+        "widelki_max": {
+          "minor": 1346780,
+          "currency": "PLN",
+          "major": "13467.80"
+        },
+        "rozpietosc": {
+          "minor": 272221,
+          "currency": "PLN",
+          "major": "2722.21"
+        },
+        "wynik_wazony": 0.0,
+        "pozycja_wstepna": 1
+      },
+      {
+        "id": "SWAP-SP-LIQ",
+        "indeks_pax": 0.6,
+        "label": "Podmien maszyne na SP-LIQ (E75S)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 779236,
+          "currency": "PLN",
+          "major": "7792.36"
+        },
+        "propagacja": {
+          "minor": 424270,
+          "currency": "PLN",
+          "major": "4242.70"
+        },
+        "strata": {
+          "minor": 1203506,
+          "currency": "PLN",
+          "major": "12035.06"
+        },
+        "widelki_min": {
+          "minor": 1074559,
+          "currency": "PLN",
+          "major": "10745.59"
+        },
+        "widelki_max": {
+          "minor": 1346780,
+          "currency": "PLN",
+          "major": "13467.80"
+        },
+        "rozpietosc": {
+          "minor": 272221,
+          "currency": "PLN",
+          "major": "2722.21"
+        },
+        "wynik_wazony": 0.0,
+        "pozycja_wstepna": 2
+      },
+      {
+        "id": "SWAP-SP-LDH",
+        "indeks_pax": 1.288,
+        "label": "Podmien maszyne na SP-LDH (E170)",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 125373,
+          "currency": "PLN",
+          "major": "1253.73"
+        },
+        "koszty": {
+          "minor": 1414446,
+          "currency": "PLN",
+          "major": "14144.46"
+        },
+        "propagacja": {
+          "minor": 424270,
+          "currency": "PLN",
+          "major": "4242.70"
+        },
+        "strata": {
+          "minor": 1964089,
+          "currency": "PLN",
+          "major": "19640.89"
+        },
+        "widelki_min": {
+          "minor": 1753651,
+          "currency": "PLN",
+          "major": "17536.51"
+        },
+        "widelki_max": {
+          "minor": 2197909,
+          "currency": "PLN",
+          "major": "21979.09"
+        },
+        "rozpietosc": {
+          "minor": 444258,
+          "currency": "PLN",
+          "major": "4442.58"
+        },
+        "wynik_wazony": 0.0388,
+        "pozycja_wstepna": 3
+      },
+      {
+        "id": "HOLD",
+        "indeks_pax": 4.878,
+        "label": "Odlec zgodnie z rozkladem, 40 pasazerow nie wejdzie na poklad",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 735933,
+          "currency": "PLN",
+          "major": "7359.33"
+        },
+        "koszty": {
+          "minor": 4300000,
+          "currency": "PLN",
+          "major": "43000.00"
+        },
+        "propagacja": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "strata": {
+          "minor": 5035933,
+          "currency": "PLN",
+          "major": "50359.33"
+        },
+        "widelki_min": {
+          "minor": 4496369,
+          "currency": "PLN",
+          "major": "44963.69"
+        },
+        "widelki_max": {
+          "minor": 5635448,
+          "currency": "PLN",
+          "major": "56354.48"
+        },
+        "rozpietosc": {
+          "minor": 1139079,
+          "currency": "PLN",
+          "major": "11390.79"
+        },
+        "wynik_wazony": 0.2127,
+        "pozycja_wstepna": 4
+      },
+      {
+        "id": "REBOOK-OAL",
+        "indeks_pax": 13.417,
+        "label": "Przenies na przewoznika obcego do IEG",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 15263624,
+          "currency": "PLN",
+          "major": "152636.24"
+        },
+        "propagacja": {
+          "minor": 662200,
+          "currency": "PLN",
+          "major": "6622.00"
+        },
+        "strata": {
+          "minor": 15925824,
+          "currency": "PLN",
+          "major": "159258.24"
+        },
+        "widelki_min": {
+          "minor": 14219486,
+          "currency": "PLN",
+          "major": "142194.86"
+        },
+        "widelki_max": {
+          "minor": 17821755,
+          "currency": "PLN",
+          "major": "178217.55"
+        },
+        "rozpietosc": {
+          "minor": 3602269,
+          "currency": "PLN",
+          "major": "36022.69"
+        },
+        "wynik_wazony": 0.7396,
+        "pozycja_wstepna": 5
+      },
+      {
+        "id": "OVERNIGHT",
+        "indeks_pax": 18.0,
+        "label": "Nocleg i rejs nastepnego dnia",
+        "tryb": "RESTRUCTURING",
+        "revenue_at_risk": {
+          "minor": 0,
+          "currency": "PLN",
+          "major": "0.00"
+        },
+        "koszty": {
+          "minor": 15069996,
+          "currency": "PLN",
+          "major": "150699.96"
+        },
+        "propagacja": {
+          "minor": 662200,
+          "currency": "PLN",
+          "major": "6622.00"
+        },
+        "strata": {
+          "minor": 15732196,
+          "currency": "PLN",
+          "major": "157321.96"
+        },
+        "widelki_min": {
+          "minor": 14046604,
+          "currency": "PLN",
+          "major": "140466.04"
+        },
+        "widelki_max": {
+          "minor": 17605076,
+          "currency": "PLN",
+          "major": "176050.76"
+        },
+        "rozpietosc": {
+          "minor": 3558472,
+          "currency": "PLN",
+          "major": "35584.72"
+        },
+        "wynik_wazony": 0.8314,
+        "pozycja_wstepna": 6
+      },
+      {
+        "id": "CANCEL",
+        "indeks_pax": 24.0,
+        "label": "Odwolaj rejs",
+        "tryb": "MODIFYING",
+        "revenue_at_risk": {
+          "minor": 1741603,
+          "currency": "PLN",
+          "major": "17416.03"
+        },
+        "koszty": {
+          "minor": 14604306,
+          "currency": "PLN",
+          "major": "146043.06"
+        },
+        "propagacja": {
+          "minor": 662200,
+          "currency": "PLN",
+          "major": "6622.00"
+        },
+        "strata": {
+          "minor": 17008109,
+          "currency": "PLN",
+          "major": "170081.09"
+        },
+        "widelki_min": {
+          "minor": 15185812,
+          "currency": "PLN",
+          "major": "151858.12"
+        },
+        "widelki_max": {
+          "minor": 19032883,
+          "currency": "PLN",
+          "major": "190328.83"
+        },
+        "rozpietosc": {
+          "minor": 3847071,
+          "currency": "PLN",
+          "major": "38470.71"
+        },
+        "wynik_wazony": 1.0,
+        "pozycja_wstepna": 7
+      }
+    ],
+    "zrodlo_widelek": {
+      "poziom": "rejs",
+      "obserwacji": 11,
+      "p25": 8.0,
+      "mediana": 14.0,
+      "p90": 19.0,
+      "punktualnosc15": 63.6
+    }
+  },
+  "decisions": [
+    "strata = (baseline - revenue opcji) + koszty + propagacja",
+    "najlepsza opcja to najmniejsza strata, nie najmniejszy koszt",
+    "przy zachodzacych widelkach o wyborze decyduja kryteria poza kosztem: node 13 dokłada wage polityki firmy"
+  ],
+  "assumptions": [
+    {
+      "field": "widelki",
+      "source": "real",
+      "confidence": 0.8,
+      "note": "kwantyle p25/mediana/p90 z rzeczywistych operacji tej siatki"
+    },
+    {
+      "field": "kurs EUR/PLN",
+      "source": "policy",
+      "confidence": 0.5,
+      "note": "4.3 -- placeholder - kurs do ustawienia w Konfiguracji"
+    }
+  ],
+  "data_gaps": [],
+  "warnings": [
+    "widelki opcji `SWAP-SP-LIO` i `SWAP-SP-LIQ` zachodza na siebie -- roznica miedzy nimi nie jest istotna statystycznie"
+  ],
+  "duration_ms": 3.66
+}

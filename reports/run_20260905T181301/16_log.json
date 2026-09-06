@@ -1,0 +1,390 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181301",
+  "node": {
+    "id": "16",
+    "name": "log",
+    "title": "LOG"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Zapisano 6 rozwazonych opcji, w tym 0 odrzuconych przez filtr prawny wraz z podstawa kazdego odrzucenia.",
+  "numbers": {
+    "opcji_w_logu": {
+      "value": 6,
+      "unit": "szt"
+    },
+    "opcji_odrzuconych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "odcisk_wpisu": {
+      "value": "sha256:e120895419912645b3c54cb5",
+      "unit": ""
+    },
+    "wersja_silnika": {
+      "value": "1.0.0",
+      "unit": ""
+    },
+    "wersja_bazy": {
+      "value": "5.0",
+      "unit": ""
+    },
+    "nadpisania": {
+      "value": "brak",
+      "unit": ""
+    },
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "wpis": {
+      "schema": "lotis.audit/v1",
+      "run_id": "20260905T181301",
+      "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+      "czas_runu": "2026-09-05T18:13:01.000101+00:00",
+      "zaklocenie": {
+        "id": "DSR-LO3850-2026-08-25-0",
+        "rejs": "LO3850-2026-08-25",
+        "typ": "TECHNICAL",
+        "opoznienie_min": 240,
+        "termin_decyzji": "2026-08-25T05:35:00+00:00",
+        "iteracja": 0,
+        "wyzwalacz": "INITIAL"
+      },
+      "opcje_rozwazone": [
+        {
+          "id": "HOLD",
+          "label": "Wstrzymaj odlot o 240 min",
+          "tryb": "MODIFYING",
+          "generator": "SZ.HOLD",
+          "strata": {
+            "minor": 17160248,
+            "currency": "PLN",
+            "major": "171602.48"
+          },
+          "widelki": {
+            "min": {
+              "minor": 16087733,
+              "currency": "PLN",
+              "major": "160877.33"
+            },
+            "max": {
+              "minor": 22165320,
+              "currency": "PLN",
+              "major": "221653.20"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 6
+        },
+        {
+          "id": "REBOOK-OWN",
+          "label": "Przenies na wlasny rejs LO3852 (+190 min)",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OWN",
+          "strata": {
+            "minor": 8810399,
+            "currency": "PLN",
+            "major": "88103.99"
+          },
+          "widelki": {
+            "min": {
+              "minor": 8259749,
+              "currency": "PLN",
+              "major": "82597.49"
+            },
+            "max": {
+              "minor": 11380099,
+              "currency": "PLN",
+              "major": "113800.99"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 1
+        },
+        {
+          "id": "REBOOK-OAL",
+          "label": "Przenies na przewoznika obcego do WAW",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.REBOOK-OAL",
+          "strata": {
+            "minor": 10383124,
+            "currency": "PLN",
+            "major": "103831.24"
+          },
+          "widelki": {
+            "min": {
+              "minor": 9734179,
+              "currency": "PLN",
+              "major": "97341.79"
+            },
+            "max": {
+              "minor": 13411535,
+              "currency": "PLN",
+              "major": "134115.35"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 4
+        },
+        {
+          "id": "OVERNIGHT",
+          "label": "Nocleg i rejs nastepnego dnia",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.OVERNIGHT",
+          "strata": {
+            "minor": 11380214,
+            "currency": "PLN",
+            "major": "113802.14"
+          },
+          "widelki": {
+            "min": {
+              "minor": 10668951,
+              "currency": "PLN",
+              "major": "106689.51"
+            },
+            "max": {
+              "minor": 14699443,
+              "currency": "PLN",
+              "major": "146994.43"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 5
+        },
+        {
+          "id": "CANCEL",
+          "label": "Odwolaj rejs",
+          "tryb": "MODIFYING",
+          "generator": "SZ.CANCEL",
+          "strata": {
+            "minor": 9355289,
+            "currency": "PLN",
+            "major": "93552.89"
+          },
+          "widelki": {
+            "min": {
+              "minor": 8770583,
+              "currency": "PLN",
+              "major": "87705.83"
+            },
+            "max": {
+              "minor": 12083915,
+              "currency": "PLN",
+              "major": "120839.15"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 2
+        },
+        {
+          "id": "SPLIT",
+          "label": "Rozdziel: 27 na LO3852, reszta na obcego",
+          "tryb": "RESTRUCTURING",
+          "generator": "SZ.SPLIT",
+          "strata": {
+            "minor": 9611059,
+            "currency": "PLN",
+            "major": "96110.59"
+          },
+          "widelki": {
+            "min": {
+              "minor": 9010368,
+              "currency": "PLN",
+              "major": "90103.68"
+            },
+            "max": {
+              "minor": 12414285,
+              "currency": "PLN",
+              "major": "124142.85"
+            }
+          },
+          "dopuszczalna": true,
+          "powod_odrzucenia": [],
+          "pozycja_koncowa": 3
+        }
+      ],
+      "rekomendacja": {
+        "id": "REBOOK-OWN",
+        "strata": {
+          "minor": 8810399,
+          "currency": "PLN",
+          "major": "88103.99"
+        },
+        "oszczednosc": {
+          "minor": 8349849,
+          "currency": "PLN",
+          "major": "83498.49"
+        }
+      },
+      "decyzja_czlowieka": {
+        "rodzaj": "ACCEPT",
+        "opcja": "REBOOK-OWN",
+        "operator": "OCC-DUTY",
+        "kod_przyczyny": "",
+        "rola": "Supervisor OCC",
+        "drugi_podpis": false,
+        "odstepstwo": false
+      },
+      "wykonanie": {
+        "opcja": "REBOOK-OWN",
+        "kroki": [
+          {
+            "id": "kasacja_w_systemie",
+            "wykonawca": "System rezerwacyjny",
+            "opis": "odwolanie rejsu i zwolnienie miejsc",
+            "odwracalny": false,
+            "krytyczny": true,
+            "status": "wykonany"
+          },
+          {
+            "id": "przepisanie_wlasne",
+            "wykonawca": "System rezerwacyjny",
+            "opis": "przepisanie pasazerow na wlasny rejs",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "powiadomienie_pax",
+            "wykonawca": "Komunikacja",
+            "opis": "wyslanie SMS i e-mail do pasazerow",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          },
+          {
+            "id": "brief_zalogi",
+            "wykonawca": "Crew Control",
+            "opis": "poinformowanie zalogi o zmianie",
+            "odwracalny": true,
+            "krytyczny": false,
+            "status": "wykonany"
+          }
+        ],
+        "udane": true
+      },
+      "karta_wykonania": {
+        "option_id": "REBOOK-OWN",
+        "label": "Przenies na wlasny rejs LO3852 (+190 min)",
+        "what_changes": [
+          "LO3850: rejs odwolany",
+          "55 pasazerow na wlasny rejs (LO3852, odlot 08:45 UTC) -- oczekiwanie 190 min"
+        ],
+        "pax_offloaded": 0,
+        "pax_order": [],
+        "rebooked_to": {
+          "PAX003129": "wlasny rejs",
+          "PAX003130": "wlasny rejs",
+          "PAX003131": "wlasny rejs",
+          "PAX003132": "wlasny rejs",
+          "PAX003133": "wlasny rejs",
+          "PAX003134": "wlasny rejs",
+          "PAX003135": "wlasny rejs",
+          "PAX003136": "wlasny rejs",
+          "PAX003137": "wlasny rejs",
+          "PAX003138": "wlasny rejs",
+          "PAX003139": "wlasny rejs",
+          "PAX003140": "wlasny rejs",
+          "PAX003141": "wlasny rejs",
+          "PAX003142": "wlasny rejs",
+          "PAX003143": "wlasny rejs",
+          "PAX003144": "wlasny rejs",
+          "PAX003145": "wlasny rejs",
+          "PAX003146": "wlasny rejs",
+          "PAX003147": "wlasny rejs",
+          "PAX003148": "wlasny rejs"
+        },
+        "crew_actions": [
+          "bez zmian dla zalogi"
+        ],
+        "valid_until": "2026-08-25T05:35:00+00:00",
+        "cost_low": {
+          "minor": 8259749,
+          "currency": "PLN",
+          "major": "82597.49"
+        },
+        "cost_expected": {
+          "minor": 8810399,
+          "currency": "PLN",
+          "major": "88103.99"
+        },
+        "cost_high": {
+          "minor": 11380099,
+          "currency": "PLN",
+          "major": "113800.99"
+        },
+        "threshold_note": "`REBOOK-OWN` pozostaje najlepsza w calym badanym zakresie do +120 min",
+        "authorization_role": "Supervisor OCC",
+        "second_signature": false
+      },
+      "wersje": {
+        "engine": "1.0.0",
+        "data": "5.0",
+        "data_generated": "2026-08-28",
+        "authorization": "2026.07",
+        "escalation": "2026.07",
+        "sop": "2026.03",
+        "overrides": "brak"
+      },
+      "nadpisania_uzyte": {},
+      "budzet": {
+        "total_ms": 20000.0,
+        "elapsed_ms": 2254.2,
+        "remaining_ms": 17745.8,
+        "level": "FULL",
+        "level_label": "pelny",
+        "per_node_ms": {
+          "01": 1597.7,
+          "02": 10.2,
+          "03": 452.2,
+          "04": 13.7,
+          "05": 8.5,
+          "06": 0.1,
+          "07": 30.0,
+          "08": 2.8,
+          "09": 5.3,
+          "10": 61.2,
+          "11": 3.7,
+          "12": 0.3,
+          "13": 0.3,
+          "14": 27.0,
+          "15": 0.1,
+          "15b": 0.1
+        }
+      },
+      "degradacja": "FULL",
+      "odcisk": "sha256:e120895419912645b3c54cb5"
+    }
+  },
+  "decisions": [
+    "log zapisuje podstawe odrzucenia kazdej opcji -- w sporze liczy sie to, czego nie wybrano i dlaczego",
+    "wersja bazy `5.0` jest jednoczesnie wersja modelu kosztowego i prawa -- oba pochodza z tego samego pliku"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 3.78
+}

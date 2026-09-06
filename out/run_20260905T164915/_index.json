@@ -1,0 +1,21 @@
+{
+  "schema": "lotis.ai.index/v1",
+  "run_id": "20260905T164915",
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "personas": [
+    {
+      "persona": "dyspozytor",
+      "ok": true,
+      "dry_run": false,
+      "model": "minimax/minimax-m3:free",
+      "error": "",
+      "guard_clean": false,
+      "guard_summary": "sprawdzono 39 liczb, 1 spoza raportow.",
+      "files": [
+        "dyspozytor.prompt.txt",
+        "dyspozytor.md",
+        "dyspozytor.json"
+      ]
+    }
+  ]
+}

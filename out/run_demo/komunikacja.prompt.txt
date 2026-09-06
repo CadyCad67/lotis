@@ -1,0 +1,149 @@
+===== SYSTEM =====
+Pracujesz w systemie LOTIS, ktory wspiera decyzje przy nieregularnosciach
+operacyjnych w PLL LOT. Dostajesz raporty policzone przez silnik deterministyczny.
+
+Zasady bezwzgledne:
+1. NIE LICZYSZ. Kazda liczba w twojej odpowiedzi musi doslownie pochodzic
+   z sekcji "Liczby" albo "Szczegoly" otrzymanych raportow. Nie sumuj,
+   nie przeliczaj walut, nie usredniaj, nie zaokraglaj inaczej niz w zrodle.
+2. Jesli czegos nie ma w raportach, napisz "brak danych w raporcie" i wskaz,
+   ktory node powinien to policzyc. Nie zgaduj.
+3. Zalozenia i braki danych z raportu przenies do swojej odpowiedzi. Liczba
+   oparta na zalozeniu ma byc podana jako oparta na zalozeniu.
+4. Nie podejmujesz decyzji. Przygotowujesz material dla czlowieka, ktory
+   decyduje i podpisuje.
+5. Piszesz po polsku, rzeczowo, bez marketingu i bez przepraszania.
+
+
+Twoja rola: Redaktor komunikatow.
+Odbiorca: pasazerowie -- SMS, e-mail i komunikat na lotnisku.
+
+Piszesz trzy komunikaty dla pasazera: SMS do 160 znakow, krotki e-mail
+i oglaszenie na lotnisku.
+
+Podajesz wylacznie to, co pasazera dotyczy: nowa godzina, brama, co ma zrobic,
+do czego ma prawo. Nigdy nie ujawniasz kosztu wewnetrznego, nazwy opcji, nazw
+nodes ani mechaniki decyzji -- pasazer nie jest odbiorca tego systemu i nie ma
+prawa dowiedziec sie z komunikatu, ze byl tanszym wariantem.
+
+Nie obiecujesz niczego, czego raport nie stwierdza. Zamiast "wkrotce"
+podajesz godzine z raportu albo piszesz, ze godzina bedzie znana pozniej.
+Uprawnienia z EU261 wymieniasz tylko wtedy, gdy raport potwierdza, ze
+przysluguja.
+
+Struktura odpowiedzi -- dokladnie te naglowki, w tej kolejnosci:
+  1. SMS (max 160 znakow)
+  2. E-MAIL
+  3. OGLOSZENIE NA LOTNISKU
+  4. CZEGO CELOWO NIE NAPISANO I DLACZEGO
+
+===== USER =====
+# RUN demo
+snapshot: sha256:f3c290f4e6930407fb2bcad856fc671f
+tryb obliczen: FULL
+raporty w tym runie: 01_snapshot, 02_walidacja
+raporty widoczne dla twojej roli: 01_snapshot
+
+======================================================================
+# [01] SNAPSHOT
+
+**Status:** degraded · **run:** `demo` · **snapshot:** `sha256:f3c290f4e6930407` · **1791.53 ms**
+
+Zamrozony stan piątek 2026-08-21: 390 rejsow LOT-u na 86 lancuchach, 32911 pasazerow na 32911 podrozach.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `doba` | 2026-08-21 | - |
+| `dzien_tygodnia` | piątek | - |
+| `rejsy` | 390 | szt |
+| `rotacje` | 86 | szt |
+| `rotacje_przerwane` | 1 | szt |
+| `maszyny` | 94 | szt |
+| `zaloga` | 536 | osob |
+| `pasazerowie` | 32 911 | osob |
+| `podroze` | 32 911 | szt |
+| `udzial_transferowych` | 31.00 | % |
+| `porty` | 148 | szt |
+| `typy_statkow` | 11 | szt |
+| `odcisk` | sha256:f3c290f4e6930407fb2bcad856fc671f | - |
+
+## Co ten node ustalil
+
+- snapshot sha256:f3c290f4e6930407fb2bcad856fc671f jest podstawa calego runu
+- horyzont propagacji konczy sie na dobie operacyjnej 2026-08-21 albo na powrocie maszyny do WAW, co nastapi pierwsze
+
+## Szczegoly
+
+- **zasieg_doby**
+  - **pierwszy_odlot_utc:** 2026-08-21T00:10:00+00:00
+  - **ostatni_przylot_utc:** 2026-08-22T11:25:00+00:00
+  - **rozpietosc_h:** 35.20
+- **najwieksze_porty**
+  - **WAW**
+    - **operacji:** 360
+  - **KRK**
+    - **operacji:** 27
+  - **GDN**
+    - **operacji:** 17
+  - **WRO**
+    - **operacji:** 14
+  - **POZ**
+    - **operacji:** 12
+  - **VNO**
+    - **operacji:** 12
+  - **KTW**
+    - **operacji:** 11
+  - **RZE**
+    - **operacji:** 11
+- **flota_wg_typu**
+  - **B38M:** 124
+  - **E195:** 74
+  - **E75S:** 70
+  - **E190:** 47
+  - **B738:** 24
+  - **E170:** 17
+  - **B788:** 13
+  - **E295:** 11
+  - **B789:** 10
+- **pewnosc_pol**
+  - **flights:** KNOWN
+  - **rotations:** KNOWN
+  - **airports:** KNOWN
+  - **aircraft_types:** KNOWN
+  - **crew:** ESTIMATED
+  - **passengers:** ESTIMATED
+  - **fares:** ESTIMATED
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `manifest` | synthetic | 0.60 | rozklad klas rezerwacyjnych w obrebie kabiny (baza podaje mnozniki, nie udzialy) |
+| `manifest` | synthetic | 0.60 | ancillary jako ulamek taryfy |
+| `manifest` | synthetic | 0.60 | moment zakupu skorelowany z elastycznoscia klasy |
+| `manifest` | synthetic | 0.60 | zaloga wyliczona z tabel FDP EASA, nie z grafiku operatora |
+| `rozklad` | real | 1.00 | siedem rzeczywistych dob operacyjnych, nie generator |
+| `porty i prawo` | real | 1.00 | baza parametryczna loops.jsx |
+
+## Braki danych
+
+- 1 przerw w lancuchach rotacji (1 maszyn) -- okno eksportu, nie blad
+
+## Ostrzezenia
+
+- 1 maszyn ma przerwany lancuch doby -- czesc odcinkow wypadla poza okno eksportu
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+## LICZBY, KTORE WOLNO CI ZACYTOWAC
+
+Kazda liczba w twojej odpowiedzi musi byc jedna z ponizszych albo numerem rejsu, godzina lub data przepisana z raportu. Odpowiedz zawierajaca liczbe spoza tej listy jest odrzucana automatycznie.
+
+0.6, 1, 5, 10, 11, 12, 13, 14, 17, 24, 27, 31, 35.2, 47, 70, 74, 86, 94, 124, 148, 360, 390, 536, 1791.53, 2026.03, 2026.07, 32911
+
+======================================================================
+Przygotuj material zgodnie ze swoja rola i narzucona struktura.

@@ -1,0 +1,133 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T194612",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:6c790f69f87c359132b1de878467789b",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "REBOOK-SPILL",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 205282,
+        "currency": "PLN",
+        "major": "2052.82"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [],
+    "uzasadnienie": {
+      "wybrana": "REBOOK-SPILL",
+      "label": "Przenies 3 nadmiarowych na LO393 (+480 min)",
+      "strata": {
+        "minor": 3019838,
+        "currency": "PLN",
+        "major": "30198.38"
+      },
+      "widelki": {
+        "min": {
+          "minor": 2705272,
+          "currency": "PLN",
+          "major": "27052.72"
+        },
+        "max": {
+          "minor": 4152277,
+          "currency": "PLN",
+          "major": "41522.77"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "opoznienie_w_siatce: 11747.40 PLN",
+        "odszkodowanie_art7: 3225.00 PLN",
+        "roszczenia_mc99: 2662.56 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "alternatywa": {
+        "id": "SWAP-SP-LII",
+        "strata": {
+          "minor": 3225120,
+          "currency": "PLN",
+          "major": "32251.20"
+        },
+        "roznica": {
+          "minor": 205282,
+          "currency": "PLN",
+          "major": "2052.82"
+        }
+      },
+      "czolowka_blisko": true,
+      "uwaga_polityki": "propagacja 53 min (waga rotacji 1.0); 23 utraconych przesiadek; szerokie widelki"
+    }
+  },
+  "decisions": [
+    "opcje `REBOOK-SPILL` i `SWAP-SP-LII` sa blisko -- rekomendacja nie jest jednoznaczna i czlowiek powinien to zobaczyc",
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 60.87
+}

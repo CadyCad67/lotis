@@ -1,0 +1,186 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T181301",
+  "node": {
+    "id": "01",
+    "name": "snapshot",
+    "title": "DANE"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Zamrozony stan wtorek 2026-08-25: 350 rejsow LOT-u na 81 lancuchach, 29673 pasazerow na 29673 podrozach.",
+  "numbers": {
+    "doba": {
+      "value": "2026-08-25",
+      "unit": ""
+    },
+    "dzien_tygodnia": {
+      "value": "wtorek",
+      "unit": ""
+    },
+    "rejsy": {
+      "value": 350,
+      "unit": "szt"
+    },
+    "rotacje": {
+      "value": 81,
+      "unit": "szt"
+    },
+    "rotacje_przerwane": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "maszyny": {
+      "value": 94,
+      "unit": "szt"
+    },
+    "zaloga": {
+      "value": 494,
+      "unit": "osob"
+    },
+    "pasazerowie": {
+      "value": 29673,
+      "unit": "osob"
+    },
+    "podroze": {
+      "value": 29673,
+      "unit": "szt"
+    },
+    "udzial_transferowych": {
+      "value": 31.5,
+      "unit": "%"
+    },
+    "porty": {
+      "value": 148,
+      "unit": "szt"
+    },
+    "typy_statkow": {
+      "value": 11,
+      "unit": "szt"
+    },
+    "odcisk": {
+      "value": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "zasieg_doby": {
+      "pierwszy_odlot_utc": "2026-08-25T00:10:00+00:00",
+      "ostatni_przylot_utc": "2026-08-26T11:25:00+00:00",
+      "rozpietosc_h": 35.2
+    },
+    "najwieksze_porty": [
+      {
+        "id": "WAW",
+        "operacji": 336
+      },
+      {
+        "id": "KRK",
+        "operacji": 19
+      },
+      {
+        "id": "RZE",
+        "operacji": 12
+      },
+      {
+        "id": "WRO",
+        "operacji": 12
+      },
+      {
+        "id": "GDN",
+        "operacji": 11
+      },
+      {
+        "id": "KTW",
+        "operacji": 10
+      },
+      {
+        "id": "VNO",
+        "operacji": 10
+      },
+      {
+        "id": "OTP",
+        "operacji": 9
+      }
+    ],
+    "flota_wg_typu": {
+      "B38M": 111,
+      "E75S": 71,
+      "E195": 59,
+      "E190": 32,
+      "B738": 21,
+      "E295": 20,
+      "E170": 15,
+      "B789": 11,
+      "B788": 10
+    },
+    "pewnosc_pol": {
+      "flights": "KNOWN",
+      "rotations": "KNOWN",
+      "airports": "KNOWN",
+      "aircraft_types": "KNOWN",
+      "crew": "ESTIMATED",
+      "passengers": "ESTIMATED",
+      "fares": "ESTIMATED"
+    }
+  },
+  "decisions": [
+    "snapshot sha256:44a9b3ee12dd2f2588d143e4b9546c90 jest podstawa calego runu",
+    "horyzont propagacji konczy sie na dobie operacyjnej 2026-08-25 albo na powrocie maszyny do WAW, co nastapi pierwsze"
+  ],
+  "assumptions": [
+    {
+      "field": "manifest",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "rozklad klas rezerwacyjnych w obrebie kabiny (baza podaje mnozniki, nie udzialy)"
+    },
+    {
+      "field": "manifest",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "ancillary jako ulamek taryfy"
+    },
+    {
+      "field": "manifest",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "moment zakupu skorelowany z elastycznoscia klasy"
+    },
+    {
+      "field": "manifest",
+      "source": "synthetic",
+      "confidence": 0.6,
+      "note": "zaloga wyliczona z tabel FDP EASA, nie z grafiku operatora"
+    },
+    {
+      "field": "rozklad",
+      "source": "real",
+      "confidence": 1.0,
+      "note": "siedem rzeczywistych dob operacyjnych, nie generator"
+    },
+    {
+      "field": "porty i prawo",
+      "source": "real",
+      "confidence": 1.0,
+      "note": "baza parametryczna loops.jsx"
+    }
+  ],
+  "data_gaps": [
+    "2 przerw w lancuchach rotacji (2 maszyn) -- okno eksportu, nie blad"
+  ],
+  "warnings": [
+    "2 maszyn ma przerwany lancuch doby -- czesc odcinkow wypadla poza okno eksportu"
+  ],
+  "duration_ms": 1597.67
+}

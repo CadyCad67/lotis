@@ -1,0 +1,311 @@
+===== SYSTEM =====
+Pracujesz w systemie LOTIS, ktory wspiera decyzje przy nieregularnosciach
+operacyjnych w PLL LOT. Dostajesz raporty policzone przez silnik deterministyczny.
+
+Zasady bezwzgledne:
+1. NIE LICZYSZ. Kazda liczba w twojej odpowiedzi musi doslownie pochodzic
+   z sekcji "Liczby" albo "Szczegoly" otrzymanych raportow. Nie sumuj,
+   nie przeliczaj walut, nie usredniaj, nie zaokraglaj inaczej niz w zrodle.
+2. Jesli czegos nie ma w raportach, napisz "brak danych w raporcie" i wskaz,
+   ktory node powinien to policzyc. Nie zgaduj.
+3. Zalozenia i braki danych z raportu przenies do swojej odpowiedzi. Liczba
+   oparta na zalozeniu ma byc podana jako oparta na zalozeniu.
+4. Nie podejmujesz decyzji. Przygotowujesz material dla czlowieka, ktory
+   decyduje i podpisuje.
+5. Piszesz po polsku, rzeczowo, bez marketingu i bez przepraszania.
+
+
+Twoja rola: Analityk kosztowy.
+Odbiorca: kontroling i network operations, analiza po fakcie.
+
+Rozkladasz koszt na skladniki dokladnie tak, jak zrobil to silnik, i pokazujesz,
+ktory skladnik decyduje o wyniku. Odroznasz koszt liczony jako roznica wobec
+sytuacji bez zaklocenia (tryb MODIFYING) od pelnego przeliczenia (RESTRUCTURING)
+-- pomylenie ich sprawia, ze dwie opcje przestaja byc porownywalne.
+
+Podajesz widelki niepewnosci tam, gdzie raport je podaje, i piszesz wprost,
+kiedy widelki dwoch opcji zachodza na siebie na tyle, ze roznica miedzy nimi
+nie jest istotna.
+
+Struktura odpowiedzi -- dokladnie te naglowki, w tej kolejnosci:
+  1. STRUKTURA KOSZTU -- skladniki i ich udzial
+  2. CO DECYDUJE O WYNIKU
+  3. NIEPEWNOSC -- widelki i ich zrodlo
+  4. WPLYW NA SIATKE -- propagacja poza rejs zrodlowy
+  5. ZALOZENIA, KTORE TRZEBA ZWERYFIKOWAC
+
+===== USER =====
+# RUN demo
+snapshot: sha256:f3c290f4e6930407fb2bcad856fc671f
+tryb obliczen: FULL
+raporty w tym runie: 01_snapshot, 02_walidacja
+raporty widoczne dla twojej roli: 01_snapshot, 02_walidacja
+
+======================================================================
+# [01] SNAPSHOT
+
+**Status:** degraded · **run:** `demo` · **snapshot:** `sha256:f3c290f4e6930407` · **1791.53 ms**
+
+Zamrozony stan piątek 2026-08-21: 390 rejsow LOT-u na 86 lancuchach, 32911 pasazerow na 32911 podrozach.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `doba` | 2026-08-21 | - |
+| `dzien_tygodnia` | piątek | - |
+| `rejsy` | 390 | szt |
+| `rotacje` | 86 | szt |
+| `rotacje_przerwane` | 1 | szt |
+| `maszyny` | 94 | szt |
+| `zaloga` | 536 | osob |
+| `pasazerowie` | 32 911 | osob |
+| `podroze` | 32 911 | szt |
+| `udzial_transferowych` | 31.00 | % |
+| `porty` | 148 | szt |
+| `typy_statkow` | 11 | szt |
+| `odcisk` | sha256:f3c290f4e6930407fb2bcad856fc671f | - |
+
+## Co ten node ustalil
+
+- snapshot sha256:f3c290f4e6930407fb2bcad856fc671f jest podstawa calego runu
+- horyzont propagacji konczy sie na dobie operacyjnej 2026-08-21 albo na powrocie maszyny do WAW, co nastapi pierwsze
+
+## Szczegoly
+
+- **zasieg_doby**
+  - **pierwszy_odlot_utc:** 2026-08-21T00:10:00+00:00
+  - **ostatni_przylot_utc:** 2026-08-22T11:25:00+00:00
+  - **rozpietosc_h:** 35.20
+- **najwieksze_porty**
+  - **WAW**
+    - **operacji:** 360
+  - **KRK**
+    - **operacji:** 27
+  - **GDN**
+    - **operacji:** 17
+  - **WRO**
+    - **operacji:** 14
+  - **POZ**
+    - **operacji:** 12
+  - **VNO**
+    - **operacji:** 12
+  - **KTW**
+    - **operacji:** 11
+  - **RZE**
+    - **operacji:** 11
+- **flota_wg_typu**
+  - **B38M:** 124
+  - **E195:** 74
+  - **E75S:** 70
+  - **E190:** 47
+  - **B738:** 24
+  - **E170:** 17
+  - **B788:** 13
+  - **E295:** 11
+  - **B789:** 10
+- **pewnosc_pol**
+  - **flights:** KNOWN
+  - **rotations:** KNOWN
+  - **airports:** KNOWN
+  - **aircraft_types:** KNOWN
+  - **crew:** ESTIMATED
+  - **passengers:** ESTIMATED
+  - **fares:** ESTIMATED
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `manifest` | synthetic | 0.60 | rozklad klas rezerwacyjnych w obrebie kabiny (baza podaje mnozniki, nie udzialy) |
+| `manifest` | synthetic | 0.60 | ancillary jako ulamek taryfy |
+| `manifest` | synthetic | 0.60 | moment zakupu skorelowany z elastycznoscia klasy |
+| `manifest` | synthetic | 0.60 | zaloga wyliczona z tabel FDP EASA, nie z grafiku operatora |
+| `rozklad` | real | 1.00 | siedem rzeczywistych dob operacyjnych, nie generator |
+| `porty i prawo` | real | 1.00 | baza parametryczna loops.jsx |
+
+## Braki danych
+
+- 1 przerw w lancuchach rotacji (1 maszyn) -- okno eksportu, nie blad
+
+## Ostrzezenia
+
+- 1 maszyn ma przerwany lancuch doby -- czesc odcinkow wypadla poza okno eksportu
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+# [02] WALIDACJA DANYCH
+
+**Status:** ok · **run:** `demo` · **snapshot:** `sha256:f3c290f4e6930407` · **10.96 ms**
+
+Sprawdzono 6 rodzin niezmiennikow na 390 rejsach. Zadne pole nie schodzi do UNKNOWN. Osobno: 47 operacji w oknie ciszy nocnej typu 1 -- to rozklad, nie blad danych.
+
+## Liczby
+
+| pole | wartosc | jednostka |
+| --- | --- | --- |
+| `porty_rejsow_bledow` | 0 | szt |
+| `typy_statkow_bledow` | 0 | szt |
+| `ciaglosc_rotacji_bledow` | 6 | szt |
+| `zapas_fdp_bledow` | 0 | szt |
+| `obsadzenie_bledow` | 0 | szt |
+| `kwalifikacje_zalogi_bledow` | 0 | szt |
+| `operacje_w_ciszy_nocnej` | 47 | szt |
+| `pol_znanych` | 9 | szt |
+| `pol_szacowanych` | 4 | szt |
+| `pol_nieznanych` | 0 | szt |
+
+## Co ten node ustalil
+
+- 47 operacji lezy w oknie zakazu planowania -- node 05 traktuje je jako istniejace, ale nie wolno na nich planowac nowych
+- pole `ciaglosc_rotacji` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `crew` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `fares` liczone jako ESTIMATED -- node 11 rozszerza widelki
+- pole `passengers` liczone jako ESTIMATED -- node 11 rozszerza widelki
+
+## Szczegoly
+
+- **ciaglosc_rotacji**
+  - **ROT-SP-LMD-2026-08-21**
+    - **z:** LO456-2026-08-21
+    - **do:** LO395-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LMF-2026-08-21**
+    - **z:** LO462-2026-08-21
+    - **do:** LO3951-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LNG-2026-08-21**
+    - **z:** LO524-2026-08-21
+    - **do:** LO783-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LNK-2026-08-21**
+    - **z:** LO460-2026-08-21
+    - **do:** LO453-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+  - **ROT-SP-LSD-2026-08-21**
+    - **z:** LO2084-2026-08-21
+    - **do:** LO11-2026-08-21
+    - **konczy_w:** KRK
+    - **zaczyna_w:** WAW
+  - **ROT-SP-LSG-2026-08-21**
+    - **z:** LO22-2026-08-21
+    - **do:** LO21-2026-08-21
+    - **problem:** odlot przed przylotem poprzedniego odcinka
+- **operacje_w_ciszy_nocnej**
+  - **LO1155-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:15
+  - **LO151-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:00
+  - **LO195-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:00
+  - **LO234-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:35
+  - **LO254-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:50
+  - **LO268-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO280-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO304-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:30
+  - **LO320-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:50
+  - **LO336-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:05
+  - **LO344-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:00
+  - **LO348-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:40
+  - **LO355-2026-08-21**
+    - **pole:** przylot
+    - **port:** MUC
+    - **lokalnie:** 00:20
+  - **LO374-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:30
+  - **LO380-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 23:45
+  - **LO3803-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 01:10
+  - **LO3827-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:55
+  - **LO3849-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:45
+  - **LO3860-2026-08-21**
+    - **pole:** przylot
+    - **port:** WAW
+    - **lokalnie:** 00:25
+  - **LO3879-2026-08-21**
+    - **pole:** wylot
+    - **port:** WAW
+    - **lokalnie:** 00:45
+- **operacje_w_ciszy_nocnej_pominietych:** 27
+- **poziomy_pewnosci**
+  - **aircraft_types:** KNOWN
+  - **airports:** KNOWN
+  - **ciaglosc_rotacji:** ESTIMATED
+  - **crew:** ESTIMATED
+  - **fares:** ESTIMATED
+  - **flights:** KNOWN
+  - **kwalifikacje_zalogi:** KNOWN
+  - **obsadzenie:** KNOWN
+  - **passengers:** ESTIMATED
+  - **porty_rejsow:** KNOWN
+  - **rotations:** KNOWN
+  - **typy_statkow:** KNOWN
+  - **zapas_fdp:** KNOWN
+
+## Zalozenia
+
+| pole | zrodlo | pewnosc | uwaga |
+| --- | --- | --- | --- |
+| `zaloga` | derived | 0.70 | sklad i limity FDP wyliczone z tabel EASA, nie z grafiku operatora |
+| `obsadzenie` | synthetic | 0.60 | manifest z rozkladow bazy, tozsamosci pasazerow modelowane |
+
+_silnik 1.0.0 · baza danych 5.0 (2026-08-28)_
+
+
+======================================================================
+## LICZBY, KTORE WOLNO CI ZACYTOWAC
+
+Kazda liczba w twojej odpowiedzi musi byc jedna z ponizszych albo numerem rejsu, godzina lub data przepisana z raportu. Odpowiedz zawierajaca liczbe spoza tej listy jest odrzucana automatycznie.
+
+0, 0.6, 0.7, 1, 2, 4, 5, 6, 9, 10, 10.96, 11, 12, 13, 14, 17, 24, 27, 31, 35.2, 47, 70, 74, 86, 94, 124, 148, 360, 390, 536, 1791.53, 2026.03, 2026.07, 32911
+
+======================================================================
+Przygotuj material zgodnie ze swoja rola i narzucona struktura.

@@ -1,0 +1,138 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T173539",
+  "node": {
+    "id": "15",
+    "name": "pracownik",
+    "title": "PRACOWNIK"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "ok",
+  "degradation": "FULL",
+  "summary": "OCC-DUTY: ACCEPT dla `HOLD` (33753.66 PLN). Wymagana rola: Dyzurny OCC.",
+  "numbers": {
+    "decyzja": {
+      "value": "ACCEPT",
+      "unit": ""
+    },
+    "wybrana_opcja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "rekomendacja_silnika": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "odstepstwo_od_rekomendacji": {
+      "value": false,
+      "unit": ""
+    },
+    "kwota_do_autoryzacji": {
+      "value": {
+        "minor": 4078567,
+        "currency": "PLN",
+        "major": "40785.67"
+      },
+      "unit": "PLN"
+    },
+    "rola_autoryzujaca": {
+      "value": "Dyzurny OCC",
+      "unit": ""
+    },
+    "drugi_podpis": {
+      "value": false,
+      "unit": ""
+    },
+    "kod_przyczyny": {
+      "value": "-",
+      "unit": ""
+    }
+  },
+  "findings": {
+    "pasma_autoryzacji": [
+      {
+        "max_value": 50000.0,
+        "role": "Dyzurny OCC",
+        "second_signature": false
+      },
+      {
+        "max_value": 150000.0,
+        "role": "Supervisor OCC",
+        "second_signature": false
+      },
+      {
+        "max_value": 400000.0,
+        "role": "Duty Manager OCC",
+        "second_signature": true
+      },
+      {
+        "max_value": null,
+        "role": "Director Network Operations",
+        "second_signature": true
+      }
+    ],
+    "dopuszczalne_kody_odrzucenia": [
+      "DANE_NIEAKTUALNE",
+      "CZYNNIK_NIEUJETY_W_MODELU",
+      "DECYZJA_HANDLOWA",
+      "RYZYKO_REPUTACYJNE",
+      "NIEWYKONALNE_OPERACYJNIE"
+    ],
+    "decyzja": {
+      "operator": "OCC-DUTY",
+      "rodzaj": "ACCEPT",
+      "opcja": "HOLD",
+      "kod_przyczyny": "",
+      "rola": "Dyzurny OCC",
+      "drugi_podpis": false
+    },
+    "karta_wykonania": {
+      "option_id": "HOLD",
+      "label": "Wstrzymaj odlot o 90 min",
+      "what_changes": [
+        "LO3996: odlot pozniej o 90 min (z 05:35 UTC)"
+      ],
+      "pax_offloaded": 0,
+      "pax_order": [],
+      "rebooked_to": {},
+      "crew_actions": [
+        "zaloga rejsu LO3996 pozostaje na sluzbie +90 min -- sprawdzic FDP przed odlotem"
+      ],
+      "valid_until": "2026-08-21T05:35:00+00:00",
+      "cost_low": {
+        "minor": 3058925,
+        "currency": "PLN",
+        "major": "30589.25"
+      },
+      "cost_expected": {
+        "minor": 3375366,
+        "currency": "PLN",
+        "major": "33753.66"
+      },
+      "cost_high": {
+        "minor": 4078567,
+        "currency": "PLN",
+        "major": "40785.67"
+      },
+      "threshold_note": "`HOLD` pozostaje najlepsza w calym badanym zakresie do +120 min",
+      "authorization_role": "Dyzurny OCC",
+      "second_signature": false
+    }
+  },
+  "decisions": [
+    "kwota 40785.67 PLN miesci sie w pasmie roli `Dyzurny OCC`"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [],
+  "duration_ms": 0.05
+}

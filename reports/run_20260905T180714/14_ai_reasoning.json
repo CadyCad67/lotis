@@ -1,0 +1,140 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260905T180714",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 1 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "REBOOK-OWN",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 470109,
+        "currency": "PLN",
+        "major": "4701.09"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "HOLD",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "REBOOK-OWN",
+      "label": "Przenies na wlasny rejs LO3994 (+560 min)",
+      "strata": {
+        "minor": 8771613,
+        "currency": "PLN",
+        "major": "87716.13"
+      },
+      "widelki": {
+        "min": {
+          "minor": 7949274,
+          "currency": "PLN",
+          "major": "79492.74"
+        },
+        "max": {
+          "minor": 10599032,
+          "currency": "PLN",
+          "major": "105990.32"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "odszkodowanie_art7: 65575.00 PLN",
+        "rebooking_wlasny_spill: 8262.45 PLN",
+        "opieka_art9: 5770.60 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 5644521,
+        "currency": "PLN",
+        "major": "56445.21"
+      },
+      "alternatywa": {
+        "id": "CANCEL",
+        "strata": {
+          "minor": 9241722,
+          "currency": "PLN",
+          "major": "92417.22"
+        },
+        "roznica": {
+          "minor": 470109,
+          "currency": "PLN",
+          "major": "4701.09"
+        }
+      },
+      "czolowka_blisko": true,
+      "uwaga_polityki": "24 utraconych przesiadek; szerokie widelki"
+    }
+  },
+  "decisions": [
+    "opcje `REBOOK-OWN` i `CANCEL` sa blisko -- rekomendacja nie jest jednoznaczna i czlowiek powinien to zobaczyc",
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `HOLD`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+  ],
+  "duration_ms": 30.44
+}

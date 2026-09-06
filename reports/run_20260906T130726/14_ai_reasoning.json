@@ -1,0 +1,140 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T130726",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:44a9b3ee12dd2f2588d143e4b9546c90",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 1 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "SWAP-SP-LDH",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 320333,
+        "currency": "PLN",
+        "major": "3203.33"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "HOLD",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "SWAP-SP-LDH",
+      "label": "Podmien maszyne na SP-LDH (E170)",
+      "strata": {
+        "minor": 6078355,
+        "currency": "PLN",
+        "major": "60783.55"
+      },
+      "widelki": {
+        "min": {
+          "minor": 5698458,
+          "currency": "PLN",
+          "major": "56984.58"
+        },
+        "max": {
+          "minor": 7800555,
+          "currency": "PLN",
+          "major": "78005.55"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "opoznienie_w_siatce: 30801.96 PLN",
+        "zaloga: 2365.00 PLN",
+        "roznica_kosztu_typu: -734.25 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 2697705,
+        "currency": "PLN",
+        "major": "26977.05"
+      },
+      "alternatywa": {
+        "id": "SWAP-SP-LIK",
+        "strata": {
+          "minor": 6398688,
+          "currency": "PLN",
+          "major": "63986.88"
+        },
+        "roznica": {
+          "minor": 320333,
+          "currency": "PLN",
+          "major": "3203.33"
+        }
+      },
+      "czolowka_blisko": true,
+      "uwaga_polityki": "propagacja 204 min (waga rotacji 1.0); szerokie widelki"
+    }
+  },
+  "decisions": [
+    "opcje `SWAP-SP-LDH` i `SWAP-SP-LIK` sa blisko -- rekomendacja nie jest jednoznaczna i czlowiek powinien to zobaczyc",
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `HOLD`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+  ],
+  "duration_ms": 48.66
+}

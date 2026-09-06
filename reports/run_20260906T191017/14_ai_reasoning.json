@@ -1,0 +1,139 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T191017",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 1 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 1,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "HOLD",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 54525914,
+        "currency": "PLN",
+        "major": "545259.14"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "HOLD",
+        "powod": "zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "HOLD",
+      "label": "Wstrzymaj odlot o 180 min",
+      "strata": {
+        "minor": 80572260,
+        "currency": "PLN",
+        "major": "805722.60"
+      },
+      "widelki": {
+        "min": {
+          "minor": 73484886,
+          "currency": "PLN",
+          "major": "734848.86"
+        },
+        "max": {
+          "minor": 140255415,
+          "currency": "PLN",
+          "major": "1402554.15"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "odszkodowanie_art7: 665640.00 PLN",
+        "opoznienie_w_siatce: 125557.20 PLN",
+        "roszczenia_mc99: 7430.40 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": 0,
+        "currency": "PLN",
+        "major": "0.00"
+      },
+      "alternatywa": {
+        "id": "OVERNIGHT",
+        "strata": {
+          "minor": 135098174,
+          "currency": "PLN",
+          "major": "1350981.74"
+        },
+        "roznica": {
+          "minor": 54525914,
+          "currency": "PLN",
+          "major": "545259.14"
+        }
+      },
+      "czolowka_blisko": false,
+      "uwaga_polityki": "70 utraconych przesiadek; szerokie widelki"
+    }
+  },
+  "decisions": [
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `HOLD`: zakladane oczekiwanie [180] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest powyzej progu i nalicza pelne odszkodowanie."
+  ],
+  "duration_ms": 21.64
+}

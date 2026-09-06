@@ -1,0 +1,144 @@
+{
+  "schema": "lotis.report/v1",
+  "run_id": "20260906T191853",
+  "node": {
+    "id": "14",
+    "name": "ai_reasoning",
+    "title": "AI REASONING"
+  },
+  "versions": {
+    "engine": "1.0.0",
+    "data": "5.0",
+    "data_generated": "2026-08-28",
+    "authorization": "2026.07",
+    "escalation": "2026.07",
+    "sop": "2026.03",
+    "overrides": "brak"
+  },
+  "snapshot": "sha256:f3c290f4e6930407fb2bcad856fc671f",
+  "status": "degraded",
+  "degradation": "FULL",
+  "summary": "Sprawdzono 5 niezmiennikow wyniku. Wszystkie przeszly. Wykryto 2 anomalii.",
+  "numbers": {
+    "kontroli": {
+      "value": 5,
+      "unit": "szt"
+    },
+    "kontroli_nieudanych": {
+      "value": 0,
+      "unit": "szt"
+    },
+    "anomalii": {
+      "value": 2,
+      "unit": "szt"
+    },
+    "rekomendacja": {
+      "value": "OVERNIGHT",
+      "unit": ""
+    },
+    "przewaga_nad_druga": {
+      "value": {
+        "minor": 19544831,
+        "currency": "PLN",
+        "major": "195448.31"
+      },
+      "unit": "PLN"
+    }
+  },
+  "findings": {
+    "kontrole": [
+      {
+        "id": "kolejnosc_rankingu",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "widelki",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "karta_wykonania",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "suma_skladnikow",
+        "ok": true,
+        "powod": ""
+      },
+      {
+        "id": "kompletnosc_pasazerow",
+        "ok": true,
+        "powod": ""
+      }
+    ],
+    "anomalie": [
+      {
+        "id": "SWAP-SP-LRF",
+        "powod": "zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 260150.00 PLN kosztu."
+      },
+      {
+        "id": "SWAP-SP-LSC",
+        "powod": "zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 260150.00 PLN kosztu."
+      }
+    ],
+    "uzasadnienie": {
+      "wybrana": "OVERNIGHT",
+      "label": "Nocleg i rejs nastepnego dnia",
+      "strata": {
+        "minor": 149747590,
+        "currency": "PLN",
+        "major": "1497475.90"
+      },
+      "widelki": {
+        "min": {
+          "minor": 139167598,
+          "currency": "PLN",
+          "major": "1391675.98"
+        },
+        "max": {
+          "minor": 231132149,
+          "currency": "PLN",
+          "major": "2311321.49"
+        }
+      },
+      "najwieksze_skladniki_kosztu": [
+        "odszkodowanie_art7: 624360.00 PLN",
+        "pozycjonowanie: 269610.00 PLN",
+        "rebooking_wlasny_spill: 236736.50 PLN"
+      ],
+      "oszczednosc_wobec_domyslnej": {
+        "minor": -131885403,
+        "currency": "PLN",
+        "major": "-1318854.03"
+      },
+      "alternatywa": {
+        "id": "CANCEL",
+        "strata": {
+          "minor": 169292421,
+          "currency": "PLN",
+          "major": "1692924.21"
+        },
+        "roznica": {
+          "minor": 19544831,
+          "currency": "PLN",
+          "major": "195448.31"
+        }
+      },
+      "czolowka_blisko": false,
+      "uwaga_polityki": "99 utraconych przesiadek; szerokie widelki; priorytet 0, indeks pasazerski 18.00"
+    }
+  },
+  "decisions": [
+    "karta wykonania powstala deterministycznie w node 13; model jezykowy dopisuje komentarz obok i nie ma sciezki zapisu do jej srodka",
+    "warstwa AI jest osobnym wyjsciem systemu, nie etapem przeplywu -- silnik konczy run bez niej"
+  ],
+  "assumptions": [],
+  "data_gaps": [],
+  "warnings": [
+    "anomalia w `SWAP-SP-LRF`: zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 260150.00 PLN kosztu.",
+    "anomalia w `SWAP-SP-LSC`: zakladane oczekiwanie [136] min lezy w promieniu 45 min od progu 180 min z Art. 7. Opcja jest PONIZEJ progu, wiec nie nalicza odszkodowania; przesuniecie o 44 min dodaje okolo 260150.00 PLN kosztu."
+  ],
+  "duration_ms": 32.31
+}
