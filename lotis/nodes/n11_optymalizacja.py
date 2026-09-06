@@ -35,12 +35,58 @@ from ..kernel.pricing import pricing
 MIN_SPREAD_PCT = 0.08
 
 
+#: Waga zdarzenia dla pasazera, w jednostkach umownych. Odmowa przyjecia jest
+#: najciezsza, bo pasazer w ogole nie leci; przebukowanie na obcego przewoznika
+#: gorsze niz na wlasny, bo lamie ciaglosc obslugi. Zwloka liczona osobno,
+#: proporcjonalnie do godzin.
+PAX_WAGA = {
+    "OFFLOADED_INVOLUNTARY": 10.0,
+    "CANCELLED_REFUND": 8.0,
+    "OFFLOADED_VOLUNTARY": 4.0,
+    "REBOOKED_OAL": 3.0,
+    "REBOOKED_OWN": 2.0,
+    "DELAYED": 0.0,
+    "KEPT": 0.0,
+}
+
+
+def _indeks_pax(option) -> float:
+    """Uciazliwosc opcji dla pasazerow, na jedna osobe.
+
+    Ranking po samej stracie w zlotowkach nie widzi roznicy miedzy opcja, ktora
+    kogos nie wpuszcza na poklad, a taka, ktora wszystkich opoznia. Suwak
+    priorytetu potrzebuje drugiej osi, wiec ja tu liczymy.
+    """
+    outcomes = list(option.pax_outcomes.values())
+    if not outcomes:
+        return 0.0
+    suma = 0.0
+    for o in outcomes:
+        suma += PAX_WAGA.get(str(o.kind), 1.0)
+        suma += o.delay_min / 60.0
+        suma += o.care_nights * 2.0
+    return suma / len(outcomes)
+
+
+def _znormalizuj(wartosci: list[float]) -> list[float]:
+    """Skala 0-1 wzgledem najlepszej i najgorszej opcji w tym rankingu."""
+    lo, hi = min(wartosci), max(wartosci)
+    if hi - lo < 1e-9:
+        return [0.0 for _ in wartosci]
+    return [(v - lo) / (hi - lo) for v in wartosci]
+
+
 class OptymalizacjaNode(Node):
     id = "11"
     name = "optymalizacja"
     title = "OPTIMIZATION ENGINE"
     consumes = ("snapshot", "baseline", "options", "revenue", "costs")
     produces = "evaluations"
+
+    def __init__(self, priority: int = 50) -> None:
+        #: 0 oznacza ranking wylacznie po pieniadzach, 100 wylacznie po
+        #: uciazliwosci dla pasazera. Wartosci posrednie miesza sie liniowo.
+        self.priority = max(0, min(100, int(priority)))
 
     def run(self, ctx: RunContext) -> NodeOutput:
         snap: Snapshot = ctx.require("snapshot")
@@ -90,6 +136,7 @@ class OptymalizacjaNode(Node):
             evaluations[option.id] = evaluation
             rows.append({
                 "id": option.id,
+                "indeks_pax": round(_indeks_pax(option), 3),
                 "label": option.label,
                 "tryb": option.kind.value,
                 "revenue_at_risk": revenue_at_risk,
@@ -101,12 +148,31 @@ class OptymalizacjaNode(Node):
                 "rozpietosc": band.spread,
             })
 
-        ranked = sorted(rows, key=lambda r: r["strata"].minor)
+        # Ranking miesza dwie znormalizowane osie: strate w zlotowkach
+        # i uciazliwosc dla pasazera. Kwoty w raporcie zostaja bez zmian --
+        # suwak zmienia kolejnosc, nie liczby.
+        waga = self.priority / 100.0
+        if rows:
+            straty = _znormalizuj([float(r["strata"].minor) for r in rows])
+            paxy = _znormalizuj([float(r["indeks_pax"]) for r in rows])
+            for row, sn_, pn in zip(rows, straty, paxy, strict=True):
+                row["wynik_wazony"] = round((1 - waga) * sn_ + waga * pn, 4)
+        ranked = sorted(rows, key=lambda r: (r["wynik_wazony"], r["strata"].minor))
         for position, row in enumerate(ranked, 1):
             row["pozycja_wstepna"] = position
 
+        report.number("priorytet", self.priority,
+                      "0 finanse, 100 pasazer")
+        najtansza = min(rows, key=lambda r: r["strata"].minor) if rows else None
+        if najtansza and ranked and najtansza["id"] != ranked[0]["id"]:
+            report.warn(
+                f"przy priorytecie {self.priority} ranking wskazuje "
+                f"`{ranked[0]['id']}`, a najtansza jest `{najtansza['id']}` "
+                f"({najtansza['strata']})"
+            )
+
         report.summary = (
-            f"Ranking wstepny {len(ranked)} opcji. "
+            f"Ranking wstepny {len(ranked)} opcji, priorytet {self.priority}. "
             + (f"Najmniejsza strata: `{ranked[0]['id']}` ({ranked[0]['strata']}), "
                f"najwieksza: `{ranked[-1]['id']}` ({ranked[-1]['strata']})."
                if ranked else "Brak opcji do porownania.")

@@ -36,6 +36,11 @@ DEFAULT_DECISION_WINDOW_MIN = 45
 #: przewoznika) -- to najostrozniejsze zalozenie kosztowe, bo daje p=1.0.
 DEFAULT_DELAY_CODE = "41"
 
+#: Kod dla zaklocenia bez opoznienia, ktore jest sama nadsprzedaza.
+#: 14 PO "OVERSALES, booking errors" to dokladnie ten przypadek w AHM 730,
+#: klasa `c`, bo nadsprzedaz jest zawsze po stronie przewoznika.
+OVERSALES_DELAY_CODE = "14"
+
 
 class ZaklocenieNode(Node):
     id = "04"
@@ -49,15 +54,24 @@ class ZaklocenieNode(Node):
         flight_id: str | None = None,
         kind: DisruptionType = DisruptionType.TECHNICAL,
         delay_min: int = 180,
-        delay_code: str = DEFAULT_DELAY_CODE,
+        delay_code: str | None = DEFAULT_DELAY_CODE,
         decision_window_min: int = DEFAULT_DECISION_WINDOW_MIN,
         trigger: Trigger = Trigger.INITIAL,
         iteration: int = 0,
+        overbooking: int = 0,
     ) -> None:
         self.flight_id = flight_id
-        self.kind = kind
-        self.delay_min = delay_min
-        self.delay_code = delay_code
+        self.overbooking = max(0, int(overbooking))
+        self.delay_min = max(0, int(delay_min))
+        # Zaklocenie bez minuty opoznienia, za to z nadsprzedaza, nie jest
+        # usterka techniczna. Ma wlasny typ i wlasny kod AHM 730, inaczej caly
+        # przeplyw liczylby cene opoznienia, ktorego nie ma.
+        czysta_nadsprzedaz = self.overbooking > 0 and self.delay_min == 0
+        self.kind = DisruptionType.PAX if czysta_nadsprzedaz else kind
+        self.delay_code = (
+            OVERSALES_DELAY_CODE if czysta_nadsprzedaz and not delay_code
+            else (delay_code or DEFAULT_DELAY_CODE)
+        )
         self.decision_window_min = decision_window_min
         self.trigger = trigger
         self.iteration = iteration
@@ -89,6 +103,7 @@ class ZaklocenieNode(Node):
             iteration=self.iteration,
             trigger=self.trigger,
             estimated_delay_min=self.delay_min,
+            overbooking=self.overbooking,
         )
 
         code_row = db.delay_codes.get(self.delay_code, [])
@@ -98,17 +113,36 @@ class ZaklocenieNode(Node):
         downstream = [f for f in (rotation.flight_ids if rotation else ())
                       if snap.flights[f].seq > flight.seq]
 
+        seats = 0
+        spec = snap.aircraft_types.get(flight.type_code)
+        if spec is not None:
+            seats = spec.seats_total
+        na_pokladzie = len(snap.passengers_on(flight.id)) + self.overbooking
+        spill = max(0, na_pokladzie - seats) if seats else 0
+
+        opis_skali = (
+            f"nadsprzedaz {self.overbooking} rezerwacji" if self.delay_min == 0
+            else f"szacowane opoznienie {self.delay_min} min"
+            + (f" i nadsprzedaz {self.overbooking}" if self.overbooking else "")
+        )
         report.summary = (
             f"{_kind_pl(self.kind)} na rejsie {flight.number} {flight.dep}-{flight.arr}, "
-            f"szacowane opoznienie {self.delay_min} min. "
+            f"{opis_skali}. "
             f"Decyzja do {disruption.decision_deadline.strftime('%H:%M')} UTC "
             f"({self.decision_window_min} min)."
         )
+        if spill:
+            report.warnings.append(
+                f"nadsprzedaz: {spill} pasazerow nie miesci sie w kabinie "
+                f"({na_pokladzie} na {seats} miejsc)"
+            )
 
         report.number("rejs", flight.number)
         report.number("relacja", f"{flight.dep}-{flight.arr}")
         report.number("typ_zaklocenia", self.kind.value)
         report.number("opoznienie_szacowane", self.delay_min, "min")
+        report.number("nadsprzedaz", self.overbooking, "rezerwacji")
+        report.number("ponad_pojemnosc", spill, "osob")
         report.number("kod_opoznienia", self.delay_code)
         report.number("klasa_kodu", code_class)
         report.number("p_odszkodowania", probability)

@@ -311,12 +311,18 @@ class Disruption:
     iteration: int = 0
     trigger: Trigger = Trigger.INITIAL
     estimated_delay_min: int = 0
+    #: Rezerwacje ponad pojemnosc kabiny. Zaklocenie moze byc samą nadsprzedaza,
+    #: bez minuty opoznienia: wtedy problemem nie jest czas, tylko to, ze przy
+    #: wejsciu na poklad zabraknie miejsc i ktos zostanie na ziemi.
+    overbooking: int = 0
 
     def __post_init__(self) -> None:
         if self.decision_deadline <= self.at:
             raise ContractViolation(
                 f"zaklocenie {self.id}: termin decyzji nie jest po zdarzeniu"
             )
+        if self.overbooking < 0:
+            raise ContractViolation(f"zaklocenie {self.id}: ujemna nadsprzedaz")
 
 
 # ---------------------------------------------------------------- opcje

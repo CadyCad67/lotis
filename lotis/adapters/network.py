@@ -30,6 +30,11 @@ from .siatka import load_siatka
 #: Zgloszenie zalogi przed odlotem, z FT.def.report_time_before_departure_min
 REPORT_BEFORE_MIN = 60
 
+#: Personel pokladowy melduje sie pozniej niz kokpit, bo nie robi odprawy
+#: nawigacyjnej ani planu lotu. Roznica jest tu jawna, bo od niej -- i tylko
+#: od niej -- zalezy dopuszczalne wydluzenie FDP kabiny.
+CABIN_REPORT_BEFORE_MIN = 45
+
 
 @dataclass(frozen=True, slots=True)
 class BuildReport:
@@ -125,18 +130,30 @@ def build_snapshot(weekday: int = 0, seed: int = 2026) -> tuple[Snapshot, BuildR
         rating = spec.rating if spec else "EJET"
         base = first.dep if first.dep in airline.CREW_BASES else airline.HOME_BASE
 
+        # ORO.FTL.205 lit. e pozwala wydluzyc FDP personelu pokladowego o
+        # ROZNICE czasow zgloszenia wobec kokpitu, nie wiecej niz o godzine.
+        # Wczesniej dodawane bylo sztywne 60 minut, mimo ze cala zaloga
+        # meldowala sie w tym samym momencie. Roznica wynosila wiec zero,
+        # a mimo to kabina dostawala pelne wydluzenie: FDP wychodzil 14 h,
+        # czyli powyzej podstawowego maksimum z tabeli 2 (13 h). Teraz kabina
+        # ma wlasny, pozniejszy czas zgloszenia, a wydluzenie jest dokladnie
+        # ta roznica -- tak jak mowi przepis.
+        cabin_report_utc = first.std - timedelta(minutes=CABIN_REPORT_BEFORE_MIN)
+        cabin_extension = min(60, REPORT_BEFORE_MIN - CABIN_REPORT_BEFORE_MIN)
+
         ids: list[str] = []
         for index in range(cockpit + cabin):
             role = (CrewRole.CAPTAIN if index == 0
                     else CrewRole.FIRST_OFFICER if index < cockpit
                     else CrewRole.CABIN)
-            # personel pokladowy ma FDP o 60 min dluzszy (ORO.FTL.205 lit. e)
-            limit = fdp_limit + (60 if role is CrewRole.CABIN else 0)
+            is_cabin = role is CrewRole.CABIN
+            limit = fdp_limit + (cabin_extension if is_cabin else 0)
             crew_id = f"{rotation.aircraft_reg}-{role.value[:3]}{index}"
             crew[crew_id] = CrewMember(
                 id=crew_id, role=role, base=base,
                 qualifications=frozenset({rating}),
-                duty_start=report_utc, fdp_limit_min=limit,
+                duty_start=cabin_report_utc if is_cabin else report_utc,
+                fdp_limit_min=limit,
             )
             ids.append(crew_id)
         crewed_flights[rotation.id] = tuple(ids)

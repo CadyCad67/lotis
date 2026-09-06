@@ -41,6 +41,13 @@ class WrazliwoscNode(Node):
     consumes = ("snapshot", "options", "evaluations", "lawful")
     produces = "ranking"
 
+    def __init__(self, priority: int = 50, preset: str = "STANDARD") -> None:
+        #: 0 to ranking wylacznie po pieniadzach, 100 wylacznie po tym, jak
+        #: opcja odbija sie na pasazerach. Wartosc miesza obie osie liniowo.
+        self.priority = max(0, min(100, int(priority)))
+        #: Ktory zestaw wag z `CF.presets` obowiazuje w tym przebiegu.
+        self.preset = preset or "STANDARD"
+
     def run(self, ctx: RunContext) -> NodeOutput:
         snap: Snapshot = ctx.require("snapshot")
         options: tuple[Option, ...] = ctx.require("options")
@@ -53,11 +60,12 @@ class WrazliwoscNode(Node):
         by_id = {o.id: o for o in options}
         pool = [evaluations[oid] for oid in lawful if oid in evaluations]
 
-        weights = _weights(ctx)
+        weights = _weights(ctx, self.preset)
         scored: list[tuple[OptionEvaluation, float, str]] = []
         for evaluation in pool:
             option = by_id[evaluation.option_id]
-            score, note = _policy_score(snap, option, evaluation, weights)
+            score, note = _policy_score(snap, option, evaluation, weights,
+                                        self.priority)
             scored.append((evaluation, score, note))
         scored.sort(key=lambda item: item[1])
 
@@ -150,22 +158,54 @@ class WrazliwoscNode(Node):
 # ---------------------------------------------------------------- polityka
 
 
-def _weights(ctx) -> dict[str, float]:
-    """Wagi z aktywnego presetu bazy (`CF.presets`), domyslnie STANDARD."""
+def _weights(ctx, preset: str = "STANDARD") -> dict[str, float]:
+    """Wagi z wybranego presetu bazy (`CF.presets`).
+
+    Wczesniej preset byl wpisany na sztywno, wiec zmiana zestawu wag nie mogla
+    wplynac na nic. Teraz nazwa przychodzi z zewnatrz i raport ja cytuje.
+    """
     presets = ctx.policy.presets
-    chosen = next((p for p in presets if p.get("k") == "STANDARD"), None)
+    chosen = next((p for p in presets if p.get("k") == preset), None)
+    if chosen is None:
+        chosen = next((p for p in presets if p.get("k") == "STANDARD"), None)
     if chosen is None and presets:
         chosen = presets[0]
     return dict(chosen.get("w", {})) if chosen else {}
 
 
+#: Waga zdarzenia dla pasazera. Odmowa przyjecia najciezsza, bo pasazer w ogole
+#: nie leci; przebukowanie na obcego przewoznika gorsze niz na wlasny.
+_PAX_WAGA = {
+    PaxOutcomeKind.OFFLOADED_INVOLUNTARY: 10.0,
+    PaxOutcomeKind.CANCELLED_REFUND: 8.0,
+    PaxOutcomeKind.OFFLOADED_VOLUNTARY: 4.0,
+    PaxOutcomeKind.REBOOKED_OAL: 3.0,
+    PaxOutcomeKind.REBOOKED_OWN: 2.0,
+}
+
+
+def _indeks_pax(option: Option) -> float:
+    """Uciazliwosc opcji dla pasazera, srednio na osobe."""
+    outcomes = list(option.pax_outcomes.values())
+    if not outcomes:
+        return 0.0
+    suma = 0.0
+    for o in outcomes:
+        suma += _PAX_WAGA.get(o.kind, 0.0)
+        suma += o.delay_min / 60.0
+        suma += o.care_nights * 2.0
+    return suma / len(outcomes)
+
+
 def _policy_score(snap: Snapshot, option: Option, evaluation: OptionEvaluation,
-                  weights: dict[str, float]) -> tuple[float, str]:
-    """Wskaznik rankingowy: strata przesunieta wagami polityki.
+                  weights: dict[str, float], priority: int = 50) -> tuple[float, str]:
+    """Wskaznik rankingowy: strata przesunieta wagami polityki i priorytetem.
 
     Punktem wyjscia jest strata w zlotowkach. Wagi ja MODULUJA -- opcja, ktora
     psuje rotacje albo dotyka pasazerow transferowych, dostaje gorszy wskaznik
-    przy tej samej kwocie.
+    przy tej samej kwocie. Priorytet dokłada druga os: im bardziej w strone
+    pasazera, tym mocniej wskaznik rosnie opcjom, ktore kogos wysadzaja albo
+    kaza dlugo czekac. Zadna kwota w raporcie sie przez to nie zmienia.
     """
     base = float(evaluation.loss.minor)
     notes: list[str] = []
@@ -201,6 +241,17 @@ def _policy_score(snap: Snapshot, option: Option, evaluation: OptionEvaluation,
         factor = weights.get("unc", 1.0)
         base *= 1.0 + 0.02 * factor * min(3.0, spread / max(1, abs(evaluation.loss.minor)))
         notes.append("szerokie widelki")
+
+    # Priorytet dokłada KARE za uciazliwosc dla pasazera i nigdy nie daje
+    # premii. Wczesniej mnoznik schodzil ponizej 1.0 przy priorytecie blizej
+    # finansow, wiec opcja najbardziej dotkliwa dla pasazerow dostawala
+    # najwiekszy rabat na wskazniku i potrafila wyprzedzic tansza. Przy 0
+    # mnoznik wynosi dokladnie 1.0, czyli ranking idzie wylacznie po pieniadzach,
+    # a to znaczy najmniejsza strate, czyli najlepszy wynik finansowy.
+    if priority:
+        indeks = _indeks_pax(option)
+        base *= 1.0 + 0.35 * (priority / 100.0) * min(6.0, indeks)
+        notes.append(f"priorytet {priority}, indeks pasazerski {indeks:.2f}")
 
     return base, "; ".join(notes)
 

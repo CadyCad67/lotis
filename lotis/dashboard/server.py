@@ -29,6 +29,32 @@ OUT_ROOT = PROJECT_ROOT / "out"
 #: przebiegi nie zepsuja danych, ale zdublowalyby prace, wiec ida szeregowo.
 _ENGINE_LOCK = threading.Lock()
 
+#: Pamiec podreczna snapshotow. Widoki operacyjne panelu -- rejsy, zalogi,
+#: rotacje -- pokazuja rozne ciecia tego samego stanu doby. Bez cache kazde
+#: przejscie miedzy zakladkami budowaloby doba od nowa, a `_ENGINE_LOCK`
+#: ustawialby te przebiegi w kolejce, wiec interfejs staralby sie na kilka
+#: sekund przy kazdym klinieciu. Trzymamy trzy ostatnie doby, bo tyle wystarcza
+#: na porownywanie i nie rozdyma pamieci.
+_SNAP_CACHE: dict[tuple[int, int], Any] = {}
+_SNAP_ORDER: list[tuple[int, int]] = []
+_SNAP_MAX = 3
+
+
+def _snapshot(day: int, seed: int):
+    """Snapshot doby, zbudowany raz na (doba, ziarno)."""
+    key = (day, seed)
+    with _ENGINE_LOCK:
+        hit = _SNAP_CACHE.get(key)
+        if hit is not None:
+            return hit
+        from ..adapters.network import build_snapshot
+        value = build_snapshot(weekday=day, seed=seed)
+        _SNAP_CACHE[key] = value
+        _SNAP_ORDER.append(key)
+        while len(_SNAP_ORDER) > _SNAP_MAX:
+            _SNAP_CACHE.pop(_SNAP_ORDER.pop(0), None)
+        return value
+
 
 class ApiError(Exception):
     def __init__(self, message: str, status: int = 400) -> None:
@@ -98,13 +124,11 @@ def api_stats(_: dict[str, list[str]]) -> dict[str, Any]:
 
 
 def api_snapshot(query: dict[str, list[str]]) -> dict[str, Any]:
-    from ..adapters.network import build_snapshot
     from ..adapters.siatka import WEEKDAYS_PL
 
     day = _int(query, "day", 4, 0, 6)
     seed = _int(query, "seed", 2026, 0, 10**9)
-    with _ENGINE_LOCK:
-        snap, rep = build_snapshot(weekday=day, seed=seed)
+    snap, rep = _snapshot(day, seed)
 
     flights = sorted(snap.flights.values(), key=lambda f: f.std)[:200]
     return {
@@ -215,6 +239,267 @@ def api_ai_output(query: dict[str, list[str]]) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+# -------------------------------------------- doba dla widokow operacyjnych
+
+
+def _pax_index(snap) -> dict[str, dict]:
+    """Jedno przejscie po pasazerach zamiast jednego na rejs.
+
+    Kazdy widok operacyjny pyta o to samo: ilu pasazerow siedzi na odcinku,
+    ilu leci dalej, ilu przylecialo dowozem. Liczenie tego osobno dla kazdego
+    z czterystu rejsow oznaczaloby czterysta przebiegow po tej samej kolekcji
+    trzydziestu tysiecy pasazerow. Raz, do slownikow, i widoki tylko czytaja.
+    """
+    seated: dict[str, int] = {}
+    cabins: dict[str, dict[str, int]] = {}
+    onward: dict[str, dict[str, int]] = {}
+    inbound: dict[str, dict[str, int]] = {}
+    ssr: dict[str, dict[str, int]] = {}
+    ranks: dict[str, dict[str, int]] = {}
+    local: dict[str, int] = {}
+
+    def bump(store: dict[str, dict[str, int]], fid: str, key: str) -> None:
+        row = store.setdefault(fid, {})
+        row[key] = row.get(key, 0) + 1
+
+    for pax in snap.passengers.values():
+        itin = snap.itineraries.get(pax.itinerary_id)
+        if itin is None:
+            continue
+        segs = itin.segments
+        cabin, status = str(pax.basket.cabin), str(pax.basket.status)
+        for i, fid in enumerate(segs):
+            seated[fid] = seated.get(fid, 0) + 1
+            bump(cabins, fid, cabin)
+            bump(ranks, fid, status)
+            for need in pax.specials:
+                bump(ssr, fid, SSR_KOD.get(str(need), str(need)))
+            if i + 1 < len(segs):
+                bump(onward, fid, segs[i + 1])
+            else:
+                local[fid] = local.get(fid, 0) + 1
+            if i > 0:
+                bump(inbound, fid, segs[i - 1])
+
+    return {"seated": seated, "cabins": cabins, "onward": onward,
+            "inbound": inbound, "ssr": ssr, "ranks": ranks, "local": local}
+
+
+def api_day(query: dict[str, list[str]]) -> dict[str, Any]:
+    """Cala doba w jednym wywolaniu: rejsy, rotacje, zaloga, porty, typy.
+
+    Widoki operacyjne to rozne ciecia jednego stanu doby. Gdyby kazdy pytal
+    osobnym endpointem, kazdy placilby za budowe snapshotu jeszcze raz, bo
+    przebiegi ida szeregowo pod blokada silnika. Jedno wywolanie plus pamiec
+    podreczna sprawiaja, ze przelaczanie zakladek jest natychmiastowe.
+    """
+    from ..adapters.lot_db import load_lot_db
+    from ..adapters.siatka import WEEKDAYS_PL
+    from ..kernel.geo import haversine_km
+    from ..kernel.pricing import Pricing
+
+    day = _int(query, "day", 4, 0, 6)
+    seed = _int(query, "seed", 2026, 0, 10**9)
+    snap, rep = _snapshot(day, seed)
+
+    db = load_lot_db()
+    price = Pricing(db)
+    idx = _pax_index(snap)
+    seated, cabins, onward, inbound = idx["seated"], idx["cabins"], idx["onward"], idx["inbound"]
+
+    #: Rejsy zalogi wyprowadzamy z przypisan na rejsach -- kontrakt zalogi ich
+    #: nie trzyma, bo zaloga nie wie o rotacji, tylko rotacja wie o zalodze.
+    crew_flights: dict[str, list[str]] = {}
+    for flight in snap.flights.values():
+        for cid in flight.crew_ids:
+            crew_flights.setdefault(cid, []).append(flight.id)
+
+    def minutes(a, b) -> int:
+        return int((b - a).total_seconds() // 60)
+
+    rejsy = []
+    for f in sorted(snap.flights.values(), key=lambda x: x.std):
+        pa, pb = snap.airports.get(f.dep), snap.airports.get(f.arr)
+        km = round(haversine_km(pa.lat, pa.lon, pb.lat, pb.lon)) if pa and pb else 0
+        port_a, port_b = db.ports.get(f.dep), db.ports.get(f.arr)
+        intra = bool(port_a and port_b and port_a.eu and port_b.eu)
+        tier = db.eu261_tier_for(km, intra)
+        typ = snap.aircraft_types.get(f.type_code)
+        miejsca = typ.seats_total if typ else 0
+        obsadzone = seated.get(f.id, 0)
+
+        dalej = []
+        for nxt_id, ile in sorted(onward.get(f.id, {}).items(), key=lambda kv: -kv[1]):
+            nxt = snap.flights.get(nxt_id)
+            if nxt is None:
+                continue
+            dalej.append({"id": nxt.id, "nr": nxt.number, "cel": nxt.arr,
+                          "pax": ile, "zapas": minutes(f.sta, nxt.std)})
+        dowozy = []
+        for prv_id, ile in sorted(inbound.get(f.id, {}).items(), key=lambda kv: -kv[1]):
+            prv = snap.flights.get(prv_id)
+            if prv is None:
+                continue
+            dowozy.append({"id": prv.id, "nr": prv.number, "z": prv.dep,
+                           "pax": ile, "zapas": minutes(prv.sta, f.std)})
+
+        rejsy.append({
+            "id": f.id, "nr": f.number, "z": f.dep, "do": f.arr,
+            "std": f.std.isoformat(timespec="minutes"),
+            "sta": f.sta.isoformat(timespec="minutes"),
+            "blok": f.block_min, "typ": f.type_code, "reg": f.aircraft_reg,
+            "rotacja": f.rotation_id, "seq": f.seq,
+            "km": km, "intra": intra, "tier": tier,
+            "odszkodowanie": db.compensation_eur(tier),
+            "prog_opieki": price.care_threshold_min(tier),
+            "pax": obsadzone, "miejsca": miejsca,
+            "lf": round(100 * obsadzone / miejsca, 1) if miejsca else 0,
+            "kabiny": cabins.get(f.id, {}), "ssr": idx["ssr"].get(f.id, {}),
+            "statusy": idx["ranks"].get(f.id, {}), "lokalni": idx["local"].get(f.id, 0),
+            "dalej": dalej, "dowozy": dowozy,
+            "zaloga": list(f.crew_ids),
+        })
+
+    rotacje = []
+    for rot in snap.rotations.values():
+        legs = sorted((snap.flights[i] for i in rot.flight_ids if i in snap.flights),
+                      key=lambda x: x.seq)
+        if not legs:
+            continue
+        rotacje.append({
+            "id": rot.id, "reg": rot.aircraft_reg, "typ": legs[0].type_code,
+            "odcinki": [x.id for x in legs],
+            "od": legs[0].std.isoformat(timespec="minutes"),
+            "do": legs[-1].sta.isoformat(timespec="minutes"),
+            "porty": [legs[0].dep] + [x.arr for x in legs],
+        })
+    rotacje.sort(key=lambda r: (r["typ"], r["reg"]))
+
+    zaloga = []
+    for c in snap.crew.values():
+        moje = sorted((snap.flights[i] for i in crew_flights.get(c.id, []) if i in snap.flights),
+                      key=lambda x: x.std)
+        zaloga.append({
+            "id": c.id, "rola": str(c.role), "baza": c.base,
+            "kwalifikacje": sorted(c.qualifications),
+            "start_sluzby": c.duty_start.isoformat(timespec="minutes"),
+            "fdp_limit": c.fdp_limit_min, "fdp_uzyte": c.duty_used_min,
+            "fdp_zostalo": c.fdp_remaining_min, "odpoczynek_ok": c.rest_ok,
+            #: Snapshot nie modeluje sluzby sprzed doby, wiec `duty_used_min`
+            #: jest zerem dla wszystkich. Czas blokowy tej doby jest liczba,
+            #: ktora naprawde cos mowi o obciazeniu wobec limitu.
+            "blok_doby": sum(x.block_min for x in moje),
+            "okno_sluzby": (
+                int((moje[-1].sta - moje[0].std).total_seconds() // 60) if moje else 0),
+            "rejsy": [x.number for x in moje],
+            "trasa": "-".join([moje[0].dep] + [x.arr for x in moje]) if moje else "",
+            "reg": moje[0].aircraft_reg if moje else "",
+        })
+    zaloga.sort(key=lambda z: (not z["rejsy"], z["id"]))
+
+    porty = {}
+    for iata, a in snap.airports.items():
+        porty[iata] = {
+            "iata": a.iata, "icao": a.icao, "nazwa": a.name, "tz": a.tz,
+            #: Offset jest juz rozwiazany dla doby snapshotu, wiec panel moze
+            #: pokazywac czasy lokalne bez znajomosci kalendarza zmian czasu.
+            "tz_offset": a.tz_offset_min,
+            "lat": a.lat, "lon": a.lon, "schengen": a.schengen, "eu261": a.eu261,
+            "poziom_slotu": a.slot_level, "otwarcie": a.opens_min, "zamkniecie": a.closes_min,
+            "cisza": None if a.curfew_start_min is None else {
+                "od": a.curfew_start_min, "do": a.curfew_end_min, "rodzaj": a.curfew_kind},
+        }
+
+    typy = {code: {"kod": t.code, "nazwa": t.name, "miejsca": t.seats_total,
+                   "j": t.seats_j, "pe": t.seats_pe, "y": t.seats_y,
+                   "zasieg": t.range_km, "kategoria": t.category,
+                   "uprawnienie": t.rating, "personel": t.cabin_crew}
+            for code, t in snap.aircraft_types.items()}
+
+    return {
+        "dzien": day, "nazwa_dnia": WEEKDAYS_PL[day], "doba": rep.day,
+        "odcisk": snap.digest, "ziarno": seed,
+        "liczby": {
+            "rejsy": rep.flights, "rotacje": rep.rotations,
+            "rotacje_przerwane": rep.broken_rotations, "maszyny": rep.aircraft,
+            "zaloga": rep.crew, "pasazerowie": rep.passengers,
+            "podroze": rep.itineraries,
+            "udzial_transferowych": round(rep.connecting_share * 100, 1),
+            "porty": len(snap.airports), "typy": len(snap.aircraft_types),
+        },
+        "zalozenia": list(rep.assumptions), "braki": list(rep.gaps),
+        "rejsy": rejsy, "rotacje": rotacje, "zaloga": zaloga,
+        "porty": porty, "typy": typy,
+    }
+
+
+#: Wewnetrzne kategorie `SpecialNeed` na kody SSR wg IATA PSCRM. Silnik operuje
+#: piecioma kategoriami, bo tylko one zmieniaja kolejnosc przy odmowie przyjecia
+#: (etap 12). Operacyjnie mowi sie kodem, nie kategoria, wiec panel pokazuje kod.
+SSR_KOD = {
+    "REDUCED_MOBILITY": "WCHR",
+    "UNACCOMPANIED_MINOR": "UMNR",
+    "GROUP": "GRPF",
+    "PET_IN_HOLD": "AVIH",
+    "MEDICAL_ASSIST": "MEDA",
+}
+
+
+def api_slowniki(_: dict[str, list[str]]) -> dict[str, Any]:
+    """Slowniki operacyjne: kody opoznien AHM730, SSR i klasy rezerwacyjne.
+
+    Panel pokazywal wczesniej cztery recznie wpisane kody opoznien. Baza ma ich
+    siedemdziesiat szesc, z sekcja i klasyfikacja EU261 przy kazdym, wiec nie ma
+    powodu ich powtarzac w interfejsie ani wybierac za uzytkownika.
+    """
+    from ..adapters.lot_db import load_lot_db
+
+    db = load_lot_db()
+    sekcje: dict[str, list[dict[str, Any]]] = {}
+    for kod, row in sorted(db.delay_codes.items()):
+        opis, klasa, _waga, sekcja, alfa = row[0], row[1], row[2], row[3], row[4]
+        sekcje.setdefault(sekcja, []).append({
+            "kod": kod, "alfa": alfa, "opis": opis, "klasa": klasa,
+        })
+    return {
+        "kody_opoznien": sekcje,
+        "klasy_eu261": {
+            "c": "odpowiedzialność przewoźnika, odszkodowanie należne",
+            "n": "okoliczność nadzwyczajna, odszkodowanie nienależne, opieka nadal obowiązuje",
+            "d": "kod reakcyjny, dziedziczy klasyfikację przyczyny pierwotnej",
+        },
+        "ssr": {k: {"kod": k, "opis": v[3], "grupa": v[4] if len(v) > 4 else "",
+                    "chroniony": bool(v[5]) if len(v) > 5 else False}
+                for k, v in sorted(db.ssr.items())},
+        "ssr_mapa": SSR_KOD,
+        "klasy_rezerwacyjne": {k: {"klasa": k, "kabina": v[0], "mnoznik": v[1],
+                                   "priorytet": v[2], "zwrot_pct": v[3], "taryfa": v[4]}
+                               for k, v in sorted(db.booking_classes.items())},
+    }
+
+
+def api_config(_: dict[str, list[str]]) -> dict[str, Any]:
+    """Polityka, ktora silnik stosuje: presety wag, twarde filtry, autoryzacje."""
+    from ..kernel.policy_store import PolicyStore
+
+    store = PolicyStore()
+    #: Wiekszosc wejsc `PolicyStore` to properties, a nie metody. Wywolanie ich
+    #: nawiasem konczylo sie `TypeError: 'list' object is not callable`.
+    return {
+        "presety": store.presets,
+        "twarde_filtry": store.hard_filters,
+        "autoryzacja": store.authorization,
+        "eskalacja": store.escalation,
+        "sop": store.sop,
+        "koszt": store.cost,
+        "prawo": store.legal,
+        "ftl": store.ftl,
+        "kurs_eur_pln": store.eur_pln,
+        "nadpisania_zadeklarowane": store.declared_overrides(),
+        "nadpisania_zastosowane": store.applied_overrides(),
+    }
+
+
 # ---- POST ----
 
 
@@ -228,10 +513,19 @@ def post_run(body: dict[str, Any]) -> dict[str, Any]:
     day = int(body.get("day", 4))
     seed = int(body.get("seed", 2026))
     delay = int(body.get("delay", 180))
+    overbooking = int(body.get("overbooking", 0))
+    priority = int(body.get("priority", 50))
     if not 0 <= day <= 6:
         raise ApiError(f"dzien tygodnia poza zakresem 0-6: {day}")
     if not 0 <= delay <= 24 * 60:
         raise ApiError(f"opoznienie poza zakresem 0-1440 min: {delay}")
+    if not 0 <= overbooking <= 500:
+        raise ApiError(f"nadsprzedaz poza zakresem 0-500: {overbooking}")
+    if not 0 <= priority <= 100:
+        raise ApiError(f"priorytet poza zakresem 0-100: {priority}")
+    if delay == 0 and overbooking == 0:
+        raise ApiError(
+            "nie ma czego liczyc: ustaw opoznienie albo nadsprzedaz")
     try:
         decision = Decision(str(body.get("decision", "ACCEPT")).upper())
     except ValueError as exc:
@@ -248,7 +542,12 @@ def post_run(body: dict[str, Any]) -> dict[str, Any]:
         weekday=day, seed=seed,
         flight_id=(body.get("flight") or None),
         delay_min=delay,
-        delay_code=str(body.get("code") or "41"),
+        # Pusty kod znaczy "bez kodu". Node 04 sam dobierze 14 PO dla samej
+        # nadsprzedazy, zamiast liczyc cene opoznienia, ktorego nie ma.
+        delay_code=(body.get("code") or None),
+        overbooking=overbooking,
+        priority=priority,
+        preset=str(body.get("preset") or "STANDARD"),
         decision=decision,
         chosen_option=(body.get("option") or None),
         reason_code=str(body.get("reason") or ""),
@@ -286,11 +585,8 @@ def post_run(body: dict[str, Any]) -> dict[str, Any]:
 
 def api_flights(query: dict[str, list[str]]) -> dict[str, Any]:
     """Rejsy doby jako kandydaci do zaklocenia -- z liczba pasazerow i odcinkow ponizej."""
-    from ..adapters.network import build_snapshot
-
     day = _int(query, "day", 4, 0, 6)
-    with _ENGINE_LOCK:
-        snap, _ = build_snapshot(weekday=day, seed=_int(query, "seed", 2026, 0, 10**9))
+    snap, _ = _snapshot(day, _int(query, "seed", 2026, 0, 10**9))
 
     seated: dict[str, int] = {}
     for pax in snap.passengers.values():
@@ -360,6 +656,9 @@ ROUTES_GET: dict[str, Callable[[dict[str, list[str]]], dict[str, Any]]] = {
     "/api/ai": api_ai_output,
     "/api/flights": api_flights,
     "/api/board": api_board,
+    "/api/day": api_day,
+    "/api/config": api_config,
+    "/api/slowniki": api_slowniki,
 }
 
 ROUTES_POST: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {

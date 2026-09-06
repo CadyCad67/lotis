@@ -63,7 +63,26 @@ class ScenariuszeNode(Node):
         skipped: list[dict[str, str]] = []
 
         # ---- 1. HOLD: opcja zero, czyli poczekaj i lec ----
-        options.append(_hold(flight, delay, pax_ids))
+        # Ile osob nie zmiesci sie w kabinie po doliczeniu nadsprzedazy.
+        spec = snap.aircraft_types.get(flight.type_code)
+        seats = spec.seats_total if spec else 0
+        spill = (max(0, len(pax_ids) + disruption.overbooking - seats)
+                 if seats else 0)
+        options.append(_hold(flight, delay, pax_ids, spill))
+
+        # Nadsprzedaz ma wlasna odpowiedz: przeniesc nadmiarowych na kolejny
+        # wlasny rejs i wypuscic ten zgodnie z planem. Bez tej opcji silnik mial
+        # do wyboru tylko warianty dla calego rejsu -- czekanie, odwolanie albo
+        # przebukowanie wszystkich -- i przy siedmiu osobach ponad pojemnosc
+        # potrafil zaproponowac odwolanie calego samolotu.
+        if spill:
+            alternatywy = _own_alternatives(snap, flight)
+            if alternatywy:
+                options.append(_rebook_spill(flight, alternatywy, pax_ids,
+                                             spill, delay))
+            else:
+                skipped.append({"id": "REBOOK-SPILL",
+                                "powod": "brak wlasnego rejsu dla nadmiarowych"})
 
         # ---- 2. SWAP: para rejsow ----
         if allowed.get("SWAP"):
@@ -146,18 +165,39 @@ class ScenariuszeNode(Node):
 # ---------------------------------------------------------------- generatory
 
 
-def _hold(flight: Flight, delay: int, pax_ids: tuple[str, ...]) -> Option:
+def _hold(flight: Flight, delay: int, pax_ids: tuple[str, ...],
+          spill: int = 0) -> Option:
+    """Opcja zero: poczekaj i lec tym samym samolotem.
+
+    Przy nadsprzedazy czekanie nie rozwiazuje niczego dla nadmiarowych
+    pasazerow: samolot ma tyle foteli, ile ma, wiec `spill` osob i tak zostaje
+    na ziemi. Sa oznaczeni jako odmowa przyjecia wbrew woli, bo tylko wtedy
+    node 09 wyceni Art. 4 ust. 3, a node 12 ulozy kolejnosc schodzenia
+    z pasazerami chronionymi na koncu.
+    """
+    outcomes = {}
+    for index, pax in enumerate(pax_ids):
+        outcomes[pax] = (
+            PaxOutcome(PaxOutcomeKind.OFFLOADED_INVOLUNTARY)
+            if index < spill
+            else PaxOutcome(PaxOutcomeKind.DELAYED, delay_min=delay)
+        )
+    etykieta = (f"Wstrzymaj odlot o {delay} min" if delay
+                else "Odlec zgodnie z rozkladem")
+    if spill:
+        etykieta += f", {spill} pasazerow nie wejdzie na poklad"
     return Option(
         id="HOLD",
         kind=OptionKind.MODIFYING,
         generator="SZ.HOLD",
-        label=f"Wstrzymaj odlot o {delay} min",
+        label=etykieta,
         affected_flights=(flight.id,),
         delay_min={flight.id: delay},
-        pax_outcomes={p: PaxOutcome(PaxOutcomeKind.DELAYED, delay_min=delay)
-                      for p in pax_ids},
+        pax_outcomes=outcomes,
         notes=("koszt = minuty x stawka krancowa typu + propagacja",
-               "ekspozycja EU261 rosnie po przekroczeniu 3 h na przylocie"),
+               "ekspozycja EU261 rosnie po przekroczeniu 3 h na przylocie")
+              + (("odmowa przyjecia z nadsprzedazy: Art. 4 ust. 3 odsyla do Art. 7",)
+                 if spill else ()),
     )
 
 
@@ -219,6 +259,37 @@ def _swaps(snap: Snapshot, db, flight: Flight, delay: int,
         if len(out) >= 3:
             break
     return out
+
+
+def _rebook_spill(flight: Flight, alternatives: list[Flight],
+                  pax_ids: tuple[str, ...], spill: int, delay: int) -> Option:
+    """Przebukuj tylko tych, ktorzy sie nie miesza. Reszta leci tym rejsem.
+
+    To jest wlasciwa odpowiedz na nadsprzedaz: rejs odlatuje, a nadmiarowi
+    pasazerowie ida na kolejny wlasny rejs. Art. 4 ust. 1 kaze najpierw szukac
+    ochotnikow, dlatego oznaczamy ich jako przebukowanych, a nie jako odmowe
+    przyjecia wbrew woli -- ta jest droga i zostaje dla opcji HOLD.
+    """
+    target = alternatives[0]
+    wait = int((target.std - flight.std).total_seconds() // 60)
+    outcomes = {}
+    for index, pax in enumerate(pax_ids):
+        outcomes[pax] = (
+            PaxOutcome(PaxOutcomeKind.REBOOKED_OWN, delay_min=wait)
+            if index < spill
+            else PaxOutcome(PaxOutcomeKind.DELAYED, delay_min=delay)
+        )
+    return Option(
+        id="REBOOK-SPILL",
+        kind=OptionKind.MODIFYING,
+        generator="SZ.REBOOK-SPILL",
+        label=f"Przenies {spill} nadmiarowych na {target.number} (+{wait} min)",
+        affected_flights=(flight.id, target.id),
+        delay_min={flight.id: delay} if delay else {},
+        pax_outcomes=outcomes,
+        notes=("Art. 4 ust. 1: najpierw ochotnicy, dopiero potem odmowa wbrew woli",
+               f"czekanie {wait} min liczy sie do progu opieki z Art. 9"),
+    )
 
 
 def _rebook_own(flight: Flight, alternatives: list[Flight],
