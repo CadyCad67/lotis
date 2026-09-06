@@ -5,773 +5,1935 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LOTIS V1 — panel operacyjny</title>
 <style>
-  :root{
-    --bg:#0d1117; --panel:#151b23; --panel2:#1c232d; --panel3:#232c38;
-    --line:#2a3441; --line2:#3a4655;
-    --ink:#e6edf3; --dim:#9aa7b4; --dim2:#6e7d8c;
-    --accent:#4a9eff; --accent2:#8b5cf6;
-    --ok:#3fb950; --warn:#d29922; --err:#f85149; --info:#58a6ff;
-    --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,monospace;
-    --r:8px;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-       font:14px/1.55 system-ui,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-  code{font-family:var(--mono);font-size:.92em;background:var(--panel2);
-       padding:1px 5px;border-radius:4px;color:#a5d6ff}
+/* ============================================================================
+   TOKENY
+   Paleta kategorialna i chrom wykresow pochodza ze zwalidowanego zestawu:
+   8 slotow przechodzi kontrole pasma jasnosci, progu chromy, separacji CVD
+   (najgorsza para sasiednia dE 9.1) i progu widzenia normalnego (dE 19.6).
+   Trzy odcienie (aqua, zolty, magenta) maja kontrast ponizej 3:1 wobec tla,
+   dlatego kazdy wykres ma widoczne etykiety i blizniaka tabelarycznego --
+   to nie jest ozdoba, tylko wymog dostepnosci wynikajacy z tego pomiaru.
+   Panel jest swiadomie jednomotywowy (jasny), stad jawne color-scheme:
+   bez niego formanty systemowe na ciemnym Windowsie zrobilyby sie czarne.
+   ========================================================================= */
+:root{
+  color-scheme:light;
 
-  header{background:var(--panel);border-bottom:1px solid var(--line);padding:16px 26px 0}
-  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-  h1{margin:0;font-size:18px;letter-spacing:.2px}
-  .brand span{color:var(--dim);font-size:13px}
-  .principle{color:var(--dim2);font-size:12px;margin:5px 0 14px;font-style:italic;
-             letter-spacing:.2px}
-  nav{display:flex;gap:3px;flex-wrap:wrap}
-  nav button{background:none;border:0;border-bottom:2px solid transparent;color:var(--dim);
-    padding:9px 15px;font:inherit;font-size:13.5px;cursor:pointer;border-radius:5px 5px 0 0;
-    transition:.12s}
-  nav button:hover{color:var(--ink);background:var(--panel2)}
-  nav button.on{color:var(--ink);border-bottom-color:var(--accent);background:var(--panel2)}
+  --plane:#f9f9f7;        /* plaszczyzna strony  */
+  --surface:#fcfcfb;      /* powierzchnia karty  */
+  --surface-2:#f3f2ee;    /* wypelnienie wtorne  */
+  --surface-3:#eceae4;
 
-  main{padding:22px 26px 70px;max-width:1400px}
-  section{display:none;animation:in .16s ease-out}
-  section.on{display:block}
-  @keyframes in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+  --ink:#0b0b0b;
+  --ink-2:#52514e;
+  --muted:#898781;
 
-  h2{font-size:14.5px;margin:24px 0 9px;letter-spacing:.2px}
-  h2:first-child{margin-top:0}
-  h3{font-size:13px;margin:16px 0 7px;color:var(--dim);text-transform:uppercase;
-     letter-spacing:.6px;font-weight:600}
-  p.note{color:var(--dim);font-size:12.5px;margin:-3px 0 13px;max-width:78ch;line-height:1.6}
+  --grid:#e1e0d9;
+  --axis:#c3c2b7;
+  --border:rgba(11,11,11,.10);
+  --border-2:rgba(11,11,11,.16);
 
-  .box{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
-       padding:15px 17px;margin:11px 0}
-  .box.tight{padding:11px 14px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-  @media(max-width:980px){.grid2,.grid3{grid-template-columns:1fr}}
+  /* kategorialne -- kolejnosc slotow jest mechanizmem bezpieczenstwa CVD,
+     nie kosmetyka; nie wolno jej przestawiac ani cyklicznie powtarzac */
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --other:#b6b4ad;
 
-  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:9px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
-        padding:11px 13px}
-  .card .v{font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;
-           letter-spacing:-.4px;line-height:1.25}
-  .card .k{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.4px;
-           margin-top:3px}
-  .card .u{color:var(--dim2);font-size:11.5px;font-weight:400;margin-left:3px}
+  /* sekwencyjne (blekit) -- magnitudo */
+  --b100:#cde2fb; --b250:#86b6ef; --b450:#2a78d6; --b550:#1c5cab; --b650:#104281;
 
-  .row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:10px 0}
-  .row label{color:var(--dim);font-size:12.5px;display:flex;align-items:center;gap:6px}
-  button.act{background:var(--accent);color:#08111e;border:0;border-radius:6px;
-    padding:8px 16px;font:inherit;font-weight:600;cursor:pointer;transition:.12s}
-  button.act:hover:not(:disabled){filter:brightness(1.12)}
-  button.act:disabled{opacity:.4;cursor:not-allowed}
-  button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line2)}
-  button.ghost:hover:not(:disabled){background:var(--panel3);filter:none}
-  select,input[type=text],input[type=number]{background:var(--panel2);color:var(--ink);
-    border:1px solid var(--line2);border-radius:6px;padding:7px 10px;font:inherit;font-size:13px}
-  input[type=number]{width:92px}
-  input[type=range]{accent-color:var(--accent);width:190px}
-  select:focus,input:focus{outline:1px solid var(--accent);border-color:var(--accent)}
+  /* status -- zarezerwowane, nigdy jako seria danych */
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --good-ink:#006300; --crit-ink:#a52121; --warn-ink:#7a5600;
 
-  table{border-collapse:collapse;width:100%;font-size:12.8px}
-  th,td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--line)}
-  th{color:var(--dim);font-weight:600;font-size:11px;text-transform:uppercase;
-     letter-spacing:.4px;white-space:nowrap}
-  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
-  tbody tr:hover{background:var(--panel2)}
-  .scroll{max-height:400px;overflow:auto;border:1px solid var(--line);border-radius:var(--r)}
-  .scroll th{position:sticky;top:0;background:var(--panel);z-index:1}
+  --r:10px; --r-sm:6px;
+  --sh:0 1px 2px rgba(11,11,11,.05), 0 1px 1px rgba(11,11,11,.03);
+  --mono:ui-monospace,"Cascadia Mono","SF Mono",Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+/* Musi bic .f{display:flex}, inaczej pole ukryte atrybutem `hidden`
+   (np. "zamiast rekomendacji" przy decyzji innej niz MODIFY) i tak sie pokazuje. */
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--plane);color:var(--ink);font:14px/1.55 var(--sans);
+     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:focus-visible{outline:2px solid var(--s1);outline-offset:2px;border-radius:3px}
 
-  .pill{display:inline-block;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:600;
-        white-space:nowrap}
-  .pill.ok{background:#0f2e1a;color:var(--ok)} .pill.warn{background:#332a10;color:var(--warn)}
-  .pill.err{background:#3a1618;color:var(--err)} .pill.dim{background:var(--panel3);color:var(--dim)}
-  .pill.info{background:#12263f;color:var(--info)}
-  .mono{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
-  ul.plain{margin:5px 0;padding-left:19px;color:var(--dim);font-size:12.8px}
-  ul.plain li{margin:3px 0}
-  pre{background:#0a0e14;border:1px solid var(--line);border-radius:var(--r);padding:13px;
-      overflow:auto;max-height:460px;font-family:var(--mono);font-size:11.5px;line-height:1.65;
-      white-space:pre-wrap;word-break:break-word;color:#c9d6e2}
-  .msg{padding:9px 13px;border-radius:6px;margin:9px 0;font-size:12.8px;line-height:1.6}
-  .msg.err{background:#2a1416;border:1px solid #5c2226;color:#ff9a93}
-  .msg.ok{background:#0d2415;border:1px solid #1f5c2e;color:#7ee39a}
-  .msg.warn{background:#2a2110;border:1px solid #5c4a1a;color:#e3c37e}
-  .msg.info{background:var(--panel2);border:1px solid var(--line2);color:var(--dim)}
-  .spin{color:var(--dim);font-size:12.5px}
-  .spin::after{content:"";display:inline-block;width:9px;text-align:left;
-               animation:dots 1.1s steps(4,end) infinite}
-  @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+/* ------------------------------------------------------------------ szkielet */
+.app{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:100vh}
 
-  /* ---- ranking ---- */
-  .rank{display:grid;grid-template-columns:26px 1fr;gap:11px;align-items:start;
-        padding:11px 0;border-bottom:1px solid var(--line)}
-  .rank:last-child{border-bottom:0}
-  .rank .no{font-size:16px;font-weight:700;color:var(--dim2);text-align:right;
-            font-variant-numeric:tabular-nums;padding-top:1px}
-  .rank.win .no{color:var(--ok)}
-  .rank .hd{display:flex;justify-content:space-between;gap:10px;align-items:baseline;
-            flex-wrap:wrap}
-  .rank .nm{font-weight:600;font-size:13.5px}
-  .rank .amt{font-family:var(--mono);font-size:13.5px;font-variant-numeric:tabular-nums}
-  .rank .lb{color:var(--dim);font-size:12px;margin:2px 0 6px}
-  .bar{position:relative;height:19px;background:var(--panel2);border-radius:4px;
-       overflow:visible;border:1px solid var(--line)}
-  .bar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;
-             background:linear-gradient(90deg,#2d5a8a,#4a9eff)}
-  .rank.win .bar .fill{background:linear-gradient(90deg,#1c5e33,#3fb950)}
-  .bar .whisk{position:absolute;top:-3px;bottom:-3px;border-left:2px solid var(--dim2);
-              border-right:2px solid var(--dim2);opacity:.75}
-  .rank .meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--dim2);font-size:11.5px;
-              margin-top:5px}
+.sidebar{position:sticky;top:0;height:100vh;background:var(--surface);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
+.brand{padding:18px 20px 16px;border-bottom:1px solid var(--border)}
+.brand .mark{display:flex;align-items:center;gap:9px}
+.brand .glyph{width:26px;height:26px;border-radius:7px;background:var(--b450);
+  display:grid;place-items:center;flex:none}
+.brand .glyph svg{width:15px;height:15px;fill:#fff}
+.brand b{font-size:15px;letter-spacing:-.1px}
+.brand small{display:block;color:var(--muted);font-size:11.5px;margin-top:5px;line-height:1.45}
 
-  /* ---- waterfall kosztu ---- */
-  .wf{display:flex;height:26px;border-radius:5px;overflow:hidden;border:1px solid var(--line)}
-  .wf div{position:relative}
-  .wf div:hover{filter:brightness(1.25)}
-  .legend{display:flex;gap:13px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:var(--dim)}
-  .legend span{display:flex;align-items:center;gap:5px}
-  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.side-nav{padding:12px 10px;flex:1}
+.side-nav .grp{color:var(--muted);font-size:10.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.7px;padding:12px 10px 6px}
+.side-nav button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;
+  color:var(--ink-2);font:inherit;font-size:13.5px;text-align:left;padding:8px 10px;
+  border-radius:var(--r-sm);cursor:pointer;transition:background .12s,color .12s}
+.side-nav button:hover{background:var(--surface-2);color:var(--ink)}
+.side-nav button.on{background:#eaf2fd;color:var(--b550);font-weight:600}
+.side-nav button .ic{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;
+  stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.side-foot{padding:14px 20px;border-top:1px solid var(--border);color:var(--muted);
+  font-size:11px;line-height:1.6}
+.side-foot code{font-family:var(--mono);font-size:10.5px}
 
-  /* ---- mapa nodes ---- */
-  .flow{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}
-  .nd{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
-      padding:10px 12px;cursor:pointer;transition:.12s;border-left:3px solid var(--line2)}
-  .nd:hover{background:var(--panel2);border-left-color:var(--accent)}
-  .nd.on{background:var(--panel3);border-left-color:var(--accent)}
-  .nd .id{font-family:var(--mono);font-size:11px;color:var(--dim2)}
-  .nd .ti{font-weight:600;font-size:12.8px;margin:2px 0 4px}
-  .nd .io{font-size:11px;color:var(--dim2);font-family:var(--mono);line-height:1.5}
-  .nd.s-ok{border-left-color:var(--ok)} .nd.s-degraded{border-left-color:var(--warn)}
-  .nd.s-blocked{border-left-color:var(--err)}
+.main{display:flex;flex-direction:column;min-width:0}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(252,252,251,.88);
+  backdrop-filter:saturate(1.6) blur(8px);border-bottom:1px solid var(--border);
+  padding:0 28px;display:flex;align-items:center;gap:16px;min-height:57px}
+.topbar h1{margin:0;font-size:15px;font-weight:600;letter-spacing:-.1px}
+.topbar .sub{color:var(--muted);font-size:12.5px}
+.topbar .sp{flex:1}
+.viewport{padding:24px 28px 80px;max-width:1460px;width:100%}
 
-  /* ---- karta wykonania ---- */
-  .karta{background:linear-gradient(160deg,#141d2a,#151b23);
-         border:1px solid #2d4560;border-radius:10px;padding:17px 19px;margin:12px 0}
-  .karta h3{color:var(--accent);margin-top:0;font-size:11.5px}
-  .karta .ttl{font-size:16px;font-weight:600;margin-bottom:11px}
-  .karta ul{margin:6px 0;padding-left:19px;font-size:13px}
-  .karta li{margin:4px 0}
-  .karta .costs{display:flex;gap:20px;margin:13px 0 9px;flex-wrap:wrap}
-  .karta .costs div{font-family:var(--mono);font-variant-numeric:tabular-nums}
-  .karta .costs small{display:block;font-family:system-ui;color:var(--dim2);font-size:10.5px;
-                      text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
-  .karta .exp{font-size:17px;font-weight:600}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--border)}
+  .side-nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px}
+  .side-nav .grp{display:none}
+  .side-nav button{width:auto}
+  .side-foot{display:none}
+  .topbar,.viewport{padding-left:16px;padding-right:16px}
+}
 
-  .split{display:grid;grid-template-columns:222px 1fr;gap:13px}
-  @media(max-width:900px){.split{grid-template-columns:1fr}}
-  .list{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
-        max-height:520px;overflow-y:auto}
-  .list div{padding:8px 11px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12.5px}
-  .list div:hover{background:var(--panel2)}
-  .list div.on{background:#16283f;box-shadow:inset 2px 0 0 var(--accent)}
-  .list div small{display:block;color:var(--dim2);font-size:10.5px;margin-top:1px}
-  details{margin:5px 0}
-  summary{cursor:pointer;color:var(--dim);font-size:12.5px;padding:3px 0}
-  summary:hover{color:var(--ink)}
+section{display:none}
+section.on{display:block;animation:fade .18s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ------------------------------------------------------------------ typografia */
+.h-sec{font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--muted);margin:30px 0 12px}
+.h-sec:first-child{margin-top:0}
+h2{font-size:16px;font-weight:600;margin:0 0 4px;letter-spacing:-.1px}
+h3{font-size:13.5px;font-weight:600;margin:0 0 4px}
+.note{color:var(--ink-2);font-size:12.8px;line-height:1.65;max-width:80ch;margin:0 0 14px}
+.note.tight{margin-bottom:8px}
+code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);
+  border:1px solid var(--border);padding:.5px 5px;border-radius:4px;color:var(--b550)}
+.mono{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+
+/* ------------------------------------------------------------------ karty */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  box-shadow:var(--sh);margin:0 0 16px}
+.card__head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;
+  align-items:center;gap:12px;flex-wrap:wrap}
+.card__head .sp{flex:1}
+.card__body{padding:18px}
+.card__body.flush{padding:0}
+.card.plain{box-shadow:none}
+
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1080px){.g2,.g3{grid-template-columns:1fr}}
+
+/* ------------------------------------------------------------------ KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px;
+  margin:0 0 16px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:13px 15px;box-shadow:var(--sh)}
+.kpi .k{color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.3px;
+  margin:0 0 5px;line-height:1.35}
+.kpi .v{font-size:22px;font-weight:600;letter-spacing:-.5px;line-height:1.2}
+.kpi .u{font-size:12.5px;font-weight:500;color:var(--muted);margin-left:3px}
+.kpi .d{font-size:11.5px;color:var(--ink-2);margin-top:4px}
+
+/* hero -- dokladnie jeden na widok */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  box-shadow:var(--sh);padding:20px 24px;margin:0 0 16px;
+  display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap}
+.hero .lab{color:var(--muted);font-size:11.5px;font-weight:500;letter-spacing:.4px;
+  text-transform:uppercase;margin-bottom:6px}
+.hero .fig{font-size:46px;font-weight:600;letter-spacing:-1.6px;line-height:1.05}
+.hero .cur{font-size:19px;font-weight:500;color:var(--ink-2);margin-left:6px;letter-spacing:0}
+.hero .band{color:var(--ink-2);font-size:12.5px;margin-top:7px}
+.hero .side{display:flex;gap:26px;flex-wrap:wrap;padding-bottom:4px}
+.hero .side div .t{color:var(--muted);font-size:11px;letter-spacing:.3px;margin-bottom:3px}
+.hero .side div .b{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* ------------------------------------------------------------------ formanty */
+.controls{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  box-shadow:var(--sh);padding:14px 16px;margin:0 0 18px;
+  display:flex;gap:14px 18px;flex-wrap:wrap;align-items:flex-end}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.f > span{color:var(--ink-2);font-size:11.5px;font-weight:500;letter-spacing:.2px}
+.f--grow{flex:1;min-width:220px}
+select,input[type=text],input[type=number]{background:var(--surface);color:var(--ink);
+  border:1px solid var(--border-2);border-radius:var(--r-sm);padding:7px 10px;font:inherit;
+  font-size:13px;min-height:34px;max-width:100%}
+select:hover,input:hover{border-color:var(--axis)}
+select:focus,input:focus{outline:none;border-color:var(--s1);box-shadow:0 0 0 3px rgba(42,120,214,.14)}
+input[type=range]{accent-color:var(--s1);width:170px;height:34px}
+label.chk{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);
+  min-height:34px;cursor:pointer}
+label.chk input{accent-color:var(--s1);width:15px;height:15px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  background:var(--b450);color:#fff;border:1px solid var(--b450);border-radius:var(--r-sm);
+  padding:8px 15px;font:inherit;font-size:13px;font-weight:600;min-height:34px;
+  cursor:pointer;transition:background .12s,border-color .12s,opacity .12s;white-space:nowrap}
+.btn:hover:not(:disabled){background:var(--b550);border-color:var(--b550)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn--ghost{background:var(--surface);color:var(--ink);border-color:var(--border-2);font-weight:500}
+.btn--ghost:hover:not(:disabled){background:var(--surface-2);border-color:var(--axis)}
+.btn--sm{padding:5px 11px;min-height:28px;font-size:12.5px}
+
+/* segmentowany przelacznik wykres/tabela */
+.seg{display:inline-flex;border:1px solid var(--border-2);border-radius:var(--r-sm);
+  overflow:hidden;background:var(--surface)}
+.seg button{background:none;border:0;padding:5px 11px;font:inherit;font-size:12px;
+  color:var(--ink-2);cursor:pointer;min-height:28px}
+.seg button + button{border-left:1px solid var(--border-2)}
+.seg button.on{background:var(--surface-3);color:var(--ink);font-weight:600}
+
+/* ------------------------------------------------------------------ status */
+.chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px 2px 7px;
+  border-radius:20px;font-size:11.5px;font-weight:600;white-space:nowrap;
+  border:1px solid transparent;line-height:1.6}
+.chip .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.chip--ok{background:#eaf7ea;color:#0a6d0a;border-color:#c4e6c4}
+.chip--ok .dot{background:var(--good)}
+.chip--warn{background:#fdf4e0;color:var(--warn-ink);border-color:#f2dfae}
+.chip--warn .dot{background:var(--warn)}
+.chip--crit{background:#fbeaea;color:var(--crit-ink);border-color:#f0c8c8}
+.chip--crit .dot{background:var(--crit)}
+.chip--neutral{background:var(--surface-2);color:var(--ink-2);border-color:var(--border)}
+.chip--neutral .dot{background:var(--muted)}
+.chip--info{background:#eaf2fd;color:var(--b550);border-color:#c9dffa}
+.chip--info .dot{background:var(--s1)}
+
+.banner{display:flex;gap:11px;padding:12px 15px;border-radius:var(--r);margin:0 0 16px;
+  font-size:13px;line-height:1.6;border:1px solid}
+.banner .ic{flex:none;width:16px;height:16px;margin-top:2px}
+.banner--ok{background:#f2faf2;border-color:#cfe8cf;color:#125512}
+.banner--warn{background:#fdf7e8;border-color:#efdfb4;color:#6b4d05}
+.banner--err{background:#fdf0f0;border-color:#f0cccc;color:#8c1f1f}
+.banner--info{background:#f4f7fc;border-color:var(--border);color:var(--ink-2)}
+.banner b{font-weight:600}
+
+.empty{border:1px dashed var(--border-2);border-radius:var(--r);padding:34px 26px;
+  text-align:center;color:var(--muted);background:var(--surface)}
+.empty .t{color:var(--ink-2);font-size:13.5px;font-weight:600;margin-bottom:5px}
+.empty .d{font-size:12.5px;max-width:56ch;margin:0 auto;line-height:1.65}
+
+/* podtrzymanie poprzedniego renderu przy odswiezaniu -- bez migotania szkieletu */
+.is-loading{opacity:.45;pointer-events:none;transition:opacity .12s}
+.load{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px}
+.load i{width:12px;height:12px;border:2px solid var(--grid);border-top-color:var(--s1);
+  border-radius:50%;animation:spin .7s linear infinite;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ------------------------------------------------------------------ tabele */
+.tw{overflow:auto;max-height:440px;border-radius:0 0 var(--r) var(--r)}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:12.8px}
+th,td{text-align:left;padding:8px 14px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{position:sticky;top:0;z-index:1;background:var(--surface-2);color:var(--ink-2);
+  font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;
+  border-bottom:1px solid var(--border)}
+th.sort{cursor:pointer;user-select:none}
+th.sort:hover{color:var(--ink)}
+th .ar{opacity:.35;margin-left:4px;font-size:9px}
+th.act .ar{opacity:1}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);
+  font-size:11.8px}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+td.strong{font-weight:600}
+
+/* ------------------------------------------------------------------ wykresy */
+.chart{margin:0;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);box-shadow:var(--sh);margin-bottom:16px}
+.chart__head{padding:14px 18px 10px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.chart__head .sp{flex:1;min-width:140px}
+.chart__head h3{margin:0 0 3px}
+.chart__head .cap{color:var(--muted);font-size:12px;line-height:1.5;max-width:74ch}
+.chart__body{padding:2px 14px 14px}
+.chart__body svg{display:block;width:100%;height:auto;overflow:visible}
+.chart__table{display:none;border-top:1px solid var(--border)}
+.chart.tableview .chart__body{display:none}
+.chart.tableview .chart__table{display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:2px 18px 15px;font-size:11.8px;
+  color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;flex:none}
+.legend i.line{width:14px;height:2px;border-radius:2px}
+
+/* elementy SVG */
+.ax-line{stroke:var(--axis);stroke-width:1;shape-rendering:crispEdges}
+.gridline{stroke:var(--grid);stroke-width:1;shape-rendering:crispEdges}
+.ax-t{fill:var(--muted);font-size:11px;font-family:var(--sans);font-variant-numeric:tabular-nums}
+.ax-c{fill:var(--ink-2);font-size:11.5px;font-family:var(--sans)}
+.val-t{fill:var(--ink);font-size:11.5px;font-weight:600;font-family:var(--sans);
+  font-variant-numeric:tabular-nums}
+.hit{fill:transparent;cursor:default}
+.mk{transition:opacity .1s}
+.mk.dim{opacity:.35}
+
+#tip{position:fixed;z-index:100;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r-sm);
+  box-shadow:0 4px 14px rgba(11,11,11,.13);padding:8px 11px;font-size:12px;max-width:280px}
+#tip.on{opacity:1}
+#tip .tt{font-weight:600;font-size:12.5px;margin-bottom:5px;color:var(--ink)}
+#tip .tr{display:flex;align-items:center;gap:7px;margin-top:3px}
+#tip .tr i{width:12px;height:2px;border-radius:2px;flex:none}
+#tip .tr .tv{font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+#tip .tr .tk{color:var(--ink-2);font-size:11.5px}
+
+/* ------------------------------------------------------------------ ranking */
+.rank-note{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+
+/* ------------------------------------------------------------------ karta wykonania */
+.karta{border:1px solid #c9dffa;background:linear-gradient(180deg,#f6faff,var(--surface) 120px);
+  border-radius:var(--r);box-shadow:var(--sh);margin:0 0 16px;overflow:hidden}
+.karta__head{padding:15px 20px;border-bottom:1px solid #dfeafa;display:flex;gap:12px;
+  align-items:center;flex-wrap:wrap}
+.karta__head .t{font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--b550)}
+.karta__head .n{font-size:16px;font-weight:600;letter-spacing:-.2px;flex:1;min-width:180px}
+.karta__body{padding:18px 20px}
+.karta__cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;
+  padding:14px 0 0;margin-top:14px;border-top:1px solid var(--border)}
+.karta__cols .t{color:var(--muted);font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;
+  margin-bottom:4px}
+.karta__cols .b{font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+ul.steps{margin:0;padding:0;list-style:none}
+ul.steps li{position:relative;padding:0 0 0 22px;margin:7px 0;font-size:13px;line-height:1.6}
+ul.steps li::before{content:"";position:absolute;left:5px;top:8px;width:6px;height:6px;
+  border-radius:50%;background:var(--b250)}
+ul.plain{margin:6px 0;padding-left:20px;color:var(--ink-2);font-size:12.8px;line-height:1.65}
+ul.plain li{margin:3px 0}
+
+/* ------------------------------------------------------------------ node'y */
+.nodes{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:11px}
+.node{position:relative;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px 14px 12px 15px;cursor:pointer;text-align:left;
+  font:inherit;color:inherit;transition:border-color .12s,box-shadow .12s,background .12s;
+  box-shadow:var(--sh);overflow:hidden}
+.node::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grid)}
+.node:hover{border-color:var(--border-2);box-shadow:0 2px 6px rgba(11,11,11,.07)}
+.node.on{border-color:var(--s1);box-shadow:0 0 0 3px rgba(42,120,214,.13)}
+.node.on::before,.node:hover::before{background:var(--b250)}
+.node.st-ok::before{background:var(--good)}
+.node.st-degraded::before{background:var(--warn)}
+.node.st-blocked::before{background:var(--crit)}
+.node .id{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.3px}
+.node .ti{font-weight:600;font-size:13px;margin:3px 0 7px;line-height:1.35}
+.node .io{font-size:10.8px;color:var(--muted);font-family:var(--mono);line-height:1.6;
+  word-break:break-word}
+.node .ft{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+
+/* ------------------------------------------------------------------ master-detail */
+.split{display:grid;grid-template-columns:262px minmax(0,1fr);gap:16px;align-items:start}
+@media(max-width:1000px){.split{grid-template-columns:1fr}}
+.rows{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  box-shadow:var(--sh);max-height:600px;overflow-y:auto}
+.rows button{display:block;width:100%;text-align:left;background:none;border:0;
+  border-bottom:1px solid var(--grid);padding:11px 14px;font:inherit;cursor:pointer;
+  color:inherit;position:relative}
+.rows button:last-child{border-bottom:0}
+.rows button:hover{background:var(--surface-2)}
+.rows button.on{background:#eaf2fd;box-shadow:inset 3px 0 0 var(--s1)}
+.rows .rid{font-family:var(--mono);font-size:12px;font-weight:600}
+.rows .rm{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+
+details.rep{border:1px solid var(--border);border-radius:var(--r-sm);margin:8px 0;
+  background:var(--surface);overflow:hidden}
+details.rep summary{cursor:pointer;padding:9px 14px;font-size:12.8px;color:var(--ink-2);
+  display:flex;align-items:center;gap:9px;list-style:none}
+details.rep summary::-webkit-details-marker{display:none}
+details.rep summary::before{content:"▸";color:var(--muted);font-size:10px;transition:transform .15s}
+details.rep[open] summary::before{transform:rotate(90deg)}
+details.rep summary:hover{background:var(--surface-2)}
+details.rep summary .sp{flex:1}
+details.rep pre{margin:0;border-top:1px solid var(--border)}
+pre{background:var(--surface-2);padding:14px 16px;overflow:auto;max-height:430px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;white-space:pre-wrap;
+  word-break:break-word;color:var(--ink-2)}
+
+.kv{width:100%;font-size:12.8px}
+.kv td{padding:6px 0;border-bottom:1px solid var(--grid)}
+.kv td:first-child{color:var(--ink-2);width:190px}
+.kv tr:last-child td{border-bottom:0}
+
+.meter{height:8px;border-radius:5px;background:var(--b100);overflow:hidden;margin:8px 0 0}
+.meter i{display:block;height:100%;background:var(--b450);border-radius:5px}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
-    <h1>LOTIS V1</h1>
-    <span>system wspomagania decyzji IROPS · LOT Polish Airlines</span>
-  </div>
-  <p class="principle">silnik liczy → prawo blokuje → AI wyjaśnia → człowiek decyduje → log pamięta</p>
-  <nav>
-    <button data-tab="scen" class="on">Scenariusz</button>
-    <button data-tab="mapa">Mapa systemu</button>
-    <button data-tab="dane">Dane</button>
-    <button data-tab="runy">Runy</button>
-    <button data-tab="ai">Warstwa AI</button>
-  </nav>
-</header>
+<div class="app">
 
-<main>
-
-<!-- ============================================ SCENARIUSZ -->
-<section id="scen" class="on">
-  <h2>Zagraj zakłócenie</h2>
-  <p class="note">Wybierz dobę, rejs i skalę zakłócenia. Silnik przejdzie osiemnaście etapów:
-    zamrozi stan, policzy baseline, wygeneruje opcje, wyceni każdą, odrzuci niedopuszczalne
-    prawnie i ułoży ranking zakończony kartą wykonania.</p>
-
-  <div class="box">
-    <div class="row">
-      <label>Doba
-        <select id="s-day">
-          <option value="0">poniedziałek</option><option value="1">wtorek</option>
-          <option value="2">środa</option><option value="3">czwartek</option>
-          <option value="4" selected>piątek</option><option value="5">sobota</option>
-          <option value="6">niedziela</option>
-        </select>
-      </label>
-      <label>Rejs
-        <select id="s-flight" style="min-width:290px"><option value="">— wybór automatyczny —</option></select>
-      </label>
-      <button class="act ghost" id="s-load">Wczytaj rejsy doby</button>
+  <!-- ================================================== SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="mark">
+        <span class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
+        </span>
+        <b>LOTIS V1</b>
+      </div>
+      <small>Wspomaganie decyzji IROPS<br>PLL LOT</small>
     </div>
-    <div class="row">
-      <label>Opóźnienie <input type="range" id="s-delay" min="0" max="720" step="15" value="180">
-        <b id="s-delay-v" style="font-family:var(--mono);min-width:62px">180 min</b></label>
-      <label>Kod AHM 730
-        <select id="s-code">
-          <option value="41">41 — usterka techniczna (przewoźnik)</option>
-          <option value="71">71 — pogoda (nadzwyczajna)</option>
-          <option value="93">93 — reakcyjne, rotacja</option>
-          <option value="ZZZ">ZZZ — kod nieznany</option>
-        </select>
-      </label>
+
+    <nav class="side-nav" id="nav">
+      <div class="grp">Operacje</div>
+      <button data-tab="scen" class="on">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4.5 12.5H11l-1 9.5 8.5-10.5H12z"/></svg>
+        Scenariusz
+      </button>
+      <button data-tab="runy">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h9"/></svg>
+        Uruchomienia
+      </button>
+      <div class="grp">System</div>
+      <button data-tab="dane">
+        <svg class="ic" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></svg>
+        Dane źródłowe
+      </button>
+      <button data-tab="mapa">
+        <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Mapa etapów
+      </button>
+      <button data-tab="ai">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/></svg>
+        Warstwa AI
+      </button>
+    </nav>
+
+    <div class="side-foot">
+      <div id="side-health"><span class="load"><i></i>sprawdzam źródła</span></div>
+      <div style="margin-top:9px">silnik liczy → prawo blokuje → AI wyjaśnia → człowiek decyduje → log pamięta</div>
     </div>
-    <div class="row">
-      <label>Decyzja
-        <select id="s-decision">
-          <option value="ACCEPT">Accept — przyjmij rekomendację</option>
-          <option value="MODIFY">Modify — wybierz inną opcję</option>
-          <option value="REJECT">Reject — odrzuć</option>
-        </select>
-      </label>
-      <label id="s-option-wrap" hidden>Zamiast rekomendacji
-        <select id="s-option"><option value="">— najpierw uruchom przepływ —</option></select>
-      </label>
-      <label>Symuluj porażkę wykonania
-        <select id="s-fail">
-          <option value="">— brak —</option>
-          <option value="potwierdzenie_partnera">potwierdzenie partnera</option>
-          <option value="nowy_slot">nowy slot</option>
-          <option value="kasacja_w_systemie">kasacja w systemie</option>
-        </select>
-      </label>
-      <button class="act" id="s-go">Uruchom przepływ</button>
-      <span id="s-msg" class="spin"></span>
+  </aside>
+
+  <!-- ================================================== MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <h1 id="top-title">Scenariusz</h1>
+      <span class="sub" id="top-sub">rozegraj zakłócenie</span>
+      <span class="sp"></span>
+      <span id="top-status"></span>
+    </header>
+
+    <div class="viewport">
+
+      <!-- ========================================== SCENARIUSZ -->
+      <section id="scen" class="on">
+        <h2>Rozegraj zakłócenie</h2>
+        <p class="note">Wybierz dobę, rejs i skalę zakłócenia. Silnik przejdzie osiemnaście etapów:
+          zamrozi stan, policzy baseline, wygeneruje opcje, wyceni każdą, odrzuci niedopuszczalne
+          prawnie i ułoży ranking zakończony kartą wykonania.</p>
+
+        <div class="controls">
+          <label class="f"><span>Doba</span>
+            <select id="s-day">
+              <option value="0">poniedziałek</option><option value="1">wtorek</option>
+              <option value="2">środa</option><option value="3">czwartek</option>
+              <option value="4" selected>piątek</option><option value="5">sobota</option>
+              <option value="6">niedziela</option>
+            </select>
+          </label>
+          <label class="f f--grow"><span>Rejs <span id="s-flight-n" class="mono"></span></span>
+            <select id="s-flight"><option value="">— wybór automatyczny —</option></select>
+          </label>
+          <label class="f"><span>Opóźnienie <b id="s-delay-v" class="mono">180 min</b></span>
+            <input type="range" id="s-delay" min="0" max="720" step="15" value="180">
+          </label>
+          <label class="f"><span>Kod AHM 730</span>
+            <select id="s-code">
+              <option value="41">41 — usterka techniczna</option>
+              <option value="71">71 — pogoda (nadzwyczajna)</option>
+              <option value="93">93 — reakcyjne, rotacja</option>
+              <option value="ZZZ">ZZZ — kod nieznany</option>
+            </select>
+          </label>
+          <label class="f"><span>Decyzja</span>
+            <select id="s-decision">
+              <option value="ACCEPT">Accept — przyjmij</option>
+              <option value="MODIFY">Modify — wybierz inną</option>
+              <option value="REJECT">Reject — odrzuć</option>
+            </select>
+          </label>
+          <label class="f" id="s-option-wrap" hidden><span>Zamiast rekomendacji</span>
+            <select id="s-option"><option value="">— najpierw uruchom przepływ —</option></select>
+          </label>
+          <label class="f"><span>Symuluj porażkę wykonania</span>
+            <select id="s-fail">
+              <option value="">— brak —</option>
+              <option value="potwierdzenie_partnera">potwierdzenie partnera</option>
+              <option value="nowy_slot">nowy slot</option>
+              <option value="kasacja_w_systemie">kasacja w systemie</option>
+            </select>
+          </label>
+          <button class="btn" id="s-go">Uruchom przepływ</button>
+          <span id="s-msg"></span>
+        </div>
+
+        <div id="s-out">
+          <div class="empty">
+            <div class="t">Jeszcze nic nie policzono</div>
+            <div class="d">Ustaw parametry powyżej i uruchom przepływ. Wynikiem jest ranking opcji
+              z widełkami niepewności oraz karta wykonania — deterministyczna, bez udziału modelu.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== URUCHOMIENIA -->
+      <section id="runy">
+        <h2>Zapisane uruchomienia</h2>
+        <p class="note">Każdy run zapisuje parę plików na etap: <code>.json</code> jest kanoniczny
+          i z niego cytuje się liczby, <code>.md</code> jest narracją dla modelu. Oba renderuje ten
+          sam obiekt, więc nie mogą się rozjechać.</p>
+        <div class="controls" style="margin-bottom:16px">
+          <button class="btn btn--ghost" id="r-refresh">Odśwież listę</button>
+          <span id="r-msg"></span>
+        </div>
+        <div class="split">
+          <div class="rows" id="r-list"></div>
+          <div id="r-out"></div>
+        </div>
+      </section>
+
+      <!-- ========================================== DANE -->
+      <section id="dane">
+        <h2>Źródła danych</h2>
+        <p class="note">Dwa pliki, rozdzielone rolami: baza parametryczna mówi, jakie są reguły,
+          baza operacyjna mówi, co się faktycznie dzieje. Poza tożsamościami pasażerów nic nie
+          jest generowane.</p>
+        <div id="d-src"><div class="load"><i></i>wczytuję źródła</div></div>
+
+        <div class="h-sec">Snapshot doby</div>
+        <div class="controls">
+          <label class="f"><span>Doba</span>
+            <select id="d-day">
+              <option value="0">poniedziałek</option><option value="1">wtorek</option>
+              <option value="2">środa</option><option value="3">czwartek</option>
+              <option value="4" selected>piątek</option><option value="5">sobota</option>
+              <option value="6">niedziela</option>
+            </select>
+          </label>
+          <button class="btn" id="d-snap">Zbuduj snapshot</button>
+          <span id="d-msg"></span>
+        </div>
+        <div id="d-snapout">
+          <div class="empty">
+            <div class="t">Snapshot nie jest zbudowany</div>
+            <div class="d">Budowa zamraża stan doby — rejsy, rotacje, załogi i pasażerów —
+              i wylicza odcisk, którym potem cytuje się każdy raport. Trwa kilka sekund.</div>
+          </div>
+        </div>
+
+        <div class="h-sec">Statystyka wykonanych operacji</div>
+        <p class="note tight">To stąd etap 11 bierze widełki niepewności — kwantyle z pomiaru
+          zamiast zgadywanych rozkładów.</p>
+        <div id="d-stat"><button class="btn btn--ghost" id="d-statgo">Wczytaj statystykę</button></div>
+      </section>
+
+      <!-- ========================================== MAPA -->
+      <section id="mapa">
+        <h2>Osiemnaście etapów</h2>
+        <p class="note">Siedemnaście boksów pionu z tablicy plus <code>15b WYKONANIE</code>, którego
+          na tablicy nie było. Każdy etap deklaruje, czego potrzebuje na wejściu — dlatego
+          kolejności nie da się przestawić, a etap bez wejścia blokuje się z jawnym komunikatem
+          zamiast liczyć na pustych danych.</p>
+        <div class="controls">
+          <label class="f f--grow"><span>Szukaj w etapach</span>
+            <input type="text" id="m-q" placeholder="nazwa, wejście albo wyjście — np. koszt">
+          </label>
+          <span id="m-count" class="mono"></span>
+        </div>
+        <div class="nodes" id="m-flow"></div>
+        <div id="m-detail" style="margin-top:16px"></div>
+      </section>
+
+      <!-- ========================================== AI -->
+      <section id="ai">
+        <h2>OUTPUT 2 — warstwa AI</h2>
+        <p class="note">Model czyta raporty i tylko je wyjaśnia. Każdą liczbę w odpowiedzi sprawdza
+          strażnik: wartość, której nie ma w raportach, jest oznaczana jako naruszenie, a nie po
+          cichu przepuszczana. Tryb na sucho składa kompletny prompt i nie dzwoni nigdzie.</p>
+        <div id="a-key"></div>
+        <div class="controls">
+          <label class="f"><span>Run</span><select id="a-run"></select></label>
+          <label class="f"><span>Persona</span><select id="a-persona"></select></label>
+          <label class="f f--grow"><span>Pytanie dodatkowe</span>
+            <input type="text" id="a-q" placeholder="opcjonalne — np. dlaczego odrzucono opcję CANCEL?">
+          </label>
+          <label class="chk"><input type="checkbox" id="a-dry" checked> tryb na sucho</label>
+          <button class="btn" id="a-go">Uruchom</button>
+          <span id="a-msg"></span>
+        </div>
+        <div id="a-out"></div>
+        <div class="h-sec">Cztery role, te same raporty</div>
+        <p class="note tight">Persona deklaruje, które etapy w ogóle widzi. To nie jest optymalizacja
+          kontekstu, tylko granica uprawnień: redaktor komunikatów nie dostaje raportu z silnika
+          kosztowego, więc fizycznie nie ma z czego wypisać pasażerowi kosztu wewnętrznego.</p>
+        <div id="a-personas"></div>
+      </section>
+
     </div>
   </div>
+</div>
 
-  <div id="s-out"></div>
-</section>
-
-<!-- ============================================ MAPA -->
-<section id="mapa">
-  <h2>Osiemnaście etapów</h2>
-  <p class="note">Siedemnaście boksów pionu z tablicy plus <code>15b WYKONANIE</code>, którego
-    na tablicy nie było. Każdy etap deklaruje, czego potrzebuje na wejściu — dlatego
-    kolejności nie da się przestawić, a etap bez wejścia blokuje się z jawnym komunikatem
-    zamiast liczyć na pustych danych. Kliknij, żeby zobaczyć szczegóły.</p>
-  <div class="flow" id="m-flow"></div>
-  <div id="m-detail"></div>
-</section>
-
-<!-- ============================================ DANE -->
-<section id="dane">
-  <h2>Źródła</h2>
-  <p class="note">Dwa pliki, rozdzielone rolami: baza parametryczna mówi, jakie są reguły,
-    baza operacyjna mówi, co się faktycznie dzieje. Poza tożsamościami pasażerów nic nie jest generowane.</p>
-  <div id="d-src"><span class="spin">wczytuję</span></div>
-
-  <h2>Snapshot doby</h2>
-  <div class="row">
-    <select id="d-day">
-      <option value="0">poniedziałek</option><option value="1">wtorek</option>
-      <option value="2">środa</option><option value="3">czwartek</option>
-      <option value="4" selected>piątek</option><option value="5">sobota</option>
-      <option value="6">niedziela</option>
-    </select>
-    <button class="act" id="d-snap">Zbuduj snapshot</button>
-    <span id="d-msg" class="spin"></span>
-  </div>
-  <div id="d-snapout"></div>
-
-  <h2>Statystyka wykonanych operacji</h2>
-  <p class="note">To stąd node 11 bierze widełki niepewności — kwantyle z pomiaru zamiast
-    zgadywanych rozkładów.</p>
-  <div id="d-stat"><button class="act ghost" id="d-statgo">Wczytaj statystykę</button></div>
-</section>
-
-<!-- ============================================ RUNY -->
-<section id="runy">
-  <h2>Zapisane uruchomienia</h2>
-  <p class="note">Każdy run zapisuje parę plików na etap: <code>.json</code> jest kanoniczny
-    i z niego cytuje się liczby, <code>.md</code> jest narracją dla modelu. Oba renderuje ten
-    sam obiekt, więc nie mogą się rozjechać.</p>
-  <div class="row"><button class="act ghost" id="r-refresh">Odśwież</button>
-    <span id="r-msg" class="spin"></span></div>
-  <div class="split">
-    <div class="list" id="r-list"></div>
-    <div id="r-out"><p class="note">Wybierz run z listy.</p></div>
-  </div>
-</section>
-
-<!-- ============================================ AI -->
-<section id="ai">
-  <h2>OUTPUT 2 — warstwa AI</h2>
-  <p class="note">Model czyta raporty i tylko je wyjaśnia. Każdą liczbę w odpowiedzi sprawdza
-    strażnik: wartość, której nie ma w raportach, jest oznaczana jako naruszenie, a nie po cichu
-    przepuszczana. Tryb na sucho składa kompletny prompt i nie dzwoni nigdzie.</p>
-  <div class="box">
-    <div class="row">
-      <label>Run <select id="a-run"></select></label>
-      <label>Persona <select id="a-persona"></select></label>
-      <label><input type="checkbox" id="a-dry" checked> na sucho</label>
-    </div>
-    <div class="row">
-      <input type="text" id="a-q" placeholder="pytanie dodatkowe (opcjonalne)" style="min-width:340px">
-      <button class="act" id="a-go">Uruchom</button>
-      <span id="a-msg" class="spin"></span>
-    </div>
-    <div id="a-key"></div>
-  </div>
-  <div id="a-personas"></div>
-  <div id="a-out"></div>
-</section>
-
-</main>
+<div id="tip" role="tooltip" aria-hidden="true"></div>
 
 <script>
-const $ = s => document.querySelector(s);
-const el = (t,c,h) => { const e=document.createElement(t); if(c)e.className=c;
-                        if(h!==undefined)e.innerHTML=h; return e; };
-const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const nf = new Intl.NumberFormat("pl-PL",{maximumFractionDigits:2});
-const n = v => typeof v==="number" ? nf.format(v) : esc(v);
-// Money z silnika przychodzi jako {minor, currency, major}
-const isM = v => v && typeof v==="object" && "minor" in v && "currency" in v;
-const m = v => isM(v) ? nf.format(Number(v.major))+" "+v.currency : n(v);
-const mv = v => isM(v) ? Number(v.major) : Number(v)||0;
+"use strict";
+
+/* ==========================================================================
+   PODSTAWY
+   ========================================================================== */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const el = (tag, cls, html) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+};
+const esc = s => String(s ?? "").replace(/[&<>"]/g,
+  c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const NF  = new Intl.NumberFormat("pl-PL", { maximumFractionDigits: 2 });
+const NF0 = new Intl.NumberFormat("pl-PL", { maximumFractionDigits: 0 });
+const n = v => typeof v === "number" ? NF.format(v) : esc(v);
+
+/* Money z silnika przychodzi jako {minor, currency, major} */
+const isM = v => v && typeof v === "object" && "minor" in v && "currency" in v;
+const m   = v => isM(v) ? NF.format(Number(v.major)) + " " + v.currency : n(v);
+const mv  = v => isM(v) ? Number(v.major) : (Number(v) || 0);
 const cell = v => isM(v) ? m(v) : n(v);
 
-async function api(path, body){
-  const opt = body ? {method:"POST",headers:{"Content-Type":"application/json"},
-                      body:JSON.stringify(body)} : {};
+/** Skrot dla osi -- pelna precyzja zostaje w etykietach i w tabeli. */
+function compact(v) {
+  const a = Math.abs(v);
+  if (a >= 1e6) return NF.format(v / 1e6).replace(/,\d+$/, x => x.slice(0, 2)) + " mln";
+  if (a >= 1e4) return NF0.format(Math.round(v / 1e3)) + " tys.";
+  return NF0.format(Math.round(v));
+}
+const utc = s => String(s || "").replace("T", " ").replace("+00:00", "").replace("Z", "");
+
+async function api(path, body) {
+  const opt = body
+    ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
+    : {};
   const r = await fetch(path, opt);
-  const d = await r.json().catch(()=>({blad:`odpowiedź ${r.status} nie jest JSON-em`}));
-  if(!r.ok) throw new Error(d.blad || `HTTP ${r.status}`);
+  const d = await r.json().catch(() => ({ blad: `odpowiedź ${r.status} nie jest JSON-em` }));
+  if (!r.ok) throw new Error(d.blad || `HTTP ${r.status}`);
   return d;
 }
-const fail = (node,e) => { node.innerHTML=""; node.append(el("div","msg err",esc(e.message))); };
-const cards = list => { const g=el("div","cards");
-  for(const [k,v,u] of list) g.append(el("div","card",
-    `<div class="v">${cell(v)}${u?`<span class="u">${esc(u)}</span>`:""}</div><div class="k">${esc(k)}</div>`));
-  return g; };
-const table = (heads,rows) => { const w=el("div","scroll"), t=el("table");
-  t.innerHTML=`<thead><tr>${heads.map(h=>`<th class="${h.num?"num":""}">${esc(h.t)}</th>`).join("")}</tr></thead>`;
-  const b=el("tbody");
-  for(const r of rows) b.append(el("tr",null,r.map((c,i)=>
-    `<td class="${heads[i].num?"num":""}">${heads[i].raw?c:cell(c)}</td>`).join("")));
-  t.append(b); w.append(t); return w; };
-const pill = s => { const map={ok:"ok",degraded:"warn",blocked:"err"};
-  return `<span class="pill ${map[s]||"dim"}">${esc(s)}</span>`; };
 
-const PALETTE = ["#4a9eff","#f85149","#d29922","#3fb950","#8b5cf6","#22b8cf","#f0883e","#6e7d8c"];
+const ICON = {
+  ok:   '<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5 6.5 11.5 3 8"/></svg>',
+  warn: '<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 2.5 15 14H1z" stroke-linejoin="round"/><path d="M8 6.5v3.2M8 12h.01"/></svg>',
+  err:  '<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.8v3.7M8 11.2h.01"/></svg>',
+  info: '<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.4v3.8M8 4.9h.01"/></svg>',
+};
+const banner = (kind, html) =>
+  el("div", `banner banner--${kind}`, `${ICON[kind === "err" ? "err" : kind === "warn" ? "warn" : kind === "ok" ? "ok" : "info"]}<div>${html}</div>`);
 
-/* ---------- zakładki ---------- */
-document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
-  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
-  document.querySelectorAll("main section").forEach(s=>s.classList.toggle("on",s.id===b.dataset.tab));
-  const t=b.dataset.tab;
-  if(t==="mapa" && !$("#m-flow").dataset.done) loadBoard();
-  if(t==="dane" && !$("#d-src").dataset.done) loadSrc();
-  if(t==="runy") loadRuns();
-  if(t==="ai") loadAi();
+const fail = (node, e) => { node.innerHTML = ""; node.append(banner("err", esc(e.message))); };
+const loading = txt => el("span", "load", `<i></i>${esc(txt)}`);
+
+/* Status etapu -- ikona + slowo, nigdy sam kolor. */
+const STATUS = { ok: ["ok", "OK"], degraded: ["warn", "degradowany"], blocked: ["crit", "zablokowany"] };
+function chip(status) {
+  const [k, label] = STATUS[status] || ["neutral", String(status || "—")];
+  return `<span class="chip chip--${k}"><span class="dot"></span>${esc(label)}</span>`;
+}
+
+const kpis = list => {
+  const g = el("div", "kpis");
+  for (const item of list) {
+    if (!item) continue;
+    const [k, v, u, d] = item;
+    g.append(el("div", "kpi",
+      `<div class="k">${esc(k)}</div><div class="v">${cell(v)}` +
+      `${u ? `<span class="u">${esc(u)}</span>` : ""}</div>` +
+      `${d ? `<div class="d">${d}</div>` : ""}`));
+  }
+  return g;
+};
+
+/* ==========================================================================
+   TABELA -- sortowalna, z wyrownaniem liczb; sluzy tez za blizniaka wykresow
+   ========================================================================== */
+function dataTable(cols, rows, opts = {}) {
+  const wrap = el("div", "tw");
+  const t = el("table");
+  const head = el("thead");
+  const hr = el("tr");
+  let sortIdx = opts.sort ?? -1, sortDir = opts.dir ?? -1;
+
+  cols.forEach((c, i) => {
+    const th = el("th", (c.num ? "num " : "") + (opts.sortable === false ? "" : "sort"));
+    th.append(document.createTextNode(c.t));
+    if (opts.sortable !== false) {
+      const ar = el("span", "ar", "▲");
+      th.append(ar);
+      th.onclick = () => { sortDir = sortIdx === i ? -sortDir : -1; sortIdx = i; draw(); };
+    }
+    hr.append(th);
+  });
+  head.append(hr); t.append(head);
+  const body = el("tbody"); t.append(body);
+
+  function draw() {
+    $$("th", hr).forEach((th, i) => {
+      th.classList.toggle("act", i === sortIdx);
+      const ar = $(".ar", th);
+      if (ar) ar.textContent = i === sortIdx ? (sortDir < 0 ? "▼" : "▲") : "▲";
+    });
+    let list = rows.slice();
+    if (sortIdx >= 0) {
+      const c = cols[sortIdx];
+      const key = c.val || (r => c.get(r));
+      list.sort((a, b) => {
+        const x = key(a), y = key(b);
+        if (typeof x === "number" && typeof y === "number") return (x - y) * sortDir;
+        return String(x).localeCompare(String(y), "pl") * sortDir;
+      });
+    }
+    body.innerHTML = "";
+    for (const r of list) {
+      const tr = el("tr");
+      cols.forEach(c => {
+        const td = el("td", (c.num ? "num " : "") + (c.strong ? "strong" : ""));
+        const v = c.get(r);
+        if (c.raw) td.innerHTML = v;
+        else td.textContent = v === null || v === undefined ? "—" : String(v);
+        tr.append(td);
+      });
+      body.append(tr);
+    }
+  }
+  draw();
+  wrap.append(t);
+  /* Krotka tabela nie dostaje wlasnego paska przewijania -- inaczej 18 etapow
+     urywa sie na dziesiatym i wyglada, jakby danych brakowalo. */
+  if (rows.length <= 20) wrap.style.maxHeight = "none";
+  return wrap;
+}
+
+/* ==========================================================================
+   WYKRESY -- inline SVG, bez bibliotek
+   Kazdy wykres ma: widoczne etykiety bezposrednie i przelacznik na tabele.
+   Trzy odcienie palety maja kontrast < 3:1 wobec tla, wiec to nie opcja.
+   ========================================================================== */
+const NS = "http://www.w3.org/2000/svg";
+const sv = (tag, attrs = {}) => {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+};
+const txt = (s, attrs = {}) => { const e = sv("text", attrs); e.textContent = s; return e; };
+
+const SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#4a3aa7", "#e34948"];
+const OTHER = "#b6b4ad";
+const C = { grid: "#e1e0d9", axis: "#c3c2b7", seq: "#2a78d6", seqLight: "#cde2fb" };
+
+/** Sciezka slupka poziomego: zaokraglony koniec danych, prosty przy bazie. */
+function barH(x, y, w, h, r = 4) {
+  r = Math.max(0, Math.min(r, w, h / 2));
+  if (w <= 0.5) return `M${x},${y} h0.5 v${h} h-0.5 Z`;
+  return `M${x},${y} H${x + w - r} A${r},${r} 0 0 1 ${x + w},${y + r} V${y + h - r} ` +
+         `A${r},${r} 0 0 1 ${x + w - r},${y + h} H${x} Z`;
+}
+/** Sciezka kolumny: zaokraglony wierzcholek, prosta baza. */
+function barV(x, yTop, w, h, r = 4) {
+  r = Math.max(0, Math.min(r, w / 2, h));
+  if (h <= 0.5) return `M${x},${yTop + h} h${w} v-0.5 h-${w} Z`;
+  return `M${x},${yTop + h} V${yTop + r} A${r},${r} 0 0 1 ${x + r},${yTop} H${x + w - r} ` +
+         `A${r},${r} 0 0 1 ${x + w},${yTop + r} V${yTop + h} Z`;
+}
+/** Ladne dzialki osi. */
+function ticks(max, count = 5) {
+  if (!(max > 0)) return [0];
+  const raw = max / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].find(s => s * mag >= raw) * mag;
+  const out = [];
+  for (let v = 0; v <= max + step * 0.001; v += step) out.push(v);
+  return out;
+}
+
+/* ---- podpowiedz ---- */
+const TIP = $("#tip");
+function tipShow(ev, title, rows) {
+  TIP.innerHTML = "";
+  const h = el("div", "tt"); h.textContent = title; TIP.append(h);
+  for (const [key, val, color] of rows) {
+    const r = el("div", "tr");
+    if (color) { const i = el("i"); i.style.background = color; r.append(i); }
+    const v = el("span", "tv"); v.textContent = val; r.append(v);
+    const k = el("span", "tk"); k.textContent = key; r.append(k);
+    TIP.append(r);
+  }
+  TIP.classList.add("on");
+  tipMove(ev);
+}
+function tipMove(ev) {
+  const pad = 14, w = TIP.offsetWidth, h = TIP.offsetHeight;
+  let x = ev.clientX + pad, y = ev.clientY + pad;
+  if (x + w > innerWidth - 8) x = ev.clientX - w - pad;
+  if (y + h > innerHeight - 8) y = ev.clientY - h - pad;
+  TIP.style.left = Math.max(8, x) + "px";
+  TIP.style.top = Math.max(8, y) + "px";
+}
+const tipHide = () => TIP.classList.remove("on");
+
+/** Podpina zachowanie hover/focus na element-cel. */
+function hoverable(node, title, rows) {
+  node.addEventListener("pointerenter", e => tipShow(e, title, rows));
+  node.addEventListener("pointermove", tipMove);
+  node.addEventListener("pointerleave", tipHide);
+  node.setAttribute("tabindex", "0");
+  node.addEventListener("focus", () => {
+    const b = node.getBoundingClientRect();
+    tipShow({ clientX: b.left + b.width / 2, clientY: b.top }, title, rows);
+  });
+  node.addEventListener("blur", tipHide);
+}
+
+/**
+ * Rama wykresu: tytul, podpis, przelacznik Wykres/Tabela, legenda.
+ * @param {object} o {title, caption, svg, legend:[[label,color,kind]], table}
+ */
+function figure(o) {
+  const f = el("figure", "chart");
+  const head = el("div", "chart__head");
+  head.append(el("div", "sp",
+    `<h3>${esc(o.title)}</h3>${o.caption ? `<div class="cap">${o.caption}</div>` : ""}`));
+  if (o.table) {
+    const seg = el("div", "seg");
+    const b1 = el("button", "on", "Wykres"), b2 = el("button", null, "Tabela");
+    b1.onclick = () => { f.classList.remove("tableview"); b1.classList.add("on"); b2.classList.remove("on"); };
+    b2.onclick = () => { f.classList.add("tableview"); b2.classList.add("on"); b1.classList.remove("on"); };
+    seg.append(b1, b2); head.append(seg);
+  }
+  f.append(head);
+  const body = el("div", "chart__body");
+  body.append(o.svg);
+  f.append(body);
+  if (o.legend && o.legend.length > 1) {
+    const lg = el("div", "legend");
+    for (const [label, color, kind] of o.legend) {
+      const s = el("span");
+      const i = el("i", kind === "line" ? "line" : null);
+      i.style.background = color;
+      s.append(i, document.createTextNode(label));
+      lg.append(s);
+    }
+    f.append(lg);
+  }
+  if (o.table) { const tv = el("div", "chart__table"); tv.append(o.table); f.append(tv); }
+  return f;
+}
+
+/* --------------------------------------------------------------------------
+   Slupki poziome, jedna seria (magnitudo) + opcjonalne wasy niepewnosci.
+   Jedna seria => brak legendy: tytul juz mowi, co jest rysowane.
+   -------------------------------------------------------------------------- */
+function chartBarsH(rows, o = {}) {
+  const W = 900, padL = o.labelW ?? 170, padR = 96, padT = 8, padB = 30;
+  const pitch = o.pitch ?? 40, bar = Math.min(22, pitch - 16);
+  const H = padT + rows.length * pitch + padB;
+  const s = sv("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" });
+
+  const hi = Math.max(...rows.map(r => Math.max(r.value, r.high ?? 0)), 0);
+  const max = hi > 0 ? hi * 1.02 : 1;
+  const x0 = padL, x1 = W - padR;
+  const X = v => x0 + (Math.max(0, v) / max) * (x1 - x0);
+
+  for (const t of ticks(max, 5)) {
+    s.append(sv("line", { class: "gridline", x1: X(t), x2: X(t), y1: padT, y2: padT + rows.length * pitch }));
+    s.append(txt(o.fmtAxis ? o.fmtAxis(t) : compact(t),
+      { class: "ax-t", x: X(t), y: H - padB + 17, "text-anchor": "middle" }));
+  }
+  s.append(sv("line", { class: "ax-line", x1: x0, x2: x0, y1: padT, y2: padT + rows.length * pitch }));
+
+  rows.forEach((r, i) => {
+    const y = padT + i * pitch, cy = y + pitch / 2;
+    const g = sv("g", { class: "mk" });
+
+    g.append(txt(r.label, { class: "ax-c", x: x0 - 10, y: cy + 4, "text-anchor": "end" }));
+    const color = r.color || C.seq;
+    g.append(sv("path", { d: barH(x0, cy - bar / 2, X(r.value) - x0, bar, 4), fill: color }));
+
+    /* wasy min-max: niepewnosc jest czescia danych, nie ozdoba */
+    if (r.low !== undefined && r.high !== undefined && r.high > r.low) {
+      const a = X(r.low), b = X(r.high), t = cy - bar / 2 - 4, u = cy + bar / 2 + 4;
+      g.append(sv("line", { x1: a, x2: b, y1: cy, y2: cy, stroke: "#52514e", "stroke-width": 1 }));
+      g.append(sv("line", { x1: a, x2: a, y1: t, y2: u, stroke: "#52514e", "stroke-width": 2 }));
+      g.append(sv("line", { x1: b, x2: b, y1: t, y2: u, stroke: "#52514e", "stroke-width": 2 }));
+    }
+    g.append(txt(o.fmtLabel ? o.fmtLabel(r) : compact(r.value),
+      { class: "val-t", x: Math.max(X(r.value), X(r.high ?? 0)) + 9, y: cy + 4 }));
+
+    const hit = sv("rect", { class: "hit", x: 0, y, width: W, height: pitch });
+    hoverable(hit, r.label, r.tip || [[o.unit || "", (o.fmtLabel ? o.fmtLabel(r) : compact(r.value)), color]]);
+    g.append(hit);
+    s.append(g);
+  });
+  return s;
+}
+
+/* --------------------------------------------------------------------------
+   Kolumny, jedna seria; kolor moze niesc status (ok/degradowany/zablokowany).
+   -------------------------------------------------------------------------- */
+function chartCols(rows, o = {}) {
+  const W = 900, padL = 46, padR = 12, padT = 14, padB = 38, plot = o.height ?? 170;
+  const H = padT + plot + padB;
+  const s = sv("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" });
+  const max = Math.max(...rows.map(r => r.value), 0) * 1.08 || 1;
+  const x0 = padL, x1 = W - padR, y1 = padT + plot;
+  const band = (x1 - x0) / rows.length;
+  const bar = Math.min(24, band - 8);
+  const Y = v => y1 - (Math.max(0, v) / max) * plot;
+
+  for (const t of ticks(max, 4)) {
+    s.append(sv("line", { class: "gridline", x1: x0, x2: x1, y1: Y(t), y2: Y(t) }));
+    s.append(txt(o.fmtAxis ? o.fmtAxis(t) : compact(t),
+      { class: "ax-t", x: x0 - 9, y: Y(t) + 4, "text-anchor": "end" }));
+  }
+  s.append(sv("line", { class: "ax-line", x1: x0, x2: x1, y1: y1, y2: y1 }));
+
+  rows.forEach((r, i) => {
+    const bx = x0 + i * band + (band - bar) / 2;
+    const g = sv("g", { class: "mk" });
+    const color = r.color || C.seq;
+    const p = sv("path", { d: barV(bx, Y(r.value), bar, y1 - Y(r.value), 4), fill: color });
+    g.append(p);
+    s.append(txt(r.label, { class: "ax-t", x: bx + bar / 2, y: y1 + 15, "text-anchor": "middle" }));
+    if (r.sub) s.append(txt(r.sub, { class: "ax-t", x: bx + bar / 2, y: y1 + 28, "text-anchor": "middle", opacity: .75 }));
+
+    const hit = sv("rect", { class: "hit", x: x0 + i * band, y: padT, width: band, height: plot });
+    hoverable(hit, r.title || r.label, r.tip || [[o.unit || "", compact(r.value), color]]);
+    if (o.onPick) { hit.style.cursor = "pointer"; hit.addEventListener("click", () => o.onPick(r, i)); }
+    g.append(hit);
+    s.append(g);
+  });
+  return s;
+}
+
+/* --------------------------------------------------------------------------
+   Slupki skladane -- czesc do calosci. Segmenty rozdziela 2 px przerwy
+   w kolorze powierzchni; obwodki nie ma, bo obwodka to tusz bez danych.
+   -------------------------------------------------------------------------- */
+function chartStacked(rows, keys, colorOf, o = {}) {
+  const W = 900, padL = o.labelW ?? 150, padR = 108, padT = 6, padB = 30;
+  const pitch = 42, bar = 22;
+  const H = padT + rows.length * pitch + padB;
+  const s = sv("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" });
+  const max = Math.max(...rows.map(r => r.total), 0) * 1.02 || 1;
+  const x0 = padL, x1 = W - padR;
+  const X = v => x0 + (Math.max(0, v) / max) * (x1 - x0);
+
+  for (const t of ticks(max, 5)) {
+    s.append(sv("line", { class: "gridline", x1: X(t), x2: X(t), y1: padT, y2: padT + rows.length * pitch }));
+    s.append(txt(compact(t), { class: "ax-t", x: X(t), y: H - padB + 17, "text-anchor": "middle" }));
+  }
+  s.append(sv("line", { class: "ax-line", x1: x0, x2: x0, y1: padT, y2: padT + rows.length * pitch }));
+
+  rows.forEach((r, i) => {
+    const y = padT + i * pitch, cy = y + pitch / 2, top = cy - bar / 2;
+    s.append(txt(r.label, { class: "ax-c", x: x0 - 10, y: cy + 4, "text-anchor": "end" }));
+    let acc = 0;
+    r.parts.forEach((p, j) => {
+      const a = X(acc), b = X(acc + p.value);
+      const gap = j < r.parts.length - 1 ? 2 : 0;      /* przerwa w kolorze tla */
+      const w = Math.max(0, b - a - gap);
+      const last = j === r.parts.length - 1;
+      const d = last ? barH(a, top, w, bar, 4)
+                     : `M${a},${top} h${w} v${bar} h${-w} Z`;
+      const seg = sv("path", { d, fill: colorOf(p.key), class: "mk" });
+      hoverable(seg, r.label, [[p.key, o.fmt ? o.fmt(p.value) : compact(p.value), colorOf(p.key)]]);
+      s.append(seg);
+      acc += p.value;
+    });
+    s.append(txt(o.fmt ? o.fmt(r.total) : compact(r.total),
+      { class: "val-t", x: X(r.total) + 9, y: cy + 4 }));
+  });
+  return s;
+}
+
+/* --------------------------------------------------------------------------
+   Wykres zakresow: p25-p75 jako skrzynka, mediana jako kreska, wasy do p90.
+   Jedna os w minutach; linia zera, bo przyloty maja mediane ujemna.
+   -------------------------------------------------------------------------- */
+function chartRanges(rows) {
+  const W = 900, padL = 130, padR = 140, padT = 12, padB = 34, pitch = 56;
+  const H = padT + rows.length * pitch + padB;
+  const s = sv("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" });
+  const lo = Math.min(0, ...rows.map(r => r.p25));
+  const hi = Math.max(...rows.map(r => r.p90));
+  const span = (hi - lo) || 1, pad = span * 0.08;
+  const a0 = lo - pad, a1 = hi + pad;
+  const x0 = padL, x1 = W - padR;
+  const X = v => x0 + ((v - a0) / (a1 - a0)) * (x1 - x0);
+
+  const step = Math.max(5, Math.round((a1 - a0) / 6 / 5) * 5);
+  for (let v = Math.ceil(a0 / step) * step; v <= a1; v += step) {
+    s.append(sv("line", { class: "gridline", x1: X(v), x2: X(v), y1: padT, y2: padT + rows.length * pitch }));
+    s.append(txt(NF0.format(v), { class: "ax-t", x: X(v), y: H - padB + 17, "text-anchor": "middle" }));
+  }
+  if (a0 < 0 && a1 > 0) {
+    s.append(sv("line", { class: "ax-line", x1: X(0), x2: X(0), y1: padT, y2: padT + rows.length * pitch }));
+    s.append(txt("0 — punktualnie", { class: "ax-t", x: X(0), y: padT - 1, "text-anchor": "middle" }));
+  }
+
+  rows.forEach((r, i) => {
+    const cy = padT + i * pitch + pitch / 2;
+    const color = r.color;
+    s.append(txt(r.label, { class: "ax-c", x: x0 - 10, y: cy + 4, "text-anchor": "end" }));
+    /* was do p90 */
+    s.append(sv("line", { x1: X(r.p75), x2: X(r.p90), y1: cy, y2: cy, stroke: "#898781", "stroke-width": 1 }));
+    s.append(sv("line", { x1: X(r.p90), x2: X(r.p90), y1: cy - 7, y2: cy + 7, stroke: "#898781", "stroke-width": 2 }));
+    /* skrzynka p25-p75 */
+    const a = X(r.p25), b = X(r.p75);
+    s.append(sv("rect", { x: a, y: cy - 11, width: Math.max(2, b - a), height: 22, rx: 4, fill: color, opacity: .28 }));
+    s.append(sv("rect", { x: a, y: cy - 11, width: 2.5, height: 22, fill: color }));
+    s.append(sv("rect", { x: b - 2.5, y: cy - 11, width: 2.5, height: 22, fill: color }));
+    /* mediana */
+    s.append(sv("line", { x1: X(r.median), x2: X(r.median), y1: cy - 13, y2: cy + 13, stroke: color, "stroke-width": 2.5, "stroke-linecap": "round" }));
+    /* Etykieta stoi za wasem, wiec musi nazywac wartosc -- inaczej czyta sie
+       ja jako p90, obok ktorego lezy. */
+    s.append(txt(`mediana ${NF.format(r.median)} min`, { class: "val-t", x: X(r.p90) + 9, y: cy + 4 }));
+
+    const hit = sv("rect", { class: "hit", x: 0, y: padT + i * pitch, width: W, height: pitch });
+    hoverable(hit, r.label, [
+      ["mediana", NF.format(r.median) + " min", color],
+      ["p25 → p75", `${NF.format(r.p25)} → ${NF.format(r.p75)} min`, color],
+      ["p90", NF.format(r.p90) + " min", "#898781"],
+      ["obserwacji", NF0.format(r.n), null],
+    ]);
+    s.append(hit);
+  });
+  return s;
+}
+
+/* ==========================================================================
+   NAWIGACJA
+   ========================================================================== */
+const TITLES = {
+  scen: ["Scenariusz", "rozegraj zakłócenie"],
+  runy: ["Uruchomienia", "zapisane raporty etapów"],
+  dane: ["Dane źródłowe", "dwa pliki, rozdzielone rolami"],
+  mapa: ["Mapa etapów", "osiemnaście kroków przepływu"],
+  ai:   ["Warstwa AI", "model wyjaśnia, strażnik pilnuje liczb"],
+};
+const loaded = {};
+$$("#nav button").forEach(b => b.onclick = () => {
+  const t = b.dataset.tab;
+  $$("#nav button").forEach(x => x.classList.toggle("on", x === b));
+  $$("main section, .viewport section").forEach(s => s.classList.toggle("on", s.id === t));
+  $("#top-title").textContent = TITLES[t][0];
+  $("#top-sub").textContent = TITLES[t][1];
+  scrollTo({ top: 0, behavior: "smooth" });
+  if (t === "mapa" && !loaded.mapa) { loaded.mapa = 1; loadBoard(); }
+  if (t === "dane" && !loaded.dane) { loaded.dane = 1; loadSrc(); }
+  if (t === "runy") loadRuns();
+  if (t === "ai") loadAi();
 });
 
-/* ============================ SCENARIUSZ ============================ */
-$("#s-delay").oninput = e => $("#s-delay-v").textContent = e.target.value+" min";
+/* ==========================================================================
+   ZDROWIE SYSTEMU -- pasek gorny i stopka nawigacji
+   ========================================================================== */
+let HEALTH = null;
+async function loadHealth() {
+  try {
+    const d = await api("/api/health");
+    HEALTH = d;
+    $("#top-status").innerHTML = d.gotowy
+      ? `<span class="chip chip--ok"><span class="dot"></span>źródła wczytane</span>`
+      : `<span class="chip chip--crit"><span class="dot"></span>${d.problemy.length} problem(y) ze źródłami</span>`;
+    const o = d.zrodla.baza_operacyjna || {};
+    $("#side-health").innerHTML =
+      `<div>${d.gotowy ? '<span class="chip chip--ok"><span class="dot"></span>gotowy</span>'
+                       : '<span class="chip chip--crit"><span class="dot"></span>błąd źródeł</span>'}</div>` +
+      (o.operacji ? `<div style="margin-top:7px">${NF0.format(o.operacji)} operacji · ${esc(o.zakres || "")}</div>` : "");
+  } catch (e) {
+    $("#top-status").innerHTML = `<span class="chip chip--crit"><span class="dot"></span>serwer nie odpowiada</span>`;
+    $("#side-health").textContent = e.message;
+  }
+}
 
-// Lista opcji do wyboru przy MODIFY ma sens dopiero po pierwszym przebiegu --
-// wcześniej nie wiadomo, co silnik w ogóle wygenerował ani co dopuściło prawo.
+/* ==========================================================================
+   SCENARIUSZ
+   ========================================================================== */
+$("#s-delay").oninput = e => $("#s-delay-v").textContent = e.target.value + " min";
+
+/* Lista opcji do wyboru przy MODIFY ma sens dopiero po pierwszym przebiegu --
+   wczesniej nie wiadomo, co silnik w ogole wygenerowal ani co dopuscilo prawo. */
 $("#s-decision").onchange = () => {
   $("#s-option-wrap").hidden = $("#s-decision").value !== "MODIFY";
 };
-function opcjeDoWyboru(ranking){
+function optionsForModify(ranking) {
   const sel = $("#s-option");
   sel.innerHTML = ranking.length
-    ? ranking.map(r=>`<option value="${esc(r.opcja)}">${r.pozycja}. ${esc(r.opcja)} — ${m(r.strata)}</option>`).join("")
+    ? ranking.map(r => `<option value="${esc(r.opcja)}">${r.pozycja}. ${esc(r.opcja)} — ${m(r.strata)}</option>`).join("")
     : '<option value="">— brak opcji dopuszczalnych —</option>';
 }
 
-$("#s-load").onclick = async () => {
-  const btn=$("#s-load"); btn.disabled=true; $("#s-msg").textContent="wczytuję rejsy";
-  try{
+async function loadFlights() {
+  const sel = $("#s-flight"), info = $("#s-flight-n");
+  info.innerHTML = '<span class="load"><i></i>wczytuję</span>';
+  try {
     const d = await api(`/api/flights?day=${$("#s-day").value}`);
-    $("#s-flight").innerHTML = '<option value="">— wybór automatyczny —</option>' +
-      d.rejsy.map(f=>`<option value="${esc(f.id)}">${esc(f.nr)} ${esc(f.z)}→${esc(f.do)} · `+
-        `${f.pasazerow} pax · ${f.ponizej} odcinków poniżej</option>`).join("");
-    $("#s-msg").textContent = `${d.rejsy.length} z ${d.wszystkich} rejsów`;
-  }catch(e){ $("#s-msg").textContent=""; fail($("#s-out"),e); }
-  finally{ btn.disabled=false; }
-};
+    sel.innerHTML = '<option value="">— wybór automatyczny —</option>' +
+      d.rejsy.map(f => `<option value="${esc(f.id)}">${esc(f.nr)} ${esc(f.z)}→${esc(f.do)} · ` +
+        `${f.pasazerow} pax · ${f.ponizej} odc. poniżej</option>`).join("");
+    info.textContent = `${d.rejsy.length} z ${d.wszystkich}`;
+  } catch (e) { info.textContent = "—"; }
+}
+$("#s-day").onchange = loadFlights;
 
 $("#s-go").onclick = async () => {
-  const out=$("#s-out"), msg=$("#s-msg"), btn=$("#s-go");
-  btn.disabled=true; msg.textContent="silnik liczy"; out.innerHTML="";
-  try{
-    const d = await api("/api/run",{
-      day:+$("#s-day").value, flight:$("#s-flight").value||null,
-      delay:+$("#s-delay").value, code:$("#s-code").value,
-      decision:$("#s-decision").value, fail_step:$("#s-fail").value||null,
-      // Przy MODIFY idzie opcja WYBRANA przez człowieka. Wcześniej stało tu
-      // na sztywno "CANCEL", więc system wykonywał coś innego, niż wskazano.
-      option:$("#s-decision").value==="MODIFY" ? ($("#s-option").value||null) : null,
-      reason:$("#s-decision").value==="REJECT" ? "DECYZJA_HANDLOWA" : null,
+  const out = $("#s-out"), msg = $("#s-msg"), btn = $("#s-go");
+  btn.disabled = true;
+  msg.innerHTML = '<span class="load"><i></i>silnik liczy</span>';
+  out.classList.add("is-loading");                    /* trzymamy poprzedni render */
+  try {
+    const dec = $("#s-decision").value;
+    const d = await api("/api/run", {
+      day: +$("#s-day").value,
+      flight: $("#s-flight").value || null,
+      delay: +$("#s-delay").value,
+      code: $("#s-code").value,
+      decision: dec,
+      fail_step: $("#s-fail").value || null,
+      /* Przy MODIFY idzie opcja WYBRANA przez czlowieka. Wczesniej stalo tu
+         na sztywno "CANCEL", wiec system wykonywal cos innego, niz wskazano. */
+      option: dec === "MODIFY" ? ($("#s-option").value || null) : null,
+      reason: dec === "REJECT" ? "DECYZJA_HANDLOWA" : null,
     });
     renderRun(out, d);
-    opcjeDoWyboru(d.ranking||[]);
-    msg.textContent="";
-  }catch(e){ msg.textContent=""; fail(out,e); }
-  finally{ btn.disabled=false; }
+    optionsForModify(d.ranking || []);
+    msg.textContent = "";
+  } catch (e) { msg.textContent = ""; fail(out, e); }
+  finally { btn.disabled = false; out.classList.remove("is-loading"); }
 };
 
-function renderRun(out, d){
-  out.innerHTML="";
-  const blocked = d.nodes.filter(x=>x.status==="blocked").length;
-  const degraded = d.nodes.filter(x=>x.status==="degraded").length;
-  out.append(el("div", `msg ${d.zatrzymany?"err":(blocked?"warn":"ok")}`,
-    d.zatrzymany
-      ? `Przepływ zatrzymany: <b>${esc(d.powod)}</b>`
-      : `Run <code>${esc(d.id)}</code> · ${d.nodes.length} etapów `+
-        `(${degraded} degradowanych, ${blocked} zablokowanych) · `+
-        `${n(d.budzet.elapsed_ms)} ms z budżetu ${n(d.budzet.total_ms)} ms · tryb ${esc(d.budzet.level)}`));
+function renderRun(out, d) {
+  out.innerHTML = "";
+  const blocked = d.nodes.filter(x => x.status === "blocked").length;
+  const degraded = d.nodes.filter(x => x.status === "degraded").length;
 
-  if(d.eskalacja){
-    out.append(el("h2",null,"Eskalacja — brak dopuszczalnej opcji"));
-    const a=d.eskalacja.addressee||{};
-    out.append(el("div","msg warn",
-      `Wszystkie opcje odpadły na filtrze prawnym. Adresat: <b>${esc(a.role||"?")}</b>`+
-      ` (${esc(a.channel||"")}), SLA ${esc(d.eskalacja.sla_minutes)} min,`+
-      ` zastępca ${esc(a.fallback_role||"?")} po ${esc(a.fallback_after_minutes)} min.`));
+  out.append(d.zatrzymany
+    ? banner("err", `Przepływ zatrzymany: <b>${esc(d.powod)}</b>`)
+    : banner(blocked ? "warn" : "ok",
+        `Run <code>${esc(d.id)}</code> zakończony — ${d.nodes.length} etapów, ` +
+        `${degraded} degradowanych, ${blocked} zablokowanych. Snapshot ` +
+        `<code>${esc(d.snapshot || "—")}</code>.`));
+
+  if (d.eskalacja) {
+    const a = d.eskalacja.addressee || {};
+    out.append(banner("warn",
+      `<b>Eskalacja — brak dopuszczalnej opcji.</b> Wszystkie opcje odpadły na filtrze prawnym. ` +
+      `Adresat: ${esc(a.role || "?")} (${esc(a.channel || "")}), SLA ${esc(d.eskalacja.sla_minutes)} min, ` +
+      `zastępca ${esc(a.fallback_role || "?")} po ${esc(a.fallback_after_minutes)} min.`));
   }
 
-  /* --- karta wykonania --- */
-  if(d.karta){
-    const k=d.karta;
-    const box=el("div","karta");
-    box.innerHTML =
-      `<h3>Karta wykonania</h3><div class="ttl">${esc(k.label)}</div>`+
-      `<ul>${k.what_changes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`+
-      `<div class="costs">
-         <div><small>minimum</small>${m(k.cost_low)}</div>
-         <div><small>oczekiwany</small><span class="exp">${m(k.cost_expected)}</span></div>
-         <div><small>maksimum</small>${m(k.cost_high)}</div>
-         <div><small>autoryzacja</small>${esc(k.authorization_role)}${k.second_signature?" + drugi podpis":""}</div>
-         <div><small>ważna do</small>${esc(String(k.valid_until||"").replace("T"," ").replace("+00:00"," UTC"))}</div>
-       </div>`+
-      `<div class="note" style="margin:0">${esc(k.threshold_note)}</div>`+
-      (k.crew_actions?.length ? `<h3 style="margin-top:13px">Załoga</h3>
-         <ul>${k.crew_actions.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")+
-      (k.pax_offloaded ? `<div class="msg warn" style="margin-bottom:0">`+
-         `${k.pax_offloaded} pasażerów schodzi z rejsu — kolejność wg priorytetu, `+
-         `pasażerowie chronieni na końcu</div>`:"");
-    out.append(box);
+  /* ---- hero: jedna liczba, ktora niesie decyzje ---- */
+  const k = d.karta;
+  if (k) {
+    const hero = el("div", "hero");
+    hero.append(el("div", null,
+      `<div class="lab">Koszt oczekiwany rekomendacji</div>` +
+      `<div class="fig">${NF.format(mv(k.cost_expected))}<span class="cur">${esc(k.cost_expected?.currency || "PLN")}</span></div>` +
+      `<div class="band">widełki ${m(k.cost_low)} — ${m(k.cost_high)} · ${esc(k.label)}</div>`));
+    const side = el("div", "side");
+    side.append(el("div", null,
+      `<div class="t">AUTORYZACJA</div><div class="b">${esc(k.authorization_role || "—")}` +
+      `${k.second_signature ? " + 2. podpis" : ""}</div>`));
+    side.append(el("div", null,
+      `<div class="t">WAŻNA DO</div><div class="b">${esc(utc(k.valid_until) || "—")}</div>`));
+    if (k.pax_offloaded)
+      side.append(el("div", null,
+        `<div class="t">SCHODZI Z REJSU</div><div class="b">${NF0.format(k.pax_offloaded)} pax</div>`));
+    hero.append(side);
+    out.append(hero);
   }
 
-  /* --- ranking --- */
-  if(d.ranking?.length){
-    out.append(el("h2",null,"Ranking końcowy"));
-    out.append(el("p","note","Słupek pokazuje stratę oczekiwaną, wąsy — widełki min/max. "+
-      "Zachodzące widełki znaczą, że różnica między opcjami nie jest istotna."));
-    const max = Math.max(...d.ranking.map(r=>mv(r.max)));
-    const wrap = el("div","box");
-    d.ranking.forEach(r=>{
-      const row=el("div","rank"+(r.pozycja===1?" win":""));
-      const pe=100*mv(r.strata)/max, pl=100*mv(r.min)/max, ph=100*mv(r.max)/max;
-      row.innerHTML =
-        `<div class="no">${r.pozycja}</div><div>
-           <div class="hd"><span class="nm">${esc(r.opcja)}</span>
-             <span class="amt">${m(r.strata)}</span></div>
-           <div class="bar"><div class="fill" style="width:${pe.toFixed(1)}%"></div>
-             <div class="whisk" style="left:${pl.toFixed(1)}%;width:${(ph-pl).toFixed(1)}%"></div></div>
-           <div class="meta">
-             <span>widełki ${m(r.min)} — ${m(r.max)}</span>
-             ${mv(r.oszczednosc)!==0?`<span>oszczędność wobec domyślnej ${m(r.oszczednosc)}</span>`:""}
-             ${r.uwaga?`<span>${esc(r.uwaga)}</span>`:""}
-           </div></div>`;
-      wrap.append(row);
-    });
-    out.append(wrap);
+  out.append(kpis([
+    ["Etapów wykonanych", d.nodes.length],
+    ["Degradowanych", degraded],
+    ["Zablokowanych", blocked],
+    ["Czas silnika", Math.round(d.budzet.elapsed_ms), "ms",
+      `budżet ${NF0.format(d.budzet.total_ms)} ms`],
+    ["Tryb budżetu", d.budzet.level],
+    ["Opcji w rankingu", (d.ranking || []).length],
+  ]));
+
+  /* ---- ranking: magnitudo + niepewnosc ---- */
+  if (d.ranking?.length) {
+    const rows = d.ranking.map(r => ({
+      label: r.opcja,
+      value: mv(r.strata),
+      low: mv(r.min),
+      high: mv(r.max),
+      color: C.seq,
+      tip: [
+        ["strata oczekiwana", m(r.strata), C.seq],
+        ["widełki", `${m(r.min)} — ${m(r.max)}`, null],
+        ...(mv(r.oszczednosc) !== 0 ? [["oszczędność wobec domyślnej", m(r.oszczednosc), null]] : []),
+        ...(r.uwaga ? [["uwaga", r.uwaga, null]] : []),
+      ],
+      _r: r,
+    }));
+    out.append(figure({
+      title: "Ranking opcji — strata oczekiwana",
+      caption: "Słupek to strata oczekiwana, wąsy to widełki min–max z kwantyli rzeczywistych operacji. " +
+               "Zachodzące wąsy znaczą, że różnica między opcjami nie jest istotna — wtedy o wyborze " +
+               "decyduje wykonalność, nie liczba.",
+      svg: chartBarsH(rows, {
+        labelW: 190, pitch: 46,
+        fmtLabel: r => m(r._r.strata),
+        fmtAxis: v => compact(v) + " zł",
+      }),
+      table: dataTable([
+        { t: "#", num: true, get: r => r._r.pozycja, val: r => r._r.pozycja },
+        { t: "Opcja", get: r => r._r.opcja, strong: true },
+        { t: "Strata oczekiwana", num: true, get: r => m(r._r.strata), val: r => mv(r._r.strata) },
+        { t: "Min", num: true, get: r => m(r._r.min), val: r => mv(r._r.min) },
+        { t: "Maks", num: true, get: r => m(r._r.max), val: r => mv(r._r.max) },
+        { t: "Oszczędność", num: true, get: r => m(r._r.oszczednosc), val: r => mv(r._r.oszczednosc) },
+        { t: "Uwaga", get: r => r._r.uwaga || "—" },
+      ], rows, { sort: 0, dir: 1 }),
+    }));
+    const win = d.ranking.find(r => r.pozycja === 1);
+    if (win) {
+      const note = el("div", "rank-note");
+      note.innerHTML = `<span class="chip chip--ok"><span class="dot"></span>rekomendacja: ${esc(win.opcja)}</span>` +
+        (mv(win.oszczednosc) !== 0
+          ? `<span class="chip chip--info"><span class="dot"></span>oszczędność wobec domyślnej ${m(win.oszczednosc)}</span>` : "");
+      out.lastChild.querySelector(".chart__head .sp").append(note);
+    }
   }
 
-  /* --- etapy --- */
-  out.append(el("h2",null,"Przebieg etapów"));
-  const flow=el("div","flow");
-  d.nodes.forEach(x=>{
-    const c=el("div",`nd s-${x.status}`);
-    c.innerHTML=`<div class="id">${esc(x.node)} · ${n(x.ms)} ms</div>`+
-      `<div class="ti">${esc(x.tytul)}</div>`+
-      `<div class="io">${pill(x.status)}`+
-      `${x.ostrzezen?` <span class="pill warn">${x.ostrzezen} ostrz.</span>`:""}`+
-      `${x.braki?` <span class="pill dim">${x.braki} braków</span>`:""}</div>`;
-    c.onclick=()=>{
-      document.querySelectorAll("#s-out .nd").forEach(z=>z.classList.remove("on"));
-      c.classList.add("on");
-      const det=$("#s-detail");
-      det.innerHTML=`<div class="box"><h3>[${esc(x.node)}] ${esc(x.tytul)}</h3>`+
-        `<p style="margin:6px 0">${esc(x.podsumowanie)}</p>`+
-        (x.warnings.length?`<h3>Ostrzeżenia</h3><ul class="plain">`+
-          x.warnings.map(w=>`<li>${esc(w)}</li>`).join("")+`</ul>`:"")+
-        (x.data_gaps.length?`<h3>Braki danych</h3><ul class="plain">`+
-          x.data_gaps.map(w=>`<li>${esc(w)}</li>`).join("")+`</ul>`:"")+
-        `</div>`;
-      det.scrollIntoView({behavior:"smooth",block:"nearest"});
+  /* ---- karta wykonania ---- */
+  if (k) {
+    const card = el("div", "karta");
+    card.append(el("div", "karta__head",
+      `<span class="t">Karta wykonania</span><span class="n">${esc(k.label)}</span>` +
+      `<span class="chip chip--info"><span class="dot"></span>${esc(k.option_id || "")}</span>`));
+    const body = el("div", "karta__body");
+    body.append(el("h3", null, "Co się zmienia"));
+    body.append(el("ul", "steps", (k.what_changes || []).map(x => `<li>${esc(x)}</li>`).join("")));
+    if (k.crew_actions?.length) {
+      body.append(el("h3", null, "Załoga"));
+      body.append(el("ul", "steps", k.crew_actions.map(x => `<li>${esc(x)}</li>`).join("")));
+    }
+    if (k.pax_offloaded)
+      body.append(banner("warn",
+        `<b>${NF0.format(k.pax_offloaded)} pasażerów schodzi z rejsu.</b> Kolejność wg priorytetu, ` +
+        `pasażerowie chronieni na końcu.`));
+    const cols = el("div", "karta__cols");
+    cols.innerHTML =
+      `<div><div class="t">Koszt minimalny</div><div class="b">${m(k.cost_low)}</div></div>` +
+      `<div><div class="t">Oczekiwany</div><div class="b">${m(k.cost_expected)}</div></div>` +
+      `<div><div class="t">Maksymalny</div><div class="b">${m(k.cost_high)}</div></div>` +
+      `<div><div class="t">Autoryzacja</div><div class="b">${esc(k.authorization_role || "—")}` +
+      `${k.second_signature ? " + 2. podpis" : ""}</div></div>` +
+      `<div><div class="t">Ważna do</div><div class="b">${esc(utc(k.valid_until) || "—")}</div></div>`;
+    body.append(cols);
+    if (k.threshold_note) body.append(el("p", "note", esc(k.threshold_note)));
+    card.append(body);
+    out.append(card);
+  }
+
+  /* ---- przebieg etapow ---- */
+  const detail = el("div");
+  /* Czas i status to dwie rozne zmienne, wiec nie jada na jednym znaczniku.
+     Kolorowanie kolumn statusem wygladalo dobrze, dopoki nie okazalo sie, ze
+     pietnascie etapow liczy sie ponizej 40 ms -- ich slupki maja wysokosc
+     wlosa i koloru nie widac wcale. Zablokowany etap trwajacy 0,1 ms bylby
+     wtedy niewidoczny, czyli wykres gubilby dokladnie te informacje, ktora
+     mial niesc. Czas zostaje na kolumnach w jednym odcieniu, status dostaje
+     wlasna siatke, gdzie kazdy etap jest tej samej wielkosci i ma wypisane
+     slowo obok koloru. */
+  const nodeRows = d.nodes.map(x => ({
+    label: x.node,
+    value: x.ms,
+    title: `[${x.node}] ${x.tytul}`,
+    tip: [
+      ["czas etapu", NF.format(x.ms) + " ms", C.seq],
+      ["status", (STATUS[x.status] || [, x.status])[1], null],
+      ...(x.ostrzezen ? [["ostrzeżeń", String(x.ostrzezen), null]] : []),
+      ...(x.braki ? [["braków danych", String(x.braki), null]] : []),
+    ],
+    _x: x,
+  }));
+  out.append(figure({
+    title: "Czas etapów",
+    caption: "Ile z budżetu zjadł każdy etap. Zamrożenie stanu i baseline dominują — reszta " +
+             "przepływu mieści się w pojedynczych milisekundach. Kliknij kolumnę, żeby zobaczyć " +
+             "ostrzeżenia etapu.",
+    svg: chartCols(nodeRows, {
+      height: 150, unit: "ms",
+      onPick: r => showNodeDetail(detail, r._x),
+    }),
+    table: dataTable([
+      { t: "Etap", get: r => r._x.node, strong: true },
+      { t: "Tytuł", get: r => r._x.tytul },
+      { t: "Status", raw: true, get: r => chip(r._x.status), val: r => r._x.status },
+      { t: "Czas", num: true, get: r => NF.format(r._x.ms) + " ms", val: r => r._x.ms },
+      { t: "Ostrz.", num: true, get: r => r._x.ostrzezen, val: r => r._x.ostrzezen },
+      { t: "Braki", num: true, get: r => r._x.braki, val: r => r._x.braki },
+      { t: "Podsumowanie", get: r => r._x.podsumowanie },
+    ], nodeRows),
+  }));
+
+  const statusCard = el("div", "card");
+  statusCard.append(el("div", "card__head",
+    `<div class="sp"><h3>Status etapów</h3><div class="cap">Każdy etap tej samej wielkości, ` +
+    `niezależnie od czasu — status jest wypisany słowem, kolor tylko go powtarza.</div></div>`));
+  const statusBody = el("div", "card__body");
+  const statusGrid = el("div", "nodes");
+  d.nodes.forEach(x => {
+    const b = el("button", `node st-${x.status}`);
+    b.innerHTML =
+      `<div class="id">${esc(x.node)} · ${n(x.ms)} ms</div>` +
+      `<div class="ti">${esc(x.tytul)}</div>` +
+      `<div class="ft">${chip(x.status)}` +
+      `${x.ostrzezen ? `<span class="chip chip--warn"><span class="dot"></span>${x.ostrzezen} ostrz.</span>` : ""}` +
+      `${x.braki ? `<span class="chip chip--neutral"><span class="dot"></span>${x.braki} braków</span>` : ""}</div>`;
+    b.onclick = () => {
+      $$(".node", statusGrid).forEach(z => z.classList.toggle("on", z === b));
+      showNodeDetail(detail, x);
     };
-    flow.append(c);
+    statusGrid.append(b);
   });
-  out.append(flow);
-  out.append(el("div",null,'<div id="s-detail"></div>'));
+  statusBody.append(statusGrid);
+  statusCard.append(statusBody);
+  out.append(statusCard);
+  out.append(detail);
 
-  out.append(el("div","row",""));
-  const link=el("button","act ghost","Otwórz pełne raporty tego runu");
-  link.onclick=()=>{ document.querySelector('nav button[data-tab="runy"]').click();
-                     setTimeout(()=>showRun(d.id),120); };
-  out.lastChild.append(link);
+  const foot = el("div", "controls");
+  const link = el("button", "btn btn--ghost", "Otwórz pełne raporty tego runu →");
+  link.onclick = () => {
+    $('#nav button[data-tab="runy"]').click();
+    setTimeout(() => showRun(d.id), 150);
+  };
+  foot.append(link);
+  out.append(foot);
 }
 
-/* ============================ MAPA ============================ */
-async function loadBoard(){
-  const f=$("#m-flow");
-  try{
-    const d=await api("/api/board");
-    f.dataset.done="1"; f.innerHTML="";
-    d.nodes.forEach(x=>{
-      const c=el("div","nd");
-      c.innerHTML=`<div class="id">${esc(x.id)}</div><div class="ti">${esc(x.tytul)}</div>`+
-        `<div class="io">← ${x.konsumuje.length?x.konsumuje.map(esc).join(", "):"—"}<br>`+
-        `→ ${esc(x.produkuje||"—")}</div>`;
-      c.onclick=()=>{
-        document.querySelectorAll("#m-flow .nd").forEach(z=>z.classList.remove("on"));
-        c.classList.add("on");
-        $("#m-detail").innerHTML=`<div class="box"><h3>[${esc(x.id)}] ${esc(x.tytul)}</h3>`+
-          `<p style="white-space:pre-wrap;margin:6px 0;font-size:13px">${esc(x.opis)}</p>`+
-          `<div class="mono">plik: lotis/nodes/ · konsumuje: ${x.konsumuje.map(esc).join(", ")||"—"}`+
-          ` · produkuje: ${esc(x.produkuje||"—")}</div></div>`;
-      };
-      f.append(c);
-    });
-  }catch(e){ fail(f,e); }
+function showNodeDetail(host, x) {
+  host.innerHTML = "";
+  const c = el("div", "card");
+  c.append(el("div", "card__head",
+    `<div class="sp"><h3>[${esc(x.node)}] ${esc(x.tytul)}</h3></div>${chip(x.status)}` +
+    `<span class="mono">${n(x.ms)} ms</span>`));
+  const b = el("div", "card__body");
+  b.append(el("p", "note", esc(x.podsumowanie || "—")));
+  if (x.warnings?.length) {
+    b.append(el("h3", null, "Ostrzeżenia"));
+    b.append(el("ul", "plain", x.warnings.map(w => `<li>${esc(w)}</li>`).join("")));
+  }
+  if (x.data_gaps?.length) {
+    b.append(el("h3", null, "Braki danych"));
+    b.append(el("ul", "plain", x.data_gaps.map(w => `<li>${esc(w)}</li>`).join("")));
+  }
+  c.append(b);
+  host.append(c);
+  host.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-/* ============================ DANE ============================ */
-async function loadSrc(){
-  const box=$("#d-src");
-  try{
-    const d=await api("/api/health");
-    box.dataset.done="1"; box.innerHTML="";
-    box.append(el("div",`msg ${d.gotowy?"ok":"err"}`,
-      d.gotowy?"Wszystkie źródła wczytane — system gotowy."
-              :`Problemy: ${d.problemy.map(esc).join("; ")}`));
-    const p=d.zrodla.baza_parametryczna, o=d.zrodla.baza_operacyjna;
-    if(p){ box.append(el("h3",null,`Baza parametryczna — ${esc(p.plik)} v${esc(p.wersja)} (${esc(p.wygenerowano)})`));
-      box.append(cards([["porty",p.porty],["trasy",p.trasy],["numery rejsów",p.numery_rejsow],
-        ["flota",p.flota],["typy",p.typy],["rotacje",p.rotacje_maszyn],
-        ["kody opóźnień",p.kody_opoznien],["kody SSR",p.kody_ssr],
-        ["klasy rez.",p.klasy_rezerwacyjne],["partnerzy",p.partnerzy],
-        ["podstawy prawne",p.podstawy_prawne]])); }
-    if(o){ box.append(el("h3",null,`Baza operacyjna — ${esc(o.plik)} · ${esc(o.zakres||"")}`));
-      box.append(cards([["doby",o.doby_tygodnia],["rejsy w tygodniu",o.rejsow_w_tygodniu],
-        ["operacji",o.operacji],["maszyn",o.maszyn],["porty",o.porty],["trasy",o.trasy],
-        ["statystyka rejsów",o.statystyka_rejsow],["statystyka tras",o.statystyka_tras]])); }
-    box.append(el("h3",null,"Warstwa AI"));
-    box.append(el("div","box tight",
-      `<table><tbody>
-        <tr><td>model</td><td class="mono">${esc(d.model)}</td></tr>
-        <tr><td>klucz OpenRouter</td><td>${d.klucz_api
-          ?'<span class="pill ok">obecny</span>'
-          :'<span class="pill warn">brak — tylko tryb na sucho</span>'}</td></tr>
-      </tbody></table>`));
-  }catch(e){ fail(box,e); }
+/* ==========================================================================
+   MAPA ETAPOW
+   ========================================================================== */
+let BOARD = [];
+async function loadBoard() {
+  const f = $("#m-flow");
+  f.innerHTML = "";
+  f.append(loading("wczytuję mapę"));
+  try {
+    const d = await api("/api/board");
+    BOARD = d.nodes;
+    drawBoard();
+  } catch (e) { fail(f, e); }
+}
+$("#m-q").oninput = () => drawBoard();
+
+function drawBoard() {
+  const f = $("#m-flow"), q = $("#m-q").value.trim().toLowerCase();
+  const list = q
+    ? BOARD.filter(x => (x.id + " " + x.tytul + " " + x.nazwa + " " + x.konsumuje.join(" ") +
+        " " + (x.produkuje || "") + " " + (x.opis || "")).toLowerCase().includes(q))
+    : BOARD;
+  $("#m-count").textContent = `${list.length} z ${BOARD.length} etapów`;
+  f.innerHTML = "";
+  if (!list.length) {
+    f.append(el("div", "empty", '<div class="t">Brak dopasowania</div>' +
+      '<div class="d">Żaden etap nie pasuje do tego zapytania.</div>'));
+    return;
+  }
+  list.forEach(x => {
+    const c = el("button", "node");
+    c.innerHTML =
+      `<div class="id">${esc(x.id)}</div><div class="ti">${esc(x.tytul)}</div>` +
+      `<div class="io">← ${x.konsumuje.length ? x.konsumuje.map(esc).join(", ") : "—"}<br>` +
+      `→ ${esc(x.produkuje || "—")}</div>`;
+    c.onclick = () => {
+      $$("#m-flow .node").forEach(z => z.classList.toggle("on", z === c));
+      const d = $("#m-detail");
+      d.innerHTML = "";
+      const card = el("div", "card");
+      card.append(el("div", "card__head",
+        `<div class="sp"><h3>[${esc(x.id)}] ${esc(x.tytul)}</h3>` +
+        `<div class="cap mono">${esc(x.nazwa)}</div></div>`));
+      const b = el("div", "card__body");
+      b.append(el("p", "note", esc(x.opis || "Brak opisu w docstringu etapu.")));
+      const kv = el("table", "kv");
+      kv.innerHTML =
+        `<tr><td>konsumuje</td><td class="mono">${x.konsumuje.map(esc).join(", ") || "—"}</td></tr>` +
+        `<tr><td>produkuje</td><td class="mono">${esc(x.produkuje || "—")}</td></tr>` +
+        `<tr><td>plik</td><td class="mono">lotis/nodes/</td></tr>`;
+      b.append(kv);
+      card.append(b);
+      d.append(card);
+      d.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    f.append(c);
+  });
+}
+
+/* ==========================================================================
+   DANE ZRODLOWE
+   ========================================================================== */
+async function loadSrc() {
+  const box = $("#d-src");
+  try {
+    const d = HEALTH || await api("/api/health");
+    box.innerHTML = "";
+    box.append(d.gotowy
+      ? banner("ok", "Wszystkie źródła wczytane — system gotowy do liczenia.")
+      : banner("err", `Problemy ze źródłami: ${d.problemy.map(esc).join("; ")}`));
+
+    const p = d.zrodla.baza_parametryczna, o = d.zrodla.baza_operacyjna;
+    const grid = el("div", "grid g2");
+
+    if (p) {
+      const c = el("div", "card");
+      c.append(el("div", "card__head",
+        `<div class="sp"><h3>Baza parametryczna</h3><div class="cap mono">${esc(p.plik)} · ` +
+        `v${esc(p.wersja)} · ${esc(p.wygenerowano)}</div></div>` +
+        `<span class="chip chip--info"><span class="dot"></span>reguły</span>`));
+      const b = el("div", "card__body");
+      b.append(el("p", "note tight", "Mówi, jakie są reguły: taryfy, progi, podstawy prawne, floty."));
+      b.append(kpis([
+        ["Porty", p.porty], ["Trasy", p.trasy], ["Numery rejsów", p.numery_rejsow],
+        ["Flota", p.flota], ["Typy", p.typy], ["Rotacje maszyn", p.rotacje_maszyn],
+        ["Kody opóźnień", p.kody_opoznien], ["Kody SSR", p.kody_ssr],
+        ["Klasy rezerwacyjne", p.klasy_rezerwacyjne], ["Partnerzy", p.partnerzy],
+        ["Podstawy prawne", p.podstawy_prawne],
+      ]));
+      c.append(b); grid.append(c);
+    }
+    if (o) {
+      const c = el("div", "card");
+      c.append(el("div", "card__head",
+        `<div class="sp"><h3>Baza operacyjna</h3><div class="cap mono">${esc(o.plik)} · ` +
+        `${esc(o.zakres || "")}</div></div>` +
+        `<span class="chip chip--info"><span class="dot"></span>fakty</span>`));
+      const b = el("div", "card__body");
+      b.append(el("p", "note tight", "Mówi, co się faktycznie zdarzyło: rozkład i wykonanie."));
+      b.append(kpis([
+        ["Doby tygodnia", o.doby_tygodnia], ["Rejsy w tygodniu", o.rejsow_w_tygodniu],
+        ["Operacji", o.operacji], ["Maszyn", o.maszyn], ["Porty", o.porty], ["Trasy", o.trasy],
+        ["Statystyka rejsów", o.statystyka_rejsow], ["Statystyka tras", o.statystyka_tras],
+      ]));
+      c.append(b); grid.append(c);
+    }
+    box.append(grid);
+
+    const c = el("div", "card");
+    c.append(el("div", "card__head", `<div class="sp"><h3>Warstwa AI</h3></div>` +
+      (d.klucz_api ? `<span class="chip chip--ok"><span class="dot"></span>klucz obecny</span>`
+                   : `<span class="chip chip--warn"><span class="dot"></span>brak klucza</span>`)));
+    const b = el("div", "card__body");
+    const kv = el("table", "kv");
+    kv.innerHTML =
+      `<tr><td>model</td><td class="mono">${esc(d.model)}</td></tr>` +
+      `<tr><td>klucz OpenRouter</td><td>${d.klucz_api ? "obecny w <code>.env</code>"
+        : "brak — dostępny wyłącznie tryb na sucho"}</td></tr>` +
+      `<tr><td>sprawdzono</td><td class="mono">${esc(utc(d.czas))}</td></tr>`;
+    b.append(kv); c.append(b);
+    box.append(c);
+  } catch (e) { fail(box, e); }
 }
 
 $("#d-snap").onclick = async () => {
-  const out=$("#d-snapout"), msg=$("#d-msg"); msg.textContent="buduję"; $("#d-snap").disabled=true;
-  try{
-    const d=await api(`/api/snapshot?day=${$("#d-day").value}`); const L=d.liczby;
-    out.innerHTML="";
-    out.append(el("div","msg info",
-      `<b>${esc(d.nazwa_dnia)} ${esc(d.doba)}</b> · odcisk <span class="mono">${esc(d.odcisk)}</span>`));
-    out.append(cards([["rejsy",L.rejsy],["rotacje",L.rotacje],["przerwane",L.rotacje_przerwane],
-      ["maszyny",L.maszyny],["załoga",L.zaloga],["pasażerowie",L.pasazerowie],
-      ["podróże",L.podroze],["transferowi",L.udzial_transferowych,"%"],
-      ["porty",L.porty],["typy",L.typy]]));
-    if(d.zalozenia.length){ out.append(el("h3",null,"Założenia"));
-      out.append(el("ul","plain",d.zalozenia.map(a=>`<li>${esc(a)}</li>`).join(""))); }
-    if(d.braki.length){ out.append(el("h3",null,"Braki danych"));
-      out.append(el("ul","plain",d.braki.map(a=>`<li>${esc(a)}</li>`).join(""))); }
-    out.append(el("h3",null,`Rejsy (pierwsze ${d.rejsow_pokazano})`));
-    out.append(table([{t:"nr"},{t:"z"},{t:"do"},{t:"STD UTC"},{t:"STA UTC"},{t:"blok",num:true},
-                      {t:"typ"},{t:"rejestracja"}],
-      d.rejsy.map(f=>[f.nr,f.z,f.do,f.std.replace("T"," ").replace("+00:00",""),
-                      f.sta.replace("T"," ").replace("+00:00",""),f.blok,f.typ,f.reg])));
-    msg.textContent="";
-  }catch(e){ msg.textContent=""; fail(out,e); }
-  finally{ $("#d-snap").disabled=false; }
+  const out = $("#d-snapout"), msg = $("#d-msg"), btn = $("#d-snap");
+  btn.disabled = true;
+  msg.innerHTML = '<span class="load"><i></i>buduję snapshot</span>';
+  out.classList.add("is-loading");
+  try {
+    const d = await api(`/api/snapshot?day=${$("#d-day").value}`);
+    const L = d.liczby;
+    out.innerHTML = "";
+    out.append(banner("info",
+      `<b>${esc(d.nazwa_dnia)} ${esc(d.doba)}</b> — odcisk <code>${esc(d.odcisk)}</code>. ` +
+      `Ten skrót cytuje każdy raport policzony na tym stanie.`));
+    out.append(kpis([
+      ["Rejsy", L.rejsy], ["Rotacje", L.rotacje], ["Rotacje przerwane", L.rotacje_przerwane],
+      ["Maszyny", L.maszyny], ["Załoga", L.zaloga], ["Pasażerowie", L.pasazerowie],
+      ["Podróże", L.podroze], ["Transferowi", L.udzial_transferowych, "%"],
+      ["Porty", L.porty], ["Typy", L.typy],
+    ]));
+
+    /* Rozklad odlotow w dobie -- jedna seria, jeden odcien.
+       API oddaje tylko pierwsze N rejsow posortowanych po STD, wiec zbior konczy
+       sie w polowie doby. Rysowanie pustych godzin do 23 sugerowaloby, ze po
+       poludniu nikt nie lata -- a to artefakt obciecia listy, nie fakt.
+       Dlatego wykres siega tylko tam, gdzie dane naprawde sa. */
+    const byHour = new Array(24).fill(0);
+    d.rejsy.forEach(f => { const h = +String(f.std).slice(11, 13); if (h >= 0 && h < 24) byHour[h]++; });
+    let last = 23;
+    while (last > 0 && byHour[last] === 0) last--;
+    const hourRows = byHour.slice(0, last + 1).map((v, h) => ({
+      label: String(h).padStart(2, "0"),
+      value: v,
+      title: `${String(h).padStart(2, "0")}:00–${String(h).padStart(2, "0")}:59 UTC`,
+      tip: [["odlotów", NF0.format(v), C.seq]],
+    }));
+    const cut = d.rejsow_pokazano < L.rejsy;
+    out.append(figure({
+      title: "Odloty według godziny UTC",
+      caption: "Kształt doby operacyjnej: fale wylotów rozstawione tak, żeby rotacje się domykały. " +
+               "Wysokość szczytu decyduje, ile rotacji ma szansę wchłonąć opóźnienie bez propagacji." +
+               (cut ? ` <b>Uwaga:</b> API oddaje ${d.rejsow_pokazano} z ${L.rejsy} rejsów doby, ` +
+                      `posortowanych po STD — wykres kończy się na godzinie ${String(last).padStart(2, "0")}:00 UTC, ` +
+                      `bo tam kończy się lista, a nie ruch.` : ""),
+      svg: chartCols(hourRows, { height: 150, unit: "odlotów" }),
+      table: dataTable([
+        { t: "Godzina UTC", get: r => r.label + ":00" },
+        { t: "Odlotów", num: true, get: r => r.value, val: r => r.value },
+      ], hourRows),
+    }));
+
+    if (d.zalozenia?.length || d.braki?.length) {
+      const c = el("div", "card");
+      c.append(el("div", "card__head", `<div class="sp"><h3>Założenia i braki</h3>` +
+        `<div class="cap">To, czego snapshot nie wie, jest wypisane, a nie domyślnie zerowane.</div></div>`));
+      const b = el("div", "card__body");
+      if (d.zalozenia?.length) {
+        b.append(el("h3", null, "Założenia"));
+        b.append(el("ul", "plain", d.zalozenia.map(a => `<li>${esc(a)}</li>`).join("")));
+      }
+      if (d.braki?.length) {
+        b.append(el("h3", null, "Braki danych"));
+        b.append(el("ul", "plain", d.braki.map(a => `<li>${esc(a)}</li>`).join("")));
+      }
+      c.append(b); out.append(c);
+    }
+
+    const c = el("div", "card");
+    c.append(el("div", "card__head",
+      `<div class="sp"><h3>Rejsy doby</h3><div class="cap">Pierwsze ${d.rejsow_pokazano} ` +
+      `według STD. Kliknij nagłówek, żeby posortować.</div></div>`));
+    const bb = el("div", "card__body flush");
+    bb.append(dataTable([
+      { t: "Nr", get: r => r.nr, strong: true },
+      { t: "Z", get: r => r.z }, { t: "Do", get: r => r.do },
+      { t: "STD UTC", num: true, get: r => utc(r.std), val: r => r.std },
+      { t: "STA UTC", num: true, get: r => utc(r.sta), val: r => r.sta },
+      { t: "Blok", num: true, get: r => r.blok, val: r => r.blok },
+      { t: "Typ", get: r => r.typ }, { t: "Rejestracja", get: r => r.reg },
+    ], d.rejsy));
+    c.append(bb); out.append(c);
+    msg.textContent = "";
+  } catch (e) { msg.textContent = ""; fail(out, e); }
+  finally { btn.disabled = false; out.classList.remove("is-loading"); }
 };
 
 $("#d-statgo").onclick = async () => {
-  const out=$("#d-stat"); out.innerHTML='<span class="spin">wczytuję</span>';
-  try{
-    const d=await api("/api/stats"); const g=d.globalna; out.innerHTML="";
-    out.append(cards([["mediana odlotu",g.odlot.mediana,"min"],
-      ["mediana przylotu",g.przylot.mediana,"min"],
-      ["punktualność odlotu",g.odlot.punktualnosc15,"%"],
-      ["punktualność przylotu",g.przylot.punktualnosc15,"%"],
-      ["p90 odlotu",g.odlot.p90,"min"],["operacji",g.odlot.n]]));
-    out.append(el("p","note","Mediana odlotu jest dodatnia, a przylotu ujemna — opóźnienia "+
-      "są odrabiane w locie. Dlatego silnik liczy propagację na przylotach, nie na odlotach."));
-    out.append(el("h3",null,"Porty o największym opóźnieniu odlotu"));
-    out.append(table([{t:"port"},{t:"n",num:true},{t:"mediana",num:true},{t:"p75",num:true},
-                      {t:"p90",num:true},{t:"punkt. 15′",num:true}],
-      d.najgorsze_porty.map(r=>[r.port,r.n,r.mediana,r.p75,r.p90,r.punktualnosc15])));
-    out.append(el("h3",null,"Trasy o największym opóźnieniu odlotu"));
-    out.append(table([{t:"trasa"},{t:"n",num:true},{t:"mediana",num:true},{t:"p75",num:true},
-                      {t:"p90",num:true},{t:"punkt. 15′",num:true}],
-      d.najgorsze_trasy.map(r=>[r.trasa,r.n,r.mediana,r.p75,r.p90,r.punktualnosc15])));
-  }catch(e){ fail(out,e); }
+  const out = $("#d-stat");
+  out.innerHTML = "";
+  out.append(loading("wczytuję statystykę"));
+  try {
+    const d = await api("/api/stats");
+    const g = d.globalna;
+    out.innerHTML = "";
+
+    out.append(kpis([
+      ["Mediana odlotu", g.odlot.mediana, "min"],
+      ["Mediana przylotu", g.przylot.mediana, "min"],
+      ["Punktualność odlotu", g.odlot.punktualnosc15, "%", "próg 15 minut"],
+      ["Punktualność przylotu", g.przylot.punktualnosc15, "%", "próg 15 minut"],
+      ["p90 odlotu", g.odlot.p90, "min"],
+      ["Obserwacji", g.odlot.n],
+    ]));
+
+    /* rozklady: dwie serie => legenda obowiazkowa */
+    const rangeRows = [
+      { label: "Odlot (ATD − STD)", color: SERIES[0], median: g.odlot.mediana, p25: g.odlot.p25, p75: g.odlot.p75, p90: g.odlot.p90, n: g.odlot.n },
+      { label: "Przylot (ATA − STA)", color: SERIES[1], median: g.przylot.mediana, p25: g.przylot.p25, p75: g.przylot.p75, p90: g.przylot.p90, n: g.przylot.n },
+    ];
+    out.append(figure({
+      title: "Rozkład odchyleń od rozkładu (minuty)",
+      caption: "Skrzynka to p25–p75, pionowa kreska to mediana, wąs sięga p90. Mediana odlotu jest " +
+               "dodatnia, a przylotu ujemna — opóźnienia są odrabiane w locie. Dlatego silnik liczy " +
+               "propagację na przylotach, nie na odlotach.",
+      svg: chartRanges(rangeRows),
+      legend: [["odlot", SERIES[0]], ["przylot", SERIES[1]]],
+      table: dataTable([
+        { t: "Pomiar", get: r => r.label, strong: true },
+        { t: "n", num: true, get: r => NF0.format(r.n), val: r => r.n },
+        { t: "p25", num: true, get: r => r.p25, val: r => r.p25 },
+        { t: "Mediana", num: true, get: r => r.median, val: r => r.median },
+        { t: "p75", num: true, get: r => r.p75, val: r => r.p75 },
+        { t: "p90", num: true, get: r => r.p90, val: r => r.p90 },
+      ], rangeRows, { sortable: false }),
+    }));
+
+    /* stany rejsow: jeden stan to 98% -- to miernik, nie wykres udzialow */
+    if (d.stany_rejsow) {
+      const total = Object.values(d.stany_rejsow).reduce((a, b) => a + b, 0);
+      const done = d.stany_rejsow.wykonany || 0;
+      const c = el("div", "card");
+      c.append(el("div", "card__head",
+        `<div class="sp"><h3>Stany rejsów w źródle</h3><div class="cap">` +
+        `Udział rejsów faktycznie wykonanych w całości zbioru.</div></div>` +
+        `<span class="chip chip--ok"><span class="dot"></span>` +
+        `${NF.format(100 * done / total)} % wykonanych</span>`));
+      const b = el("div", "card__body");
+      b.append(el("div", "meter", `<i style="width:${(100 * done / total).toFixed(1)}%"></i>`));
+      b.append(dataTable([
+        { t: "Stan", get: r => r[0], strong: true },
+        { t: "Rejsów", num: true, get: r => NF0.format(r[1]), val: r => r[1] },
+        { t: "Udział", num: true, get: r => NF.format(100 * r[1] / total) + " %", val: r => r[1] },
+      ], Object.entries(d.stany_rejsow), { sort: 1, dir: -1 }));
+      c.append(b); out.append(c);
+    }
+
+    const portRows = d.najgorsze_porty.map(r => ({
+      label: r.port, value: r.mediana,
+      tip: [["mediana", r.mediana + " min", C.seq], ["p90", r.p90 + " min", null],
+            ["punktualność 15′", r.punktualnosc15 + " %", null], ["obserwacji", NF0.format(r.n), null]],
+      _r: r,
+    }));
+    out.append(figure({
+      title: "Porty o największym opóźnieniu odlotu",
+      caption: "Mediana odchylenia ATD − STD. Jedna seria, jeden odcień — długość słupka niesie " +
+               "całą informację, kolor nie dubluje jej po raz drugi.",
+      svg: chartBarsH(portRows, { labelW: 90, pitch: 34, unit: "min", fmtLabel: r => r.value + " min" }),
+      table: dataTable([
+        { t: "Port", get: r => r._r.port, strong: true },
+        { t: "n", num: true, get: r => r._r.n, val: r => r._r.n },
+        { t: "Mediana", num: true, get: r => r._r.mediana, val: r => r._r.mediana },
+        { t: "p75", num: true, get: r => r._r.p75, val: r => r._r.p75 },
+        { t: "p90", num: true, get: r => r._r.p90, val: r => r._r.p90 },
+        { t: "Punkt. 15′", num: true, get: r => r._r.punktualnosc15, val: r => r._r.punktualnosc15 },
+      ], portRows),
+    }));
+
+    const routeRows = d.najgorsze_trasy.map(r => ({
+      label: r.trasa, value: r.mediana,
+      tip: [["mediana", r.mediana + " min", C.seq], ["p90", r.p90 + " min", null],
+            ["obserwacji", NF0.format(r.n), null]],
+      _r: r,
+    }));
+    out.append(figure({
+      title: "Trasy o największym opóźnieniu odlotu",
+      caption: "Te same kwantyle w cięciu na trasę. Trasa z małym n bywa artefaktem — kolumna " +
+               "obserwacji w tabeli mówi, ile pomiarów za tym stoi.",
+      svg: chartBarsH(routeRows, { labelW: 130, pitch: 34, unit: "min", fmtLabel: r => r.value + " min" }),
+      table: dataTable([
+        { t: "Trasa", get: r => r._r.trasa, strong: true },
+        { t: "n", num: true, get: r => r._r.n, val: r => r._r.n },
+        { t: "Mediana", num: true, get: r => r._r.mediana, val: r => r._r.mediana },
+        { t: "p75", num: true, get: r => r._r.p75, val: r => r._r.p75 },
+        { t: "p90", num: true, get: r => r._r.p90, val: r => r._r.p90 },
+        { t: "Punkt. 15′", num: true, get: r => r._r.punktualnosc15, val: r => r._r.punktualnosc15 },
+      ], routeRows),
+    }));
+
+    if (d.zrodlo?.opis) {
+      const c = el("div", "card plain");
+      const b = el("div", "card__body");
+      b.append(el("h3", null, "Pochodzenie danych"));
+      b.append(el("p", "note", esc(d.zrodlo.opis)));
+      if (d.zrodlo.zasada) b.append(el("p", "note", esc(d.zrodlo.zasada)));
+      c.append(b); out.append(c);
+    }
+  } catch (e) { fail(out, e); }
 };
 
-/* ============================ RUNY ============================ */
-async function loadRuns(){
-  const list=$("#r-list");
-  try{
-    const d=await api("/api/runs"); list.innerHTML="";
-    if(!d.runs.length){ list.append(el("div",null,"<small>brak runów</small>")); return; }
-    d.runs.forEach(r=>{
-      const it=el("div",null,`${esc(r.id)}<small>${r.raportow} raportów`+
-        `${r.ai?.length?` · AI: ${r.ai.length}`:""}</small>`);
-      it.onclick=()=>{ document.querySelectorAll("#r-list div").forEach(x=>x.classList.toggle("on",x===it));
-                       showRun(r.id); };
-      list.append(it);
+/* ==========================================================================
+   URUCHOMIENIA
+   ========================================================================== */
+async function loadRuns() {
+  const list = $("#r-list"), msg = $("#r-msg");
+  msg.innerHTML = '<span class="load"><i></i>odświeżam</span>';
+  try {
+    const d = await api("/api/runs");
+    list.innerHTML = "";
+    msg.textContent = "";
+    if (!d.runs.length) {
+      list.innerHTML = '<div style="padding:22px 16px;color:var(--muted);font-size:12.5px">' +
+        'Brak zapisanych runów. Uruchom przepływ w zakładce <b>Scenariusz</b>.</div>';
+      $("#r-out").innerHTML = "";
+      $("#r-out").append(el("div", "empty",
+        '<div class="t">Nie ma czego pokazać</div>' +
+        '<div class="d">Raporty pojawią się tutaj po pierwszym uruchomieniu przepływu.</div>'));
+      return;
+    }
+    d.runs.forEach(r => {
+      const b = el("button");
+      b.dataset.id = r.id;
+      b.innerHTML = `<span class="rid">${esc(r.id)}</span>` +
+        `<span class="rm">${r.raportow} raportów${r.ai?.length ? ` · AI ${r.ai.length}` : ""}` +
+        `${r.zatrzymany ? " · zatrzymany" : ""}</span>`;
+      b.onclick = () => showRun(r.id);
+      list.append(b);
     });
-  }catch(e){ fail(list,e); }
+  } catch (e) { msg.textContent = ""; fail(list, e); }
 }
 $("#r-refresh").onclick = loadRuns;
 
-async function showRun(id){
-  const out=$("#r-out"); out.innerHTML='<span class="spin">wczytuję</span>';
-  document.querySelectorAll("#r-list div").forEach(x=>
-    x.classList.toggle("on", x.textContent.startsWith(id)));
-  try{
-    const d=await api(`/api/run?id=${encodeURIComponent(id)}`);
-    out.innerHTML="";
-    out.append(el("div","msg info",
-      `run <b>${esc(d.id)}</b> · tryb ${esc(d.tryb)} · snapshot <span class="mono">${esc(d.snapshot||"—")}</span>`));
-    out.append(table([{t:"etap"},{t:"tytuł"},{t:"status",raw:true},{t:"ostrz.",num:true},{t:"braki",num:true}],
-      d.raporty.map(r=>[r.node,r.tytul,pill(r.status),
-        (r.json.warnings||[]).length,(r.json.data_gaps||[]).length])));
+async function showRun(id) {
+  const out = $("#r-out");
+  $$("#r-list button").forEach(x => x.classList.toggle("on", x.dataset.id === id));
+  out.classList.add("is-loading");
+  if (!out.children.length) { out.innerHTML = ""; out.append(loading("wczytuję run")); }
+  try {
+    const d = await api(`/api/run?id=${encodeURIComponent(id)}`);
+    out.innerHTML = "";
+    out.append(banner("info",
+      `Run <b>${esc(d.id)}</b> · tryb ${esc(d.tryb)} · snapshot <code>${esc(d.snapshot || "—")}</code>`));
 
-    const koszt = d.raporty.find(r=>r.node==="09");
-    if(koszt) out.append(waterfall(koszt.json));
+    const rep = d.raporty;
+    out.append(kpis([
+      ["Etapów", rep.length],
+      ["Degradowanych", rep.filter(r => r.status === "degraded").length],
+      ["Zablokowanych", rep.filter(r => r.status === "blocked").length],
+      ["Ostrzeżeń", rep.reduce((a, r) => a + (r.json.warnings || []).length, 0)],
+      ["Braków danych", rep.reduce((a, r) => a + (r.json.data_gaps || []).length, 0)],
+    ]));
 
-    d.raporty.forEach(r=>{
-      const det=el("details");
-      det.innerHTML=`<summary>[${esc(r.node)}] ${esc(r.tytul)} — ${esc(r.status)}</summary>`;
-      det.append(el("pre",null,esc(r.markdown)));
-      out.append(det);
+    const c = el("div", "card");
+    c.append(el("div", "card__head", `<div class="sp"><h3>Etapy runu</h3></div>`));
+    const cb = el("div", "card__body flush");
+    cb.append(dataTable([
+      { t: "Etap", get: r => r.node, strong: true },
+      { t: "Tytuł", get: r => r.tytul },
+      { t: "Status", raw: true, get: r => chip(r.status), val: r => r.status },
+      { t: "Ostrz.", num: true, get: r => (r.json.warnings || []).length, val: r => (r.json.warnings || []).length },
+      { t: "Braki", num: true, get: r => (r.json.data_gaps || []).length, val: r => (r.json.data_gaps || []).length },
+    ], rep));
+    c.append(cb); out.append(c);
+
+    const koszt = rep.find(r => r.node === "09");
+    if (koszt) { const w = costChart(koszt.json); if (w) out.append(w); }
+
+    const acc = el("div");
+    acc.append(el("div", "h-sec", "Raporty etapów"));
+    rep.forEach(r => {
+      const det = el("details", "rep");
+      const sum = el("summary");
+      sum.innerHTML = `<span class="mono">${esc(r.node)}</span><span class="sp">${esc(r.tytul)}</span>${chip(r.status)}`;
+      det.append(sum);
+      const pre = el("pre");
+      pre.textContent = r.markdown;                    /* tresc raportu -- nie HTML */
+      det.append(pre);
+      acc.append(det);
     });
-  }catch(e){ fail(out,e); }
+    out.append(acc);
+  } catch (e) { fail(out, e); }
+  finally { out.classList.remove("is-loading"); }
 }
 
-function waterfall(koszt){
-  const rows = koszt.findings?.koszty_opcji || [];
-  const box = el("div","box");
-  box.append(el("h3",null,"Struktura kosztu opcji"));
-  box.append(el("p","note","Każdy pasek to jedna opcja rozłożona na składniki. "+
-    "Widać, która pozycja decyduje o wyniku — zwykle jest to ekspozycja z Art. 7."));
-  const maxTotal = Math.max(...rows.map(r=>mv(r.koszt)), 1);
-  const keys=new Set(); rows.forEach(r=>(r.najwieksze||[]).forEach(p=>keys.add(p.pozycja)));
-  const colors={}; [...keys].forEach((k,i)=>colors[k]=PALETTE[i%PALETTE.length]);
-  rows.forEach(r=>{
-    const w=el("div"); w.style.margin="10px 0";
-    w.innerHTML=`<div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px">
-      <b>${esc(r.id)}</b><span class="mono">${m(r.koszt)} · ${esc(r.tryb)}</span></div>`;
-    const bar=el("div","wf");
-    const total=mv(r.koszt)||1;
-    let sum=0;
-    (r.najwieksze||[]).forEach(p=>{
-      const val=mv(p.kwota); sum+=val;
-      const d=el("div"); d.style.width=(100*val/total).toFixed(1)+"%";
-      d.style.background=colors[p.pozycja]; d.title=`${p.pozycja}: ${m(p.kwota)}`;
-      bar.append(d);
+/**
+ * Struktura kosztu opcji -- slupki skladane.
+ * Skladnikow moze byc wiecej niz slotow palety, wiec ogon skada sie
+ * w "pozostale" zamiast generowac dziewiaty odcien. Kolor idzie za nazwa
+ * pozycji, nie za jej miejscem w wierszu -- ta sama pozycja ma ten sam
+ * kolor w kazdej opcji.
+ */
+function costChart(koszt) {
+  const src = koszt.findings?.koszty_opcji || [];
+  if (!src.length) return null;
+
+  const weight = new Map();
+  src.forEach(r => (r.najwieksze || []).forEach(p => {
+    weight.set(p.pozycja, (weight.get(p.pozycja) || 0) + mv(p.kwota));
+  }));
+  const order = [...weight.entries()].sort((a, b) => b[1] - a[1]).map(e => e[0]);
+  const named = order.slice(0, 7);
+  const colorMap = new Map(named.map((k, i) => [k, SERIES[i]]));
+  const colorOf = k => colorMap.get(k) || OTHER;
+
+  const rows = src.map(r => {
+    const total = mv(r.koszt);
+    const parts = [];
+    let acc = 0;
+    named.forEach(k => {
+      const hit = (r.najwieksze || []).find(p => p.pozycja === k);
+      if (hit) { const v = mv(hit.kwota); parts.push({ key: k, value: v }); acc += v; }
     });
-    if(total-sum>0){ const d=el("div"); d.style.width=(100*(total-sum)/total).toFixed(1)+"%";
-      d.style.background="var(--panel3)"; d.title="pozostałe składniki"; bar.append(d); }
-    const scale=el("div"); scale.style.cssText=`width:${(100*mv(r.koszt)/maxTotal).toFixed(1)}%`;
-    scale.append(bar); w.append(scale); box.append(w);
+    const rest = Math.max(0, total - acc);
+    if (rest > 0.005) parts.push({ key: "pozostałe składniki", value: rest });
+    return { label: r.id, total, parts, _r: r };
   });
-  const lg=el("div","legend");
-  [...keys].forEach(k=>lg.append(el("span",null,
-    `<i style="background:${colors[k]}"></i>${esc(k)}`)));
-  lg.append(el("span",null,'<i style="background:var(--panel3)"></i>pozostałe'));
-  box.append(lg);
-  return box;
+
+  const legend = named.map(k => [k, colorOf(k)]);
+  if (rows.some(r => r.parts.some(p => p.key === "pozostałe składniki")))
+    legend.push(["pozostałe składniki", OTHER]);
+
+  const tableRows = [];
+  rows.forEach(r => r.parts.forEach(p =>
+    tableRows.push({ opcja: r.label, tryb: r._r.tryb, poz: p.key, kwota: p.value, total: r.total })));
+
+  return figure({
+    title: "Struktura kosztu opcji",
+    caption: "Każdy pasek to jedna opcja rozłożona na składniki. Widać, która pozycja decyduje " +
+             "o wyniku — zwykle jest to ekspozycja z Art. 7. Ogon poza siedmioma największymi " +
+             "pozycjami jest zsumowany, a nie pokolorowany kolejnym odcieniem.",
+    svg: chartStacked(rows, named, colorOf, { labelW: 160, fmt: v => compact(v) + " zł" }),
+    legend,
+    table: dataTable([
+      { t: "Opcja", get: r => r.opcja, strong: true },
+      { t: "Tryb", get: r => r.tryb },
+      { t: "Pozycja kosztu", get: r => r.poz },
+      { t: "Kwota", num: true, get: r => NF.format(r.kwota), val: r => r.kwota },
+      { t: "Koszt opcji", num: true, get: r => NF.format(r.total), val: r => r.total },
+    ], tableRows, { sort: 3, dir: -1 }),
+  });
 }
 
-/* ============================ AI ============================ */
-async function loadAi(){
-  try{
-    const [runs,per,health]=await Promise.all([api("/api/runs"),api("/api/personas"),api("/api/health")]);
+/* ==========================================================================
+   WARSTWA AI
+   ========================================================================== */
+async function loadAi() {
+  try {
+    const [runs, per, health] = await Promise.all([
+      api("/api/runs"), api("/api/personas"), HEALTH ? Promise.resolve(HEALTH) : api("/api/health"),
+    ]);
     $("#a-run").innerHTML = runs.runs.length
-      ? runs.runs.map(r=>`<option value="${esc(r.id)}">${esc(r.id)} (${r.raportow})</option>`).join("")
+      ? runs.runs.map(r => `<option value="${esc(r.id)}">${esc(r.id)} (${r.raportow})</option>`).join("")
       : '<option value="">— brak runów —</option>';
-    $("#a-persona").innerHTML = per.personas.map(p=>
-      `<option value="${esc(p.id)}"${p.id===per.domyslna?" selected":""}>${esc(p.nazwa)}</option>`).join("");
-    $("#a-key").innerHTML = health.klucz_api ? "" :
-      '<div class="msg info">Brak <code>OPENROUTER_API_KEY</code> w <code>.env</code> — '+
-      'wywołanie modelu zablokowane, tryb na sucho działa w pełni.</div>';
-    if(!health.klucz_api){ $("#a-dry").checked=true; $("#a-dry").disabled=true; }
-    const pbox=$("#a-personas"); pbox.innerHTML="";
-    pbox.append(el("h3",null,"Cztery role, te same raporty"));
-    pbox.append(el("p","note","Persona deklaruje, które etapy w ogóle widzi. To nie jest "+
-      "optymalizacja kontekstu, tylko granica uprawnień: redaktor komunikatów nie dostaje "+
-      "raportu z silnika kosztowego, więc fizycznie nie ma z czego wypisać pasażerowi "+
-      "kosztu wewnętrznego."));
-    const g=el("div","grid2");
-    per.personas.forEach(p=>g.append(el("div","box tight",
-      `<b>${esc(p.nazwa)}</b> <span class="mono">${esc(p.id)}</span>`+
-      `<div class="note" style="margin:5px 0">${esc(p.odbiorca)}</div>`+
-      `<div class="mono">czyta etapy: ${p.czyta.map(esc).join(", ")}</div>`)));
+    $("#a-persona").innerHTML = per.personas.map(p =>
+      `<option value="${esc(p.id)}"${p.id === per.domyslna ? " selected" : ""}>${esc(p.nazwa)}</option>`).join("");
+
+    const keyBox = $("#a-key");
+    keyBox.innerHTML = "";
+    if (!health.klucz_api) {
+      keyBox.append(banner("info",
+        `Brak <code>OPENROUTER_API_KEY</code> w <code>.env</code> — wywołanie modelu jest ` +
+        `zablokowane po stronie serwera. Tryb na sucho działa w pełni: składa kompletny prompt ` +
+        `i zapisuje go do pliku.`));
+      $("#a-dry").checked = true;
+      $("#a-dry").disabled = true;
+    }
+
+    const pbox = $("#a-personas");
+    pbox.innerHTML = "";
+    const g = el("div", "grid g2");
+    per.personas.forEach(p => {
+      const c = el("div", "card");
+      c.append(el("div", "card__head",
+        `<div class="sp"><h3>${esc(p.nazwa)}</h3><div class="cap">${esc(p.odbiorca)}</div></div>` +
+        `<span class="chip chip--neutral"><span class="dot"></span>${esc(p.id)}</span>`));
+      const b = el("div", "card__body");
+      const kv = el("table", "kv");
+      kv.innerHTML =
+        `<tr><td>czyta etapy</td><td class="mono">${p.czyta.map(esc).join(", ")}</td></tr>` +
+        `<tr><td>struktura odpowiedzi</td><td class="mono">${p.struktura.map(esc).join(" · ")}</td></tr>`;
+      b.append(kv); c.append(b); g.append(c);
+    });
     pbox.append(g);
-  }catch(e){ fail($("#a-out"),e); }
+  } catch (e) { fail($("#a-out"), e); }
 }
 
 $("#a-go").onclick = async () => {
-  const out=$("#a-out"), msg=$("#a-msg"), run=$("#a-run").value;
-  if(!run){ fail(out,new Error("najpierw uruchom przepływ")); return; }
-  const dry=$("#a-dry").checked;
-  msg.textContent = dry?"składam prompt":"pytam model"; $("#a-go").disabled=true;
-  try{
-    const d=await api("/api/ai",{run,dry_run:dry,personas:[$("#a-persona").value],
-                                question:$("#a-q").value});
-    const r=d.wyniki[0]; out.innerHTML="";
-    if(r.error) out.append(el("div","msg err",esc(r.error)));
-    out.append(cards([["persona",r.persona],["model",r.model],["znaków promptu",r.prompt_chars],
-      ["tokenów wej.",r.prompt_tokens],["tokenów wyj.",r.completion_tokens],
-      ["czas",Math.round(r.duration_ms),"ms"]]));
-    if(r.guard){
-      const g=r.guard;
-      out.append(el("div",`msg ${g.clean?"ok":"err"}`,
-        `<b>Strażnik liczb:</b> ${esc(g.summary)} — pula dozwolonych: ${g.allowed_pool}`));
-      if(g.errors.length){
-        out.append(el("h3",null,"Liczby, których nie ma w raportach"));
-        out.append(table([{t:"wartość",num:true},{t:"zapis modelu"},{t:"kontekst"}],
-          g.errors.map(v=>[v.value,v.text,v.context])));
+  const out = $("#a-out"), msg = $("#a-msg"), run = $("#a-run").value;
+  if (!run) { out.innerHTML = ""; fail(out, new Error("najpierw uruchom przepływ w zakładce Scenariusz")); return; }
+  const dry = $("#a-dry").checked;
+  msg.innerHTML = `<span class="load"><i></i>${dry ? "składam prompt" : "pytam model"}</span>`;
+  $("#a-go").disabled = true;
+  out.classList.add("is-loading");
+  try {
+    const d = await api("/api/ai", {
+      run, dry_run: dry, personas: [$("#a-persona").value], question: $("#a-q").value,
+    });
+    const r = d.wyniki[0];
+    out.innerHTML = "";
+    if (r.error) out.append(banner("err", esc(r.error)));
+
+    out.append(kpis([
+      ["Persona", r.persona], ["Model", r.model],
+      ["Znaków promptu", r.prompt_chars],
+      ["Tokenów wejścia", r.prompt_tokens], ["Tokenów wyjścia", r.completion_tokens],
+      ["Czas", Math.round(r.duration_ms), "ms"],
+    ]));
+
+    if (r.guard) {
+      const gd = r.guard;
+      out.append(banner(gd.clean ? "ok" : "err",
+        `<b>Strażnik liczb:</b> ${esc(gd.summary)} — pula dozwolonych wartości: ${gd.allowed_pool}.`));
+      if (gd.errors?.length) {
+        const c = el("div", "card");
+        c.append(el("div", "card__head",
+          `<div class="sp"><h3>Liczby, których nie ma w raportach</h3><div class="cap">` +
+          `Naruszenia — model podał wartość spoza puli.</div></div>` +
+          `<span class="chip chip--crit"><span class="dot"></span>${gd.errors.length}</span>`));
+        const b = el("div", "card__body flush");
+        b.append(dataTable([
+          { t: "Wartość", num: true, get: v => v.value, val: v => Number(v.value) },
+          { t: "Zapis modelu", get: v => v.text },
+          { t: "Kontekst", get: v => v.context },
+        ], gd.errors));
+        c.append(b); out.append(c);
       }
-      if(g.warnings.length){
-        out.append(el("h3",null,"Zaokrąglone względem raportu"));
-        out.append(table([{t:"wartość",num:true},{t:"zapis modelu"},{t:"kontekst"}],
-          g.warnings.map(v=>[v.value,v.text,v.context])));
+      if (gd.warnings?.length) {
+        const c = el("div", "card");
+        c.append(el("div", "card__head",
+          `<div class="sp"><h3>Zaokrąglone względem raportu</h3><div class="cap">` +
+          `Wartość istnieje, ale model podał ją w innym zaokrągleniu.</div></div>` +
+          `<span class="chip chip--warn"><span class="dot"></span>${gd.warnings.length}</span>`));
+        const b = el("div", "card__body flush");
+        b.append(dataTable([
+          { t: "Wartość", num: true, get: v => v.value, val: v => Number(v.value) },
+          { t: "Zapis modelu", get: v => v.text },
+          { t: "Kontekst", get: v => v.context },
+        ], gd.warnings));
+        c.append(b); out.append(c);
       }
     }
-    if(r.text){ out.append(el("h3",null,"Odpowiedź modelu")); out.append(el("pre",null,esc(r.text))); }
-    else out.append(el("div","msg info",
-      `Tryb na sucho — prompt zapisany do <code>out/run_${esc(d.run)}/${esc(r.persona)}.prompt.txt</code>.`));
-    msg.textContent="";
-  }catch(e){ msg.textContent=""; fail(out,e); }
-  finally{ $("#a-go").disabled=false; }
+
+    if (r.text) {
+      const c = el("div", "card");
+      c.append(el("div", "card__head", `<div class="sp"><h3>Odpowiedź modelu</h3></div>`));
+      const pre = el("pre");
+      pre.textContent = r.text;                        /* wyjscie modelu -- nigdy jako HTML */
+      c.append(pre); out.append(c);
+    } else {
+      out.append(banner("info",
+        `Tryb na sucho — prompt zapisany do ` +
+        `<code>out/run_${esc(d.run)}/${esc(r.persona)}.prompt.txt</code>. Model nie był wołany.`));
+    }
+    msg.textContent = "";
+  } catch (e) { msg.textContent = ""; fail(out, e); }
+  finally { $("#a-go").disabled = false; out.classList.remove("is-loading"); }
 };
 
-/* start */
-$("#s-load").click();
+/* ==========================================================================
+   START
+   Zdrowie idzie od razu (tanie), rejsy w tle (kilka sekund pod blokada silnika).
+   ========================================================================== */
+loadHealth().then(loadFlights);
 </script>
 </body>
 </html>
